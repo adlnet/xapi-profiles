@@ -30,36 +30,37 @@ Using an introduced Concept, such as an activity type, verb, attachment usage ty
 
 ## Profile Metadata
 
-Name	Values
-@id	The IRI of the profile overall (not a specific version)
-@type	Must be Profile
-name	language map of names for this profile
-definition	language map of descriptions for this profile. If there are additional rules for the profile as a whole that cannot be expressed using this specification, include them here.
-seeAlso	a URL containing information about the profile. Recommended instead of especially long definitions.
-versions	an array of all profile version objects for this profile, see below
-author	an Organization or Person, see below
-concepts	The concepts that make up this Profile, see the Concepts section
-templates	The Statement Templates for this profile, see that section
-patterns	The Patterns for this profile, see that section
+Name | Values
+---- | ------
+`@id` | The IRI of the profile overall (not a specific version)
+`@type` | Must be Profile
+`name` | Language map of names for this profile
+`definition` | Language map of descriptions for this profile. If there are additional rules for the profile as a whole that cannot be expressed using this specification, include them here.
+`seeAlso` | A URL containing information about the profile. Recommended instead of especially long definitions.
+`versions` | An array of all profile version objects for this profile, see below
+`author` | An Organization or Person, see below
+`concepts` | The concepts that make up this Profile, see the Concepts section
+`templates` | The Statement Templates for this profile, see that section
+`patterns` | The Patterns for this profile, see that section
 
 
 
 ### Profile Version Objects
 
-Name	Values
-@id	the IRI of the version ID
-wasRevisionOf	an array, usually of length one, of IRIs of all profile versions this version was written as a revision of
-generatedAtTime	the date this version was created on
+Name | Values
+---- | ------
+`@id` | The IRI of the version ID
+`wasRevisionOf` | an array, usually of length one, of IRIs of all profile versions this version was written as a revision of
+`generatedAtTime` | the date this version was created on
 
 Profile version objects make it convenient to track version history for profiles, following recommendations for SKOS concept schemes and PROV version tracking generally. By using versions this way, it is possible to answer precise questions such as “what version of this profile was current on the 3rd of January last year?”. Lack of robust versioning is frequently identified as an issue with RDF data.
 
 ### Organizations and Persons
 
-Name	Values
-@type	Organization or Person
-name	A string with the name of the organization or person
-
-
+Name | Values
+---- | ------
+`@type` | Organization or Person
+`name` | A string with the name of the organization or person
 
 ## Concepts
 
@@ -67,87 +68,83 @@ name	A string with the name of the organization or person
 
 When describing verbs, activity types, and attachment usage types, use the following terms:
 
-Name	Values
-@type	Verb, ActivityType, or AttachmentUsageType
-inScheme	the IRI of the specific vocabulary version the current profile document is for
-prefLabel	a language map of the preferred names in each language
-altLabel	a language map of alternative names in each language
-definition	a language map of the precise definition, including how to use the concept properly in statements
-broader	the IRI of a concept of the same @type from this profile that has a broader meaning.
-narrower	the IRI of a concept of the same @type from this profile that has a narrower meaning.
-broadMatch	the IRI of a concept of the same @type from a different profile that has a broader meaning.
-narrowMatch	the IRI of a concept of the same @type from a different profile that has a narrower meaning.
-exactMatch	the IRI of a concept of the same @type from a different profile that has exactly the same meaning. This should be used rarely, mostly to describe connections to vocabularies that are no longer managed and do not use good URLs.
-relatedMatch	the IRI of a concept of the same @type from a different profile that has a related meaning that is not clearly narrower or broader. Useful to establish conceptual links between profiles that can be used for discovery.
-
-
+Name | Values
+---- | ------
+`@type` | `Verb`, `ActivityType`, or `AttachmentUsageType`
+`inScheme` | The IRI of the specific vocabulary version the current profile document is for
+`prefLabel` | A language map of the preferred names in each language
+`altLabel` | A language map of alternative names in each language
+`definition` | A language map of the precise definition, including how to use the concept properly in statements
+`broader` | The IRI of a concept of the same @type from this profile that has a broader meaning.
+`narrower` | The IRI of a concept of the same @type from this profile that has a narrower meaning.
+`broadMatch` | The IRI of a concept of the same @type from a different profile that has a broader meaning.
+`narrowMatch` | The IRI of a concept of the same @type from a different profile that has a narrower meaning.
+`exactMatch` | The IRI of a concept of the same @type from a different profile that has exactly the same meaning. This should be used rarely, mostly to describe connections to vocabularies that are no longer managed and do not use good URLs.
+`relatedMatch` | The IRI of a concept of the same @type from a different profile that has a related meaning that is not clearly narrower or broader. Useful to establish conceptual links between profiles that can be used for discovery.
 
 ### Extensions
 
 This is the trickiest bit, probably, along with the idea of constraining document resources. The below is intended to be very preliminary.
 
-Name	Values
-@id	the IRI of the extension, used as the extension key in xAPI
-name	a language map of descriptive names for the extension
-definition	a language map of descriptions of the purpose and usage of the extension
-placement	an array of placement locations. Must contain at least one element, no elements may be repeated, and the only allowed elements are "context", "result", "activity" and IRIs (which must be Activity Type IRIs in this or other profiles).
-context	optional. the IRI of a JSON-LD context for this extension
-schema	optional. the IRI for accessing a JSON Schema for this extension. The JSON Schema may constrain the extension to a single type.
-inlineSchema	A JSON Schema inline.
-
-
+Name | Values
+---- | ------
+`@id` | The IRI of the extension, used as the extension key in xAPI
+`name` | A language map of descriptive names for the extension
+`definition` | A language map of descriptions of the purpose and usage of the extension
+`placement` | An array of placement locations. Must contain at least one element, no elements may be repeated, and the only allowed elements are `context`, `result`, `activity` and IRIs (which must be Activity Type IRIs in this or other profiles).
+`context` | *Optional*. the IRI of a JSON-LD context for this extension
+`schema` | *Optional*. the IRI for accessing a JSON Schema for this extension. The JSON Schema may constrain the extension to a single type.
+`inlineSchema` | A JSON Schema inline.
 
 ### Document Resources
 
 Document resources similar properties to extensions. The @id MUST be used as the stateId or profileId (as appropriate) when interacting with the corresponding resource.
 
 
-Name	Values
-@id	the IRI of the document resource, used as the stateId/profileId in xAPI
-@type	one of: StateResource, AgentProfileResource, ActivityProfileResource
-name	a language map of descriptive names for the document resource
-definition	a language map of descriptions of the purpose and usage of the document resource
-context	optional. the IRI of a JSON-LD context for this document resource
-schema	optional. the IRI for accessing a JSON Schema for this document resource.
-inlineSchema	A JSON Schema inline.
-contentType	the content-type for the resource
-
-
+Name | Values
+---- | ------
+`@id` | The IRI of the document resource, used as the stateId/profileId in xAPI
+`@type` | One of: `StateResource`, `AgentProfileResource`, `ActivityProfileResource`
+`name` | A language map of descriptive names for the document resource
+`definition` | A language map of descriptions of the purpose and usage of the document resource
+`context` | *Optional*. the IRI of a JSON-LD context for this document resource
+`schema` | *Optional*. the IRI for accessing a JSON Schema for this document resource.
+`inlineSchema` | A JSON Schema inline.
+`contentType` | The content-type for the resource
 
 ### Activities
 
 These are just literal xAPI Activity definitions the profile wants to provide for use. Possibly will need some adjustment later as the JSON-LD context is fleshed out (there's some trickiness around defining the JSON-LD context for all the parts in xAPI activity definitions just right).
 
-Name	Values
-@id	the IRI of the activity
-type	as in xAPI
-name
-description
-moreInfo
-extensions
-interactionType
-correctResponsesPattern
-choices
-scale
-source
-target
-steps
+Name | Values
+---- | ------
+`@id` | The IRI of the activity
+`type` | As in xAPI
+`name`
+`description`
+`moreInfo`
+`extensions`
+`interactionType`
+`correctResponsesPattern`
+`choices`
+`scale`
+`source`
+`target`
+`steps`
 
 ## Statement Templates
 
 A Statement Template describes one way statements following the profile may be structured. Which statement template applies is determined by the verb, object activity type, and attachment usage types in the statement. If the verb, object activity type, and all attachment usage type(s) are present and the profile is used as a category context activity, the rules in the Statement Template MUST be followed.
 
-
-Name	Values
-@id	the identifier or short name of the template, in the form :name
-name	a language map of descriptive names for the statement template
-definition	a language map of descriptions of the purpose and usage of the statement template
-verb	optional. verb's IRI
-objectActivityType	optional. activity type's IRI
-attachmentUsageType	optional. array of attachment usage type IRIs
-rules	array of statement template rules
-
-
+Name | Values
+---- | ------
+`@id` | The identifier or short name of the template, in the form :name
+`name` | a language map of descriptive names for the statement template
+`definition` | A language map of descriptions of the purpose and usage of the statement template
+`verb` | *Optional*. Verb's IRI
+`objectActivityType` | *Optional*. Activity type's IRI
+`attachmentUsageType` | *Optional*. Array of attachment usage type IRIs
+`rules` | Array of statement template rules
 
 ### Statement Template Rules
 
@@ -164,14 +161,13 @@ Statement Template Rules describe a location or locations within statements usin
 
 They have these properties:
 
-Name	Values
-location	A JSONPath string
-selector	optional. A JSONPath string. This JSONPath is executed on the array of values resulting from the location selector, and the resulting values are what are used for matching. If it returns nothing on a location, that represents an unmatchable value for that location, meaning "all" will not be able to match and included will fail.
-rule	included or excluded. Only one of rule or value may be used.
-any	an array of values that are allowed in this location. Useful for constraining the presence of particular activities, for example. If the rule returns multiple values for a statement, then this Statement Template Rule is fulfilled if any one returned value matches any one specified value — that is, if the intersection is not empty.
-all	an array of values, which all values returned by the JSONPath must match one of to fulfill this Statement Template Rule
-
-
+Name | Values
+---- | ------
+`location` | A JSONPath string
+`selector` | *Optional*. A JSONPath string. This JSONPath is executed on the array of values resulting from the location selector, and the resulting values are what are used for matching. If it returns nothing on a location, that represents an unmatchable value for that location, meaning "all" will not be able to match and included will fail.
+`rule` | `included` or `excluded`. Only one of rule or value may be used.
+`any` | an array of values that are allowed in this location. Useful for constraining the presence of particular activities, for example. If the rule returns multiple values for a statement, then this Statement Template Rule is fulfilled if any one returned value matches any one specified value — that is, if the intersection is not empty.
+`all` | an array of values, which all values returned by the JSONPath must match one of to fulfill this Statement Template Rule
 
 ### Alignments?
 
@@ -188,26 +184,26 @@ Patterns are statements matching particular statement templates, ordered in cert
 Patterns have these properties:
 
 
-Name	Values
-name	a language map of descriptive names for the pattern
-definition	a language map of descriptions of the purpose and usage of the pattern
-pattern	a single pattern element (see below), containing statement template identifiers and/or subpattern identifiers
-subpatterns	optional, an array of pattern elements for the pattern above to refer to, which may each contain statement template identifiers and subpattern identifiers
-
-
+Name | Values
+---- | ------
+`name` | A language map of descriptive names for the pattern
+`definition` | A language map of descriptions of the purpose and usage of the pattern
+`pattern` | A single pattern element (see below), containing statement template identifiers and/or subpattern identifiers
+`subpatterns` | *Optional*. An array of pattern elements for the pattern above to refer to, which may each contain statement template identifiers and subpattern identifiers
 
 ### Pattern Elements
 
-Name	Values
-@id	the identifier or short name of the template, in the form :name
-alternates	a two-or-more length array of pattern or statement template identifiers. An alt pattern matches if any member of the array matches
-optional	a single pattern or statement template identifier. An opt pattern matches if the identified thing matches once, or not present at all
-oneOrMore	a single pattern or statement template identifier. A plus pattern matches if the identified thing matches once, or any number of times more than once
-sequence	an array of pattern or statement template identifiers. A seq pattern matches if the identified things match in the order specified.
-zeroOrMore	a single pattern or statement template identifier. A star pattern matches if the identified thing is not present or is present one or more times
+Name | Values
+---- | ------
+`@id` | The identifier or short name of the template, in the form :name
+`alternates` | A two-or-more length array of pattern or statement template identifiers. An alt pattern matches if any member of the array matches
+`optional` | A single pattern or statement template identifier. An opt pattern matches if the identified thing matches once, or not present at all
+`oneOrMore` | A single pattern or statement template identifier. A plus pattern matches if the identified thing matches once, or any number of times more than once
+`sequence` | An array of pattern or statement template identifiers. A seq pattern matches if the identified things match in the order specified.
+`zeroOrMore` | A single pattern or statement template identifier. A star pattern matches if the identified thing is not present or is present one or more times
 
 
-A single pattern element MUST contain exactly one of alt, opt, plus, seq, and star.
+A single pattern element MUST contain exactly one of `alt`, `opt`, `plus`, `seq`, and `star`.
 
 
 ## Very Preliminary Draft Context
@@ -355,7 +351,7 @@ There will be lots of examples, but this is largely an exercise in feeling out w
 
 In addition to the ability to host profiles separately, there will be one or more pieces of infrastructure for querying and manipulating profiles. A central component will be a “Profile Server” to make it easier to manage and answer questions about profiles from a centralized location.
 
-Administrators will be able to add profiles by their contents or by URI to the Profile Server. On the Public Profile Server run by... DISC? ADL? ... there will be a review process people desiring to add profiles can submit to. The review process will check profiles for following the specification and assist in helping them be of highest quality, after which they will be added to the server.
+Administrators will be able to add profiles by their contents or by URI to the Profile Server. On a Public Profile Server run by... DISC? ADL? ... there will be a review process people desiring to add profiles can submit to. The review process will check profiles for following the specification and assist in helping them be of highest quality, after which they will be added to the server.
 
 The Profile Server will host a sparql endpoint containing all the RDF information in contained profiles at the path /sparql. All these SPARQL queries can also be run locally by loading one or more profiles into an RDF library and running sparql queries against them directly.
 
