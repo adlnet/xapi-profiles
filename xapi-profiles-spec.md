@@ -1,13 +1,12 @@
-# Structure & Communication Draft
+# xAPI Profiles Draft Specification
 
 ## Reference Specifications
 
-[http://json-ld.org](http://json-ld.org/)
-https://www.w3.org/TR/skos-reference/
-https://www.w3.org/TR/2013/REC-prov-dm-20130430/
-https://www.w3.org/TR/activitystreams-core/
-https://www.w3.org/TR/rdf-sparql-query/
-
+* [http://json-ld.org](http://json-ld.org/)
+* [https://www.w3.org/TR/skos-reference/](https://www.w3.org/TR/skos-reference/)
+* [https://www.w3.org/TR/2013/REC-prov-dm-20130430/](https://www.w3.org/TR/2013/REC-prov-dm-20130430/)
+* [https://www.w3.org/TR/activitystreams-core/](https://www.w3.org/TR/activitystreams-core/)
+* [https://www.w3.org/TR/rdf-sparql-query/](https://www.w3.org/TR/rdf-sparql-query/)
 
 ## Technical Foundations
 
@@ -413,15 +412,3 @@ For each of the above operations, the Profile Server will provide web APIs that 
 One URL will be at /validate_templates, and the other at /validate_patterns. The first will take a single xAPI statement and a profile specified by id, specified in POST variables as “statement” and “profile”. The second will take an array of xAPI statements and a profile specified by id, both specified in POST variables as “statements” and “profile”.
 
 Both will perform the algorithms above and return 204 on successful validation and 400 on failure, with descriptive comments attached on failure.
-
-
-# To Consider
-
-* Do we want to allow inclusion of example statements, such as with verbs?
-* I would like to get rid of closely related natural language term (which was in vocabularies). It provides two possible values: definition and a way to connect to other xAPI terms (going through natural language), but I feel the first is best met by people writing definitions, and the second is best met by explicit connections, especially as the closely related natural language term stuff is something people mess up *all the time*.
-* Some elements are often multiply valued, and so it makes sense to require them to be arrays. Many other elements could be slightly useful with multiple values, but so little that requiring them, in practice, for now, be singly valued is not a big sacrifice and provides complexity savings. But some elements are usually singly valued, but deliver a lot of value if multiply valued — for example, imagine one profile *merging* multiple profiles and being able to maintain provenance information by using wasRevisionOf with multiple values! The question is: disallow despite disadvantage, allow both adding a little complexity, or require array despite almost always being singly valued. Note: if someone accidentally writes it as a bare value, when they run the compaction algorithm the @container @set will make compaction turn it into an array.
-* Do we require extensions to be JSON-LD? Most common JSON formats can be easily (and often have been, such as GeoJSON) “LD-ified”, so there's very little we'd be outright excluding, and there's a lot of advantage to *allowing* it to be JSON-LD. Ultimately, of course, an extension won't be “anything that is legal by the JSON-LD context”, it will be “anything that makes sense according to the context and any other associated rules”.
-* Hrrrrrmm if we use type for @type we can't use type in identified activities... I think in that case we want to make people type @id as well... even for activities.
-* How do we enforce a profile on data “later” — easy in the sense of, it was sent with that profile but was never checked, but more difficult in the sense of, use a profile to extract meaningful sequences of statements that are otherwise profile-following but do not indicate their profileness... in fact, it is quite a hard problem in the general sense, but in many specific cases it won't be too bad, which might be good enough
-
-
