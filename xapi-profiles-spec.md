@@ -203,7 +203,7 @@ Name | Values
 `zeroOrMore` | A single pattern or statement template identifier. A star pattern matches if the identified thing is not present or is present one or more times
 
 
-A single pattern element MUST contain exactly one of `alt`, `opt`, `plus`, `seq`, and `star`.
+A single pattern element MUST contain exactly one of `alternates`, `optional`, `oneOrMore`, `sequence`, and `zeroOrMore`.
 
 
 ## Very Preliminary Draft Context
