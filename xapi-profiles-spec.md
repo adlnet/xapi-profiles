@@ -98,7 +98,7 @@ Name | Values
 
 ### Document Resources
 
-Document resources similar properties to extensions. The @id MUST be used as the stateId or profileId (as appropriate) when interacting with the corresponding resource.
+Document resources use similar properties to extensions. The @id MUST be used as the stateId or profileId (as appropriate) when interacting with the corresponding resource.
 
 
 Name | Values
