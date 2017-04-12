@@ -64,7 +64,7 @@ Name | Values
 
 ## Concepts
 
-### Core Concepts: Verbs, Activity Types, and Attachment USage Types
+### Core Concepts: Verbs, Activity Types, and Attachment Usage Types
 
 When describing verbs, activity types, and attachment usage types, use the following terms:
 
