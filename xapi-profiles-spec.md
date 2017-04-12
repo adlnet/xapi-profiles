@@ -26,7 +26,7 @@ To assist in accomplishing these two primary goals, profiles also contain metada
 
 ## Using Profiles in Statements
 
-Using an introduced Concept, such as an activity type, verb, attachment usage type, extension, activity, or document resource, should be done freely, provided the defined usage and meaning are adhered to. But a producer can go further, and make sure to adhere to profile-described statement templates and patterns. Producers creating statements that conform to matching profile-described statement templates and patterns SHOULD include the profile as a category context activity in those statements, and statements containing a profile as a category context activity MUST conform to any matching templates and patterns that profile describes.
+Using an introduced Concept, such as an activity type, verb, attachment usage type, extension, activity, or document resource, should be done freely, provided the defined usage and meaning are adhered to. But a Learning Record Provider can go further, and make sure to adhere to profile-described statement templates and patterns. Learning Record Providers creating statements that conform to matching profile-described statement templates and patterns SHOULD include the profile as a category context activity in those statements, and statements containing a profile as a category context activity MUST conform to any matching templates and patterns that profile describes.
 
 ## Profile Metadata
 
@@ -175,7 +175,7 @@ I propose we do not include alignments in the initial draft
 
 ### Statement References
 
-I'm unsure enough how to do this I propose we do not include statement reference constraints in the initial draft. It would probably be included as a special case in the statement template rules, above. 
+I'm unsure enough how to do this I propose we do not include statement reference constraints in the initial draft. It would probably be included as a special case in the statement template rules, above.
 
 ## Patterns
 
@@ -214,7 +214,7 @@ A single pattern element MUST contain exactly one of `alt`, `opt`, `plus`, `seq`
         "prov": "http://www.w3.org/ns/prov#",
         "skos": "http://www.w3.org/2004/02/skos/core#",
         "xapi": "http://purl.org/xapi/ontology#",
-        
+
         "type": "@type",
         "id": "@id",
         "Profile": "xapi:Profile",
