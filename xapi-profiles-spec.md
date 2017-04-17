@@ -134,15 +134,19 @@ Name | Values
 
 ## Statement Templates
 
-A Statement Template describes one way statements following the profile may be structured. Which statement template applies is determined by the verb, object activity type, and attachment usage types in the statement. If the verb, object activity type, and all attachment usage type(s) are present and the profile is used as a category context activity, the rules in the Statement Template MUST be followed.
+A Statement Template describes one way statements following the profile may be structured. Which statement template applies is determined by the verb, object activity type, context activity types, and attachment usage types in the statement. If the verb, object activity type, all context activity types, and all attachment usage type(s) are present and the profile is used as a category context activity, the rules in the Statement Template MUST be followed.
 
 Name | Values
 ---- | ------
 `@id` | The identifier or short name of the template, in the form :name
 `name` | a language map of descriptive names for the statement template
 `definition` | A language map of descriptions of the purpose and usage of the statement template
-`verb` | *Optional*. Verb's IRI
-`objectActivityType` | *Optional*. Activity type's IRI
+`verb` | *Optional*. Verb IRI
+`objectActivityType` | *Optional*. Object activity type IRI
+`contextGroupingActivityType` | *Optional*. Array of contextActivities grouping activity type IRIs
+`contextParentActivitType` | *Optional*. Array of contextActivities parent activity type IRIs
+`contextOtherActivityType` | *Optional*. Array of contextActivities other activity type IRIs
+`contextCategoryActivityType` | *Optional*. Array of contextActivities category activity type IRIs
 `attachmentUsageType` | *Optional*. Array of attachment usage type IRIs
 `rules` | Array of statement template rules
 
@@ -175,7 +179,7 @@ I propose we do not include alignments in the initial draft
 
 ### Statement References
 
-I'm unsure enough how to do this I propose we do not include statement reference constraints in the initial draft. It would probably be included as a special case in the statement template rules, above. 
+I'm unsure enough how to do this I propose we do not include statement reference constraints in the initial draft. It would probably be included as a special case in the statement template rules, above.
 
 ## Patterns
 
@@ -214,7 +218,7 @@ A single pattern element MUST contain exactly one of `alt`, `opt`, `plus`, `seq`
         "prov": "http://www.w3.org/ns/prov#",
         "skos": "http://www.w3.org/2004/02/skos/core#",
         "xapi": "http://purl.org/xapi/ontology#",
-        
+
         "type": "@type",
         "id": "@id",
         "Profile": "xapi:Profile",
