@@ -26,7 +26,7 @@ To assist in accomplishing these two primary goals, profiles also contain metada
 
 ## Using Profiles in Statements
 
-Using an introduced Concept, such as an activity type, verb, attachment usage type, extension, activity, or document resource, should be done freely, provided the defined usage and meaning are adhered to. But a producer can go further, and make sure to adhere to profile-described statement templates and patterns. Producers creating statements that conform to matching profile-described statement templates and patterns SHOULD include the profile as a category context activity in those statements, and statements containing a profile as a category context activity MUST conform to any matching templates and patterns that profile describes.
+Using an introduced Concept, such as an activity type, verb, attachment usage type, extension, activity, or document resource, should be done freely, provided the defined usage and meaning are adhered to. But a Learning Record Provider can go further, and make sure to adhere to profile-described statement templates and patterns. Learning Record Providers creating statements that conform to matching profile-described statement templates and patterns SHOULD include the profile as a category context activity in those statements, and statements containing a profile as a category context activity MUST conform to any matching templates and patterns that profile describes.
 
 ## Profile Metadata
 
@@ -64,7 +64,7 @@ Name | Values
 
 ## Concepts
 
-### Core Concepts: Verbs, Activity Types, and Attachment USage Types
+### Core Concepts: Verbs, Activity Types, and Attachment Usage Types
 
 When describing verbs, activity types, and attachment usage types, use the following terms:
 
@@ -98,7 +98,7 @@ Name | Values
 
 ### Document Resources
 
-Document resources similar properties to extensions. The @id MUST be used as the stateId or profileId (as appropriate) when interacting with the corresponding resource.
+Document resources use similar properties to extensions. The @id MUST be used as the stateId or profileId (as appropriate) when interacting with the corresponding resource.
 
 
 Name | Values
@@ -207,7 +207,7 @@ Name | Values
 `zeroOrMore` | A single pattern or statement template identifier. A star pattern matches if the identified thing is not present or is present one or more times
 
 
-A single pattern element MUST contain exactly one of `alt`, `opt`, `plus`, `seq`, and `star`.
+A single pattern element MUST contain exactly one of `alternates`, `optional`, `oneOrMore`, `sequence`, and `zeroOrMore`.
 
 
 ## Very Preliminary Draft Context
