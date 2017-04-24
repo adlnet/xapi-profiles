@@ -137,7 +137,7 @@ Name | Values
 
 ## Statement Templates
 
-A Statement Template describes one way statements following the profile may be structured. Which statement template applies is determined by the verb, object activity type, context activity types, and attachment usage types in the statement. If the verb, object activity type, all context activity types, and all attachment usage type(s) are present and the profile is used as a category context activity, the rules in the Statement Template MUST be followed.
+A Statement Template describes one way statements following the profile may be structured. Which statement template applies is determined by the verb, object activity type, and attachment usage types in the statement. If the verb, object activity type, and all attachment usage type(s) are present and the profile is used as a category context activity, the rules in the Statement Template MUST be followed. In a given profile, no statement template's determining values -- verb and so forth -- may be a subset of any other statement template's determining values. This ensures each statement matches at most one statement template in a given profile.
 
 Name | Values
 ---- | ------
