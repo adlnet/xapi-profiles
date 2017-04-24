@@ -137,7 +137,7 @@ Name | Values
 
 ## Statement Templates
 
-A Statement Template describes one way statements following the profile may be structured. Which statement template applies is determined by the verb, object activity type, and attachment usage types in the statement. If the verb, object activity type, and all attachment usage type(s) are present and the profile is used as a category context activity, the rules in the Statement Template MUST be followed. In a given profile, no statement template's determining values -- verb and so forth -- may be a subset of any other statement template's determining values. This ensures each statement matches at most one statement template in a given profile.
+A Statement Template describes one way statements following the profile may be structured. Which statement template applies is determined by the verb, object activity type, and attachment usage types in the statement. If the verb, object activity type, and all attachment usage type(s) are present and the profile is used as a category context activity, the rules in the Statement Template MUST be followed. In a given profile, no statement template's determining values -- verb and so forth -- may be a subset of any other statement template's determining values. Additionally, we recommend picking one of the determining properties to use in all statement templates in a given profile, with different values in each, since this ensures each statement matches at most one statement template in a given profile.
 
 Name | Values
 ---- | ------
@@ -148,7 +148,7 @@ Name | Values
 `verb` | *Optional*. Verb IRI
 `objectActivityType` | *Optional*. Object activity type IRI
 `contextGroupingActivityType` | *Optional*. Array of contextActivities grouping activity type IRIs
-`contextParentActivitType` | *Optional*. Array of contextActivities parent activity type IRIs
+`contextParentActivityType` | *Optional*. Array of contextActivities parent activity type IRIs
 `contextOtherActivityType` | *Optional*. Array of contextActivities other activity type IRIs
 `contextCategoryActivityType` | *Optional*. Array of contextActivities category activity type IRIs
 `attachmentUsageType` | *Optional*. Array of attachment usage type IRIs
