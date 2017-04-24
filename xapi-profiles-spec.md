@@ -26,7 +26,7 @@ To assist in accomplishing these two primary goals, profiles also contain metada
 
 ## Using Profiles in Statements
 
-Using an introduced Concept, such as an activity type, verb, attachment usage type, extension, activity, or document resource, should be done freely, provided the defined usage and meaning are adhered to. But a producer can go further, and make sure to adhere to profile-described statement templates and patterns. Producers creating statements that conform to matching profile-described statement templates and patterns SHOULD include the profile as a category context activity in those statements, and statements containing a profile as a category context activity MUST conform to any matching templates and patterns that profile describes.
+Using an introduced Concept, such as an activity type, verb, attachment usage type, extension, activity, or document resource, should be done freely, provided the defined usage and meaning are adhered to. But a Learning Record Provider can go further, and make sure to adhere to profile-described statement templates and patterns. Learning Record Providers creating statements that conform to matching profile-described statement templates and patterns SHOULD include the profile as a category context activity in those statements, and statements containing a profile as a category context activity MUST conform to any matching templates and patterns that profile describes.
 
 ## Profile Metadata
 
@@ -64,7 +64,7 @@ Name | Values
 
 ## Concepts
 
-### Core Concepts: Verbs, Activity Types, and Attachment USage Types
+### Core Concepts: Verbs, Activity Types, and Attachment Usage Types
 
 When describing verbs, activity types, and attachment usage types, use the following terms:
 
@@ -75,6 +75,7 @@ Name | Values
 `prefLabel` | A language map of the preferred names in each language
 `altLabel` | A language map of alternative names in each language
 `definition` | A language map of the precise definition, including how to use the concept properly in statements
+`deprecated` | Optional. A boolean. If true, this concept is deprecated.
 `broader` | The IRI of a concept of the same @type from this profile that has a broader meaning.
 `narrower` | The IRI of a concept of the same @type from this profile that has a narrower meaning.
 `broadMatch` | The IRI of a concept of the same @type from a different profile that has a broader meaning.
@@ -91,6 +92,7 @@ Name | Values
 `@id` | The IRI of the extension, used as the extension key in xAPI
 `name` | A language map of descriptive names for the extension
 `definition` | A language map of descriptions of the purpose and usage of the extension
+`deprecated` | Optional. A boolean. If true, this concept is deprecated.
 `placement` | An array of placement locations. Must contain at least one element, no elements may be repeated, and the only allowed elements are `context`, `result`, `activity` and IRIs (which must be Activity Type IRIs in this or other profiles).
 `context` | *Optional*. the IRI of a JSON-LD context for this extension
 `schema` | *Optional*. the IRI for accessing a JSON Schema for this extension. The JSON Schema may constrain the extension to a single type.
@@ -98,7 +100,7 @@ Name | Values
 
 ### Document Resources
 
-Document resources similar properties to extensions. The @id MUST be used as the stateId or profileId (as appropriate) when interacting with the corresponding resource.
+Document resources use similar properties to extensions. The @id MUST be used as the stateId or profileId (as appropriate) when interacting with the corresponding resource.
 
 
 Name | Values
@@ -107,6 +109,7 @@ Name | Values
 `@type` | One of: `StateResource`, `AgentProfileResource`, `ActivityProfileResource`
 `name` | A language map of descriptive names for the document resource
 `definition` | A language map of descriptions of the purpose and usage of the document resource
+`deprecated` | Optional. A boolean. If true, this concept is deprecated.
 `context` | *Optional*. the IRI of a JSON-LD context for this document resource
 `schema` | *Optional*. the IRI for accessing a JSON Schema for this document resource.
 `inlineSchema` | A JSON Schema inline.
@@ -141,8 +144,13 @@ Name | Values
 `@id` | The identifier or short name of the template, in the form :name
 `name` | a language map of descriptive names for the statement template
 `definition` | A language map of descriptions of the purpose and usage of the statement template
-`verb` | *Optional*. Verb's IRI
-`objectActivityType` | *Optional*. Activity type's IRI
+`deprecated` | Optional. A boolean. If true, this template is deprecated.
+`verb` | *Optional*. Verb IRI
+`objectActivityType` | *Optional*. Object activity type IRI
+`contextGroupingActivityType` | *Optional*. Array of contextActivities grouping activity type IRIs
+`contextParentActivitType` | *Optional*. Array of contextActivities parent activity type IRIs
+`contextOtherActivityType` | *Optional*. Array of contextActivities other activity type IRIs
+`contextCategoryActivityType` | *Optional*. Array of contextActivities category activity type IRIs
 `attachmentUsageType` | *Optional*. Array of attachment usage type IRIs
 `rules` | Array of statement template rules
 
@@ -175,7 +183,7 @@ I propose we do not include alignments in the initial draft
 
 ### Statement References
 
-I'm unsure enough how to do this I propose we do not include statement reference constraints in the initial draft. It would probably be included as a special case in the statement template rules, above. 
+I'm unsure enough how to do this I propose we do not include statement reference constraints in the initial draft. It would probably be included as a special case in the statement template rules, above.
 
 ## Patterns
 
@@ -188,6 +196,7 @@ Name | Values
 ---- | ------
 `name` | A language map of descriptive names for the pattern
 `definition` | A language map of descriptions of the purpose and usage of the pattern
+`deprecated` | Optional. A boolean. If true, this pattern is deprecated.
 `pattern` | A single pattern element (see below), containing statement template identifiers and/or subpattern identifiers
 `subpatterns` | *Optional*. An array of pattern elements for the pattern above to refer to, which may each contain statement template identifiers and subpattern identifiers
 
@@ -203,7 +212,7 @@ Name | Values
 `zeroOrMore` | A single pattern or statement template identifier. A star pattern matches if the identified thing is not present or is present one or more times
 
 
-A single pattern element MUST contain exactly one of `alt`, `opt`, `plus`, `seq`, and `star`.
+A single pattern element MUST contain exactly one of `alternates`, `optional`, `oneOrMore`, `sequence`, and `zeroOrMore`.
 
 
 ## Very Preliminary Draft Context
@@ -214,7 +223,7 @@ A single pattern element MUST contain exactly one of `alt`, `opt`, `plus`, `seq`
         "prov": "http://www.w3.org/ns/prov#",
         "skos": "http://www.w3.org/2004/02/skos/core#",
         "xapi": "http://purl.org/xapi/ontology#",
-        
+
         "type": "@type",
         "id": "@id",
         "Profile": "xapi:Profile",
