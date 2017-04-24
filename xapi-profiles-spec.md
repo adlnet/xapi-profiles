@@ -73,7 +73,7 @@ Name | Values
 `@type` | `Verb`, `ActivityType`, or `AttachmentUsageType`
 `inScheme` | The IRI of the specific vocabulary version the current profile document is for
 `prefLabel` | A language map of the preferred names in each language
-`altLabel` | A language map of alternative names in each language
+`altLabel` | An array of language-tagged alternative names. Array members MUST be expanded value objects with @value and @language keys.
 `definition` | A language map of the precise definition, including how to use the concept properly in statements
 `broader` | The IRI of a concept of the same @type from this profile that has a broader meaning.
 `narrower` | The IRI of a concept of the same @type from this profile that has a narrower meaning.
@@ -248,10 +248,7 @@ A single pattern element MUST contain exactly one of `alternates`, `optional`, `
             "@id": "skos:prefLabel",
             "@container": "@language"
         },
-        "altLabel": {
-            "@id": "skos:altLabel",
-            "@container": "@language"
-        },
+        "altLabel": "skos:altLabel",
         "definition": {
             "@id": "skos:definition",
             "@container": "@language"
