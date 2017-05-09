@@ -172,10 +172,13 @@ They have these properties:
 Name | Values
 ---- | ------
 `location` | A JSONPath string
-`selector` | *Optional*. A JSONPath string. This JSONPath is executed on the array of values resulting from the location selector, and the resulting values are what are used for matching. If it returns nothing on a location, that represents an unmatchable value for that location, meaning "all" will not be able to match and included will fail.
-`rule` | `included` or `excluded`. Only one of rule or value may be used.
+`selector` | *Optional*. A JSONPath string. This JSONPath is executed on the array of values resulting from the location selector, and the resulting values are what are used for matching. If it returns nothing on a location, that represents an unmatchable value for that location, meaning "all" will fail, as will included.
+`rule` | `included` or `excluded`. If included, there must be at least one matchable value for this Statement Template Rule to be fulfilled, and if excluded, no matchable values.
 `any` | an array of values that are allowed in this location. Useful for constraining the presence of particular activities, for example. If the rule returns multiple values for a statement, then this Statement Template Rule is fulfilled if any one returned value matches any one specified value — that is, if the intersection is not empty.
-`all` | an array of values, which all values returned by the JSONPath must match one of to fulfill this Statement Template Rule
+`all` | an array of values, which all values returned by the JSONPath must match one of to fulfill this Statement Template Rule.
+`none` | an array of values, which no values returned by the JSONPath may match to fulfill this Statement Template Rule.
+
+A Statement Template Rule MUST include one or more of rule, any, all, or none.
 
 ### Alignments?
 
@@ -194,25 +197,23 @@ Patterns have these properties:
 
 Name | Values
 ---- | ------
+`@id` | The identifier or short name of the template, in the form :name
 `name` | A language map of descriptive names for the pattern
 `definition` | A language map of descriptions of the purpose and usage of the pattern
 `deprecated` | Optional. A boolean. If true, this pattern is deprecated.
-`pattern` | A single pattern element (see below), containing statement template identifiers and/or subpattern identifiers
-`subpatterns` | *Optional*. An array of pattern elements for the pattern above to refer to, which may each contain statement template identifiers and subpattern identifiers
-
-### Pattern Elements
-
-Name | Values
----- | ------
-`@id` | The identifier or short name of the template, in the form :name
-`alternates` | A two-or-more length array of pattern or statement template identifiers. An alt pattern matches if any member of the array matches
-`optional` | A single pattern or statement template identifier. An opt pattern matches if the identified thing matches once, or not present at all
-`oneOrMore` | A single pattern or statement template identifier. A plus pattern matches if the identified thing matches once, or any number of times more than once
-`sequence` | An array of pattern or statement template identifiers. A seq pattern matches if the identified things match in the order specified.
-`zeroOrMore` | A single pattern or statement template identifier. A star pattern matches if the identified thing is not present or is present one or more times
+`alternates` | A two-or-more length array of pattern or statement template identifiers. An alternates pattern matches if any member of the array matches
+`optional` | A single pattern or statement template identifier. An optional pattern matches if the identified thing matches once, or is not present at all
+`oneOrMore` | A single pattern or statement template identifier. A oneOrMore pattern matches if the identified thing matches once, or any number of times more than once
+`sequence` | An array of pattern or statement template identifiers. A sequence pattern matches if the identified things match in the order specified.
+`zeroOrMore` | A single pattern or statement template identifier. A zeroOrMore pattern matches if the identified thing is not present or is present one or more times
 
 
-A single pattern element MUST contain exactly one of `alternates`, `optional`, `oneOrMore`, `sequence`, and `zeroOrMore`.
+
+A pattern MUST contain exactly one of `alternates`, `optional`, `oneOrMore`, `sequence`, and `zeroOrMore`.
+A pattern with an @id MUST NOT include name, definition, or deprecated.
+A pattern without an @id MUST include name and definition.
+A pattern MUST not refer to any pattern that has itself in the array or single value for any of `alternates`, `optional`, `oneOrMore`, `sequence`, or `zeroOrMore`, considered recursively.
+A pattern only matches if it matches greedily. That is, if, when checking for a match of an optional or zeroOrMore or oneOrMore pattern, the next statement matches the pattern or statement template it applies to, the statement MUST be considered to be part of that match. That is, no backtracking is allowed. This constrains useful statement patterns, but guarantees efficient processing, as once a statement is matched it does not need to be reconsidered (except in cases where it is part of an ultimately unmatched alternate).
 
 
 ## Very Preliminary Draft Context
