@@ -1,0 +1,431 @@
+{
+    "@id": "https://w3id.org/xapi/scorm#profile",
+    "name": {
+        "en": "Experience API SCORM Profile"
+    },
+    "seeAlso": "https://adl.gitbooks.io/scorm-profile-xapi/content/",
+    "versions": [
+        {
+            "@id": "https://w3id.org/xapi/scorm#v2",
+            "generatedAtTime": "...",
+            "wasRevisionOf": ["https://w3id.org/xapi/scorm"]
+        },
+        {
+            "@id": "https://w3id.org/xapi/scorm",
+            "generatedAtTime": "..."
+        }
+    ],
+    "author": {
+        "@type": "Group",
+        "name": "ADL"
+    },
+    "concepts": [
+        {
+            "@type": "Verb",
+            "@id": "http://adlnet.gov/expapi/verbs/initialized",
+            "
+            ": "https://w3id.org/xapi/scorm",
+            "prefLabel": {
+                "en": "initialized"
+            }
+        },
+        {
+            "@type": "Verb",
+            "@id": "http://adlnet.gov/expapi/verbs/terminated",
+            "inScheme": "https://w3id.org/xapi/scorm",
+            "prefLabel": {
+                "en": "terminated"
+            }
+        },
+        {
+            "@type": "Verb",
+            "@id": "http://adlnet.gov/expapi/verbs/suspended",
+            "inScheme": "https://w3id.org/xapi/scorm",
+            "prefLabel": {
+                "en": "suspended"
+            }
+        },
+        {
+            "@type": "Verb",
+            "@id": "http://adlnet.gov/expapi/verbs/resumed",
+            "inScheme": "https://w3id.org/xapi/scorm",
+            "prefLabel": {
+                "en": "resumed"
+            }
+        },
+        {
+            "@type": "Verb",
+            "@id": "http://adlnet.gov/expapi/verbs/passed",
+            "inScheme": "https://w3id.org/xapi/scorm",
+            "prefLabel": {
+                "en": "passed"
+            },
+            "broader": ["http://adlnet.gov/expapi/verbs/completed"]
+        },
+        {
+            "@type": "Verb",
+            "@id": "http://adlnet.gov/expapi/verbs/failed",
+            "inScheme": "https://w3id.org/xapi/scorm",
+            "prefLabel": {
+                "en": "failed"
+            }
+        },
+        {
+            "@type": "Verb",
+            "@id": "http://adlnet.gov/expapi/verbs/scored",
+            "inScheme": "https://w3id.org/xapi/scorm",
+            "prefLabel": {
+                "en": "scored"
+            }
+        },
+        {
+            "@type": "Verb",
+            "@id": "http://adlnet.gov/expapi/verbs/completed",
+            "inScheme": "https://w3id.org/xapi/scorm",
+            "prefLabel": {
+                "en": "completed"
+            }
+        },
+        {
+            "@type": "Verb",
+            "@id": "http://adlnet.gov/expapi/verbs/responded",
+            "inScheme": "https://w3id.org/xapi/scorm",
+            "prefLabel": {
+                "en": "responded"
+            }
+        },
+        {
+            "@type": "ActivityType",
+            "@id": "http://adlnet.gov/expapi/activities/course",
+            "inScheme": "https://w3id.org/xapi/scorm",
+            "prefLabel": {
+                "en": "course"
+            }
+        },
+        {
+            "@type": "ActivityType",
+            "@id": "http://adlnet.gov/expapi/activities/module",
+            "inScheme": "https://w3id.org/xapi/scorm",
+            "prefLabel": {
+                "en": "module"
+            }
+        },
+        {
+            "@type": "ActivityType",
+            "@id": "http://adlnet.gov/expapi/activities/lesson",
+            "inScheme": "https://w3id.org/xapi/scorm",
+            "prefLabel": {
+                "en": "SCO"
+            }
+        },
+        {
+            "@type": "ActivityType",
+            "@id": "http://adlnet.gov/expapi/activities/assessment",
+            "inScheme": "https://w3id.org/xapi/scorm",
+            "prefLabel": {
+                "en": "assessment"
+            }
+        },
+        {
+            "@type": "ActivityType",
+            "@id": "http://adlnet.gov/expapi/activities/interaction",
+            "inScheme": "https://w3id.org/xapi/scorm",
+            "prefLabel": {
+                "en": "interaction"
+            }
+        },
+        {
+            "@type": "ActivityType",
+            "@id": "http://adlnet.gov/expapi/activities/objective",
+            "inScheme": "https://w3id.org/xapi/scorm",
+            "prefLabel": {
+                "en": "objective"
+            }
+        },
+        {
+            "@type": "ActivityType",
+            "@id": "http://adlnet.gov/expapi/activities/attempt",
+            "inScheme": "https://w3id.org/xapi/scorm",
+            "prefLabel": {
+                "en": "attempt"
+            }
+        }
+    ],
+    "templates": [
+        {
+            "@id": "_:initialization",
+            "name": {
+                "en": "initialization"
+            },
+            "verb": "http://adlnet.gov/expapi/verbs/initialized",
+            "objectActivityType": "http://adlnet.gov/expapi/activities/lesson",
+            "rules": [
+                {
+                    "location": "context.contextActivities.grouping[*].definition.type",
+                    "any": ["http://adlnet.gov/expapi/activities/attempt"]
+                },
+                {
+                    "location": "context.contextActivities.grouping[*].definition.type",
+                    "any": ["http://adlnet.gov/expapi/activities/course"]
+                },
+                {
+                    "location": "timestamp",
+                    "rule": "included"
+                },
+                {
+                    "location": "context.contextActivities.parent[*].id",
+                    "rule": "excluded"
+                }
+            ]
+        },
+        {
+            "@id": "_:termination",
+            "name": {
+                "en": "termination"
+            },
+            "verb": "http://adlnet.gov/expapi/verbs/terminated",
+            "objectActivityType": "http://adlnet.gov/expapi/activities/lesson",
+            "rules": [
+                {
+                    "location": "context.contextActivities.grouping[*].definition.type",
+                    "any": ["http://adlnet.gov/expapi/activities/attempt"]
+                },
+                {
+                    "location": "context.contextActivities.grouping[*].definition.type",
+                    "any": ["http://adlnet.gov/expapi/activities/course"]
+                },
+                {
+                    "location": "timestamp",
+                    "rule": "included"
+                },
+                {
+                    "location": "context.contextActivities.parent[*].id",
+                    "rule": "excluded"
+                }
+            ]
+        },
+        {
+            "@id": "_:suspension",
+            "name": {
+                "en": "suspension"
+            },
+            "verb": "http://adlnet.gov/expapi/verbs/suspended",
+            "objectActivityType": "http://adlnet.gov/expapi/activities/lesson",
+            "rules": [
+                {
+                    "location": "context.contextActivities.grouping[*].definition.type",
+                    "any": ["http://adlnet.gov/expapi/activities/attempt"]
+                },
+                {
+                    "location": "context.contextActivities.grouping[*].definition.type",
+                    "any": ["http://adlnet.gov/expapi/activities/course"]
+                },
+                {
+                    "location": "timestamp",
+                    "rule": "included"
+                },
+                {
+                    "location": "context.contextActivities.parent[*].id",
+                    "rule": "excluded"
+                }
+            ]
+        },
+        {
+            "@id": "_:resumption",
+            "name": {
+                "en": "resumption"
+            },
+            "verb": "http://adlnet.gov/expapi/verbs/resumed",
+            "objectActivityType": "http://adlnet.gov/expapi/activities/lesson",
+            "rules": [
+                {
+                    "location": "context.contextActivities.grouping[*].definition.type",
+                    "any": ["http://adlnet.gov/expapi/activities/attempt"]
+                },
+                {
+                    "location": "context.contextActivities.grouping[*].definition.type",
+                    "any": ["http://adlnet.gov/expapi/activities/course"]
+                },
+                {
+                    "location": "timestamp",
+                    "rule": "included"
+                },
+                {
+                    "location": "context.contextActivities.parent[*].id",
+                    "rule": "excluded"
+                }
+            ]
+        },
+        {
+            "@id": "_:scoactivity",
+            "name": {
+                "en": "SCO activity"
+            },
+            "objectActivityType": "http://adlnet.gov/expapi/activities/lesson",
+            "rules": [
+                {
+                    "location": "context.contextActivities.grouping[*].definition.type",
+                    "any": ["http://adlnet.gov/expapi/activities/attempt"]
+                },
+                {
+                    "location": "context.contextActivities.grouping[*].definition.type",
+                    "any": ["http://adlnet.gov/expapi/activities/course"]
+                },
+                {
+                    "location": "timestamp",
+                    "rule": "included"
+                },
+                {
+                    "location": "context.contextActivities.parent[*].id",
+                    "rule": "excluded"
+                },
+                {
+                    "location": "verb.id",
+                    "none": [
+                        "http://adlnet.gov/expapi/verbs/resumed",
+                        "http://adlnet.gov/expapi/verbs/suspended",
+                        "http://adlnet.gov/expapi/verbs/terminated",
+                        "http://adlnet.gov/expapi/verbs/initialized"
+                    ]
+                }
+            ]
+        },
+        {
+            "@id": "_:commenting",
+            "name": {
+                "en": "commenting"
+            },
+            "verb": "http://adlnet.gov/expapi/verbs/commented",
+            "objectActivityType": "http://adlnet.gov/expapi/activities/lesson",
+            "rules": [
+                {
+                    "location": "context.contextActivities.grouping[*].definition.type",
+                    "any": ["http://adlnet.gov/expapi/activities/attempt"]
+                },
+                {
+                    "location": "context.contextActivities.grouping[*].definition.type",
+                    "any": ["http://adlnet.gov/expapi/activities/course"]
+                },
+                {
+                    "location": "timestamp",
+                    "rule": "included"
+                },
+                {
+                    "location": "context.contextActivities.parent[*].id",
+                    "rule": "excluded"
+                },
+                {
+                    "location": "result.response",
+                    "rule": "included"
+                }
+            ]
+        },
+        {
+            "@id": "_:completing",
+            "name": {
+                "en": "completing"
+            },
+            "verb": "http://adlnet.gov/expapi/verbs/completed",
+            "objectActivityType": "http://adlnet.gov/expapi/activities/lesson",
+            "rules": [
+                {
+                    "location": "context.contextActivities.grouping[*].definition.type",
+                    "any": ["http://adlnet.gov/expapi/activities/attempt"]
+                },
+                {
+                    "location": "context.contextActivities.grouping[*].definition.type",
+                    "any": ["http://adlnet.gov/expapi/activities/course"]
+                },
+                {
+                    "location": "timestamp",
+                    "rule": "included"
+                },
+                {
+                    "location": "context.contextActivities.parent[*].id",
+                    "rule": "excluded"
+                }
+            ]
+        },
+        {
+            "@id": "_:otheractivity",
+            "name": {
+                "en": "other activity"
+            },
+            "contextParentActivityType": "http://adlnet.gov/expapi/activities/lesson",
+            "rules": [
+                {
+                    "location": "context.contextActivities.grouping[*].definition.type",
+                    "any": ["http://adlnet.gov/expapi/activities/attempt"]
+                },
+                {
+                    "location": "context.contextActivities.grouping[*].definition.type",
+                    "any": ["http://adlnet.gov/expapi/activities/course"]
+                },
+                {
+                    "location": "timestamp",
+                    "rule": "included"
+                }
+            ]
+        },
+        {
+            "@id": "_:interactionactivity",
+            "name": {
+                "en": "interaction activity"
+            },
+            "verb": "http://adlnet.gov/expapi/verbs/responded",
+            "objectActivityType": "TODO look up interaction activity URI",
+            "contextParentActivityType": "http://adlnet.gov/expapi/activities/lesson",
+            "rules": [
+                {
+                    "location": "context.contextActivities.grouping[*].definition.type",
+                    "any": ["http://adlnet.gov/expapi/activities/attempt"]
+                },
+                {
+                    "location": "context.contextActivities.grouping[*].definition.type",
+                    "any": ["http://adlnet.gov/expapi/activities/course"]
+                },
+                {
+                    "location": "timestamp",
+                    "rule": "included"
+                }
+            ]
+        }
+        // TODO multiple objectives statements
+        // TODO progressed
+        // TODO scored
+        // TODO passed
+        // TODO failed
+        // TODO location of state data
+        // TODO check lots of templates exist for both object & parent (at least potentially)
+        // TODO double check templates don't multi-match. Or consider an order of checking rule?
+        // That might be better.
+    ],
+    "patterns": [
+        {
+            "name": {
+                "en": "General Pattern"
+            },
+            "definition": {
+                "en": "This pattern describes the overall sequence of statements sent over the course of an attempt"
+            },
+            "sequence": ["_:initialization", "_:middlestatements", "_:optionallycontinue", "_:termination"]
+        },
+        {
+            "@id": "_:activitystatements",
+            "alternates": ["_:scoactivity", "_:otheractivity", "_:commenting", "_:interactionactivity", "_:completing"]
+        },
+        {
+            "@id": "_:middlestatements",
+            "zeroOrMore": "_:activitystatements"
+        },
+        {
+            "@id": "_:suspendresume",
+            "sequence": ["_:suspension", "_:resumption", "_:middlestatements"]
+        },
+        {
+            "@id": "_:optionallycontinue",
+            "zeroOrMore": "_:suspendresume"
+        }
+
+    ]
+}
