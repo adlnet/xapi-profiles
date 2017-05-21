@@ -12,7 +12,7 @@
 
 This specification describes how to author an xAPI Profile. It describes a set of rules for authoring JSON, specifically JSON-LD. Since JSON-LD is a syntax for RDF, the resulting profile is really a set of triples—subject, predicate, object—creating a semantic data set. However, for authoring, all that matters is following the rules given for JSON, which will lead to the richer semantic data naturally. Because of this, no JSON-LD processing is required by systems consuming xAPI Profiles, though there will be advantages to doing so for some purposes.
 
-The serialized JSON form of an xAPI Profiles 1.0 document must be consistent with what would be produced by the standard JSON-LD 1.1 Processing Algorithms and API Compaction Algorithm using, at least, the normative JSON-LD @context definition provided.
+The serialized JSON form of an xAPI Profiles 1.0 profile version must be consistent with what would be produced by the standard JSON-LD 1.1 Processing Algorithms and API Compaction Algorithm using, at least, the normative JSON-LD @context definition provided.
 
 Under the hood, xAPI Profiles will use several well-established semantic web technologies: SKOS, to connect xAPI concepts together, and PROV, to describe the provenance (most notably the versioning) of profiles. Several properties in xAPI Profiles use names of properties from SKOS and PROV.
 
@@ -71,7 +71,7 @@ When describing verbs, activity types, and attachment usage types, use the follo
 Name | Values
 ---- | ------
 `@type` | `Verb`, `ActivityType`, or `AttachmentUsageType`
-`inScheme` | The IRI of the specific vocabulary version the current profile document is for
+`inScheme` | The IRI of the specific profile version currently being described
 `prefLabel` | A language map of the preferred names in each language
 `altLabel` | An array of language-tagged alternative names. Array members MUST be expanded value objects with @value and @language keys.
 `definition` | A language map of the precise definition, including how to use the concept properly in statements
