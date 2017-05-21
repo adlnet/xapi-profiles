@@ -57,6 +57,8 @@ Profile version objects make it convenient to track version history for profiles
 
 ### Organizations and Persons
 
+Use one of these in the `author` property to indicate the author of this profile version.
+
 Name | Values
 ---- | ------
 `@type` | Organization or Person
