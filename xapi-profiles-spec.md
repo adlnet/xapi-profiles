@@ -159,7 +159,7 @@ Name | Values
 Statement Template Rules describe a location or locations within statements using a JSONPath, then require that value either be excluded, included, or be a particular value. For example, to require at least one grouping, perhaps it might be something like:
 
 ```
-"requirements": [
+"rules": [
     {
         "location": "context.contextActivities.grouping[0]",
         "rule": "included"
