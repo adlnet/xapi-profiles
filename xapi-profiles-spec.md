@@ -141,11 +141,14 @@ Name | Values
 
 A Statement Template describes one way statements following the profile may be structured. Which statement template applies is determined by the verb, object activity type, and attachment usage types in the statement. If the verb, object activity type, and all attachment usage type(s) are present and the profile is used as a category context activity, the rules in the Statement Template MUST be followed. In a given profile, no statement template's determining values -- verb and so forth -- may be a subset of any other statement template's determining values. Additionally, we recommend picking one of the determining properties to use in all statement templates in a given profile, with different values in each, since this ensures each statement matches at most one statement template in a given profile.
 
+If a statement matches a statement template's determining values and uses the profile version as a category context activity, it MUST be sent as part of a Pattern or Implied Pattern.
+
 Name | Values
 ---- | ------
 `@id` | The identifier or short name of the template, in the form :name
 `name` | a language map of descriptive names for the statement template
 `definition` | A language map of descriptions of the purpose and usage of the statement template
+`allowedSolo` | Optional. A boolean. If true, this Statement Template can be used as a single statement Implied Pattern (see that section). All Statement Templates MUST be used in Patterns or be allowedSolo true, and MAY be both.
 `deprecated` | Optional. A boolean. If true, this template is deprecated.
 `verb` | *Optional*. Verb IRI
 `objectActivityType` | *Optional*. Object activity type IRI
@@ -192,7 +195,7 @@ I'm unsure enough how to do this I propose we do not include statement reference
 
 ## Patterns
 
-Patterns are statements matching particular statement templates, ordered in certain ways. For example, an allowed pattern in a video profile might start with a statement about playing a video and then be followed by statements about pausing, skipping, playing again, and so forth. A pattern is determined by a given registration — all statements within a Pattern MUST use the same registration, and statements not part of a Pattern MUST NOT use the same registration as any that are.
+Patterns are groups of statements matching particular statement templates, ordered in certain ways. For example, an allowed pattern in a video profile might start with a statement about playing a video and then be followed by statements about pausing, skipping, playing again, and so forth. A pattern is determined by a given registration — all statements within a Pattern MUST use the same registration, and statements not part of a Pattern MUST NOT use the same registration as any that are.
 
 Patterns have these properties:
 
@@ -217,6 +220,14 @@ A pattern without an @id MUST include name and definition.
 A pattern MUST not refer to any pattern that has itself in the array or single value for any of `alternates`, `optional`, `oneOrMore`, `sequence`, or `zeroOrMore`, considered recursively.
 A pattern only matches if it matches greedily. That is, if, when checking for a match of an optional or zeroOrMore or oneOrMore pattern, the next statement matches the pattern or statement template it applies to, the statement MUST be considered to be part of that match. That is, no backtracking is allowed. This constrains useful statement patterns, but guarantees efficient processing, as once a statement is matched it does not need to be reconsidered (except in cases where it is part of an ultimately unmatched alternate).
 
+
+### Implied Patterns
+
+If a Statement Template is allowed solo, Learning Record Providers MAY send it as an Implied Pattern. If it does not, Learning Record Providers MUST NOT send it as an Implied Pattern. An Implied Pattern MUST include the profile version in category, and MAY include a registration as if it were described as a Pattern with a sequence of one statement template, but MAY leave off the registration.
+
+When checking for pattern match of a Statement with a registration, if there is only one Statement for the registration and it matches a Statement Template that is allowed solo, it MUST be considered an Implied Pattern.
+
+An allowed solo Statement Template MUST describe when Learning Record Providers should use it as an Implied Pattern.
 
 ## Very Preliminary Draft Context
 
