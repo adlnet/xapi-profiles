@@ -76,12 +76,13 @@ Name | Values
 `altLabel` | An array of language-tagged alternative names. Array members MUST be expanded value objects with @value and @language keys.
 `definition` | A language map of the precise definition, including how to use the concept properly in statements
 `deprecated` | Optional. A boolean. If true, this concept is deprecated.
-`broader` | The IRI of a concept of the same @type from this profile that has a broader meaning.
-`narrower` | The IRI of a concept of the same @type from this profile that has a narrower meaning.
-`broadMatch` | The IRI of a concept of the same @type from a different profile that has a broader meaning.
-`narrowMatch` | The IRI of a concept of the same @type from a different profile that has a narrower meaning.
-`exactMatch` | The IRI of a concept of the same @type from a different profile that has exactly the same meaning. This should be used rarely, mostly to describe connections to vocabularies that are no longer managed and do not use good URLs.
-`relatedMatch` | The IRI of a concept of the same @type from a different profile that has a related meaning that is not clearly narrower or broader. Useful to establish conceptual links between profiles that can be used for discovery.
+`broader` | An array of IRIs of concepts of the same @type from this profile version that have a broader meaning.
+`narrower` | An array of IRIs of concepts of the same @type from this profile version that have a narrower meaning.
+`broadMatch` | An array of IRIs of concepts of the same @type from a different profile that have a broader meaning.
+`narrowMatch` | An array of IRIs of concepts of the same @type from different profiles that have narrower meanings.
+`exactMatch` | An array of IRIs of concepts of the same @type from a different profile or a different version of the same profile that have exactly the same meaning. This should be used rarely, mostly to describe connections to vocabularies that are no longer managed and do not use good URLs.
+`relatedMatch` | An array of IRIs of concepts of the same @type from a different profile or a different version of the same profile that has a related meaning that is not clearly narrower or broader. Useful to establish conceptual links between profiles that can be used for discovery. This SHOULD be used to connect possible replacement Concepts to removed Concepts from previous versions of the same profile, and for possible replacement Concepts in other profiles of deprecated concepts, as well as other loose relations.
+`related` | An array of IRIs of concepts of the same @type from this profile version that are close conceptual matches to this concept's meaning. This property MUST only be used on concepts that are deprecated to indicate possible replacement concepts in the same profile, if there are any.
 
 ### Extensions
 
