@@ -119,7 +119,7 @@ Name | Values
 
 ### Activities
 
-These are just literal xAPI Activity definitions the profile wants to provide for use. This is the profile's canonical version of the Activity. Except for `@id` and `@context` this Concept MUST be a legal xAPI Activity Definition. When using the Activity, a Statement MUST use the `@id` for the Activity `id`, and MUST NOT include `@id` or `@context` in the Activity definition. All other properties are considered part of the definition, and any Statement using the Activity SHOULD either not include the definition, or SHOULD include all properties given here in the definition exactly as given, except for `name` and `type`, which SHOULD only include languages appropriate to the situation, possibly including ones not present in the profile yet.
+These are just literal xAPI Activity definitions the profile wants to provide for use. This is the profile's canonical version of the Activity. Except for `@id` and `@context` this Concept MUST be a legal xAPI Activity Definition. When using the Activity, a Statement MUST use the `@id` for the Activity `id`, and MUST NOT include `@id` or `@context` in the Activity definition. All other properties are considered part of the definition, and any Statement using the Activity SHOULD either not include the definition, or SHOULD include all properties given here in the definition exactly as given, except for `name` and `description` or other language maps, which SHOULD only include languages appropriate to the situation, possibly including ones not present in the profile yet.
 
 Due to restrictions in JSON-LD, all extensions in the Activity that do not have primitive values MUST include a JSON-LD @context in the top-level object or in every top-level object if array-valued.
 
