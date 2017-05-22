@@ -217,7 +217,8 @@ A pattern with an @id MUST NOT include name, definition, or deprecated.
 A pattern without an @id MUST include name and definition.
 A pattern MUST not refer to any pattern that has itself in the array or single value for any of `alternates`, `optional`, `oneOrMore`, `sequence`, or `zeroOrMore`, considered recursively.
 A pattern only matches if it matches greedily. That is, if, when checking for a match of an optional or zeroOrMore or oneOrMore pattern, the next statement matches the pattern or statement template it applies to, the statement MUST be considered to be part of that match. That is, no backtracking is allowed. This constrains useful statement patterns, but guarantees efficient processing, as once a statement is matched it does not need to be reconsidered (except in cases where it is part of an ultimately unmatched alternate).
-
+When checking previously collected statements for matching a pattern, ordering MUST be based on timestamp. In the event two or more statements have identical timestamps, any order within those statements is allowed.
+When checking statements for matching a pattern upon receipt, ordering MUST be based on receipt order insofar as that can be determined. If statements are received in the same batch and they are being checked upon receipt, within the batch statements MUST be ordered first by timestamp, and if timestamps are the same, by order within the statement array, with lower indices earlier.
 
 ## Very Preliminary Draft Context
 
