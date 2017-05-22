@@ -99,7 +99,7 @@ Name | Values
 `placement` | An array of placement locations. Must contain at least one element, no elements may be repeated, and the only allowed elements are `context`, `result`, `activity` and IRIs (which must be Activity Type IRIs in this or other profiles).
 `context` | *Optional*. the IRI of a JSON-LD context for this extension
 `schema` | *Optional*. the IRI for accessing a JSON Schema for this extension. The JSON Schema may constrain the extension to a single type.
-`inlineSchema` | A JSON Schema inline.
+`inlineSchema` | A JSON Schema inline. Must be a string that contains a legal JSON Schema.
 
 ### Document Resources
 
@@ -115,7 +115,7 @@ Name | Values
 `deprecated` | Optional. A boolean. If true, this concept is deprecated.
 `context` | *Optional*. the IRI of a JSON-LD context for this document resource
 `schema` | *Optional*. the IRI for accessing a JSON Schema for this document resource.
-`inlineSchema` | A JSON Schema inline.
+`inlineSchema` | A JSON Schema inline. Must be a string that contains a legal JSON Schema.
 `contentType` | The content-type for the resource
 
 ### Activities
