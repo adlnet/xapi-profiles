@@ -180,10 +180,6 @@
             "verb": "http://adlnet.gov/expapi/verbs/initialized",
             "objectActivityType": "http://adlnet.gov/expapi/activities/lesson",
             "rules": [
-                {
-                    "location": "context.contextActivities.parent[*].id",
-                    "rule": "excluded"
-                }
             ]
         },
         {
@@ -194,10 +190,6 @@
             "verb": "http://adlnet.gov/expapi/verbs/terminated",
             "objectActivityType": "http://adlnet.gov/expapi/activities/lesson",
             "rules": [
-                {
-                    "location": "context.contextActivities.parent[*].id",
-                    "rule": "excluded"
-                }
             ]
         },
         {
@@ -208,10 +200,6 @@
             "verb": "http://adlnet.gov/expapi/verbs/suspended",
             "objectActivityType": "http://adlnet.gov/expapi/activities/lesson",
             "rules": [
-                {
-                    "location": "context.contextActivities.parent[*].id",
-                    "rule": "excluded"
-                }
             ]
         },
         {
@@ -222,10 +210,6 @@
             "verb": "http://adlnet.gov/expapi/verbs/resumed",
             "objectActivityType": "http://adlnet.gov/expapi/activities/lesson",
             "rules": [
-                {
-                    "location": "context.contextActivities.parent[*].id",
-                    "rule": "excluded"
-                }
             ]
         },
         {
@@ -235,10 +219,6 @@
             },
             "objectActivityType": "http://adlnet.gov/expapi/activities/lesson",
             "rules": [
-                {
-                    "location": "context.contextActivities.parent[*].id",
-                    "rule": "excluded"
-                }
             ]
         },
         {
@@ -249,10 +229,6 @@
             "verb": "http://adlnet.gov/expapi/verbs/commented",
             "objectActivityType": "http://adlnet.gov/expapi/activities/lesson",
             "rules": [
-                {
-                    "location": "context.contextActivities.parent[*].id",
-                    "rule": "excluded"
-                },
                 {
                     "location": "result.response",
                     "rule": "included"
@@ -267,10 +243,6 @@
             "verb": "http://adlnet.gov/expapi/verbs/completed",
             "objectActivityType": "http://adlnet.gov/expapi/activities/lesson",
             "rules": [
-                {
-                    "location": "context.contextActivities.parent[*].id",
-                    "rule": "excluded"
-                }
             ]
         },
         {
