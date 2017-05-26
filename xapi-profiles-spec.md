@@ -422,7 +422,7 @@ To validate a series of statements sharing a registration (and, if applicable, s
 
 Next, check each top-level pattern in the specified profile for matching. If at least one top-level pattern matches, the series of statements validates. A pattern match validates if matches(series, pattern) returns success for the first value and the second value is empty. The algorithm follows, in pseudocode:
 
-
+```
 function matches(statements, element):
     if element is a template:
         if statements is empty:
@@ -488,6 +488,7 @@ function matches(statements, element):
             return next matches, next statements
         else:
             return success, statements
+```
 
 TODO: continue testing of the above. Fairly extensive testing has already been done using generative testing, in the companion python code.
 
