@@ -278,15 +278,6 @@
                 {
                     "location": "context.contextActivities.parent[*].id",
                     "rule": "excluded"
-                },
-                {
-                    "location": "verb.id",
-                    "none": [
-                        "http://adlnet.gov/expapi/verbs/resumed",
-                        "http://adlnet.gov/expapi/verbs/suspended",
-                        "http://adlnet.gov/expapi/verbs/terminated",
-                        "http://adlnet.gov/expapi/verbs/initialized"
-                    ]
                 }
             ]
         },
