@@ -12,7 +12,7 @@
 
 This specification describes how to author an xAPI Profile. It describes a set of rules for authoring JSON, specifically JSON-LD. Since JSON-LD is a syntax for RDF, the resulting profile is really a set of triples—subject, predicate, object—creating a semantic data set. However, for authoring, all that matters is following the rules given for JSON, which will lead to the richer semantic data naturally. Because of this, no JSON-LD processing is required by systems consuming xAPI Profiles, though there will be advantages to doing so for some purposes.
 
-The serialized JSON form of an xAPI Profiles 1.0 document must be consistent with what would be produced by the standard JSON-LD 1.1 Processing Algorithms and API Compaction Algorithm using, at least, the normative JSON-LD @context definition provided.
+The serialized JSON form of an xAPI Profiles 1.0 profile version must be consistent with what would be produced by the standard JSON-LD 1.1 Processing Algorithms and API Compaction Algorithm using, at least, the normative JSON-LD @context definition provided.
 
 Under the hood, xAPI Profiles will use several well-established semantic web technologies: SKOS, to connect xAPI concepts together, and PROV, to describe the provenance (most notably the versioning) of profiles. Several properties in xAPI Profiles use names of properties from SKOS and PROV.
 
@@ -26,22 +26,23 @@ To assist in accomplishing these two primary goals, profiles also contain metada
 
 ## Using Profiles in Statements
 
-Using an introduced Concept, such as an activity type, verb, attachment usage type, extension, activity, or document resource, should be done freely, provided the defined usage and meaning are adhered to. But a Learning Record Provider can go further, and make sure to adhere to profile-described statement templates and patterns. Learning Record Providers creating statements that conform to matching profile-described statement templates and patterns SHOULD include the profile as a category context activity in those statements, and statements containing a profile as a category context activity MUST conform to any matching templates and patterns that profile describes.
+Using an introduced Concept, such as an activity type, verb, attachment usage type, extension, activity, or document resource, should be done freely, provided the defined usage and meaning are adhered to. But a Learning Record Provider can go further, and make sure to adhere to profile-described statement templates and patterns. Learning Record Providers creating statements that conform to matching profile-described statement templates and patterns SHOULD include the most up to date conformant profile version as a category context activity with id equal to the version's `@id` in those statements, and statements containing a profile version as a category context activity MUST conform to any matching templates and patterns that profile version describes.
 
 ## Profile Metadata
 
 Name | Values
 ---- | ------
 `@id` | The IRI of the profile overall (not a specific version)
-`@type` | Must be Profile
-`name` | Language map of names for this profile
+`@type` | Must be `Profile`.
+`conformsTo` | Canonical URI of the profile specification version conformed to. The profile specification version of this document is https://github.com/DataInteroperability/xapi-profiles/tree/master#1.0.0-development, and it is a development version that may undergo incompatible changes without updating the version URI.
+`name` | Language map of names for this profile.
 `definition` | Language map of descriptions for this profile. If there are additional rules for the profile as a whole that cannot be expressed using this specification, include them here.
 `seeAlso` | A URL containing information about the profile. Recommended instead of especially long definitions.
-`versions` | An array of all profile version objects for this profile, see below
-`author` | An Organization or Person, see below
-`concepts` | The concepts that make up this Profile, see the Concepts section
-`templates` | The Statement Templates for this profile, see that section
-`patterns` | The Patterns for this profile, see that section
+`versions` | An array of all profile version objects for this profile, see below.
+`author` | An Organization or Person, see below.
+`concepts` | The concepts that make up this Profile, see the Concepts section.
+`templates` | The Statement Templates for this profile, see that section.
+`patterns` | The Patterns for this profile, see that section.
 
 
 
@@ -73,17 +74,18 @@ When describing verbs, activity types, and attachment usage types, use the follo
 Name | Values
 ---- | ------
 `@type` | `Verb`, `ActivityType`, or `AttachmentUsageType`
-`inScheme` | The IRI of the specific vocabulary version the current profile document is for
+`inScheme` | The IRI of the specific profile version currently being described
 `prefLabel` | A language map of the preferred names in each language
 `altLabel` | An array of language-tagged alternative names. Array members MUST be expanded value objects with @value and @language keys.
 `definition` | A language map of the precise definition, including how to use the concept properly in statements
 `deprecated` | Optional. A boolean. If true, this concept is deprecated.
-`broader` | The IRI of a concept of the same @type from this profile that has a broader meaning.
-`narrower` | The IRI of a concept of the same @type from this profile that has a narrower meaning.
-`broadMatch` | The IRI of a concept of the same @type from a different profile that has a broader meaning.
-`narrowMatch` | The IRI of a concept of the same @type from a different profile that has a narrower meaning.
-`exactMatch` | The IRI of a concept of the same @type from a different profile that has exactly the same meaning. This should be used rarely, mostly to describe connections to vocabularies that are no longer managed and do not use good URLs.
-`relatedMatch` | The IRI of a concept of the same @type from a different profile that has a related meaning that is not clearly narrower or broader. Useful to establish conceptual links between profiles that can be used for discovery.
+`broader` | An array of IRIs of concepts of the same @type from this profile version that have a broader meaning.
+`narrower` | An array of IRIs of concepts of the same @type from this profile version that have a narrower meaning.
+`broadMatch` | An array of IRIs of concepts of the same @type from a different profile that have a broader meaning.
+`narrowMatch` | An array of IRIs of concepts of the same @type from different profiles that have narrower meanings.
+`exactMatch` | An array of IRIs of concepts of the same @type from a different profile or a different version of the same profile that have exactly the same meaning. This should be used rarely, mostly to describe connections to vocabularies that are no longer managed and do not use good URLs.
+`relatedMatch` | An array of IRIs of concepts of the same @type from a different profile or a different version of the same profile that has a related meaning that is not clearly narrower or broader. Useful to establish conceptual links between profiles that can be used for discovery. This SHOULD be used to connect possible replacement Concepts to removed Concepts from previous versions of the same profile, and for possible replacement Concepts in other profiles of deprecated concepts, as well as other loose relations.
+`related` | An array of IRIs of concepts of the same @type from this profile version that are close conceptual matches to this concept's meaning. This property MUST only be used on concepts that are deprecated to indicate possible replacement concepts in the same profile, if there are any.
 
 ### Extensions
 
@@ -98,7 +100,7 @@ Name | Values
 `placement` | An array of placement locations. Must contain at least one element, no elements may be repeated, and the only allowed elements are `context`, `result`, `activity` and IRIs (which must be Activity Type IRIs in this or other profiles).
 `context` | *Optional*. the IRI of a JSON-LD context for this extension
 `schema` | *Optional*. the IRI for accessing a JSON Schema for this extension. The JSON Schema may constrain the extension to a single type.
-`inlineSchema` | A JSON Schema inline.
+`inlineSchema` | A JSON Schema inline. Must be a string that contains a legal JSON Schema.
 
 ### Document Resources
 
@@ -114,16 +116,19 @@ Name | Values
 `deprecated` | Optional. A boolean. If true, this concept is deprecated.
 `context` | *Optional*. the IRI of a JSON-LD context for this document resource
 `schema` | *Optional*. the IRI for accessing a JSON Schema for this document resource.
-`inlineSchema` | A JSON Schema inline.
+`inlineSchema` | A JSON Schema inline. Must be a string that contains a legal JSON Schema.
 `contentType` | The content-type for the resource
 
 ### Activities
 
-These are just literal xAPI Activity definitions the profile wants to provide for use. Possibly will need some adjustment later as the JSON-LD context is fleshed out (there's some trickiness around defining the JSON-LD context for all the parts in xAPI activity definitions just right).
+These are just literal xAPI Activity definitions the profile wants to provide for use. This is the profile's canonical version of the Activity. Except for `@id` and `@context` this Concept MUST be a legal xAPI Activity Definition. When using the Activity, a Statement MUST use the `@id` for the Activity `id`, and MUST NOT include `@id` or `@context` in the Activity definition. All other properties are considered part of the definition, and any Statement using the Activity SHOULD either not include the definition, or SHOULD include all properties given here in the definition exactly as given, except for `name` and `description` or other language maps, which SHOULD only include languages appropriate to the situation, possibly including ones not present in the profile yet.
+
+Due to restrictions in JSON-LD, all extensions in the Activity that do not have primitive values MUST include a JSON-LD @context in the top-level object or in every top-level object if array-valued.
 
 Name | Values
 ---- | ------
 `@id` | The IRI of the activity
+`@context` | Must be TODO create an Activity context and host it at a URI.
 `type` | As in xAPI
 `name`
 `description`
@@ -139,7 +144,7 @@ Name | Values
 
 ## Statement Templates
 
-A Statement Template describes one way statements following the profile may be structured. Which statement template applies is determined by the verb, object activity type, and attachment usage types in the statement. If the verb, object activity type, and all attachment usage type(s) are present and the profile is used as a category context activity, the rules in the Statement Template MUST be followed. In a given profile, no statement template's determining values -- verb and so forth -- may be a subset of any other statement template's determining values. Additionally, we recommend picking one of the determining properties to use in all statement templates in a given profile, with different values in each, since this ensures each statement matches at most one statement template in a given profile.
+A Statement Template describes one way statements following the profile may be structured. Which statement template applies is determined by the verb, object activity type, and attachment usage types in the statement. If the verb, object activity type, and all attachment usage type(s) are present and the profile version is used as a category context activity, the rules in the Statement Template MUST be followed. In a given profile, no statement template's determining values -- verb and so forth -- may be a subset of any other statement template's determining values. Additionally, we recommend picking one of the determining properties to use in all statement templates in a given profile, with different values in each, since this ensures each statement matches at most one statement template in a given profile.
 
 If a statement matches a statement template's determining values and uses the profile version as a category context activity, it MUST be sent as part of a Pattern or Implied Pattern.
 
@@ -219,7 +224,8 @@ A pattern with an @id MUST NOT include name, definition, or deprecated.
 A pattern without an @id MUST include name and definition.
 A pattern MUST not refer to any pattern that has itself in the array or single value for any of `alternates`, `optional`, `oneOrMore`, `sequence`, or `zeroOrMore`, considered recursively.
 A pattern only matches if it matches greedily. That is, if, when checking for a match of an optional or zeroOrMore or oneOrMore pattern, the next statement matches the pattern or statement template it applies to, the statement MUST be considered to be part of that match. That is, no backtracking is allowed. This constrains useful statement patterns, but guarantees efficient processing, as once a statement is matched it does not need to be reconsidered (except in cases where it is part of an ultimately unmatched alternate).
-
+When checking previously collected statements for matching a pattern, ordering MUST be based on timestamp. In the event two or more statements have identical timestamps, any order within those statements is allowed.
+When checking statements for matching a pattern upon receipt, ordering MUST be based on receipt order insofar as that can be determined. If statements are received in the same batch and they are being checked upon receipt, within the batch statements MUST be ordered first by timestamp, and if timestamps are the same, by order within the statement array, with lower indices earlier.
 
 ### Implied Patterns
 
@@ -373,7 +379,11 @@ In addition to the ability to host profiles separately, there will be one or mor
 
 Administrators will be able to add profiles by their contents or by URI to the Profile Server. On a Public Profile Server run by... DISC? ADL? ... there will be a review process people desiring to add profiles can submit to. The review process will check profiles for following the specification and assist in helping them be of highest quality, after which they will be added to the server.
 
-The Profile Server will host a sparql endpoint containing all the RDF information in contained profiles at the path /sparql. All these SPARQL queries can also be run locally by loading one or more profiles into an RDF library and running sparql queries against them directly.
+The Profile Server will host a SPARQL endpoint containing the RDF information from the contained profiles at the path /sparql. SPARQL servers have the ability to divide information into multiple datasets, or graphs, and offer separate querying on them. One of these is the default graph, which is queried when no other graph is specified. The default graph at this SPARQL endpoint will contain all the current versions of profiles. Additionally, every profile version will be in a Named Graph with a URI equal to the profile version's URI. Thus, by default queries will only operate on up to date information, but if historical profile information is needed, it is available.
+
+TODO: consider having the default graph only contain the versioning information, which would make queries slightly more complex but would make it harder for accidental profile trampling to occur...
+
+Here are a selection of SPARQL queries for retrieving commonly needed information from the server. All these SPARQL queries can also be run locally by loading one or more profiles into an RDF library and running sparql queries against them directly.
 
 Using that SPARQL server, it will be easy to answer questions such as:
 
