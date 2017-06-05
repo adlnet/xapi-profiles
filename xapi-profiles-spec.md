@@ -148,8 +148,8 @@ Name | Values
 `@id` | The identifier or short name of the template, in the form :name
 `name` | a language map of descriptive names for the statement template
 `definition` | A language map of descriptions of the purpose and usage of the statement template
-`allowedSolo` | Optional. A boolean. If true, this Statement Template can be used as a single statement Implied Pattern (see that section). All Statement Templates MUST be used in Patterns or be allowedSolo true, and MAY be both.
-`deprecated` | Optional. A boolean. If true, this template is deprecated.
+`allowedSolo` | Optional. A boolean, default false. If true, this Statement Template can be used as a single statement Implied Pattern (see that section). All Statement Templates MUST be used in Patterns or be allowedSolo true, and MAY be both.
+`deprecated` | Optional. A boolean, default false. If true, this template is deprecated.
 `verb` | *Optional*. Verb IRI
 `objectActivityType` | *Optional*. Object activity type IRI
 `contextGroupingActivityType` | *Optional*. Array of contextActivities grouping activity type IRIs
@@ -223,11 +223,11 @@ A pattern only matches if it matches greedily. That is, if, when checking for a 
 
 ### Implied Patterns
 
-If a Statement Template is allowed solo, Learning Record Providers MAY send it as an Implied Pattern. If it does not, Learning Record Providers MUST NOT send it as an Implied Pattern. An Implied Pattern MUST include the profile version in category, and MAY include a registration as if it were described as a Pattern with a sequence of one statement template, but MAY leave off the registration.
+If a Statement Template is allowed solo, Learning Record Providers MAY send it as an Implied Pattern. If it is not, Learning Record Providers MUST NOT send it as an Implied Pattern. An Implied Pattern MUST include the profile version in category, and MAY include a registration as if it were described as a Pattern with a sequence of one statement template, but MAY leave off the registration.
 
 When checking for pattern match of a Statement with a registration, if there is only one Statement for the registration and it matches a Statement Template that is allowed solo, it MUST be considered an Implied Pattern.
 
-An allowed solo Statement Template MUST describe when Learning Record Providers should use it as an Implied Pattern.
+An allowed solo Statement Template MUST describe when Learning Record Providers should use it as an Implied Pattern. While this cannot be checked programmatically, without it Learning Record Providers will be unable to understand the solo usage of Statement Templates.
 
 ## Very Preliminary Draft Context
 
