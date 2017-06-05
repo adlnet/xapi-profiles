@@ -1,28 +1,29 @@
 {
-    "@id": "https://w3id.org/xapi/scorm#profile",
+    "@context": "https://w3id.org/xapi/adl/contexts/profiles",
+    "id": "https://w3id.org/xapi/scorm#profile",
     "name": {
         "en": "Experience API SCORM Profile"
     },
     "seeAlso": "https://adl.gitbooks.io/scorm-profile-xapi/content/",
     "versions": [
         {
-            "@id": "https://w3id.org/xapi/scorm#v2",
+            "id": "https://w3id.org/xapi/scorm#v2",
             "generatedAtTime": "...",
             "wasRevisionOf": ["https://w3id.org/xapi/scorm"]
         },
         {
-            "@id": "https://w3id.org/xapi/scorm",
+            "id": "https://w3id.org/xapi/scorm",
             "generatedAtTime": "..."
         }
     ],
     "author": {
-        "@type": "Group",
+        "type": "Group",
         "name": "ADL"
     },
     "concepts": [
         {
-            "@type": "Verb",
-            "@id": "http://adlnet.gov/expapi/verbs/initialized",
+            "type": "Verb",
+            "id": "http://adlnet.gov/expapi/verbs/initialized",
             "
             ": "https://w3id.org/xapi/scorm",
             "prefLabel": {
@@ -30,32 +31,32 @@
             }
         },
         {
-            "@type": "Verb",
-            "@id": "http://adlnet.gov/expapi/verbs/terminated",
+            "type": "Verb",
+            "id": "http://adlnet.gov/expapi/verbs/terminated",
             "inScheme": "https://w3id.org/xapi/scorm",
             "prefLabel": {
                 "en": "terminated"
             }
         },
         {
-            "@type": "Verb",
-            "@id": "http://adlnet.gov/expapi/verbs/suspended",
+            "type": "Verb",
+            "id": "http://adlnet.gov/expapi/verbs/suspended",
             "inScheme": "https://w3id.org/xapi/scorm",
             "prefLabel": {
                 "en": "suspended"
             }
         },
         {
-            "@type": "Verb",
-            "@id": "http://adlnet.gov/expapi/verbs/resumed",
+            "type": "Verb",
+            "id": "http://adlnet.gov/expapi/verbs/resumed",
             "inScheme": "https://w3id.org/xapi/scorm",
             "prefLabel": {
                 "en": "resumed"
             }
         },
         {
-            "@type": "Verb",
-            "@id": "http://adlnet.gov/expapi/verbs/passed",
+            "type": "Verb",
+            "id": "http://adlnet.gov/expapi/verbs/passed",
             "inScheme": "https://w3id.org/xapi/scorm",
             "prefLabel": {
                 "en": "passed"
@@ -63,88 +64,88 @@
             "broader": ["http://adlnet.gov/expapi/verbs/completed"]
         },
         {
-            "@type": "Verb",
-            "@id": "http://adlnet.gov/expapi/verbs/failed",
+            "type": "Verb",
+            "id": "http://adlnet.gov/expapi/verbs/failed",
             "inScheme": "https://w3id.org/xapi/scorm",
             "prefLabel": {
                 "en": "failed"
             }
         },
         {
-            "@type": "Verb",
-            "@id": "http://adlnet.gov/expapi/verbs/scored",
+            "type": "Verb",
+            "id": "http://adlnet.gov/expapi/verbs/scored",
             "inScheme": "https://w3id.org/xapi/scorm",
             "prefLabel": {
                 "en": "scored"
             }
         },
         {
-            "@type": "Verb",
-            "@id": "http://adlnet.gov/expapi/verbs/completed",
+            "type": "Verb",
+            "id": "http://adlnet.gov/expapi/verbs/completed",
             "inScheme": "https://w3id.org/xapi/scorm",
             "prefLabel": {
                 "en": "completed"
             }
         },
         {
-            "@type": "Verb",
-            "@id": "http://adlnet.gov/expapi/verbs/responded",
+            "type": "Verb",
+            "id": "http://adlnet.gov/expapi/verbs/responded",
             "inScheme": "https://w3id.org/xapi/scorm",
             "prefLabel": {
                 "en": "responded"
             }
         },
         {
-            "@type": "ActivityType",
-            "@id": "http://adlnet.gov/expapi/activities/course",
+            "type": "ActivityType",
+            "id": "http://adlnet.gov/expapi/activities/course",
             "inScheme": "https://w3id.org/xapi/scorm",
             "prefLabel": {
                 "en": "course"
             }
         },
         {
-            "@type": "ActivityType",
-            "@id": "http://adlnet.gov/expapi/activities/module",
+            "type": "ActivityType",
+            "id": "http://adlnet.gov/expapi/activities/module",
             "inScheme": "https://w3id.org/xapi/scorm",
             "prefLabel": {
                 "en": "module"
             }
         },
         {
-            "@type": "ActivityType",
-            "@id": "http://adlnet.gov/expapi/activities/lesson",
+            "type": "ActivityType",
+            "id": "http://adlnet.gov/expapi/activities/lesson",
             "inScheme": "https://w3id.org/xapi/scorm",
             "prefLabel": {
                 "en": "SCO"
             }
         },
         {
-            "@type": "ActivityType",
-            "@id": "http://adlnet.gov/expapi/activities/assessment",
+            "type": "ActivityType",
+            "id": "http://adlnet.gov/expapi/activities/assessment",
             "inScheme": "https://w3id.org/xapi/scorm",
             "prefLabel": {
                 "en": "assessment"
             }
         },
         {
-            "@type": "ActivityType",
-            "@id": "http://adlnet.gov/expapi/activities/interaction",
+            "type": "ActivityType",
+            "id": "http://adlnet.gov/expapi/activities/interaction",
             "inScheme": "https://w3id.org/xapi/scorm",
             "prefLabel": {
                 "en": "interaction"
             }
         },
         {
-            "@type": "ActivityType",
-            "@id": "http://adlnet.gov/expapi/activities/objective",
+            "type": "ActivityType",
+            "id": "http://adlnet.gov/expapi/activities/objective",
             "inScheme": "https://w3id.org/xapi/scorm",
             "prefLabel": {
                 "en": "objective"
             }
         },
         {
-            "@type": "ActivityType",
-            "@id": "http://adlnet.gov/expapi/activities/attempt",
+            "type": "ActivityType",
+            "id": "http://adlnet.gov/expapi/activities/attempt",
             "inScheme": "https://w3id.org/xapi/scorm",
             "prefLabel": {
                 "en": "attempt"
@@ -153,7 +154,7 @@
     ],
     "templates": [
         {
-            "@id": "_:initialization",
+            "id": "_:initialization",
             "name": {
                 "en": "initialization"
             },
@@ -179,7 +180,7 @@
             ]
         },
         {
-            "@id": "_:termination",
+            "id": "_:termination",
             "name": {
                 "en": "termination"
             },
@@ -205,7 +206,7 @@
             ]
         },
         {
-            "@id": "_:suspension",
+            "id": "_:suspension",
             "name": {
                 "en": "suspension"
             },
@@ -231,7 +232,7 @@
             ]
         },
         {
-            "@id": "_:resumption",
+            "id": "_:resumption",
             "name": {
                 "en": "resumption"
             },
@@ -257,7 +258,7 @@
             ]
         },
         {
-            "@id": "_:scoactivity",
+            "id": "_:scoactivity",
             "name": {
                 "en": "SCO activity"
             },
@@ -291,7 +292,7 @@
             ]
         },
         {
-            "@id": "_:commenting",
+            "id": "_:commenting",
             "name": {
                 "en": "commenting"
             },
@@ -321,7 +322,7 @@
             ]
         },
         {
-            "@id": "_:completing",
+            "id": "_:completing",
             "name": {
                 "en": "completing"
             },
@@ -347,7 +348,7 @@
             ]
         },
         {
-            "@id": "_:otheractivity",
+            "id": "_:otheractivity",
             "name": {
                 "en": "other activity"
             },
@@ -368,7 +369,7 @@
             ]
         },
         {
-            "@id": "_:interactionactivity",
+            "id": "_:interactionactivity",
             "name": {
                 "en": "interaction activity"
             },
@@ -411,19 +412,19 @@
             "sequence": ["_:initialization", "_:middlestatements", "_:optionallycontinue", "_:termination"]
         },
         {
-            "@id": "_:activitystatements",
+            "id": "_:activitystatements",
             "alternates": ["_:scoactivity", "_:otheractivity", "_:commenting", "_:interactionactivity", "_:completing"]
         },
         {
-            "@id": "_:middlestatements",
+            "id": "_:middlestatements",
             "zeroOrMore": "_:activitystatements"
         },
         {
-            "@id": "_:suspendresume",
+            "id": "_:suspendresume",
             "sequence": ["_:suspension", "_:resumption", "_:middlestatements"]
         },
         {
-            "@id": "_:optionallycontinue",
+            "id": "_:optionallycontinue",
             "zeroOrMore": "_:suspendresume"
         }
 

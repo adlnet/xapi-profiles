@@ -32,8 +32,8 @@ Using an introduced Concept, such as an activity type, verb, attachment usage ty
 
 Name | Values
 ---- | ------
-`@id` | The IRI of the profile overall (not a specific version)
-`@type` | Must be `Profile`.
+`id` | The IRI of the profile overall (not a specific version)
+`type` | Must be `Profile`.
 `conformsTo` | Canonical URI of the profile specification version conformed to. The profile specification version of this document is https://github.com/DataInteroperability/xapi-profiles/tree/master#1.0.0-development, and it is a development version that may undergo incompatible changes without updating the version URI.
 `name` | Language map of names for this profile.
 `definition` | Language map of descriptions for this profile. If there are additional rules for the profile as a whole that cannot be expressed using this specification, include them here.
@@ -50,7 +50,7 @@ Name | Values
 
 Name | Values
 ---- | ------
-`@id` | The IRI of the version ID
+`id` | The IRI of the version ID
 `wasRevisionOf` | an array, usually of length one, of IRIs of all profile versions this version was written as a revision of
 `generatedAtTime` | the date this version was created on
 
@@ -62,7 +62,7 @@ Use one of these in the `author` property to indicate the author of this profile
 
 Name | Values
 ---- | ------
-`@type` | Organization or Person
+`type` | Organization or Person
 `name` | A string with the name of the organization or person
 
 ## Concepts
@@ -73,19 +73,19 @@ When describing verbs, activity types, and attachment usage types, use the follo
 
 Name | Values
 ---- | ------
-`@type` | `Verb`, `ActivityType`, or `AttachmentUsageType`
+`type` | `Verb`, `ActivityType`, or `AttachmentUsageType`
 `inScheme` | The IRI of the specific profile version currently being described
 `prefLabel` | A language map of the preferred names in each language
 `altLabel` | An array of language-tagged alternative names. Array members MUST be expanded value objects with @value and @language keys.
 `definition` | A language map of the precise definition, including how to use the concept properly in statements
 `deprecated` | Optional. A boolean. If true, this concept is deprecated.
-`broader` | An array of IRIs of concepts of the same @type from this profile version that have a broader meaning.
-`narrower` | An array of IRIs of concepts of the same @type from this profile version that have a narrower meaning.
-`broadMatch` | An array of IRIs of concepts of the same @type from a different profile that have a broader meaning.
-`narrowMatch` | An array of IRIs of concepts of the same @type from different profiles that have narrower meanings.
-`exactMatch` | An array of IRIs of concepts of the same @type from a different profile or a different version of the same profile that have exactly the same meaning. This should be used rarely, mostly to describe connections to vocabularies that are no longer managed and do not use good URLs.
-`relatedMatch` | An array of IRIs of concepts of the same @type from a different profile or a different version of the same profile that has a related meaning that is not clearly narrower or broader. Useful to establish conceptual links between profiles that can be used for discovery. This SHOULD be used to connect possible replacement Concepts to removed Concepts from previous versions of the same profile, and for possible replacement Concepts in other profiles of deprecated concepts, as well as other loose relations.
-`related` | An array of IRIs of concepts of the same @type from this profile version that are close conceptual matches to this concept's meaning. This property MUST only be used on concepts that are deprecated to indicate possible replacement concepts in the same profile, if there are any.
+`broader` | An array of IRIs of concepts of the same `type` from this profile version that have a broader meaning.
+`narrower` | An array of IRIs of concepts of the same `type` from this profile version that have a narrower meaning.
+`broadMatch` | An array of IRIs of concepts of the same `type` from a different profile that have a broader meaning.
+`narrowMatch` | An array of IRIs of concepts of the same `type` from different profiles that have narrower meanings.
+`exactMatch` | An array of IRIs of concepts of the same `type` from a different profile or a different version of the same profile that have exactly the same meaning. This should be used rarely, mostly to describe connections to vocabularies that are no longer managed and do not use good URLs.
+`relatedMatch` | An array of IRIs of concepts of the same `type` from a different profile or a different version of the same profile that has a related meaning that is not clearly narrower or broader. Useful to establish conceptual links between profiles that can be used for discovery. This SHOULD be used to connect possible replacement Concepts to removed Concepts from previous versions of the same profile, and for possible replacement Concepts in other profiles of deprecated concepts, as well as other loose relations.
+`related` | An array of IRIs of concepts of the same `type` from this profile version that are close conceptual matches to this concept's meaning. This property MUST only be used on concepts that are deprecated to indicate possible replacement concepts in the same profile, if there are any.
 
 ### Extensions
 
@@ -93,7 +93,7 @@ This is the trickiest bit, probably, along with the idea of constraining documen
 
 Name | Values
 ---- | ------
-`@id` | The IRI of the extension, used as the extension key in xAPI
+`id` | The IRI of the extension, used as the extension key in xAPI
 `name` | A language map of descriptive names for the extension
 `definition` | A language map of descriptions of the purpose and usage of the extension
 `deprecated` | Optional. A boolean. If true, this concept is deprecated.
@@ -104,13 +104,13 @@ Name | Values
 
 ### Document Resources
 
-Document resources use similar properties to extensions. The @id MUST be used as the stateId or profileId (as appropriate) when interacting with the corresponding resource.
+Document resources use similar properties to extensions. The `id` MUST be used as the stateId or profileId (as appropriate) when interacting with the corresponding resource.
 
 
 Name | Values
 ---- | ------
-`@id` | The IRI of the document resource, used as the stateId/profileId in xAPI
-`@type` | One of: `StateResource`, `AgentProfileResource`, `ActivityProfileResource`
+`id` | The IRI of the document resource, used as the stateId/profileId in xAPI
+`type` | One of: `StateResource`, `AgentProfileResource`, `ActivityProfileResource`
 `name` | A language map of descriptive names for the document resource
 `definition` | A language map of descriptions of the purpose and usage of the document resource
 `deprecated` | Optional. A boolean. If true, this concept is deprecated.
@@ -121,14 +121,14 @@ Name | Values
 
 ### Activities
 
-These are just literal xAPI Activity definitions the profile wants to provide for use. This is the profile's canonical version of the Activity. Except for `@id` and `@context` this Concept MUST be a legal xAPI Activity Definition. When using the Activity, a Statement MUST use the `@id` for the Activity `id`, and MUST NOT include `@id` or `@context` in the Activity definition. All other properties are considered part of the definition, and any Statement using the Activity SHOULD either not include the definition, or SHOULD include all properties given here in the definition exactly as given, except for `name` and `description` or other language maps, which SHOULD only include languages appropriate to the situation, possibly including ones not present in the profile yet.
+These are just literal xAPI Activity definitions the profile wants to provide for use. This is the profile's canonical version of the Activity. Except for `@context` this Concept MUST be a legal xAPI Activity definition. When using the Activity, a Statement MUST use the Activity `id` for the `id`, and MUST NOT include `@context` in the Activity definition. All other properties are considered part of the definition, and any Statement using the Activity SHOULD either not include the definition, or SHOULD include all properties given here in the definition exactly as given, except for `name` and `description` or other language maps, which SHOULD only include languages appropriate to the situation, possibly including ones not present in the profile yet.
 
 Due to restrictions in JSON-LD, all extensions in the Activity that do not have primitive values MUST include a JSON-LD @context in the top-level object or in every top-level object if array-valued.
 
 Name | Values
 ---- | ------
-`@id` | The IRI of the activity
-`@context` | Must be TODO create an Activity context and host it at a URI.
+`@context` | TODO create an JSON-LD context and host it at a URI.
+`id` | The IRI of the activity
 `type` | As in xAPI
 `name`
 `description`
@@ -148,7 +148,7 @@ A Statement Template describes one way statements following the profile may be s
 
 Name | Values
 ---- | ------
-`@id` | The identifier or short name of the template, in the form :name
+`id` | The identifier or short name of the template, in the form :name
 `name` | a language map of descriptive names for the statement template
 `definition` | A language map of descriptions of the purpose and usage of the statement template
 `deprecated` | Optional. A boolean. If true, this template is deprecated.
@@ -204,7 +204,7 @@ Patterns have these properties:
 
 Name | Values
 ---- | ------
-`@id` | The identifier or short name of the template, in the form :name
+`id` | The identifier or short name of the template, in the form :name
 `name` | A language map of descriptive names for the pattern
 `definition` | A language map of descriptions of the purpose and usage of the pattern
 `deprecated` | Optional. A boolean. If true, this pattern is deprecated.
@@ -214,11 +214,9 @@ Name | Values
 `sequence` | An array of pattern or statement template identifiers. A sequence pattern matches if the identified things match in the order specified.
 `zeroOrMore` | A single pattern or statement template identifier. A zeroOrMore pattern matches if the identified thing is not present or is present one or more times
 
-
-
 A pattern MUST contain exactly one of `alternates`, `optional`, `oneOrMore`, `sequence`, and `zeroOrMore`.
-A pattern with an @id MUST NOT include name, definition, or deprecated.
-A pattern without an @id MUST include name and definition.
+A pattern with an `id` MUST NOT include name, definition, or deprecated.
+A pattern without an `id` MUST include name and definition.
 A pattern MUST not refer to any pattern that has itself in the array or single value for any of `alternates`, `optional`, `oneOrMore`, `sequence`, or `zeroOrMore`, considered recursively.
 A pattern only matches if it matches greedily. That is, if, when checking for a match of an optional or zeroOrMore or oneOrMore pattern, the next statement matches the pattern or statement template it applies to, the statement MUST be considered to be part of that match. That is, no backtracking is allowed. This constrains useful statement patterns, but guarantees efficient processing, as once a statement is matched it does not need to be reconsidered (except in cases where it is part of an ultimately unmatched alternate).
 When checking previously collected statements for matching a pattern, ordering MUST be based on timestamp. In the event two or more statements have identical timestamps, any order within those statements is allowed.
@@ -233,8 +231,8 @@ When checking statements for matching a pattern upon receipt, ordering MUST be b
         "skos": "http://www.w3.org/2004/02/skos/core#",
         "xapi": "http://purl.org/xapi/ontology#",
 
-        "type": "@type",
         "id": "@id",
+        "type": "@type",
         "Profile": "xapi:Profile",
         "Verb": "xapi:Verb",
         "ActivityType": "xapi:ActivityType",
@@ -297,15 +295,16 @@ There will be lots of examples, but this is largely an exercise in feeling out w
 
 ```
 {
-    "@id": "http://myvocab.example.com/xapi/",
-    "@type": "Profile",
+    "@context": "https://w3id.org/xapi/adl/contexts/profiles",
+    "id": "http://myvocab.example.com/xapi/",
+    "type": "Profile",
     "versions": [
         {
-            "@id": "http://myvocab.example.com/xapi/2.0/",
+            "id": "http://myvocab.example.com/xapi/2.0/",
             "wasRevisionOf": "http://myvocab.example.com/xapi/1.0/"
         },
         {
-            "@id": "http://myvocab.example.com/xapi/1.0/"
+            "id": "http://myvocab.example.com/xapi/1.0/"
         }
     ],
     "wasGeneratedBy": {
@@ -321,8 +320,8 @@ There will be lots of examples, but this is largely an exercise in feeling out w
     ],
     "concepts": [
         {
-            "@id": "http://myvocab.example.com/xapi/placed",
-            "@type": "Verb",
+            "id": "http://myvocab.example.com/xapi/placed",
+            "type": "Verb",
             "inScheme": "http://myvocab.example.com/xapi/2.0/",
             "prefLabel": {
                 "en": "placed"
@@ -336,8 +335,8 @@ There will be lots of examples, but this is largely an exercise in feeling out w
             "broadMatch": ["http://www.adlnet.gov/expapi/verbs/completed"],
         },
         {
-            "@id": "http://myvocab.example.com/xapi/judgingScores",
-            "@type": "Extension",
+            "id": "http://myvocab.example.com/xapi/judgingScores",
+            "type": "Extension",
             "prefLabel": {
                 "en": "Judging Scores"
             },
@@ -349,7 +348,7 @@ There will be lots of examples, but this is largely an exercise in feeling out w
             "location": ["result"]
         },
         {
-            "@id": "http://myvocab.example.com/xapi/SummerOlympics2016",
+            "id": "http://myvocab.example.com/xapi/SummerOlympics2016",
             "definition": {
                 "type": "http://myvocab.example.com/xapi/OlympicGames",
                 "name": {
@@ -420,6 +419,6 @@ Another algorithm will apply for validating multiple statements for matching a p
 
 For each of the above operations, the Profile Server will provide web APIs that are strongly Not Recommended for production usage.
 
-One URL will be at /validate_templates, and the other at /validate_patterns. The first will take a single xAPI statement and a profile specified by id, specified in POST variables as “statement” and “profile”. The second will take an array of xAPI statements and a profile specified by id, both specified in POST variables as “statements” and “profile”.
+One URL will be at /validate_templates, and the other at /validate_patterns. The first will take a single xAPI statement and a profile specified by `id`, specified in POST variables as “statement” and “profile”. The second will take an array of xAPI statements and a profile specified by `id`, both specified in POST variables as “statements” and “profile”.
 
 Both will perform the algorithms above and return 204 on successful validation and 400 on failure, with descriptive comments attached on failure.
