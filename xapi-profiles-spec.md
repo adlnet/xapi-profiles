@@ -18,9 +18,9 @@ Under the hood, xAPI Profiles will use several well-established semantic web tec
 
 # Structure
 
-Profiles serve two primary technical goals. First, they contain metadata about xAPI concepts intended for reuse within statements, such as verbs and activity types. The metadata includes connections between concepts, not just within the current profile, but also as used in other profiles, supporting a rich ecosystem of related terms. Some of the xAPI concepts a profile lists won't be original to this profile, either, but will be borrowed from other profiles.
+Profiles serve two primary technical goals. First, they contain metadata about xAPI Concepts intended for reuse within statements, such as verbs and activity types. The metadata includes connections between Concepts, not just within the current profile, but also as used in other profiles, supporting a rich ecosystem of related terms. An xAPI Concept is any building block for use in Statements, and new versions of the profile specification may introduce new Concepts that can be described. The basis for xAPI Concepts is the SKOS Concept, a flexible way to refer to "specific ideas or meanings established within a knowledge organization system."
 
-Second, they contain specific rules about using those xAPI concepts properly, both on how to form individual statements containing specific concepts, and how to group those statements together in patterns of multiple statements. These rules allow profile authors to require specific elements, describe precise orderings, and many other options.
+Second, they contain specific rules about using those Concepts properly in specific situations, both on how to form individual statements containing specific Concepts, and how to group those statements together in patterns of multiple statements. These rules allow profile authors to require specific elements, describe precise orderings, and many other options.
 
 To assist in accomplishing these two primary goals, profiles also contain metadata about themselves—descriptions, authorship, versioning, and so forth.
 
@@ -69,7 +69,7 @@ Name | Values
 
 ### Core Concepts: Verbs, Activity Types, and Attachment Usage Types
 
-When describing verbs, activity types, and attachment usage types, use the following terms:
+These Concepts are the most central to building rich, reusable profiles. When describing verbs, activity types, and attachment usage types, a profile MUST use the following structure:
 
 Name | Values
 ---- | ------
@@ -89,7 +89,7 @@ Name | Values
 
 ### Extensions
 
-This is the trickiest bit, probably, along with the idea of constraining document resources. The below is intended to be very preliminary.
+For describing extension Concepts, a profile MUST use the following structure:
 
 Name | Values
 ---- | ------
@@ -104,7 +104,7 @@ Name | Values
 
 ### Document Resources
 
-Document resources use similar properties to extensions. The @id MUST be used as the stateId or profileId (as appropriate) when interacting with the corresponding resource.
+When describing document resource Concepts, a profile MUST use the following structure, which is similar to the one used for extensions. The @id MUST be used as the stateId or profileId (as appropriate) when interacting with the corresponding resource.
 
 
 Name | Values
@@ -121,7 +121,7 @@ Name | Values
 
 ### Activities
 
-These are just literal xAPI Activity definitions the profile wants to provide for use. This is the profile's canonical version of the Activity. Except for `@id` and `@context` this Concept MUST be a legal xAPI Activity Definition. When using the Activity, a Statement MUST use the `@id` for the Activity `id`, and MUST NOT include `@id` or `@context` in the Activity definition. All other properties are considered part of the definition, and any Statement using the Activity SHOULD either not include the definition, or SHOULD include all properties given here in the definition exactly as given, except for `name` and `description` or other language maps, which SHOULD only include languages appropriate to the situation, possibly including ones not present in the profile yet.
+These Concepts are just literal xAPI Activity definitions the profile wants to provide for use. This is the profile's canonical version of the Activity. Except for `@id` and `@context` this Concept MUST be a legal xAPI Activity Definition. When using the Activity, a Statement MUST use the `@id` for the Activity `id`, and MUST NOT include `@id` or `@context` in the Activity definition. All other properties are considered part of the definition, and any Statement using the Activity SHOULD either not include the definition, or SHOULD include all properties given here in the definition exactly as given, except for `name` and `description` or other language maps, which SHOULD only include languages appropriate to the situation, possibly including ones not present in the profile yet.
 
 Due to restrictions in JSON-LD, all extensions in the Activity that do not have primitive values MUST include a JSON-LD @context in the top-level object or in every top-level object if array-valued.
 
