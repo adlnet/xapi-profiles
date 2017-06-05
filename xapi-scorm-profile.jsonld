@@ -153,12 +153,10 @@
     ],
     "templates": [
         {
-            "@id": "_:initialization",
+            "@id": "_:generalrestrictions",
             "name": {
-                "en": "initialization"
+                "en": "general restrictions on statements"
             },
-            "verb": "http://adlnet.gov/expapi/verbs/initialized",
-            "objectActivityType": "http://adlnet.gov/expapi/activities/lesson",
             "rules": [
                 {
                     "location": "context.contextActivities.grouping[*].definition.type",
@@ -171,11 +169,17 @@
                 {
                     "location": "timestamp",
                     "rule": "included"
-                },
-                {
-                    "location": "context.contextActivities.parent[*].id",
-                    "rule": "excluded"
                 }
+            ]
+        },
+        {
+            "@id": "_:initialization",
+            "name": {
+                "en": "initialization"
+            },
+            "verb": "http://adlnet.gov/expapi/verbs/initialized",
+            "objectActivityType": "http://adlnet.gov/expapi/activities/lesson",
+            "rules": [
             ]
         },
         {
@@ -186,22 +190,6 @@
             "verb": "http://adlnet.gov/expapi/verbs/terminated",
             "objectActivityType": "http://adlnet.gov/expapi/activities/lesson",
             "rules": [
-                {
-                    "location": "context.contextActivities.grouping[*].definition.type",
-                    "any": ["http://adlnet.gov/expapi/activities/attempt"]
-                },
-                {
-                    "location": "context.contextActivities.grouping[*].definition.type",
-                    "any": ["http://adlnet.gov/expapi/activities/course"]
-                },
-                {
-                    "location": "timestamp",
-                    "rule": "included"
-                },
-                {
-                    "location": "context.contextActivities.parent[*].id",
-                    "rule": "excluded"
-                }
             ]
         },
         {
@@ -212,22 +200,6 @@
             "verb": "http://adlnet.gov/expapi/verbs/suspended",
             "objectActivityType": "http://adlnet.gov/expapi/activities/lesson",
             "rules": [
-                {
-                    "location": "context.contextActivities.grouping[*].definition.type",
-                    "any": ["http://adlnet.gov/expapi/activities/attempt"]
-                },
-                {
-                    "location": "context.contextActivities.grouping[*].definition.type",
-                    "any": ["http://adlnet.gov/expapi/activities/course"]
-                },
-                {
-                    "location": "timestamp",
-                    "rule": "included"
-                },
-                {
-                    "location": "context.contextActivities.parent[*].id",
-                    "rule": "excluded"
-                }
             ]
         },
         {
@@ -238,22 +210,6 @@
             "verb": "http://adlnet.gov/expapi/verbs/resumed",
             "objectActivityType": "http://adlnet.gov/expapi/activities/lesson",
             "rules": [
-                {
-                    "location": "context.contextActivities.grouping[*].definition.type",
-                    "any": ["http://adlnet.gov/expapi/activities/attempt"]
-                },
-                {
-                    "location": "context.contextActivities.grouping[*].definition.type",
-                    "any": ["http://adlnet.gov/expapi/activities/course"]
-                },
-                {
-                    "location": "timestamp",
-                    "rule": "included"
-                },
-                {
-                    "location": "context.contextActivities.parent[*].id",
-                    "rule": "excluded"
-                }
             ]
         },
         {
@@ -263,31 +219,6 @@
             },
             "objectActivityType": "http://adlnet.gov/expapi/activities/lesson",
             "rules": [
-                {
-                    "location": "context.contextActivities.grouping[*].definition.type",
-                    "any": ["http://adlnet.gov/expapi/activities/attempt"]
-                },
-                {
-                    "location": "context.contextActivities.grouping[*].definition.type",
-                    "any": ["http://adlnet.gov/expapi/activities/course"]
-                },
-                {
-                    "location": "timestamp",
-                    "rule": "included"
-                },
-                {
-                    "location": "context.contextActivities.parent[*].id",
-                    "rule": "excluded"
-                },
-                {
-                    "location": "verb.id",
-                    "none": [
-                        "http://adlnet.gov/expapi/verbs/resumed",
-                        "http://adlnet.gov/expapi/verbs/suspended",
-                        "http://adlnet.gov/expapi/verbs/terminated",
-                        "http://adlnet.gov/expapi/verbs/initialized"
-                    ]
-                }
             ]
         },
         {
@@ -298,22 +229,6 @@
             "verb": "http://adlnet.gov/expapi/verbs/commented",
             "objectActivityType": "http://adlnet.gov/expapi/activities/lesson",
             "rules": [
-                {
-                    "location": "context.contextActivities.grouping[*].definition.type",
-                    "any": ["http://adlnet.gov/expapi/activities/attempt"]
-                },
-                {
-                    "location": "context.contextActivities.grouping[*].definition.type",
-                    "any": ["http://adlnet.gov/expapi/activities/course"]
-                },
-                {
-                    "location": "timestamp",
-                    "rule": "included"
-                },
-                {
-                    "location": "context.contextActivities.parent[*].id",
-                    "rule": "excluded"
-                },
                 {
                     "location": "result.response",
                     "rule": "included"
@@ -328,22 +243,6 @@
             "verb": "http://adlnet.gov/expapi/verbs/completed",
             "objectActivityType": "http://adlnet.gov/expapi/activities/lesson",
             "rules": [
-                {
-                    "location": "context.contextActivities.grouping[*].definition.type",
-                    "any": ["http://adlnet.gov/expapi/activities/attempt"]
-                },
-                {
-                    "location": "context.contextActivities.grouping[*].definition.type",
-                    "any": ["http://adlnet.gov/expapi/activities/course"]
-                },
-                {
-                    "location": "timestamp",
-                    "rule": "included"
-                },
-                {
-                    "location": "context.contextActivities.parent[*].id",
-                    "rule": "excluded"
-                }
             ]
         },
         {
@@ -353,18 +252,6 @@
             },
             "contextParentActivityType": "http://adlnet.gov/expapi/activities/lesson",
             "rules": [
-                {
-                    "location": "context.contextActivities.grouping[*].definition.type",
-                    "any": ["http://adlnet.gov/expapi/activities/attempt"]
-                },
-                {
-                    "location": "context.contextActivities.grouping[*].definition.type",
-                    "any": ["http://adlnet.gov/expapi/activities/course"]
-                },
-                {
-                    "location": "timestamp",
-                    "rule": "included"
-                }
             ]
         },
         {
@@ -376,18 +263,6 @@
             "objectActivityType": "TODO look up interaction activity URI",
             "contextParentActivityType": "http://adlnet.gov/expapi/activities/lesson",
             "rules": [
-                {
-                    "location": "context.contextActivities.grouping[*].definition.type",
-                    "any": ["http://adlnet.gov/expapi/activities/attempt"]
-                },
-                {
-                    "location": "context.contextActivities.grouping[*].definition.type",
-                    "any": ["http://adlnet.gov/expapi/activities/course"]
-                },
-                {
-                    "location": "timestamp",
-                    "rule": "included"
-                }
             ]
         }
         // TODO multiple objectives statements
