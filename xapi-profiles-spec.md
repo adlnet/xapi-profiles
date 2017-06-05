@@ -144,17 +144,17 @@ Name | Values
 
 ## Statement Templates
 
-A Statement Template describes one way statements following the profile may be structured. Which statement template applies is determined by the verb, object activity type, and attachment usage types in the statement. If the verb, object activity type, and all attachment usage type(s) are present and the profile version is used as a category context activity, the rules in the Statement Template MUST be followed. In a given profile, no statement template's determining values -- verb and so forth -- may be a subset of any other statement template's determining values. Additionally, we recommend picking one of the determining properties to use in all statement templates in a given profile, with different values in each, since this ensures each statement matches at most one statement template in a given profile.
+A Statement Template describes one way statements following the profile may be structured. The verb, object activity type, attachment usage types, and context activity types listed are the determining properties. When authoring a statement to follow a template, a Learning Record Provider MUST include all the determining properties, as well as follow all rules in the template. Any statement including all the determining properties and using the profile version as a category context activity MUST follow the rules. In a profile, no Statement Template's determining properties may be a subset of any other Statement Template's determining properties. Additionally, we recommend picking one of the determining properties to use in all Statement Templates in a profile, with different values in each, since this ensures each statement matches at most one Statement Template in a given profile. A profile SHOULD ensure each statement following any of its Statement Templates will match at most one Statement Template.
 
-If a statement matches a statement template's determining values and uses the profile version as a category context activity, it MUST be sent as part of a Pattern or Implied Pattern.
+If a statement matches a Statement Template's determining values and uses the profile version as a category context activity, it MUST be sent as part of a Pattern or Implied Pattern.
 
 Name | Values
 ---- | ------
 `@id` | The identifier or short name of the template, in the form :name
-`name` | a language map of descriptive names for the statement template
-`definition` | A language map of descriptions of the purpose and usage of the statement template
+`name` | a language map of descriptive names for the Statement Template
+`definition` | A language map of descriptions of the purpose and usage of the Statement Template
 `allowedSolo` | Optional. A boolean, default false. If true, this Statement Template can be used as a single statement Implied Pattern (see that section). A Statement Template may be both used in Patterns and allowedSolo true.
-`deprecated` | Optional. A boolean, default false. If true, this template is deprecated.
+`deprecated` | Optional. A boolean, default false. If true, this Statement Template is deprecated.
 `verb` | *Optional*. Verb IRI
 `objectActivityType` | *Optional*. Object activity type IRI
 `contextGroupingActivityType` | *Optional*. Array of contextActivities grouping activity type IRIs
@@ -162,11 +162,11 @@ Name | Values
 `contextOtherActivityType` | *Optional*. Array of contextActivities other activity type IRIs
 `contextCategoryActivityType` | *Optional*. Array of contextActivities category activity type IRIs
 `attachmentUsageType` | *Optional*. Array of attachment usage type IRIs
-`rules` | Array of statement template rules
+`rules` | Array of Statement Template Rules
 
 ### Statement Template Rules
 
-Statement Template Rules describe a location or locations within statements using a JSONPath, then require that value either be excluded, included, or be a particular value. For example, to require at least one grouping, perhaps it might be something like:
+Statement Template Rules describe a location or locations within statements using JSONPath, then describe the restrictions on that value, such as inclusion, exclusion, or specific values allowed or disallowed. For example, to require at least one grouping, the rules might be something like:
 
 ```
 "rules": [
