@@ -1,0 +1,7 @@
+# Intellij
+.idea/
+*.iml
+*.ipr
+*.iws
+*.uml
+out/
