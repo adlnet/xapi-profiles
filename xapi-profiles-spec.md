@@ -153,7 +153,7 @@ Name | Values
 `@id` | The identifier or short name of the template, in the form :name
 `name` | a language map of descriptive names for the statement template
 `definition` | A language map of descriptions of the purpose and usage of the statement template
-`allowedSolo` | Optional. A boolean, default false. If true, this Statement Template can be used as a single statement Implied Pattern (see that section). All Statement Templates MUST be used in Patterns or be allowedSolo true, and MAY be both.
+`allowedSolo` | Optional. A boolean, default false. If true, this Statement Template can be used as a single statement Implied Pattern (see that section). A Statement Template may be both used in Patterns and allowedSolo true.
 `deprecated` | Optional. A boolean, default false. If true, this template is deprecated.
 `verb` | *Optional*. Verb IRI
 `objectActivityType` | *Optional*. Object activity type IRI
