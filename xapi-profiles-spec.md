@@ -162,6 +162,7 @@ If a statement matches a Statement Template's determining values and uses the pr
 Name | Values
 ---- | ------
 `@id` | The identifier or short name of the template, in the form :name
+`@type` | `StatementTemplate`
 `inScheme` | The IRI of the specific profile version currently being described
 `name` | a language map of descriptive names for the Statement Template
 `definition` | A language map of descriptions of the purpose and usage of the Statement Template
@@ -220,6 +221,7 @@ Patterns have these properties:
 Name | Values
 ---- | ------
 `@id` | The identifier or short name of the template, in the form :name
+`@type` | `Pattern`
 `inScheme` | The IRI of the specific profile version currently being described
 `name` | A language map of descriptive names for the pattern
 `definition` | A language map of descriptions of the purpose and usage of the pattern
