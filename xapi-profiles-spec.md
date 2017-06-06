@@ -135,6 +135,7 @@ Name | Values
 `@id` | The IRI of the activity
 `@type` | `Activity`
 `inScheme` | The IRI of the specific profile version currently being described
+`deprecated` | Optional. A boolean. If true, this concept is deprecated.
 `activityDefinition` | An Activity Definition as in xAPI, plus an @context, as in the table below.
 
 Name | Values
