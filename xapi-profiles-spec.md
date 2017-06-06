@@ -190,6 +190,8 @@ Name | Values
 
 A Statement Template Rule MUST include one or more of rule, any, all, or none.
 
+When processing a statement for Statement Template Rules, it MUST have normalized contextActivities, with singletons replaced by arrays of length one.
+
 ### Alignments?
 
 I propose we do not include alignments in the initial draft
