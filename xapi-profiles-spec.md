@@ -35,7 +35,7 @@ Name | Values
 `@id` | The IRI of the profile overall (not a specific version)
 `@type` | Must be `Profile`.
 `conformsTo` | Canonical URI of the profile specification version conformed to. The profile specification version of this document is https://github.com/DataInteroperability/xapi-profiles/tree/master#1.0.0-development, and it is a development version that may undergo incompatible changes without updating the version URI.
-`name` | Language map of names for this profile.
+`prefLabel` | Language map of names for this profile.
 `definition` | Language map of descriptions for this profile. If there are additional rules for the profile as a whole that cannot be expressed using this specification, include them here.
 `seeAlso` | A URL containing information about the profile. Recommended instead of especially long definitions.
 `versions` | An array of all profile version objects for this profile, see below.
@@ -94,7 +94,7 @@ For describing extension Concepts, a profile MUST use the following structure:
 Name | Values
 ---- | ------
 `@id` | The IRI of the extension, used as the extension key in xAPI
-`name` | A language map of descriptive names for the extension
+`prefLabel` | A language map of descriptive names for the extension
 `definition` | A language map of descriptions of the purpose and usage of the extension
 `deprecated` | Optional. A boolean. If true, this concept is deprecated.
 `placement` | An array of placement locations. Must contain at least one element, no elements may be repeated, and the only allowed elements are `context`, `result`, `activity` and IRIs (which must be Activity Type IRIs in this or other profiles).
@@ -111,7 +111,7 @@ Name | Values
 ---- | ------
 `@id` | The IRI of the document resource, used as the stateId/profileId in xAPI
 `@type` | One of: `StateResource`, `AgentProfileResource`, `ActivityProfileResource`
-`name` | A language map of descriptive names for the document resource
+`prefLabel` | A language map of descriptive names for the document resource
 `definition` | A language map of descriptions of the purpose and usage of the document resource
 `deprecated` | Optional. A boolean. If true, this concept is deprecated.
 `context` | *Optional*. the IRI of a JSON-LD context for this document resource
@@ -151,7 +151,7 @@ If a statement matches a Statement Template's determining values and uses the pr
 Name | Values
 ---- | ------
 `@id` | The identifier or short name of the template, in the form :name
-`name` | a language map of descriptive names for the Statement Template
+`prefLabel` | a language map of descriptive names for the Statement Template
 `definition` | A language map of descriptions of the purpose and usage of the Statement Template
 `allowedSolo` | Optional. A boolean, default false. If true, this Statement Template can be used as a single statement Implied Pattern (see that section). A Statement Template may be both used in Patterns and allowedSolo true.
 `deprecated` | Optional. A boolean, default false. If true, this Statement Template is deprecated.
@@ -208,7 +208,7 @@ Patterns have these properties:
 Name | Values
 ---- | ------
 `@id` | The identifier or short name of the template, in the form :name
-`name` | A language map of descriptive names for the pattern
+`prefLabel` | A language map of descriptive names for the pattern
 `definition` | A language map of descriptions of the purpose and usage of the pattern
 `deprecated` | Optional. A boolean. If true, this pattern is deprecated.
 `alternates` | A two-or-more length array of pattern or statement template identifiers. An alternates pattern matches if any member of the array matches
@@ -220,8 +220,8 @@ Name | Values
 
 
 A pattern MUST contain exactly one of `alternates`, `optional`, `oneOrMore`, `sequence`, and `zeroOrMore`.
-A pattern with an @id MUST NOT include name, definition, or deprecated.
-A pattern without an @id MUST include name and definition.
+A pattern with an @id MUST NOT include prefLabel, definition, or deprecated.
+A pattern without an @id MUST include prefLabel and definition.
 A pattern MUST not refer to any pattern that has itself in the array or single value for any of `alternates`, `optional`, `oneOrMore`, `sequence`, or `zeroOrMore`, considered recursively.
 A pattern only matches if it matches greedily. That is, if, when checking for a match of an optional or zeroOrMore or oneOrMore pattern, the next statement matches the pattern or statement template it applies to, the statement MUST be considered to be part of that match. That is, no backtracking is allowed. This constrains useful statement patterns, but guarantees efficient processing, as once a statement is matched it does not need to be reconsidered (except in cases where it is part of an ultimately unmatched alternate).
 When checking previously collected statements for matching a pattern, ordering MUST be based on timestamp. In the event two or more statements have identical timestamps, any order within those statements is allowed.
