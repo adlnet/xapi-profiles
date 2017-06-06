@@ -34,7 +34,7 @@ Name | Values
 ---- | ------
 `@id` | The IRI of the profile overall (not a specific version)
 `@type` | Must be `Profile`.
-`conformsTo` | Canonical URI of the profile specification version conformed to. The profile specification version of this document is https://github.com/DataInteroperability/xapi-profiles/tree/master#1.0.0-development, and it is a development version that may undergo incompatible changes without updating the version URI.
+`conformsTo` | Canonical URI of the profile specification version conformed to. The profile specification version of this document is https://github.com/DataInteroperability/xapi-profiles/tree/master#1.0-development, and it is a development version that may undergo incompatible changes without updating the version URI.
 `name` | Language map of names for this profile.
 `definition` | Language map of descriptions for this profile. If there are additional rules for the profile as a whole that cannot be expressed using this specification, include them here.
 `seeAlso` | A URL containing information about the profile. Recommended instead of especially long definitions.
