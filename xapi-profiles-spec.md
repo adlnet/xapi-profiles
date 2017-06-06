@@ -94,13 +94,17 @@ For describing extension Concepts, a profile MUST use the following structure:
 Name | Values
 ---- | ------
 `@id` | The IRI of the extension, used as the extension key in xAPI
+`@type` | `ContextExtension`, `ResultExtension`, or `ActivityExtension`
 `name` | A language map of descriptive names for the extension
 `definition` | A language map of descriptions of the purpose and usage of the extension
 `deprecated` | Optional. A boolean. If true, this concept is deprecated.
-`placement` | An array of placement locations. Must contain at least one element, no elements may be repeated, and the only allowed elements are `context`, `result`, `activity` and IRIs (which must be Activity Type IRIs in this or other profiles).
+`recommendedActivityTypes` | Optional. Only allowed on `ActivityExtension`s. An array of activity type URIs that this extension is recommended for use with (extending to narrower of the same).
+`recommendedVerbs` | Optional. Only allowed on `ContextExtension`s and `ResultExtension`s. An array of verb URIs that this extension is recommended for use with (extending to narrower of the same).
 `context` | *Optional*. the IRI of a JSON-LD context for this extension
 `schema` | *Optional*. the IRI for accessing a JSON Schema for this extension. The JSON Schema may constrain the extension to a single type.
 `inlineSchema` | A JSON Schema inline. Must be a string that contains a legal JSON Schema.
+
+A ContextExtension MUST only be used in context, a ResultExtension MUST only be used in result, and an ActivityExtension MUST only be used in an Activity Definition.
 
 ### Document Resources
 
