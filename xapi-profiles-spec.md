@@ -76,7 +76,6 @@ Name | Values
 `@type` | `Verb`, `ActivityType`, or `AttachmentUsageType`
 `inScheme` | The IRI of the specific profile version currently being described
 `prefLabel` | A language map of the preferred names in each language
-`altLabel` | An array of language-tagged alternative names. Array members MUST be expanded value objects with @value and @language keys.
 `definition` | A language map of the precise definition, including how to use the concept properly in statements
 `deprecated` | Optional. A boolean. If true, this concept is deprecated.
 `broader` | An array of IRIs of concepts of the same @type from this profile version that have a broader meaning.
@@ -275,7 +274,6 @@ An allowed solo Statement Template MUST describe when Learning Record Providers 
             "@id": "skos:prefLabel",
             "@container": "@language"
         },
-        "altLabel": "skos:altLabel",
         "definition": {
             "@id": "skos:definition",
             "@container": "@language"
@@ -339,9 +337,6 @@ There will be lots of examples, but this is largely an exercise in feeling out w
             "inScheme": "http://myvocab.example.com/xapi/2.0/",
             "prefLabel": {
                 "en": "placed"
-            },
-            "altLabel": {
-                "en": "ranked"
             },
             "definition": {
                 "en": "To achieve a ranked outcome in the Activity object, which is a competitive event"
