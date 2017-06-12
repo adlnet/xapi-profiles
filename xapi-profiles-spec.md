@@ -186,6 +186,7 @@ Name | Values
 `any` | an array of values that are allowed in this location. Useful for constraining the presence of particular activities, for example. If the rule returns multiple values for a statement, then this Statement Template Rule is fulfilled if any one returned value matches any one specified value — that is, if the intersection is not empty.
 `all` | an array of values, which all values returned by the JSONPath must match one of to fulfill this Statement Template Rule.
 `none` | an array of values, which no values returned by the JSONPath may match to fulfill this Statement Template Rule.
+`scopeNote` | *Optional*. A language map describing usage details for the parts of Statements addressed by this rule. For example, a profile with a rule requiring result.duration might provide guidance on how to calculate it.
 
 A Statement Template Rule MUST include one or more of rule, any, all, or none.
 
