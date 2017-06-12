@@ -3,7 +3,7 @@ import uuid
 from itertools import chain
 from string import printable, ascii_uppercase
 from pprint import pprint
-from hypothesis import given, settings
+from hypothesis import given, settings, example
 from hypothesis.strategies import data, integers, lists, recursive, uuids, sampled_from, tuples, just, one_of
 
 
@@ -16,6 +16,11 @@ template = (uuid.UUID, basestring)
 success = True
 failure = False
 partial = None
+
+
+# TODO okay, so if we try to match off the end with an alternate of singles,
+# we get partial because that's what we said should be done,
+# then zeroOrMore returns partial
 
 def matches(statements, element):
     if isinstance(element, template):
@@ -69,8 +74,8 @@ def matches(statements, element):
             cont, statements = matches(last_statements, element[1])
             if cont is failure:
                 return success, last_statements
-            elif cont is partial and len(last_statements) > 0:
-                return partial, last_statements
+            elif cont is partial and len(statements) > 0:
+                return partial, statements
             if len(statements) == len(last_statements):
                 return success, statements
             last_statements = statements
@@ -208,6 +213,114 @@ scorm_pattern = seq(
     )),
     "termination"
 )
+
+
+# {
+#     "id": "waivingsession",
+#     "sequence": ["waived", "multiplesatisfied"]
+# }
+# TODO incorporate waiving. Including possible interweaving.  Eesh.
+
+
+satisfieds = star("satisfied")
+
+waivedsession = seq(satisfieds, "waived", satisfieds)
+
+
+terminatedorabandoned = alt("terminated", "abandoned")
+
+
+completedandpassed = alt(
+    seq("completed", satisfieds, "passed"),
+    seq("passed", satisfieds, "completed")
+)
+
+
+# TODO: fix up this a bit so satisfieds are better validated?
+completedandmaybefailed = alt(
+    seq(opt("completed"), satisfieds, "failed"),
+    seq("failed", opt("completed"))
+)
+
+noresultsession = seq(
+    "launched",
+    "initialized",
+    terminatedorabandoned
+)
+
+
+completionnosuccesssession = seq(
+    "launched",
+    "initialized",
+    "completed",
+    satisfieds,
+    terminatedorabandoned
+)
+
+
+
+
+passedsession = seq(
+    "launched",
+    "initialized",
+    "passed",
+    satisfieds,
+    terminatedorabandoned
+)
+
+
+
+completionpassedsession = seq(
+    "launched",
+    "initialized",
+    completedandpassed,
+    satisfieds,
+    terminatedorabandoned
+)
+
+
+
+failedsession = seq(
+    "launched",
+    "initialized",
+    "failed",
+    terminatedorabandoned
+)
+
+
+completionmaybefailedsession = seq(
+    "launched",
+    "initialized",
+    completedandmaybefailed,
+    satisfieds,
+    terminatedorabandoned
+)
+
+
+
+typicalsessions = star(
+    alt(
+        completionmaybefailedsession,
+        completionpassedsession,
+        failedsession,
+        noresultsession,
+        passedsession,
+        completionnosuccesssession,
+        waivedsession
+    )
+)
+
+cmi5_percourse = seq(
+    satisfieds, typicalsessions
+)
+
+
+@given(pattern_to_statements(cmi5_percourse))
+def test_cmi5_patterns_basic(statements):
+    works, unhandled = matches(statements, cmi5_percourse)
+    assert works is success
+    assert len(unhandled) == 0
+
 
 @given(pattern_to_statements(scorm_pattern))
 def test_scormlike_example(statements):

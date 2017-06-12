@@ -475,8 +475,8 @@ function matches(statements, element):
             continue, statements = matches(last statements, element.zeroOrMore)
             if continue is failure:
                 return success, last statements
-            if continue is partial and last statements is not empty:
-                return partial, last statements
+            if continue is partial and statements is not empty:
+                return partial, statements
             if statements is the same size as last statements:
                 return success, statements
             last statements = statements
