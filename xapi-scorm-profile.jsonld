@@ -23,8 +23,7 @@
         {
             "@type": "Verb",
             "@id": "http://adlnet.gov/expapi/verbs/initialized",
-            "
-            ": "https://w3id.org/xapi/scorm",
+            "inScheme": "https://w3id.org/xapi/scorm",
             "prefLabel": {
                 "en": "initialized"
             }
@@ -149,6 +148,17 @@
             "prefLabel": {
                 "en": "attempt"
             }
+        },
+        {
+            "@type": "StateResource",
+            "@id": "https://w3id.org/xapi/scorm/attempt-state",
+            "inScheme": "https://w3id.org/xapi/scorm",
+            "prefLabel": {
+                "en": "SCORM Activity Attempt State"
+            },
+            "contentType": "application/json",
+            "schema": "http://example.com/see/file/in/same/directory/attempt-state-schema.json",
+            "context": "http://example.org/see/file/in/same/directory/attempt-state-context.jsonld"
         }
     ],
     "templates": [
@@ -265,15 +275,6 @@
             "rules": [
             ]
         }
-        // TODO multiple objectives statements
-        // TODO progressed
-        // TODO scored
-        // TODO passed
-        // TODO failed
-        // TODO location of state data
-        // TODO check lots of templates exist for both object & parent (at least potentially)
-        // TODO double check templates don't multi-match. Or consider an order of checking rule?
-        // That might be better.
     ],
     "patterns": [
         {
