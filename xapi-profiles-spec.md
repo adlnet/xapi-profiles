@@ -73,6 +73,7 @@ These Concepts are the most central to building rich, reusable profiles. When de
 
 Name | Values
 ---- | ------
+`@id` | The IRI of this core concept
 `@type` | `Verb`, `ActivityType`, or `AttachmentUsageType`
 `inScheme` | The IRI of the specific profile version currently being described
 `prefLabel` | A language map of the preferred names in each language
@@ -88,12 +89,13 @@ Name | Values
 
 ### Extensions
 
-For describing extension Concepts, a profile MUST use the following structure:
+For describing Extension Concepts, a profile MUST use the following structure:
 
 Name | Values
 ---- | ------
 `@id` | The IRI of the extension, used as the extension key in xAPI
 `@type` | `ContextExtension`, `ResultExtension`, or `ActivityExtension`
+`inScheme` | The IRI of the specific profile version currently being described
 `prefLabel` | A language map of descriptive names for the extension
 `definition` | A language map of descriptions of the purpose and usage of the extension
 `deprecated` | Optional. A boolean. If true, this concept is deprecated.
@@ -101,7 +103,9 @@ Name | Values
 `recommendedVerbs` | Optional. Only allowed on `ContextExtension`s and `ResultExtension`s. An array of verb URIs that this extension is recommended for use with (extending to narrower of the same).
 `context` | *Optional*. the IRI of a JSON-LD context for this extension
 `schema` | *Optional*. the IRI for accessing a JSON Schema for this extension. The JSON Schema may constrain the extension to a single type.
-`inlineSchema` | A JSON Schema inline. Must be a string that contains a legal JSON Schema.
+`inlineSchema` | *Optional*. A JSON Schema inline. Must be a string that contains a legal JSON Schema.
+
+An Extension MUST include at most one of schema and inlineSchema.
 
 A ContextExtension MUST only be used in context, a ResultExtension MUST only be used in result, and an ActivityExtension MUST only be used in an Activity Definition.
 
@@ -114,6 +118,7 @@ Name | Values
 ---- | ------
 `@id` | The IRI of the document resource, used as the stateId/profileId in xAPI
 `@type` | One of: `StateResource`, `AgentProfileResource`, `ActivityProfileResource`
+`inScheme` | The IRI of the specific profile version currently being described
 `prefLabel` | A language map of descriptive names for the document resource
 `definition` | A language map of descriptions of the purpose and usage of the document resource
 `deprecated` | Optional. A boolean. If true, this concept is deprecated.
@@ -124,26 +129,33 @@ Name | Values
 
 ### Activities
 
-These Concepts are just literal xAPI Activity definitions the profile wants to provide for use. This is the profile's canonical version of the Activity. Except for `@id` and `@context` this Concept MUST be a legal xAPI Activity Definition. When using the Activity, a Statement MUST use the `@id` for the Activity `id`, and MUST NOT include `@id` or `@context` in the Activity definition. All other properties are considered part of the definition, and any Statement using the Activity SHOULD either not include the definition, or SHOULD include all properties given here in the definition exactly as given, except for `name` and `description` or other language maps, which SHOULD only include languages appropriate to the situation, possibly including ones not present in the profile yet.
+These Concepts are just literal xAPI Activity definitions the profile wants to provide for use. This is the profile's canonical version of the Activity. Except for `@context`, the activityDefinition in this Concept MUST be a legal xAPI Activity Definition. When using the Activity, a Statement MUST use the `@id` for the Activity `id`, and MUST NOT include `@context` in the Activity definition. All other properties of the activityDefinition are considered part of the definition, and any Statement using the Activity SHOULD either not include the definition, or SHOULD include all properties given here in the definition exactly as given, except for `name` and `description` or other language maps, which SHOULD only include languages appropriate to the situation, possibly including ones not present in the profile yet.
 
-Due to restrictions in JSON-LD, all extensions in the Activity that do not have primitive values MUST include a JSON-LD @context in the top-level object or in every top-level object if array-valued.
+Due to restrictions in JSON-LD, all extensions in the Activity definition that do not have primitive values (string, number, boolean, null, or arrays thereof) MUST include a JSON-LD @context in the top-level object, or in every top-level object if array-valued.
 
 Name | Values
 ---- | ------
 `@id` | The IRI of the activity
+`@type` | `Activity`
+`inScheme` | The IRI of the specific profile version currently being described
+`deprecated` | *Optional*. A boolean. If true, this concept is deprecated.
+`activityDefinition` | An Activity Definition as in xAPI, plus an @context, as in the table below.
+
+Name | Values
+---- | ------
 `@context` | Must be TODO create an Activity context and host it at a URI.
-`type` | As in xAPI
-`name`
-`description`
-`moreInfo`
-`extensions`
-`interactionType`
-`correctResponsesPattern`
-`choices`
-`scale`
-`source`
-`target`
-`steps`
+`type` | *Optional*. As in xAPI Activity Definitions.
+`name` | *Optional*. As in xAPI Activity Definitions.
+`description` | *Optional*. As in xAPI Activity Definitions.
+`moreInfo` | *Optional*. As in xAPI Activity Definitions.
+`extensions` | *Optional*. As in xAPI Activity Definitions.
+`interactionType` | *Optional*. As in xAPI Activity Definitions.
+`correctResponsesPattern` | *Optional*. As in xAPI Activity Definitions.
+`choices` | *Optional*. As in xAPI Activity Definitions.
+`scale` | *Optional*. As in xAPI Activity Definitions.
+`source` | *Optional*. As in xAPI Activity Definitions.
+`target` | *Optional*. As in xAPI Activity Definitions.
+`steps` | *Optional*. As in xAPI Activity Definitions.
 
 ## Statement Templates
 
@@ -154,6 +166,8 @@ If a statement matches a Statement Template's determining values and uses the pr
 Name | Values
 ---- | ------
 `@id` | The identifier or short name of the template, in the form :name
+`@type` | `StatementTemplate`
+`inScheme` | The IRI of the specific profile version currently being described
 `prefLabel` | a language map of descriptive names for the Statement Template
 `definition` | A language map of descriptions of the purpose and usage of the Statement Template
 `allowedSolo` | Optional. A boolean, default false. If true, this Statement Template can be used as a single statement Implied Pattern (see that section). A Statement Template may be both used in Patterns and allowedSolo true.
@@ -215,6 +229,8 @@ Patterns have these properties:
 Name | Values
 ---- | ------
 `@id` | The identifier or short name of the template, in the form :name
+`@type` | `Pattern`
+`inScheme` | The IRI of the specific profile version currently being described
 `prefLabel` | A language map of descriptive names for the pattern
 `definition` | A language map of descriptions of the purpose and usage of the pattern
 `deprecated` | Optional. A boolean. If true, this pattern is deprecated.
