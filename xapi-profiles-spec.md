@@ -34,8 +34,8 @@ Name | Values
 ---- | ------
 `@id` | The IRI of the profile overall (not a specific version)
 `@type` | Must be `Profile`.
-`conformsTo` | Canonical URI of the profile specification version conformed to. The profile specification version of this document is https://github.com/DataInteroperability/xapi-profiles/tree/master#1.0.0-development, and it is a development version that may undergo incompatible changes without updating the version URI.
-`name` | Language map of names for this profile.
+`conformsTo` | Canonical URI of the profile specification version conformed to. The profile specification version of this document is https://github.com/DataInteroperability/xapi-profiles/tree/master#1.0-development, and it is a development version that may undergo incompatible changes without updating the version URI.
+`prefLabel` | Language map of names for this profile.
 `definition` | Language map of descriptions for this profile. If there are additional rules for the profile as a whole that cannot be expressed using this specification, include them here.
 `seeAlso` | A URL containing information about the profile. Recommended instead of especially long definitions.
 `versions` | An array of all profile version objects for this profile, see below.
@@ -73,10 +73,10 @@ These Concepts are the most central to building rich, reusable profiles. When de
 
 Name | Values
 ---- | ------
+`@id` | The IRI of this core concept
 `@type` | `Verb`, `ActivityType`, or `AttachmentUsageType`
 `inScheme` | The IRI of the specific profile version currently being described
 `prefLabel` | A language map of the preferred names in each language
-`altLabel` | An array of language-tagged alternative names. Array members MUST be expanded value objects with @value and @language keys.
 `definition` | A language map of the precise definition, including how to use the concept properly in statements
 `deprecated` | Optional. A boolean. If true, this concept is deprecated.
 `broader` | An array of IRIs of concepts of the same @type from this profile version that have a broader meaning.
@@ -94,17 +94,20 @@ For describing Extension Concepts, a profile MUST use the following structure:
 Name | Values
 ---- | ------
 `@id` | The IRI of the extension, used as the extension key in xAPI
-`@type` | `Extension`
+`@type` | `ContextExtension`, `ResultExtension`, or `ActivityExtension`
 `inScheme` | The IRI of the specific profile version currently being described
-`name` | A language map of descriptive names for the extension
+`prefLabel` | A language map of descriptive names for the extension
 `definition` | A language map of descriptions of the purpose and usage of the extension
 `deprecated` | Optional. A boolean. If true, this concept is deprecated.
-`placement` | An array of placement locations. Must contain at least one element, no elements may be repeated, and the only allowed elements are `context`, `result`, `activity` and IRIs (which must be Activity Type IRIs in this or other profiles).
+`recommendedActivityTypes` | Optional. Only allowed on `ActivityExtension`s. An array of activity type URIs that this extension is recommended for use with (extending to narrower of the same).
+`recommendedVerbs` | Optional. Only allowed on `ContextExtension`s and `ResultExtension`s. An array of verb URIs that this extension is recommended for use with (extending to narrower of the same).
 `context` | *Optional*. the IRI of a JSON-LD context for this extension
 `schema` | *Optional*. the IRI for accessing a JSON Schema for this extension. The JSON Schema may constrain the extension to a single type.
 `inlineSchema` | *Optional*. A JSON Schema inline. Must be a string that contains a legal JSON Schema.
 
 An Extension MUST include at most one of schema and inlineSchema.
+
+A ContextExtension MUST only be used in context, a ResultExtension MUST only be used in result, and an ActivityExtension MUST only be used in an Activity Definition.
 
 ### Document Resources
 
@@ -116,7 +119,7 @@ Name | Values
 `@id` | The IRI of the document resource, used as the stateId/profileId in xAPI
 `@type` | One of: `StateResource`, `AgentProfileResource`, `ActivityProfileResource`
 `inScheme` | The IRI of the specific profile version currently being described
-`name` | A language map of descriptive names for the document resource
+`prefLabel` | A language map of descriptive names for the document resource
 `definition` | A language map of descriptions of the purpose and usage of the document resource
 `deprecated` | Optional. A boolean. If true, this concept is deprecated.
 `context` | *Optional*. the IRI of a JSON-LD context for this document resource
@@ -165,7 +168,7 @@ Name | Values
 `@id` | The identifier or short name of the template, in the form :name
 `@type` | `StatementTemplate`
 `inScheme` | The IRI of the specific profile version currently being described
-`name` | a language map of descriptive names for the Statement Template
+`prefLabel` | a language map of descriptive names for the Statement Template
 `definition` | A language map of descriptions of the purpose and usage of the Statement Template
 `allowedSolo` | Optional. A boolean, default false. If true, this Statement Template can be used as a single statement Implied Pattern (see that section). A Statement Template may be both used in Patterns and allowedSolo true.
 `deprecated` | Optional. A boolean, default false. If true, this Statement Template is deprecated.
@@ -201,8 +204,12 @@ Name | Values
 `any` | an array of values that are allowed in this location. Useful for constraining the presence of particular activities, for example. If the rule returns multiple values for a statement, then this Statement Template Rule is fulfilled if any one returned value matches any one specified value — that is, if the intersection is not empty.
 `all` | an array of values, which all values returned by the JSONPath must match one of to fulfill this Statement Template Rule.
 `none` | an array of values, which no values returned by the JSONPath may match to fulfill this Statement Template Rule.
+`scopeNote` | *Optional*. A language map describing usage details for the parts of Statements addressed by this rule. For example, a profile with a rule requiring result.duration might provide guidance on how to calculate it.
 
 A Statement Template Rule MUST include one or more of rule, any, all, or none.
+
+When processing a statement for Statement Template Rules, it MUST have normalized contextActivities, with singletons replaced by arrays of length one.
+The syntax of JSONPath is described at http://goessner.net/articles/JsonPath/index.html#e2, except filter and script expressions may not be used. The union operator (a comma) may be used inside array or child expressions, so the result is the union on each expression being used separately. The legal values in an array or child expression are: strings (child expressions), non-negative integers (array expressions), and the star character `*` representing all children/members. Effectively this means the `@` syntax is also illegal. TODO: consider allowing limited scripting a la https://github.com/json-path/JsonPath . TODO: consider if use cases require allowing a JSONPath expression to be a union of other JSONPath expressions.
 
 ### Alignments?
 
@@ -224,7 +231,7 @@ Name | Values
 `@id` | The identifier or short name of the template, in the form :name
 `@type` | `Pattern`
 `inScheme` | The IRI of the specific profile version currently being described
-`name` | A language map of descriptive names for the pattern
+`prefLabel` | A language map of descriptive names for the pattern
 `definition` | A language map of descriptions of the purpose and usage of the pattern
 `deprecated` | Optional. A boolean. If true, this pattern is deprecated.
 `alternates` | A two-or-more length array of pattern or statement template identifiers. An alternates pattern matches if any member of the array matches
@@ -236,8 +243,8 @@ Name | Values
 
 
 A pattern MUST contain exactly one of `alternates`, `optional`, `oneOrMore`, `sequence`, and `zeroOrMore`.
-A pattern with an @id MUST NOT include name, definition, or deprecated.
-A pattern without an @id MUST include name and definition.
+A pattern with an @id MUST NOT include prefLabel, definition, or deprecated.
+A pattern without an @id MUST include prefLabel and definition.
 A pattern MUST not refer to any pattern that has itself in the array or single value for any of `alternates`, `optional`, `oneOrMore`, `sequence`, or `zeroOrMore`, considered recursively.
 A pattern only matches if it matches greedily. That is, if, when checking for a match of an optional or zeroOrMore or oneOrMore pattern, the next statement matches the pattern or statement template it applies to, the statement MUST be considered to be part of that match. That is, no backtracking is allowed. This constrains useful statement patterns, but guarantees efficient processing, as once a statement is matched it does not need to be reconsidered (except in cases where it is part of an ultimately unmatched alternate).
 When checking previously collected statements for matching a pattern, ordering MUST be based on timestamp. In the event two or more statements have identical timestamps, any order within those statements is allowed.
@@ -289,7 +296,6 @@ An allowed solo Statement Template MUST describe when Learning Record Providers 
             "@id": "skos:prefLabel",
             "@container": "@language"
         },
-        "altLabel": "skos:altLabel",
         "definition": {
             "@id": "skos:definition",
             "@container": "@language"
@@ -353,9 +359,6 @@ There will be lots of examples, but this is largely an exercise in feeling out w
             "inScheme": "http://myvocab.example.com/xapi/2.0/",
             "prefLabel": {
                 "en": "placed"
-            },
-            "altLabel": {
-                "en": "ranked"
             },
             "definition": {
                 "en": "To achieve a ranked outcome in the Activity object, which is a competitive event"
