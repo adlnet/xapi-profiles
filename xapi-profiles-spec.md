@@ -138,24 +138,24 @@ Name | Values
 `@id` | The IRI of the activity
 `@type` | `Activity`
 `inScheme` | The IRI of the specific profile version currently being described
-`deprecated` | Optional. A boolean. If true, this concept is deprecated.
+`deprecated` | *Optional*. A boolean. If true, this concept is deprecated.
 `activityDefinition` | An Activity Definition as in xAPI, plus an @context, as in the table below.
 
 Name | Values
 ---- | ------
 `@context` | Must be TODO create an Activity context and host it at a URI.
-`type` | As in xAPI
-`name`
-`description`
-`moreInfo`
-`extensions`
-`interactionType`
-`correctResponsesPattern`
-`choices`
-`scale`
-`source`
-`target`
-`steps`
+`type` | *Optional*. As in xAPI Activity Definitions.
+`name` | *Optional*. As in xAPI Activity Definitions.
+`description` | *Optional*. As in xAPI Activity Definitions.
+`moreInfo` | *Optional*. As in xAPI Activity Definitions.
+`extensions` | *Optional*. As in xAPI Activity Definitions.
+`interactionType` | *Optional*. As in xAPI Activity Definitions.
+`correctResponsesPattern` | *Optional*. As in xAPI Activity Definitions.
+`choices` | *Optional*. As in xAPI Activity Definitions.
+`scale` | *Optional*. As in xAPI Activity Definitions.
+`source` | *Optional*. As in xAPI Activity Definitions.
+`target` | *Optional*. As in xAPI Activity Definitions.
+`steps` | *Optional*. As in xAPI Activity Definitions.
 
 ## Statement Templates
 
