@@ -186,7 +186,7 @@ Name | Values
 ---- | ------
 `location` | A JSONPath string
 `selector` | *Optional*. A JSONPath string. This JSONPath is executed on the array of values resulting from the location selector, and the resulting values are what are used for matching. If it returns nothing on a location, that represents an unmatchable value for that location, meaning "all" will fail, as will included.
-`rule` | `included` or `excluded`. If included, there must be at least one matchable value for this Statement Template Rule to be fulfilled, and if excluded, no matchable values.
+`rule` | `included`, `excluded`, or `recommended`. If included, there must be at least one matchable value for this Statement Template Rule to be fulfilled, and if excluded, no matchable values. If `recommended`, this rule represents a recommended inclusion and `any`, `all`, and `none` requirements on the same rule are only applied if the results of looking up `location` are nonempty.
 `any` | an array of values that are allowed in this location. Useful for constraining the presence of particular activities, for example. If the rule returns multiple values for a statement, then this Statement Template Rule is fulfilled if any one returned value matches any one specified value — that is, if the intersection is not empty.
 `all` | an array of values, which all values returned by the JSONPath must match one of to fulfill this Statement Template Rule.
 `none` | an array of values, which no values returned by the JSONPath may match to fulfill this Statement Template Rule.
