@@ -1,0 +1,29 @@
+{
+    "@context": {
+        "scorm": "https://w3id.org/xapi/scorm",
+        "comments_from_lms": "scorm:comments_from_lms",
+        "comment": "scorm:comment",
+        "location": "scorm:location",
+        "timestamp": "scorm:timestamp",
+        "credit": "scorm:credit",
+        "mode": "scorm:mode",
+        "preferences": "scorm:preferences",
+        "audio_level": "scorm:audio_level",
+        "language": "scorm:language",
+        "delivery_speed": "scorm:delivery_speed",
+        "audio_captioning": "scorm:audio_captioning",
+        "total_time": "scorm:total_time",
+        "adl_data": "scorm:adl_data",
+        "activityId": "scorm:activityId",
+        "agent": "scorm:agent",
+        "objectType": "scorm:objectType",
+        "name": "scorm:name",
+        "mbox": "scorm:mbox",
+        "mbox_sha1sum": "scorm:mbox_sha1sum",
+        "openid": "scorm:openid",
+        "account": "scorm:account",
+        "homePage": "scorm:homePage",
+        "stateId": "scorm:stateId",
+        "registration": "scorm:registration"
+    }
+}
