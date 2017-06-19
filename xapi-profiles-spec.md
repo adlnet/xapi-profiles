@@ -87,6 +87,7 @@ These Concepts are the most central to building rich, reusable profiles.
 
 Name | Values
 ---- | ------
+`@id` | The IRI of this core concept
 `@type` | `Verb`, `ActivityType`, or `AttachmentUsageType`
 `inScheme` | The IRI of the specific profile version currently being described
 `prefLabel` | A language map of the preferred names in each language
@@ -102,10 +103,12 @@ Name | Values
 
 ### Extensions
 
+
 Name | Values
 ---- | ------
 `@id` | The IRI of the extension, used as the extension key in xAPI
 `@type` | `ContextExtension`, `ResultExtension`, or `ActivityExtension`
+`inScheme` | The IRI of the specific profile version currently being described
 `prefLabel` | A language map of descriptive names for the extension
 `definition` | A language map of descriptions of the purpose and usage of the extension
 `deprecated` | *Optional*. A boolean. If true, this concept is deprecated.
@@ -131,6 +134,7 @@ Name | Values
 ---- | ------
 `@id` | The IRI of the document resource, used as the stateId/profileId in xAPI
 `@type` | One of: `StateResource`, `AgentProfileResource`, `ActivityProfileResource`
+`inScheme` | The IRI of the specific profile version currently being described
 `prefLabel` | A language map of descriptive names for the document resource
 `definition` | A language map of descriptions of the purpose and usage of the document resource
 `contentType` | The content-type for the resource
@@ -144,26 +148,33 @@ Name | Values
 
 ### Activities
 
-These Concepts are just literal xAPI Activity definitions the profile wants to provide for use. This is the profile's canonical version of the Activity. Except for `@id` and `@context` this Concept MUST be a legal xAPI Activity Definition. When using the Activity, a Statement MUST use the `@id` for the Activity `id`, and MUST NOT include `@id` or `@context` in the Activity definition. All other properties are considered part of the definition, and any Statement using the Activity SHOULD either not include the definition, or SHOULD include all properties given here in the definition exactly as given, except for `name` and `description` or other language maps, which SHOULD only include languages appropriate to the situation, possibly including ones not present in the profile yet.
+These Concepts are just literal xAPI Activity definitions the profile wants to provide for use. This is the profile's canonical version of the Activity. Except for `@context`, the activityDefinition in this Concept MUST be a legal xAPI Activity Definition. When using the Activity, a Statement MUST use the `@id` for the Activity `id`, and MUST NOT include `@context` in the Activity definition. All other properties of the activityDefinition are considered part of the definition, and any Statement using the Activity SHOULD either not include the definition, or SHOULD include all properties given here in the definition exactly as given, except for `name` and `description` or other language maps, which SHOULD only include languages appropriate to the situation, possibly including ones not present in the profile yet.
 
-Due to restrictions in JSON-LD, all extensions in the Activity that do not have primitive values MUST include a JSON-LD @context in the top-level object or in every top-level object if array-valued.
+Due to restrictions in JSON-LD, all extensions in the Activity definition that do not have primitive values (string, number, boolean, null, or arrays thereof) MUST include a JSON-LD @context in the top-level object, or in every top-level object if array-valued.
 
 Name | Values
 ---- | ------
 `@id` | The IRI of the activity
+`@type` | `Activity`
+`inScheme` | The IRI of the specific profile version currently being described
+`deprecated` | *Optional*. A boolean. If true, this concept is deprecated.
+`activityDefinition` | An Activity Definition as in xAPI, plus an @context, as in the table below.
+
+Name | Values
+---- | ------
 `@context` | Must be TODO create an Activity context and host it at a URI.
-`type` | As in xAPI
-`name`
-`description`
-`moreInfo`
-`extensions`
-`interactionType`
-`correctResponsesPattern`
-`choices`
-`scale`
-`source`
-`target`
-`steps`
+`type` | *Optional*. As in xAPI Activity Definitions.
+`name` | *Optional*. As in xAPI Activity Definitions.
+`description` | *Optional*. As in xAPI Activity Definitions.
+`moreInfo` | *Optional*. As in xAPI Activity Definitions.
+`extensions` | *Optional*. As in xAPI Activity Definitions.
+`interactionType` | *Optional*. As in xAPI Activity Definitions.
+`correctResponsesPattern` | *Optional*. As in xAPI Activity Definitions.
+`choices` | *Optional*. As in xAPI Activity Definitions.
+`scale` | *Optional*. As in xAPI Activity Definitions.
+`source` | *Optional*. As in xAPI Activity Definitions.
+`target` | *Optional*. As in xAPI Activity Definitions.
+`steps` | *Optional*. As in xAPI Activity Definitions.
 
 ## Statement Templates
 
@@ -174,6 +185,8 @@ If a statement matches a Statement Template's determining values and uses the pr
 Name | Values
 ---- | ------
 `@id` | The identifier or short name of the template, in the form :name
+`@type` | `StatementTemplate`
+`inScheme` | The IRI of the specific profile version currently being described
 `prefLabel` | a language map of descriptive names for the Statement Template
 `definition` | A language map of descriptions of the purpose and usage of the Statement Template
 `allowedSolo` | *Optional*. A boolean, default false. If true, this Statement Template can be used as a single statement Implied Pattern (see that section). A Statement Template may be both used in Patterns and allowedSolo true.
@@ -206,7 +219,7 @@ Name | Values
 ---- | ------
 `location` | A JSONPath string
 `selector` | *Optional*. A JSONPath string. This JSONPath is executed on the array of values resulting from the location selector, and the resulting values are what are used for matching. If it returns nothing on a location, that represents an unmatchable value for that location, meaning "all" will fail, as will included.
-`rule` | *Optional*. `included` or `excluded`. If included, there must be at least one matchable value for this Statement Template Rule to be fulfilled, and if excluded, no matchable values.
+`rule` | *Optional*. `included`, `excluded`, or `recommended`. If included, there must be at least one matchable value for this Statement Template Rule to be fulfilled, and if excluded, no matchable values. If `recommended`, this rule represents a recommended inclusion and `any`, `all`, and `none` requirements on the same rule are only applied if the results of looking up `location` are nonempty.
 `any` | *Optional*. an array of values that are allowed in this location. Useful for constraining the presence of particular activities, for example. If the rule returns multiple values for a statement, then this Statement Template Rule is fulfilled if any one returned value matches any one specified value — that is, if the intersection is not empty.
 `all` | *Optional*. an array of values, which all values returned by the JSONPath must match one of to fulfill this Statement Template Rule.
 `none` | *Optional*. an array of values, which no values returned by the JSONPath may match to fulfill this Statement Template Rule.
@@ -235,6 +248,8 @@ Patterns have these properties:
 Name | Values
 ---- | ------
 `@id` | The identifier or short name of the template, in the form :name
+`@type` | `Pattern`
+`inScheme` | The IRI of the specific profile version currently being described
 `prefLabel` | A language map of descriptive names for the pattern
 `definition` | A language map of descriptions of the purpose and usage of the pattern
 `deprecated` | *Optional*. A boolean. If true, this pattern is deprecated.
@@ -248,9 +263,9 @@ Name | Values
 
 A pattern MUST contain exactly one of `alternates`, `optional`, `oneOrMore`, `sequence`, and `zeroOrMore`.
 A pattern with an @id MUST NOT include prefLabel, definition, or deprecated.
-A pattern without an @id MUST include prefLabel and definition.
+A pattern without an @id MUST include prefLabel and definition. This is a top-level pattern.
 A pattern MUST not refer to any pattern that has itself in the array or single value for any of `alternates`, `optional`, `oneOrMore`, `sequence`, or `zeroOrMore`, considered recursively.
-A pattern only matches if it matches greedily. That is, if, when checking for a match of an optional or zeroOrMore or oneOrMore pattern, the next statement matches the pattern or statement template it applies to, the statement MUST be considered to be part of that match. That is, no backtracking is allowed. This constrains useful statement patterns, but guarantees efficient processing, as once a statement is matched it does not need to be reconsidered (except in cases where it is part of an ultimately unmatched alternate).
+A pattern only matches if it matches greedily. That is, each optional, zeroOrMore, oneOrMore, and alternate pattern MUST always be considered to match the maximum length possible before considering any patterns later in a sequence. That is, no backtracking is allowed. This constrains useful statement patterns, but guarantees efficient processing, as once a statement is matched it does not need to be reconsidered (except in cases where it is part of an ultimately unmatched alternate).
 When checking previously collected statements for matching a pattern, ordering MUST be based on timestamp. In the event two or more statements have identical timestamps, any order within those statements is allowed.
 When checking statements for matching a pattern upon receipt, ordering MUST be based on receipt order insofar as that can be determined. If statements are received in the same batch and they are being checked upon receipt, within the batch statements MUST be ordered first by timestamp, and if timestamps are the same, by order within the statement array, with lower indices earlier.
 
@@ -450,14 +465,105 @@ Virtually identical to the above, just replace being a Verb or Activity Type wit
 
 ## Validating Statements
 
-To retrieve the information needed to validate a statement, a simple SPARQL query suffices — retrieve all the statement templates, with their rules, for the profile(s) indicated in the statement. From there, apply a series of operations. First, for each profile, find templates that match per verb, object activity type, and attachment usage type. There will generally be one or zero. If zero, this statement does not match any templates in the profile. From there, for each matching template, iterate through the rules, executing the JSONPath queries and checking for included, excluded, or values rules. If all the rules are fulfilled, then the statement matches the template. If the statement matches at least one template in the profile, it matches that profile. If a statement matches every profile in its context, it validates.
+### Statement Templates
 
-The above will be described with more precision, with a (non-web) API interface described, much as JSON-LD does. Any library that implements the algorithms given here will be an xAPI Profile Processor library. Reference implementation libraries in one or more languages will be provided.
+To retrieve the information needed to validate a statement matches applicable Statement Templates, a simple SPARQL query suffices — retrieve all the statement templates, with their rules, for the profile(s) indicated in the statement. From there, apply a series of operations. First, for each profile, find templates that match per verb, object activity type, and attachment usage type. There will generally be one or zero. If zero, this statement does not match any templates in the profile. From there, for each matching template, iterate through the rules, executing the JSONPath queries and checking for included, excluded, or values rules. If all the rules are fulfilled, then the statement matches the template. If the statement matches at least one template in the profile, it matches that profile. If a statement matches every profile in its context, it validates.
 
-Another algorithm will apply for validating multiple statements for matching a pattern, again starting with a simple SPARQL query and proceeding through rules, this time based on the pattern element rules. Again, this will be part of the xAPI Profile Processor library.
+### Patterns
 
-For each of the above operations, the Profile Server will provide web APIs that are strongly Not Recommended for production usage.
+To validate a series of statements sharing a registration (and, if applicable, subregistration) matches a pattern for a specified profile, include the profile's patterns in the retrieved data along with the data for statement templates. For each statement, check which statement templates are matched. If a statement does not match at least one statement template for the specified profile, the statements do not match the pattern.
 
-One URL will be at /validate_templates, and the other at /validate_patterns. The first will take a single xAPI statement and a profile specified by id, specified in POST variables as “statement” and “profile”. The second will take an array of xAPI statements and a profile specified by id, both specified in POST variables as “statements” and “profile”.
+Next, check each top-level pattern in the specified profile for matching. If at least one top-level pattern matches, the series of statements validates. A pattern match validates if matches(series, pattern) returns success for the first value and the second value is empty. The algorithm follows, in pseudocode:
+
+```
+function matches(statements, element):
+    if element is a template:
+        if statements is empty:
+            return partial, []
+        if statements[0]'s set of statement templates includes element:
+            return success, statements[1:]
+        else:
+            return failure, statements
+    else if element is a sequence:
+        next statements = statements
+        for next element in element.sequence:
+            next matches, next statements = matches(next statements, next element)
+            if next matches is failure:
+                return failure, statements
+            if next matches is partial:
+                return partial, []
+        return success, next statements
+    else if element is a alternates:
+        next matches, next statements = failure, statements
+        for next element in element.alternates:
+            maybe matches, maybe statements = matches(statements, next element)
+            if maybe matches is success:
+                next matches = success
+                if maybe statements is shorter than next statements:
+                    next statements = maybe statements
+            if maybe matches is partial and next matches is failure:
+                next_matches = partial
+        if next_matches is partial:
+            return partial, []
+        return next matches, next statements
+    else if element is a oneOrMore:
+        next matches = failure
+        last statements = next statements = statements
+        while true:
+            continue, next statements = matches(last statements, element.oneOrMore)
+            if continue is success:
+                next matches = success
+            else if next matches is failure and continue is partial:
+                return partial, []
+            else:
+                if continue is partial and last statements is not empty:
+                    return partial, last statements
+                return next matches, last statements
+            if next statements is the same size as last statements:
+                return success, next statements
+            last statements = next statements
+    else if element is a zeroOrMore:
+        last statements = statements
+        while true:
+            continue, statements = matches(last statements, element.zeroOrMore)
+            if continue is failure:
+                return success, last statements
+            if continue is partial and statements is not empty:
+                return partial, statements
+            if statements is the same size as last statements:
+                return success, statements
+            last statements = statements
+    else if element is a optional:
+        if statements is empty:
+            return success, []
+        next matches, next statements = matches(statements, element.optional)
+        if next matches is success or partial:
+            return next matches, next statements
+        else:
+            return success, statements
+```
+
+TODO: continue testing of the above. Fairly extensive testing has already been done using generative testing, in the companion python code.
+
+This table summarizes the possible return values and what they indicate:
+
+outcome | remaining statements | outcome
+------- | -------------------- | -------
+success | empty                | pattern validates for these statements
+success | non empty            | pattern matches some of the statements, but not all
+partial | empty                | pattern was in the middle of matching and ran out of statements
+partial | non empty            | outcome could be interpreted as success with non empty remaining, but pattern could also continue matching
+failure | original statements  | pattern failed to match statements. Note: if an optional or zeroOrMore pattern is directly inside an alternates pattern, it is possible for failure to be returned when partial is correct, due to decidability issues. Profile authors SHOULD NOT put optional or zeroOrMore directly inside alternates.
+
+
+### Libraries
+
+Any library that implements the algorithms given here will be an xAPI Profile Processor library. Reference implementation libraries in one or more languages will be provided.
+
+For each of the library operations, the Profile Server will provide web APIs that are strongly Not Recommended for production usage, but are suitable for experimentation and demonstration.
+
+One URL will be at /validate_templates, and the other at /validate_patterns. The first will take a single xAPI statement and a profile specified by id, specified in POST variables as “statement” and “profile”. The second will take an array of xAPI statements and a profile specified by id, both specified in POST variables as “statements” and “profile”. Both will check if the single statement or sequence of statements matches any template or pattern in the profile given.
 
 Both will perform the algorithms above and return 204 on successful validation and 400 on failure, with descriptive comments attached on failure.
+
+TODO: figure out if the profile parameter is really needed, consider return values that are the array of profiles with a matching template or pattern, or maybe even the templates or patterns themselves?
