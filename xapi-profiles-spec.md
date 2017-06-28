@@ -239,7 +239,21 @@ I'm unsure enough how to do this I propose we do not include statement reference
 
 ## Patterns
 
-Patterns are groups of statements matching particular statement templates, ordered in certain ways. For example, an allowed pattern in a video profile might start with a statement about playing a video and then be followed by statements about pausing, skipping, playing again, and so forth. A pattern is determined by a given registration — all statements within a primary Pattern MUST use the same registration, and statements not part of a primary Pattern MUST NOT use the same registration as any that are.
+Patterns are groups of statements matching particular statement templates, ordered in certain ways. For example, an allowed pattern in a video profile might start with a statement about playing a video and then be followed by statements about pausing, skipping, playing again, and so forth. A pattern is determined by a given registration, and possibly subregistration, a new extension. Specifically,
+
+* all statements following a primary Pattern MUST use the same registration.
+* when only one profile or only one pattern occurrence of each profile will be used, in a given registration, subregistrations SHOULD NOT be used.
+* if any Statements following a primary Pattern do not contain a subregistration, all statements with the same registration and profile version in category MUST follow that primary Pattern.
+* if any Statements with a given registration contain the subregistration extension, then all statements with that registration with the same subregistration identifier for a given profile version MUST follow the same primary Pattern.
+* the extension key of the subregistration extension is https://TODO/REPLACE/WITH/REAL/ID (a value in the w3id xAPI space should be used for this).
+* the subregistration extension MUST only be present in Statements with a registration.
+* the subregistration extension is an array-valued context extension. The array MUST NOT be empty. Each value of the array MUST be an object with the properties in the table below.
+
+Name | Values
+---- | ------
+`profile` | The URI of a profile present in the category context activities that this is a subregistration for.
+`subregistration` | A variant 2 UUID as specified in RFC 4122. This is the subregistration identifier in the requirements above.
+
 
 Patterns have these properties:
 
@@ -270,9 +284,9 @@ When checking statements for matching a pattern upon receipt, ordering MUST be b
 
 ### Implied Patterns
 
-If a Statement Template is allowed solo, Learning Record Providers MAY send it as an Implied Pattern. If it is not, Learning Record Providers MUST NOT send it as an Implied Pattern. An Implied Pattern MUST include the profile version in category, and MAY include a registration as if it were described as a Pattern with a sequence of one statement template, but MAY leave off the registration.
+If a Statement Template is allowed solo, Learning Record Providers MAY send it as an Implied Pattern. If it is not, Learning Record Providers MUST NOT send it as an Implied Pattern. An Implied Pattern MUST include the profile version in category, and MAY include a registration (and subregistration) as if it were described as a Pattern with a sequence of one statement template, but MAY leave off the registration (and subregistration).
 
-When checking for pattern match of a Statement with a registration, if there is only one Statement for the registration and it matches a Statement Template that is allowed solo, it MUST be considered an Implied Pattern.
+When checking for pattern match of a Statement with a registration, if there is only one Statement for the registration and it matches a Statement Template that is allowed solo, it MUST be considered an Implied Pattern. Implied Patterns MUST NOT be used in Statements with registrations present in multiple statements.
 
 An allowed solo Statement Template MUST describe when Learning Record Providers should use it as an Implied Pattern. While this cannot be checked programmatically, without it Learning Record Providers will be unable to understand the solo usage of Statement Templates.
 
