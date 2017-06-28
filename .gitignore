@@ -1,0 +1,5 @@
+.cache
+.hypothesis
+__pycache__
+.coverage
+htmlcov

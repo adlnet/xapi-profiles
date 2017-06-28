@@ -24,6 +24,15 @@ Second, they contain specific rules about using those Concepts properly in speci
 
 To assist in accomplishing these two primary goals, profiles also contain metadata about themselves—descriptions, authorship, versioning, and so forth.
 
+## Document Interpretation and General Restrictions
+
+* All properties in tables are required in all cases unless marked optional.
+* Properties marked optional may be required in some situations. If no additional information is provided on the usage of an optional property, including it or not is entirely up to the profile author.
+* All properties that are not JSON-LD keywords (or aliases thereof) in profile documents MUST expand to absolute IRIs during processing as defined in the JSON-LD specification.
+* All properties that are not JSON-LD keywords (or aliases thereof) in a profile MUST be described by this specification or be expressed using compact IRIs.
+* JSON-LD keywords (or aliases thereof) that are not specified as properties in this document MAY be included anywhere they are legal in JSON-LD.
+* Values in a profile MUST NOT be: empty objects, null, empty strings, or empty arrays.
+
 ## Using Profiles in Statements
 
 Using an introduced Concept, such as an activity type, verb, attachment usage type, extension, activity, or document resource, should be done freely, provided the defined usage and meaning are adhered to. But a Learning Record Provider can go further, and make sure to adhere to profile-described statement templates and patterns. Learning Record Providers creating statements that conform to matching profile-described statement templates and patterns SHOULD include the most up to date conformant profile version as a category context activity with id equal to the version's `@id` in those statements, and statements containing a profile version as a category context activity MUST conform to any matching templates and patterns that profile version describes.
@@ -34,15 +43,15 @@ Name | Values
 ---- | ------
 `@id` | The IRI of the profile overall (not a specific version)
 `@type` | Must be `Profile`.
-`conformsTo` | Canonical URI of the profile specification version conformed to. The profile specification version of this document is https://github.com/DataInteroperability/xapi-profiles/tree/master#1.0.0-development, and it is a development version that may undergo incompatible changes without updating the version URI.
-`name` | Language map of names for this profile.
+`conformsTo` | Canonical URI of the profile specification version conformed to. The profile specification version of this document is https://github.com/DataInteroperability/xapi-profiles/tree/master#1.0-development, and it is a development version that may undergo incompatible changes without updating the version URI.
+`prefLabel` | Language map of names for this profile.
 `definition` | Language map of descriptions for this profile. If there are additional rules for the profile as a whole that cannot be expressed using this specification, include them here.
-`seeAlso` | A URL containing information about the profile. Recommended instead of especially long definitions.
+`seeAlso` | *Optional*. A URL containing information about the profile. Recommended instead of especially long definitions.
 `versions` | An array of all profile version objects for this profile, see below.
 `author` | An Organization or Person, see below.
-`concepts` | The concepts that make up this Profile, see the Concepts section.
-`templates` | The Statement Templates for this profile, see that section.
-`patterns` | The Patterns for this profile, see that section.
+`concepts` | *Optional*. The concepts that make up this Profile, see the Concepts section.
+`templates` | *Optional*. The Statement Templates for this profile, see that section.
+`patterns` | *Optional*. The Patterns for this profile, see that section.
 
 
 
@@ -51,8 +60,10 @@ Name | Values
 Name | Values
 ---- | ------
 `@id` | The IRI of the version ID
-`wasRevisionOf` | an array, usually of length one, of IRIs of all profile versions this version was written as a revision of
+`wasRevisionOf` | *Optional*. an array, usually of length one, of IRIs of all profile versions this version was written as a revision of
 `generatedAtTime` | the date this version was created on
+
+* wasRevisionOf MUST be used with all versions that succeed other profile versions.
 
 Profile version objects make it convenient to track version history for profiles, following recommendations for SKOS concept schemes and PROV version tracking generally. By using versions this way, it is possible to answer precise questions such as “what version of this profile was current on the 3rd of January last year?”. Lack of robust versioning is frequently identified as an issue with RDF data.
 
@@ -62,85 +73,108 @@ Use one of these in the `author` property to indicate the author of this profile
 
 Name | Values
 ---- | ------
-`@type` | Organization or Person
+`@type` | `Organization` or `Person`
 `name` | A string with the name of the organization or person
+`url` | *Optional*. A URL for the Person or Group.
 
 ## Concepts
 
+* All members of a profile's `concepts` array MUST be one of the concepts listed in this section.
+
 ### Core Concepts: Verbs, Activity Types, and Attachment Usage Types
 
-These Concepts are the most central to building rich, reusable profiles. When describing verbs, activity types, and attachment usage types, a profile MUST use the following structure:
+These Concepts are the most central to building rich, reusable profiles.
 
 Name | Values
 ---- | ------
+`@id` | The IRI of this core concept
 `@type` | `Verb`, `ActivityType`, or `AttachmentUsageType`
 `inScheme` | The IRI of the specific profile version currently being described
 `prefLabel` | A language map of the preferred names in each language
-`altLabel` | An array of language-tagged alternative names. Array members MUST be expanded value objects with @value and @language keys.
 `definition` | A language map of the precise definition, including how to use the concept properly in statements
-`deprecated` | Optional. A boolean. If true, this concept is deprecated.
-`broader` | An array of IRIs of concepts of the same @type from this profile version that have a broader meaning.
-`narrower` | An array of IRIs of concepts of the same @type from this profile version that have a narrower meaning.
-`broadMatch` | An array of IRIs of concepts of the same @type from a different profile that have a broader meaning.
-`narrowMatch` | An array of IRIs of concepts of the same @type from different profiles that have narrower meanings.
-`exactMatch` | An array of IRIs of concepts of the same @type from a different profile or a different version of the same profile that have exactly the same meaning. This should be used rarely, mostly to describe connections to vocabularies that are no longer managed and do not use good URLs.
-`relatedMatch` | An array of IRIs of concepts of the same @type from a different profile or a different version of the same profile that has a related meaning that is not clearly narrower or broader. Useful to establish conceptual links between profiles that can be used for discovery. This SHOULD be used to connect possible replacement Concepts to removed Concepts from previous versions of the same profile, and for possible replacement Concepts in other profiles of deprecated concepts, as well as other loose relations.
-`related` | An array of IRIs of concepts of the same @type from this profile version that are close conceptual matches to this concept's meaning. This property MUST only be used on concepts that are deprecated to indicate possible replacement concepts in the same profile, if there are any.
+`deprecated` | *Optional*. A boolean. If true, this concept is deprecated.
+`broader` | *Optional*. An array of IRIs of concepts of the same @type from this profile version that have a broader meaning.
+`narrower` | *Optional*. An array of IRIs of concepts of the same @type from this profile version that have a narrower meaning.
+`broadMatch` | *Optional*. An array of IRIs of concepts of the same @type from a different profile that have a broader meaning.
+`narrowMatch` | *Optional*. An array of IRIs of concepts of the same @type from different profiles that have narrower meanings.
+`exactMatch` | *Optional*. An array of IRIs of concepts of the same @type from a different profile or a different version of the same profile that have exactly the same meaning. This should be used rarely, mostly to describe connections to vocabularies that are no longer managed and do not use good URLs.
+`relatedMatch` | *Optional*. An array of IRIs of concepts of the same @type from a different profile or a different version of the same profile that has a related meaning that is not clearly narrower or broader. Useful to establish conceptual links between profiles that can be used for discovery. This SHOULD be used to connect possible replacement Concepts to removed Concepts from previous versions of the same profile, and for possible replacement Concepts in other profiles of deprecated concepts, as well as other loose relations.
+`related` | *Optional*. An array of IRIs of concepts of the same @type from this profile version that are close conceptual matches to this concept's meaning. This property MUST only be used on concepts that are deprecated to indicate possible replacement concepts in the same profile, if there are any.
 
 ### Extensions
 
-For describing extension Concepts, a profile MUST use the following structure:
 
 Name | Values
 ---- | ------
 `@id` | The IRI of the extension, used as the extension key in xAPI
-`name` | A language map of descriptive names for the extension
+`@type` | `ContextExtension`, `ResultExtension`, or `ActivityExtension`
+`inScheme` | The IRI of the specific profile version currently being described
+`prefLabel` | A language map of descriptive names for the extension
 `definition` | A language map of descriptions of the purpose and usage of the extension
-`deprecated` | Optional. A boolean. If true, this concept is deprecated.
-`placement` | An array of placement locations. Must contain at least one element, no elements may be repeated, and the only allowed elements are `context`, `result`, `activity` and IRIs (which must be Activity Type IRIs in this or other profiles).
+`deprecated` | *Optional*. A boolean. If true, this concept is deprecated.
+`recommendedActivityTypes` | *Optional*. Only allowed on `ActivityExtension`s. An array of activity type URIs that this extension is recommended for use with (extending to narrower of the same).
+`recommendedVerbs` | *Optional*. Only allowed on `ContextExtension`s and `ResultExtension`s. An array of verb URIs that this extension is recommended for use with (extending to narrower of the same).
 `context` | *Optional*. the IRI of a JSON-LD context for this extension
 `schema` | *Optional*. the IRI for accessing a JSON Schema for this extension. The JSON Schema may constrain the extension to a single type.
-`inlineSchema` | A JSON Schema inline. Must be a string that contains a legal JSON Schema.
+`inlineSchema` | *Optional*. A JSON Schema inline. Must be a string that contains a legal JSON Schema.
+
+* profiles MUST use at most one of `schema` and `inlineSchema` for Extensions.
+
+Learning Record Providers MUST, for xAPI Statements using Extensions defined here, follow the following rules:
+* a ContextExtension MUST only be used in context
+* a ResultExtension MUST only be used in result
+* an ActivityExtension MUST only be used in an Activity Definition.
 
 ### Document Resources
 
-When describing document resource Concepts, a profile MUST use the following structure, which is similar to the one used for extensions. The @id MUST be used as the stateId or profileId (as appropriate) when interacting with the corresponding resource.
+The @id MUST be used as the stateId or profileId (as appropriate) when interacting with the corresponding resource.
 
 
 Name | Values
 ---- | ------
 `@id` | The IRI of the document resource, used as the stateId/profileId in xAPI
 `@type` | One of: `StateResource`, `AgentProfileResource`, `ActivityProfileResource`
-`name` | A language map of descriptive names for the document resource
+`inScheme` | The IRI of the specific profile version currently being described
+`prefLabel` | A language map of descriptive names for the document resource
 `definition` | A language map of descriptions of the purpose and usage of the document resource
-`deprecated` | Optional. A boolean. If true, this concept is deprecated.
+`contentType` | The content-type for the resource
+`deprecated` | *Optional*. A boolean. If true, this concept is deprecated.
 `context` | *Optional*. the IRI of a JSON-LD context for this document resource
 `schema` | *Optional*. the IRI for accessing a JSON Schema for this document resource.
-`inlineSchema` | A JSON Schema inline. Must be a string that contains a legal JSON Schema.
-`contentType` | The content-type for the resource
+`inlineSchema` | *Optional*. A JSON Schema inline. Must be a string that contains a legal JSON Schema.
+
+* profiles MUST use at most one of `schema` and `inlineSchema` for Document Resources
+
 
 ### Activities
 
-These Concepts are just literal xAPI Activity definitions the profile wants to provide for use. This is the profile's canonical version of the Activity. Except for `@id` and `@context` this Concept MUST be a legal xAPI Activity Definition. When using the Activity, a Statement MUST use the `@id` for the Activity `id`, and MUST NOT include `@id` or `@context` in the Activity definition. All other properties are considered part of the definition, and any Statement using the Activity SHOULD either not include the definition, or SHOULD include all properties given here in the definition exactly as given, except for `name` and `description` or other language maps, which SHOULD only include languages appropriate to the situation, possibly including ones not present in the profile yet.
+These Concepts are just literal xAPI Activity definitions the profile wants to provide for use. This is the profile's canonical version of the Activity. Except for `@context`, the activityDefinition in this Concept MUST be a legal xAPI Activity Definition. When using the Activity, a Statement MUST use the `@id` for the Activity `id`, and MUST NOT include `@context` in the Activity definition. All other properties of the activityDefinition are considered part of the definition, and any Statement using the Activity SHOULD either not include the definition, or SHOULD include all properties given here in the definition exactly as given, except for `name` and `description` or other language maps, which SHOULD only include languages appropriate to the situation, possibly including ones not present in the profile yet.
 
-Due to restrictions in JSON-LD, all extensions in the Activity that do not have primitive values MUST include a JSON-LD @context in the top-level object or in every top-level object if array-valued.
+Due to restrictions in JSON-LD, all extensions in the Activity definition that do not have primitive values (string, number, boolean, null, or arrays thereof) MUST include a JSON-LD @context in the top-level object, or in every top-level object if array-valued.
 
 Name | Values
 ---- | ------
 `@id` | The IRI of the activity
+`@type` | `Activity`
+`inScheme` | The IRI of the specific profile version currently being described
+`deprecated` | *Optional*. A boolean. If true, this concept is deprecated.
+`activityDefinition` | An Activity Definition as in xAPI, plus an @context, as in the table below.
+
+Name | Values
+---- | ------
 `@context` | Must be TODO create an Activity context and host it at a URI.
-`type` | As in xAPI
-`name`
-`description`
-`moreInfo`
-`extensions`
-`interactionType`
-`correctResponsesPattern`
-`choices`
-`scale`
-`source`
-`target`
-`steps`
+`type` | *Optional*. As in xAPI Activity Definitions.
+`name` | *Optional*. As in xAPI Activity Definitions.
+`description` | *Optional*. As in xAPI Activity Definitions.
+`moreInfo` | *Optional*. As in xAPI Activity Definitions.
+`extensions` | *Optional*. As in xAPI Activity Definitions.
+`interactionType` | *Optional*. As in xAPI Activity Definitions.
+`correctResponsesPattern` | *Optional*. As in xAPI Activity Definitions.
+`choices` | *Optional*. As in xAPI Activity Definitions.
+`scale` | *Optional*. As in xAPI Activity Definitions.
+`source` | *Optional*. As in xAPI Activity Definitions.
+`target` | *Optional*. As in xAPI Activity Definitions.
+`steps` | *Optional*. As in xAPI Activity Definitions.
 
 ## Statement Templates
 
@@ -151,10 +185,12 @@ If a statement matches a Statement Template's determining values and uses the pr
 Name | Values
 ---- | ------
 `@id` | A URI for this Statement Template.
-`name` | a language map of descriptive names for the Statement Template
+`@type` | `StatementTemplate`
+`inScheme` | The IRI of the specific profile version currently being described
+`prefLabel` | a language map of descriptive names for the Statement Template
 `definition` | A language map of descriptions of the purpose and usage of the Statement Template
-`allowedSolo` | Optional. A boolean, default false. If true, this Statement Template can be used as a single statement Implied Pattern (see that section). A Statement Template may be both used in Patterns and allowedSolo true.
-`deprecated` | Optional. A boolean, default false. If true, this Statement Template is deprecated.
+`allowedSolo` | *Optional*. A boolean, default false. If true, this Statement Template can be used as a single statement Implied Pattern (see that section). A Statement Template may be both used in Patterns and allowedSolo true.
+`deprecated` | *Optional*. A boolean, default false. If true, this Statement Template is deprecated.
 `verb` | *Optional*. Verb IRI
 `objectActivityType` | *Optional*. Object activity type IRI
 `contextGroupingActivityType` | *Optional*. Array of contextActivities grouping activity type IRIs
@@ -164,7 +200,7 @@ Name | Values
 `attachmentUsageType` | *Optional*. Array of attachment usage type IRIs
 `objectStatementRefTemplate` | *Optional*. An array of Statement Template identifiers from this profile version. May not be used with `objectActivityType`. If specified, the Statement object must be a StatementRef and the Learning Record Provider MUST make it the UUID of a Statement matching at least one of the specified Statement Templates.
 `contextStatementRefTemplate`. *Optional*. An array of Statement Template identifiers from this profile version. If specified, the Statement context statement property must be a StatementRef and the Learning Record Provider MUST make it the UUID of a Statement matching at least one of the specified Statement Templates.
-`rules` | Array of Statement Template Rules
+`rules` | *Optional*. Array of Statement Template Rules
 
 
 ### Statement Template Rules
@@ -186,14 +222,16 @@ Name | Values
 ---- | ------
 `location` | A JSONPath string
 `selector` | *Optional*. A JSONPath string. This JSONPath is executed on the array of values resulting from the location selector, and the resulting values are what are used for matching. If it returns nothing on a location, that represents an unmatchable value for that location, meaning "all" will fail, as will included.
-`rule` | `included` or `excluded`. If included, there must be at least one matchable value for this Statement Template Rule to be fulfilled, and if excluded, no matchable values.
-`any` | an array of values that are allowed in this location. Useful for constraining the presence of particular activities, for example. If the rule returns multiple values for a statement, then this Statement Template Rule is fulfilled if any one returned value matches any one specified value — that is, if the intersection is not empty.
-`all` | an array of values, which all values returned by the JSONPath must match one of to fulfill this Statement Template Rule.
-`none` | an array of values, which no values returned by the JSONPath may match to fulfill this Statement Template Rule.
+`rule` | *Optional*. `included`, `excluded`, or `recommended`. If included, there must be at least one matchable value for this Statement Template Rule to be fulfilled, and if excluded, no matchable values. If `recommended`, this rule represents a recommended inclusion and `any`, `all`, and `none` requirements on the same rule are only applied if the results of looking up `location` are nonempty.
+`any` | *Optional*. an array of values that are allowed in this location. Useful for constraining the presence of particular activities, for example. If the rule returns multiple values for a statement, then this Statement Template Rule is fulfilled if any one returned value matches any one specified value — that is, if the intersection is not empty.
+`all` | *Optional*. an array of values, which all values returned by the JSONPath must match one of to fulfill this Statement Template Rule.
+`none` | *Optional*. an array of values, which no values returned by the JSONPath may match to fulfill this Statement Template Rule.
+`scopeNote` | *Optional*. A language map describing usage details for the parts of Statements addressed by this rule. For example, a profile with a rule requiring result.duration might provide guidance on how to calculate it.
 
-A Statement Template Rule MUST include one or more of rule, any, all, or none.
+A Statement Template Rule MUST include one or more of `rule`, `any`, `all`, or `none`.
 
 When processing a statement for Statement Template Rules, it MUST have normalized contextActivities, with singletons replaced by arrays of length one.
+The syntax of JSONPath is described at http://goessner.net/articles/JsonPath/index.html#e2, except filter and script expressions may not be used. The union operator (a comma) may be used inside array or child expressions, so the result is the union on each expression being used separately. The legal values in an array or child expression are: strings (child expressions), non-negative integers (array expressions), and the star character `*` representing all children/members. Effectively this means the `@` syntax is also illegal. TODO: consider allowing limited scripting a la https://github.com/json-path/JsonPath . TODO: consider if use cases require allowing a JSONPath expression to be a union of other JSONPath expressions.
 
 ### Statement References
 
@@ -209,21 +247,24 @@ Patterns have these properties:
 Name | Values
 ---- | ------
 `@id` | A URI for the template.
-`primary` | Optional. Boolean. Default false. Only primary patterns are checked for matching sequences of statements.
-`name` | A language map of descriptive names for the pattern
+`@type` | `Pattern`
+`primary` | *Optional*. Boolean. Default false. Only primary patterns are checked for matching sequences of statements.
+`inScheme` | The IRI of the specific profile version currently being described
+`prefLabel` | A language map of descriptive names for the pattern
 `definition` | A language map of descriptions of the purpose and usage of the pattern
-`deprecated` | Optional. A boolean. If true, this pattern is deprecated.
-`alternates` | A two-or-more length array of pattern or statement template identifiers. An alternates pattern matches if any member of the array matches
-`optional` | A single pattern or statement template identifier. An optional pattern matches if the identified thing matches once, or is not present at all
-`oneOrMore` | A single pattern or statement template identifier. A oneOrMore pattern matches if the identified thing matches once, or any number of times more than once
-`sequence` | An array of pattern or statement template identifiers. A sequence pattern matches if the identified things match in the order specified.
-`zeroOrMore` | A single pattern or statement template identifier. A zeroOrMore pattern matches if the identified thing is not present or is present one or more times
+`deprecated` | *Optional*. A boolean. If true, this pattern is deprecated.
+`alternates` | *Optional*. A two-or-more length array of pattern or statement template identifiers. An alternates pattern matches if any member of the array matches
+`optional` | *Optional*. A single pattern or statement template identifier. An optional pattern matches if the identified thing matches once, or is not present at all
+`oneOrMore` | *Optional*. A single pattern or statement template identifier. A oneOrMore pattern matches if the identified thing matches once, or any number of times more than once
+`sequence` | *Optional*. An two-or-more length array of pattern or statement template identifiers. A sequence pattern matches if the identified things match in the order specified.
+`zeroOrMore` | *Optional*. A single pattern or statement template identifier. A zeroOrMore pattern matches if the identified thing is not present or is present one or more times
 
 
 A primary pattern MUST include name and definition. They are optional otherwise.
 A pattern MUST contain exactly one of `alternates`, `optional`, `oneOrMore`, `sequence`, and `zeroOrMore`.
+
 A pattern MUST not refer to any pattern that has itself in the array or single value for any of `alternates`, `optional`, `oneOrMore`, `sequence`, or `zeroOrMore`, considered recursively.
-A pattern only matches if it matches greedily. That is, if, when checking for a match of an optional or zeroOrMore or oneOrMore pattern, the next statement matches the pattern or statement template it applies to, the statement MUST be considered to be part of that match. That is, no backtracking is allowed. This constrains useful statement patterns, but guarantees efficient processing, as once a statement is matched it does not need to be reconsidered (except in cases where it is part of an ultimately unmatched alternate).
+A pattern only matches if it matches greedily. That is, each optional, zeroOrMore, oneOrMore, and alternate pattern MUST always be considered to match the maximum length possible before considering any patterns later in a sequence. That is, no backtracking is allowed. This constrains useful statement patterns, but guarantees efficient processing, as once a statement is matched it does not need to be reconsidered (except in cases where it is part of an ultimately unmatched alternate).
 When checking previously collected statements for matching a pattern, ordering MUST be based on timestamp. In the event two or more statements have identical timestamps, any order within those statements is allowed.
 When checking statements for matching a pattern upon receipt, ordering MUST be based on receipt order insofar as that can be determined. If statements are received in the same batch and they are being checked upon receipt, within the batch statements MUST be ordered first by timestamp, and if timestamps are the same, by order within the statement array, with lower indices earlier.
 
@@ -273,7 +314,6 @@ An allowed solo Statement Template MUST describe when Learning Record Providers 
             "@id": "skos:prefLabel",
             "@container": "@language"
         },
-        "altLabel": "skos:altLabel",
         "definition": {
             "@id": "skos:definition",
             "@container": "@language"
@@ -337,9 +377,6 @@ There will be lots of examples, but this is largely an exercise in feeling out w
             "inScheme": "http://myvocab.example.com/xapi/2.0/",
             "prefLabel": {
                 "en": "placed"
-            },
-            "altLabel": {
-                "en": "ranked"
             },
             "definition": {
                 "en": "To achieve a ranked outcome in the Activity object, which is a competitive event"
@@ -427,14 +464,103 @@ Virtually identical to the above, just replace being a Verb or Activity Type wit
 
 ## Validating Statements
 
-To retrieve the information needed to validate a statement, a simple SPARQL query suffices — retrieve all the statement templates, with their rules, for the profile(s) indicated in the statement. From there, apply a series of operations. First, for each profile, find templates with determining properties that match in full. There will generally be one or zero. If zero, this statement does not match any templates in the profile. From there, for each template with matching determining properties, iterate through the rules, executing the JSONPath queries and applying the requirements. Additionally, check if the object StatementRef and context StatementRef requirements are met. If the referenced Statement is available to the checking system, it MUST be checked for matching the given Statement Template, but if it is not, it MUST be assumed to match the given Statement Template. If all the rules are fulfilled, and the StatementRefs check out, then the statement matches the template. If for every Statement Template in a profile with matching determining properties, it maches the template, the statement validates against the profile. If a statement validates for every profile in its context, it validates generally.
+To retrieve the information needed to validate a statement, a simple SPARQL query suffices — retrieve all the statement templates, with their rules, for the profile version(s) indicated in the statement. From there, apply a series of operations. First, for each profile, find templates with determining properties that match in full. There will generally be one or zero. If zero, this statement does not match any templates in the profile and does not validate. From there, for each template with matching determining properties, iterate through the rules, executing the JSONPath queries and applying the requirements. Additionally, check if the object StatementRef and context StatementRef requirements are met. If the referenced Statement is available to the checking system, it MUST be checked for matching the given Statement Template, but if it is not, it MUST be assumed to match the given Statement Template. If all the rules are fulfilled, and the StatementRefs check out, then the statement matches the template. If for every Statement Template in a profile with matching determining properties, it matches the template, the statement validates against the profile. If a statement validates for every profile in its context, it validates generally.
 
-The above will be described with more precision, with a (non-web) API interface described, much as JSON-LD does. Any library that implements the algorithms given here will be an xAPI Profile Processor library. Reference implementation libraries in one or more languages will be provided.
+### Patterns
 
-Another algorithm will apply for validating multiple statements for matching a pattern, again starting with a simple SPARQL query and proceeding through rules, this time based on the pattern element rules. Again, this will be part of the xAPI Profile Processor library.
+To validate a series of statements sharing a registration (and, if applicable, subregistration) matches a pattern for a specified profile, include the profile's patterns in the retrieved data along with the data for statement templates. For each statement, check which statement templates are matched. If a statement does not match at least one statement template for the specified profile, the statements do not match the pattern.
 
-For each of the above operations, the Profile Server will provide web APIs that are strongly Not Recommended for production usage.
+Next, check each top-level pattern in the specified profile for matching. If at least one top-level pattern matches, the series of statements validates. A pattern match validates if matches(series, pattern) returns success for the first value and the second value is empty. The algorithm follows, in pseudocode:
 
-One URL will be at /validate_templates, and the other at /validate_patterns. The first will take a single xAPI statement and a profile specified by id, specified in POST variables as “statement” and “profile”. The second will take an array of xAPI statements and a profile specified by id, both specified in POST variables as “statements” and “profile”.
+```
+function matches(statements, element):
+    if element is a template:
+        if statements is empty:
+            return partial, []
+        if statements[0]'s set of statement templates includes element:
+            return success, statements[1:]
+        else:
+            return failure, statements
+    else if element is a sequence:
+        next statements = statements
+        for next element in element.sequence:
+            next matches, next statements = matches(next statements, next element)
+            if next matches is failure:
+                return failure, statements
+            if next matches is partial:
+                return partial, []
+        return success, next statements
+    else if element is a alternates:
+        next matches, next statements = failure, statements
+        for next element in element.alternates:
+            maybe matches, maybe statements = matches(statements, next element)
+            if maybe matches is success:
+                next matches = success
+                if maybe statements is shorter than next statements:
+                    next statements = maybe statements
+            if maybe matches is partial and next matches is failure:
+                next_matches = partial
+        if next_matches is partial:
+            return partial, []
+        return next matches, next statements
+    else if element is a oneOrMore:
+        next matches = failure
+        last statements = next statements = statements
+        while true:
+            continue, next statements = matches(last statements, element.oneOrMore)
+            if continue is success:
+                next matches = success
+            else if next matches is failure and continue is partial:
+                return partial, []
+            else:
+                if continue is partial and last statements is not empty:
+                    return partial, last statements
+                return next matches, last statements
+            if next statements is the same size as last statements:
+                return success, next statements
+            last statements = next statements
+    else if element is a zeroOrMore:
+        last statements = statements
+        while true:
+            continue, statements = matches(last statements, element.zeroOrMore)
+            if continue is failure:
+                return success, last statements
+            if continue is partial and statements is not empty:
+                return partial, statements
+            if statements is the same size as last statements:
+                return success, statements
+            last statements = statements
+    else if element is a optional:
+        if statements is empty:
+            return success, []
+        next matches, next statements = matches(statements, element.optional)
+        if next matches is success or partial:
+            return next matches, next statements
+        else:
+            return success, statements
+```
+
+TODO: continue testing of the above. Fairly extensive testing has already been done using generative testing, in the companion python code.
+
+This table summarizes the possible return values and what they indicate:
+
+outcome | remaining statements | outcome
+------- | -------------------- | -------
+success | empty                | pattern validates for these statements
+success | non empty            | pattern matches some of the statements, but not all
+partial | empty                | pattern was in the middle of matching and ran out of statements
+partial | non empty            | outcome could be interpreted as success with non empty remaining, but pattern could also continue matching
+failure | original statements  | pattern failed to match statements. Note: if an optional or zeroOrMore pattern is directly inside an alternates pattern, it is possible for failure to be returned when partial is correct, due to decidability issues. Profile authors SHOULD NOT put optional or zeroOrMore directly inside alternates.
+
+
+### Libraries
+
+Any library that implements the algorithms given here will be an xAPI Profile Processor library. Reference implementation libraries in one or more languages will be provided.
+
+For each of the library operations, the Profile Server will provide web APIs that are strongly Not Recommended for production usage, but are suitable for experimentation and demonstration.
+
+One URL will be at /validate_templates, and the other at /validate_patterns. The first will take a single xAPI statement and a profile specified by id, specified in POST variables as “statement” and “profile”. The second will take an array of xAPI statements and a profile specified by id, both specified in POST variables as “statements” and “profile”. Both will check if the single statement or sequence of statements matches any template or pattern in the profile given.
 
 Both will perform the algorithms above and return 204 on successful validation and 400 on failure, with descriptive comments attached on failure.
+
+TODO: figure out if the profile parameter is really needed, consider return values that are the array of profiles with a matching template or pattern, or maybe even the templates or patterns themselves?
