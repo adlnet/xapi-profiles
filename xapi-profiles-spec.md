@@ -178,13 +178,13 @@ Name | Values
 
 ## Statement Templates
 
-A Statement Template describes one way statements following the profile may be structured. The verb, object activity type, attachment usage types, and context activity types listed are the determining properties. When authoring a statement to follow a template, a Learning Record Provider MUST include all the determining properties, as well as follow all rules in the template. Any statement including all the determining properties and using the profile version as a category context activity MUST follow the rules. In a profile, no Statement Template's determining properties may be a subset of any other Statement Template's determining properties. Additionally, we recommend picking one of the determining properties to use in all Statement Templates in a profile, with different values in each, since this ensures each statement matches at most one Statement Template in a given profile. A profile SHOULD ensure each statement following any of its Statement Templates will match at most one Statement Template.
+A Statement Template describes one way statements following the profile may be structured. The verb, object activity type, attachment usage types, and context activity types listed are the determining properties. When authoring a statement to follow a template, a Learning Record Provider MUST include all the determining properties, as well as follow all rules in the template. Any statement including all the determining properties and using the profile version as a category context activity MUST follow the rules, object StatementRef property, and context StatementRef property.  We recommend picking one of the determining properties to use in all Statement Templates in a profile to be reused in Patterns, with different values in each, since this ensures each statement matches at most one Statement Template in a given profile. A profile SHOULD ensure each statement following any of its Statement Templates used in Patterns will match at most one Statement Template.
 
 If a statement matches a Statement Template's determining values and uses the profile version as a category context activity, it MUST be sent as part of a Pattern or Implied Pattern.
 
 Name | Values
 ---- | ------
-`@id` | The identifier or short name of the template, in the form :name
+`@id` | A URI for this Statement Template.
 `@type` | `StatementTemplate`
 `inScheme` | The IRI of the specific profile version currently being described
 `prefLabel` | a language map of descriptive names for the Statement Template
@@ -198,7 +198,10 @@ Name | Values
 `contextOtherActivityType` | *Optional*. Array of contextActivities other activity type IRIs
 `contextCategoryActivityType` | *Optional*. Array of contextActivities category activity type IRIs
 `attachmentUsageType` | *Optional*. Array of attachment usage type IRIs
+`objectStatementRefTemplate` | *Optional*. An array of Statement Template identifiers from this profile version. May not be used with `objectActivityType`. If specified, the Statement object must be a StatementRef and the Learning Record Provider MUST make it the UUID of a Statement matching at least one of the specified Statement Templates.
+`contextStatementRefTemplate`. *Optional*. An array of Statement Template identifiers from this profile version. If specified, the Statement context statement property must be a StatementRef and the Learning Record Provider MUST make it the UUID of a Statement matching at least one of the specified Statement Templates.
 `rules` | *Optional*. Array of Statement Template Rules
+
 
 ### Statement Template Rules
 
@@ -230,25 +233,22 @@ A Statement Template Rule MUST include one or more of `rule`, `any`, `all`, or `
 When processing a statement for Statement Template Rules, it MUST have normalized contextActivities, with singletons replaced by arrays of length one.
 The syntax of JSONPath is described at http://goessner.net/articles/JsonPath/index.html#e2, except filter and script expressions may not be used. The union operator (a comma) may be used inside array or child expressions, so the result is the union on each expression being used separately. The legal values in an array or child expression are: strings (child expressions), non-negative integers (array expressions), and the star character `*` representing all children/members. Effectively this means the `@` syntax is also illegal. TODO: consider allowing limited scripting a la https://github.com/json-path/JsonPath . TODO: consider if use cases require allowing a JSONPath expression to be a union of other JSONPath expressions.
 
-### Alignments?
-
-I propose we do not include alignments in the initial draft
-
 ### Statement References
 
 I'm unsure enough how to do this I propose we do not include statement reference constraints in the initial draft. It would probably be included as a special case in the statement template rules, above.
 
 ## Patterns
 
-Patterns are groups of statements matching particular statement templates, ordered in certain ways. For example, an allowed pattern in a video profile might start with a statement about playing a video and then be followed by statements about pausing, skipping, playing again, and so forth. A pattern is determined by a given registration — all statements within a Pattern MUST use the same registration, and statements not part of a Pattern MUST NOT use the same registration as any that are.
+Patterns are groups of statements matching particular statement templates, ordered in certain ways. For example, an allowed pattern in a video profile might start with a statement about playing a video and then be followed by statements about pausing, skipping, playing again, and so forth. A pattern is determined by a given registration — all statements within a primary Pattern MUST use the same registration, and statements not part of a primary Pattern MUST NOT use the same registration as any that are.
 
 Patterns have these properties:
 
 
 Name | Values
 ---- | ------
-`@id` | The identifier or short name of the template, in the form :name
+`@id` | A URI for the template.
 `@type` | `Pattern`
+`primary` | *Optional*. Boolean. Default false. Only primary patterns are checked for matching sequences of statements.
 `inScheme` | The IRI of the specific profile version currently being described
 `prefLabel` | A language map of descriptive names for the pattern
 `definition` | A language map of descriptions of the purpose and usage of the pattern
@@ -260,10 +260,9 @@ Name | Values
 `zeroOrMore` | *Optional*. A single pattern or statement template identifier. A zeroOrMore pattern matches if the identified thing is not present or is present one or more times
 
 
-
+A primary pattern MUST include name and definition. They are optional otherwise.
 A pattern MUST contain exactly one of `alternates`, `optional`, `oneOrMore`, `sequence`, and `zeroOrMore`.
-A pattern with an @id MUST NOT include prefLabel, definition, or deprecated.
-A pattern without an @id MUST include prefLabel and definition. This is a top-level pattern.
+
 A pattern MUST not refer to any pattern that has itself in the array or single value for any of `alternates`, `optional`, `oneOrMore`, `sequence`, or `zeroOrMore`, considered recursively.
 A pattern only matches if it matches greedily. That is, each optional, zeroOrMore, oneOrMore, and alternate pattern MUST always be considered to match the maximum length possible before considering any patterns later in a sequence. That is, no backtracking is allowed. This constrains useful statement patterns, but guarantees efficient processing, as once a statement is matched it does not need to be reconsidered (except in cases where it is part of an ultimately unmatched alternate).
 When checking previously collected statements for matching a pattern, ordering MUST be based on timestamp. In the event two or more statements have identical timestamps, any order within those statements is allowed.
@@ -465,9 +464,7 @@ Virtually identical to the above, just replace being a Verb or Activity Type wit
 
 ## Validating Statements
 
-### Statement Templates
-
-To retrieve the information needed to validate a statement matches applicable Statement Templates, a simple SPARQL query suffices — retrieve all the statement templates, with their rules, for the profile(s) indicated in the statement. From there, apply a series of operations. First, for each profile, find templates that match per verb, object activity type, and attachment usage type. There will generally be one or zero. If zero, this statement does not match any templates in the profile. From there, for each matching template, iterate through the rules, executing the JSONPath queries and checking for included, excluded, or values rules. If all the rules are fulfilled, then the statement matches the template. If the statement matches at least one template in the profile, it matches that profile. If a statement matches every profile in its context, it validates.
+To retrieve the information needed to validate a statement, a simple SPARQL query suffices — retrieve all the statement templates, with their rules, for the profile version(s) indicated in the statement. From there, apply a series of operations. First, for each profile, find templates with determining properties that match in full. There will generally be one or zero. If zero, this statement does not match any templates in the profile and does not validate. From there, for each template with matching determining properties, iterate through the rules, executing the JSONPath queries and applying the requirements. Additionally, check if the object StatementRef and context StatementRef requirements are met. If the referenced Statement is available to the checking system, it MUST be checked for matching the given Statement Template, but if it is not, it MUST be assumed to match the given Statement Template. If all the rules are fulfilled, and the StatementRefs check out, then the statement matches the template. If for every Statement Template in a profile with matching determining properties, it matches the template, the statement validates against the profile. If a statement validates for every profile in its context, it validates generally.
 
 ### Patterns
 
