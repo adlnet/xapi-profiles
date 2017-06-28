@@ -274,7 +274,7 @@ Name | Values
 `zeroOrMore` | *Optional*. A single pattern or statement template identifier. A zeroOrMore pattern matches if the identified thing is not present or is present one or more times
 
 
-A primary pattern MUST include name and definition. They are optional otherwise.
+A primary pattern MUST include prefLabel and definition. They are optional otherwise.
 A pattern MUST contain exactly one of `alternates`, `optional`, `oneOrMore`, `sequence`, and `zeroOrMore`.
 
 A pattern MUST not refer to any pattern that has itself in the array or single value for any of `alternates`, `optional`, `oneOrMore`, `sequence`, or `zeroOrMore`, considered recursively.
