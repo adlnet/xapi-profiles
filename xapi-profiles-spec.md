@@ -282,6 +282,8 @@ A pattern only matches if it matches greedily. That is, each optional, zeroOrMor
 When checking previously collected statements for matching a pattern, ordering MUST be based on timestamp. In the event two or more statements have identical timestamps, any order within those statements is allowed.
 When checking statements for matching a pattern upon receipt, ordering MUST be based on receipt order insofar as that can be determined. If statements are received in the same batch and they are being checked upon receipt, within the batch statements MUST be ordered first by timestamp, and if timestamps are the same, by order within the statement array, with lower indices earlier.
 
+Some Profiles may contain Patterns very similar to Statement data sent by previously existing Learning Record Providers, not strictly following this specification. It may be very close, but not follow it in all particulars, such as by missing a registration. While the details of how to handle this are outside the scope of this specification, Profiles aware of such existing data SHOULD make note of this and include descriptive language covering the degree of adherence.
+
 ### Implied Patterns
 
 If a Statement Template is allowed solo, Learning Record Providers MAY send it as an Implied Pattern. If it is not, Learning Record Providers MUST NOT send it as an Implied Pattern. An Implied Pattern MUST include the profile version in category, and MAY include a registration (and subregistration) as if it were described as a Pattern with a sequence of one statement template, but MAY leave off the registration (and subregistration).
