@@ -199,7 +199,7 @@ Name | Values
 `contextCategoryActivityType` | *Optional*. Array of contextActivities category activity type IRIs
 `attachmentUsageType` | *Optional*. Array of attachment usage type IRIs
 `objectStatementRefTemplate` | *Optional*. An array of Statement Template identifiers from this profile version. May not be used with `objectActivityType`. If specified, the Statement object must be a StatementRef and the Learning Record Provider MUST make it the UUID of a Statement matching at least one of the specified Statement Templates.
-`contextStatementRefTemplate`. *Optional*. An array of Statement Template identifiers from this profile version. If specified, the Statement context statement property must be a StatementRef and the Learning Record Provider MUST make it the UUID of a Statement matching at least one of the specified Statement Templates.
+`contextStatementRefTemplate`. | *Optional*. An array of Statement Template identifiers from this profile version. If specified, the Statement context statement property must be a StatementRef and the Learning Record Provider MUST make it the UUID of a Statement matching at least one of the specified Statement Templates.
 `rules` | *Optional*. Array of Statement Template Rules
 
 
