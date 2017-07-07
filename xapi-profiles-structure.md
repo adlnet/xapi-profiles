@@ -46,7 +46,7 @@ Name | Values
 `@type` | Must be `Profile`.
 `conformsTo` | Canonical URI of the profile specification version conformed to. The profile specification version of this document is https://github.com/DataInteroperability/xapi-profiles/tree/master#1.0-development, and it is a development version that may undergo incompatible changes without updating the version URI.
 `prefLabel` | Language map of names for this profile.
-`definition` | Language map of descriptions for this profile. If there are additional rules for the profile as a whole that cannot be expressed using this specification, include them here.
+`definition` | Language map of descriptions for this profile. If there are additional rules for the profile as a whole that cannot be expressed using this specification, include them here, or at the seeAlso URL.
 `seeAlso` | *Optional*. A URL containing information about the profile. Recommended instead of especially long definitions.
 `versions` | An array of all profile version objects for this profile, see below.
 `author` | An Organization or Person, see below.
@@ -54,7 +54,7 @@ Name | Values
 `templates` | *Optional*. An array of Statement Templates for this profile, see that section.
 `patterns` | *Optional*. An array of Patterns for this profile, see that section.
 
-
+When `seeAlso` is provided `definition` SHOULD only include a short description of the Profile to aid in discovery and display.
 
 ### Profile Version Objects
 
