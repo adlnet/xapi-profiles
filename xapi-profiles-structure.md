@@ -1,4 +1,4 @@
-# xAPI Profiles Document Structure Specification
+up-to-date# xAPI Profiles Document Structure Specification
 
 ## Reference Specifications
 
@@ -12,7 +12,7 @@
 
 This specification describes how to author an xAPI Profile. It describes a set of rules for authoring JSON, specifically JSON-LD. Since JSON-LD is a syntax for RDF, the resulting profile is really a set of triples—subject, predicate, object—creating a semantic data set. However, for authoring, all that matters is following the rules given for JSON, which will lead to the richer semantic data naturally. Because of this, no JSON-LD processing is required by systems consuming xAPI Profiles, though there will be advantages to doing so for some purposes.
 
-The serialized JSON form of an xAPI Profiles 1.0 profile version must be consistent with what would be produced by the standard JSON-LD 1.1 Processing Algorithms and API Compaction Algorithm using, at least, the normative JSON-LD @context definition provided.
+When a profile is serialized into JSON, it MUST be consistent with what would be produced by the standard JSON-LD 1.1 Processing Algorithms and API Compaction Algorithm using, at least, the normative JSON-LD @context definition provided. Following all the rules given in this document is sufficient to ensure that.
 
 Under the hood, xAPI Profiles will use several well-established semantic web technologies: SKOS, to connect xAPI concepts together, and PROV, to describe the provenance (most notably the versioning) of profiles. Several properties in xAPI Profiles use names of properties from SKOS and PROV.
 
@@ -28,8 +28,8 @@ To assist in accomplishing these two primary goals, profiles also contain metada
 
 * All properties in tables are required in all cases unless marked optional.
 * Properties marked optional may be required in some situations. If no additional information is provided on the usage of an optional property, including it or not is entirely up to the profile author.
-* All properties that are not JSON-LD keywords (or aliases thereof) in profile documents MUST expand to absolute IRIs during processing as defined in the JSON-LD specification.
-* All properties that are not JSON-LD keywords (or aliases thereof) in a profile MUST be described by this specification or be expressed using compact IRIs.
+* All properties that are not JSON-LD keywords (or aliases thereof) MUST expand to absolute IRIs during processing as defined in the JSON-LD specification.
+* All properties that are not JSON-LD keywords (or aliases thereof) and not described by this specification MUST be expressed using compact IRIs or full IRIs.
 * JSON-LD keywords (or aliases thereof) that are not specified as properties in this document MAY be included anywhere they are legal in JSON-LD.
 * Values in a profile MUST NOT be: empty objects, null, empty strings, or empty arrays.
 
@@ -37,7 +37,9 @@ To assist in accomplishing these two primary goals, profiles also contain metada
 
 Using an introduced Concept, such as an activity type, verb, attachment usage type, extension, activity, or document resource, should be done freely, provided the defined usage and meaning are adhered to. But a Learning Record Provider can go further, and make sure to adhere to profile-described statement templates and patterns. Learning Record Providers creating statements that conform to matching profile-described statement templates and patterns SHOULD include the most up to date conformant profile version as a category context activity with id equal to the version's `@id` in those statements, and statements containing a profile version as a category context activity MUST conform to any matching templates and patterns that profile version describes.
 
-## Profile Metadata
+## Profile Properties
+
+A Profile includes a variety of metadata, both natural language text for humans to understand the Profile, and structured data about versions and who created it. In addition to the metadata, there are properties for describing the Concepts, Statement Templates, and Patterns of the Profile.
 
 Name | Values
 ---- | ------
@@ -46,17 +48,20 @@ Name | Values
 `@type` | Must be `Profile`.
 `conformsTo` | Canonical URI of the profile specification version conformed to. The profile specification version of this document is https://github.com/DataInteroperability/xapi-profiles/tree/master#1.0-development, and it is a development version that may undergo incompatible changes without updating the version URI.
 `prefLabel` | Language map of names for this profile.
-`definition` | Language map of descriptions for this profile. If there are additional rules for the profile as a whole that cannot be expressed using this specification, include them here.
+`definition` | Language map of descriptions for this profile. If there are additional rules for the profile as a whole that cannot be expressed using this specification, include them here, or at the seeAlso URL.
 `seeAlso` | *Optional*. A URL containing information about the profile. Recommended instead of especially long definitions.
 `versions` | An array of all profile version objects for this profile, see below.
 `author` | An Organization or Person, see below.
-`concepts` | *Optional*. The concepts that make up this Profile, see the Concepts section.
-`templates` | *Optional*. The Statement Templates for this profile, see that section.
-`patterns` | *Optional*. The Patterns for this profile, see that section.
+`concepts` | *Optional*. An array of Concepts that make up this Profile, see the Concepts section.
+`templates` | *Optional*. An array of Statement Templates for this profile, see that section.
+`patterns` | *Optional*. An array of Patterns for this profile, see that section.
 
-
+When `seeAlso` is provided `definition` SHOULD only include a short description of the Profile to aid in discovery and display.
 
 ### Profile Version Objects
+
+Profile version objects make it convenient to track version history for profiles, following recommendations for SKOS concept schemes and PROV version tracking generally. By using versions this way, it is possible to answer precise questions such as “what version of this profile was current on the 3rd of January last year?”. Lack of robust versioning is frequently identified as an issue with RDF data.
+
 
 Name | Values
 ---- | ------
@@ -64,9 +69,9 @@ Name | Values
 `wasRevisionOf` | *Optional*. an array, usually of length one, of IRIs of all profile versions this version was written as a revision of
 `generatedAtTime` | the date this version was created on
 
-* wasRevisionOf MUST be used with all versions that succeed other profile versions.
+`wasRevisionOf` MUST be used with all versions that succeed other profile versions.
 
-Profile version objects make it convenient to track version history for profiles, following recommendations for SKOS concept schemes and PROV version tracking generally. By using versions this way, it is possible to answer precise questions such as “what version of this profile was current on the 3rd of January last year?”. Lack of robust versioning is frequently identified as an issue with RDF data.
+`wasRevisionOf` may sometimes contain multiple profile versions to support the scenario where a profile subsumes another. In this case, a new profile version would be defined with the two (or more) contributing profiles listed within the `wasRevisionOf` array.
 
 ### Organizations and Persons
 
@@ -82,25 +87,25 @@ Name | Values
 
 * All members of a profile's `concepts` array MUST be one of the concepts listed in this section.
 
-### Core Concepts: Verbs, Activity Types, and Attachment Usage Types
+### Verbs, Activity Types, and Attachment Usage Types
 
-These Concepts are the most central to building rich, reusable profiles.
+Verb, Activity Type, and Attachment Usage Type Concepts share the same properties. They're all Concepts that make sense to relate semantically to others of the same type, such as indicating one is a narrower form of another.
 
 Name | Values
 ---- | ------
-`@id` | The IRI of this core concept
+`@id` | The IRI of this Concept
 `@type` | `Verb`, `ActivityType`, or `AttachmentUsageType`
 `inScheme` | The IRI of the specific profile version currently being described
 `prefLabel` | A language map of the preferred names in each language
 `definition` | A language map of the precise definition, including how to use the concept properly in statements
 `deprecated` | *Optional*. A boolean. If true, this concept is deprecated.
 `broader` | *Optional*. An array of IRIs of concepts of the same @type from this profile version that have a broader meaning.
-`narrower` | *Optional*. An array of IRIs of concepts of the same @type from this profile version that have a narrower meaning.
 `broadMatch` | *Optional*. An array of IRIs of concepts of the same @type from a different profile that have a broader meaning.
+`narrower` | *Optional*. An array of IRIs of concepts of the same @type from this profile version that have a narrower meaning.
 `narrowMatch` | *Optional*. An array of IRIs of concepts of the same @type from different profiles that have narrower meanings.
-`exactMatch` | *Optional*. An array of IRIs of concepts of the same @type from a different profile or a different version of the same profile that have exactly the same meaning. This should be used rarely, mostly to describe connections to vocabularies that are no longer managed and do not use good URLs.
-`relatedMatch` | *Optional*. An array of IRIs of concepts of the same @type from a different profile or a different version of the same profile that has a related meaning that is not clearly narrower or broader. Useful to establish conceptual links between profiles that can be used for discovery. This SHOULD be used to connect possible replacement Concepts to removed Concepts from previous versions of the same profile, and for possible replacement Concepts in other profiles of deprecated concepts, as well as other loose relations.
 `related` | *Optional*. An array of IRIs of concepts of the same @type from this profile version that are close conceptual matches to this concept's meaning. This property MUST only be used on concepts that are deprecated to indicate possible replacement concepts in the same profile, if there are any.
+`relatedMatch` | *Optional*. An array of IRIs of concepts of the same @type from a different profile or a different version of the same profile that has a related meaning that is not clearly narrower or broader. Useful to establish conceptual links between profiles that can be used for discovery. This SHOULD be used to connect possible replacement Concepts to removed Concepts from previous versions of the same profile, and for possible replacement Concepts in other profiles of deprecated concepts, as well as other loose relations.
+`exactMatch` | *Optional*. An array of IRIs of concepts of the same @type from a different profile or a different version of the same profile that have exactly the same meaning. This should be used rarely, mostly to describe connections to vocabularies that are no longer managed and do not use good URLs.
 
 ### Extensions
 
@@ -128,7 +133,6 @@ Learning Record Providers MUST, for xAPI Statements using Extensions defined her
 
 ### Document Resources
 
-The @id MUST be used as the stateId or profileId (as appropriate) when interacting with the corresponding resource.
 
 
 Name | Values
@@ -138,18 +142,34 @@ Name | Values
 `inScheme` | The IRI of the specific profile version currently being described
 `prefLabel` | A language map of descriptive names for the document resource
 `definition` | A language map of descriptions of the purpose and usage of the document resource
-`contentType` | The content-type for the resource
+`contentType` | The media type for the resource, as described in RFC 2046 (e.g. `application/json`).
 `deprecated` | *Optional*. A boolean. If true, this concept is deprecated.
 `context` | *Optional*. the IRI of a JSON-LD context for this document resource
 `schema` | *Optional*. the IRI for accessing a JSON Schema for this document resource.
 `inlineSchema` | *Optional*. A JSON Schema inline. Must be a string that contains a legal JSON Schema.
 
-* profiles MUST use at most one of `schema` and `inlineSchema` for Document Resources
+Profiles MUST use at most one of `schema` and `inlineSchema` for Document Resources
+
+
+Learning Record Store Clients sending Document Resources
+* MUST use the @id as the stateId or profileId (as appropriate) when interacting with the corresponding resource.
+* MUST use the contentType given in the Content-Type header, including any parameters as given.
+* MAY add additional parameters to the Content-Type header that are not specified in the Concept.
 
 
 ### Activities
 
-These Concepts are just literal xAPI Activity definitions the profile wants to provide for use. This is the profile's canonical version of the Activity. Except for `@context`, the activityDefinition in this Concept MUST be a legal xAPI Activity Definition. When using the Activity, a Statement MUST use the `@id` for the Activity `id`, and MUST NOT include `@context` in the Activity definition. All other properties of the activityDefinition are considered part of the definition, and any Statement using the Activity SHOULD either not include the definition, or SHOULD include all properties given here in the definition exactly as given, except for `name` and `description` or other language maps, which SHOULD only include languages appropriate to the situation, possibly including ones not present in the profile yet.
+These Concepts are just literal xAPI Activity definitions the profile wants to provide for use. This is the profile's canonical version of the Activity.
+
+When using the Activity, a Statement MUST use the `@id` for the Activity `id`, and MUST NOT include `@context` in the Activity definition.
+
+Except for `@context`, the activityDefinition in this Concept MUST be a legal xAPI Activity Definition.
+
+All other properties of the activityDefinition are considered part of the definition. A Learning Record Provider sending a Statement using the Activity:
+* SHOULD either not include the definition or include all properties given here in the definition.
+* if included, the properties SHOULD be exactly as given in the Profile, except for `name` and `description` and other Language Maps.
+* Language Maps SHOULD only include languages appropriate to the situation.
+* Language Maps MAY include languages not present in the profile yet.
 
 Due to restrictions in JSON-LD, all extensions in the Activity definition that do not have primitive values (string, number, boolean, null, or arrays thereof) MUST include a JSON-LD @context in the top-level object, or in every top-level object if array-valued.
 
@@ -212,7 +232,7 @@ Statement Template Rules describe a location or locations within statements usin
 "rules": [
     {
         "location": "context.contextActivities.grouping[0]",
-        "rule": "included"
+        "presence": "included"
     }
 ]
 ```
@@ -221,26 +241,26 @@ They have these properties:
 
 Name | Values
 ---- | ------
-`location` | A JSONPath string
-`selector` | *Optional*. A JSONPath string. This JSONPath is executed on the array of values resulting from the location selector, and the resulting values are what are used for matching. If it returns nothing on a location, that represents an unmatchable value for that location, meaning "all" will fail, as will included.
-`rule` | *Optional*. `included`, `excluded`, or `recommended`. If included, there must be at least one matchable value for this Statement Template Rule to be fulfilled, and if excluded, no matchable values. If `recommended`, this rule represents a recommended inclusion and `any`, `all`, and `none` requirements on the same rule are only applied if the results of looking up `location` are nonempty.
-`any` | *Optional*. an array of values that are allowed in this location. Useful for constraining the presence of particular activities, for example. If the rule returns multiple values for a statement, then this Statement Template Rule is fulfilled if any one returned value matches any one specified value — that is, if the intersection is not empty.
+`location` | A JSONPath string. This is evaluated on a Statement to find the values to apply the requirements in this rule to.
+`selector` | *Optional*. A JSONPath string. If specified, this JSONPath is evaluated on each member of the array of values resulting from the location selector, and the resulting values are what are used for matching. If it returns nothing on a location, that represents an unmatchable value for that location, meaning `all` will fail, as will a `presence` of `included`.
+`presence` | *Optional*. `included`, `excluded`, or `recommended`. If `included`, there must be at least one matchable value for this Statement Template Rule to be fulfilled, and if `excluded`, no matchable values. If `recommended`, this rule represents a recommended inclusion, meaning `any`, `all`, and `none` requirements on the same rule are only applied if the results of evaluating `location` are nonempty.
+`any` | *Optional*. an array of values that are allowed in this location. Useful for constraining the presence of particular activities, for example. If the JSONPath returns multiple values for a statement, then this Statement Template Rule is fulfilled if any one returned value matches any one specified value — that is, if the intersection is not empty.
 `all` | *Optional*. an array of values, which all values returned by the JSONPath must match one of to fulfill this Statement Template Rule.
 `none` | *Optional*. an array of values, which no values returned by the JSONPath may match to fulfill this Statement Template Rule.
 `scopeNote` | *Optional*. A language map describing usage details for the parts of Statements addressed by this rule. For example, a profile with a rule requiring result.duration might provide guidance on how to calculate it.
 
-A Statement Template Rule MUST include one or more of `rule`, `any`, `all`, or `none`.
+A Statement Template Rule MUST include one or more of `presence`, `any`, `all`, or `none`.
 
-When processing a statement for Statement Template Rules, it MUST have normalized contextActivities, with singletons replaced by arrays of length one.
-The syntax of JSONPath is described at http://goessner.net/articles/JsonPath/index.html#e2, except filter and script expressions may not be used. The union operator (a comma) may be used inside array or child expressions, so the result is the union on each expression being used separately. The legal values in an array or child expression are: strings (child expressions), non-negative integers (array expressions), and the star character `*` representing all children/members. Effectively this means the `@` syntax is also illegal. TODO: consider allowing limited scripting a la https://github.com/json-path/JsonPath . TODO: consider if use cases require allowing a JSONPath expression to be a union of other JSONPath expressions.
+When validating a Statement for Statement Template Rules, contextActivities normalization MUST have already been performed as described in the Experience API specification. That is, singleton objects MUST be replaced by arrays of length one.
 
-### Statement References
-
-I'm unsure enough how to do this I propose we do not include statement reference constraints in the initial draft. It would probably be included as a special case in the statement template rules, above.
+The syntax and behavior of JSONPath is described at http://goessner.net/articles/JsonPath/index.html#e2. In addition, the following requirements and clarifications apply:
+* Filter and script expressions MUST NOT be used.
+* The union operator (a comma) may be used inside array or child expressions, so the result is the union on each expression being used separately.
+* The legal values in an array or child expression are: strings (child expressions), non-negative integers (array expressions), the star character `*` representing all children/members, and unions of these as described above.
 
 ## Patterns
 
-Patterns are groups of statements matching particular statement templates, ordered in certain ways. For example, an allowed pattern in a video profile might start with a statement about playing a video and then be followed by statements about pausing, skipping, playing again, and so forth. A pattern is determined by a given registration, and possibly subregistration, a new extension. Specifically,
+Patterns describe groups of statements matching particular statement templates, ordered in certain ways. For example, an allowed pattern in a video profile might start with a statement about playing a video and then be followed by statements about pausing, skipping, playing again, and so forth. A pattern is determined by a given registration, and possibly subregistration, a new extension. Specifically,
 
 * all statements following a primary Pattern MUST use the same registration.
 * when only one profile or only one pattern occurrence of each profile will be used, in a given registration, subregistrations SHOULD NOT be used.
