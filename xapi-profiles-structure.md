@@ -28,7 +28,7 @@ To assist in accomplishing these two primary goals, profiles also contain metada
 
 * All properties in tables are required in all cases unless marked optional.
 * Properties marked optional may be required in some situations. If no additional information is provided on the usage of an optional property, including it or not is entirely up to the profile author.
-* All properties that are not JSON-LD keywords (or aliases thereof) in profile documents MUST expand to absolute IRIs during processing as defined in the JSON-LD specification.
+* All properties that are not JSON-LD keywords (or aliases thereof) MUST expand to absolute IRIs during processing as defined in the JSON-LD specification.
 * All properties that are not JSON-LD keywords (or aliases thereof) and not described by this specification MUST be expressed using compact IRIs.
 * JSON-LD keywords (or aliases thereof) that are not specified as properties in this document MAY be included anywhere they are legal in JSON-LD.
 * Values in a profile MUST NOT be: empty objects, null, empty strings, or empty arrays.
