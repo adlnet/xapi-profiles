@@ -85,7 +85,7 @@ Name | Values
 
 ## Concepts
 
-* All members of a profile's `concepts` array MUST be one of the concepts listed in this section.
+All Concepts in a Profile MUST follow the rules of one of the subsections within this section. Since the types listed in each subsection are exclusive and required, that will always distinguish which section applies.
 
 ### Verbs, Activity Types, and Attachment Usage Types
 
@@ -103,9 +103,13 @@ Name | Values
 `broadMatch` | *Optional*. An array of IRIs of concepts of the same @type from a different profile that have a broader meaning.
 `narrower` | *Optional*. An array of IRIs of concepts of the same @type from this profile version that have a narrower meaning.
 `narrowMatch` | *Optional*. An array of IRIs of concepts of the same @type from different profiles that have narrower meanings.
-`related` | *Optional*. An array of IRIs of concepts of the same @type from this profile version that are close conceptual matches to this concept's meaning. This property MUST only be used on concepts that are deprecated to indicate possible replacement concepts in the same profile, if there are any.
-`relatedMatch` | *Optional*. An array of IRIs of concepts of the same @type from a different profile or a different version of the same profile that has a related meaning that is not clearly narrower or broader. Useful to establish conceptual links between profiles that can be used for discovery. This SHOULD be used to connect possible replacement Concepts to removed Concepts from previous versions of the same profile, and for possible replacement Concepts in other profiles of deprecated concepts, as well as other loose relations.
-`exactMatch` | *Optional*. An array of IRIs of concepts of the same @type from a different profile or a different version of the same profile that have exactly the same meaning. This should be used rarely, mostly to describe connections to vocabularies that are no longer managed and do not use good URLs.
+`related` | *Optional*. An array of IRIs of concepts of the same @type from this profile version that are close conceptual matches to this concept's meaning.
+`relatedMatch` | *Optional*. An array of IRIs of concepts of the same @type from a different profile or a different version of the same profile that has a related meaning that is not clearly narrower or broader. Useful to establish conceptual links between profiles that can be used for discovery.
+`exactMatch` | *Optional*. An array of IRIs of concepts of the same @type from a different profile or a different version of the same profile that have exactly the same meaning.
+
+* `related` MUST only be used on concepts that are deprecated to indicate possible replacement concepts in the same profile, if there are any.
+* `relatedMatch` SHOULD be used to connect possible replacement Concepts to removed Concepts from previous versions of the same profile, and for possible replacement Concepts in other profiles of deprecated concepts, as well as other loose relations.
+* `exactMatch` SHOULD be used rarely, mostly to describe connections to vocabularies that are no longer managed and do not use good URLs.
 
 ### Extensions
 
@@ -121,10 +125,10 @@ Name | Values
 `recommendedActivityTypes` | *Optional*. Only allowed on `ActivityExtension`s. An array of activity type URIs that this extension is recommended for use with (extending to narrower of the same).
 `recommendedVerbs` | *Optional*. Only allowed on `ContextExtension`s and `ResultExtension`s. An array of verb URIs that this extension is recommended for use with (extending to narrower of the same).
 `context` | *Optional*. the IRI of a JSON-LD context for this extension
-`schema` | *Optional*. the IRI for accessing a JSON Schema for this extension. The JSON Schema may constrain the extension to a single type.
-`inlineSchema` | *Optional*. A JSON Schema inline. Must be a string that contains a legal JSON Schema.
+`schema` | *Optional*. the IRI for accessing a JSON Schema for this extension. The JSON Schema can be used to constrain the extension to a single type.
+`inlineSchema` | *Optional*. An alternate way to include a JSON Schema, as a string.
 
-* profiles MUST use at most one of `schema` and `inlineSchema` for Extensions.
+Profiles MUST use at most one of `schema` and `inlineSchema` for Extensions.
 
 Learning Record Providers MUST, for xAPI Statements using Extensions defined here, follow the following rules:
 * a ContextExtension MUST only be used in context
@@ -132,8 +136,6 @@ Learning Record Providers MUST, for xAPI Statements using Extensions defined her
 * an ActivityExtension MUST only be used in an Activity Definition.
 
 ### Document Resources
-
-
 
 Name | Values
 ---- | ------
@@ -146,10 +148,9 @@ Name | Values
 `deprecated` | *Optional*. A boolean. If true, this concept is deprecated.
 `context` | *Optional*. the IRI of a JSON-LD context for this document resource
 `schema` | *Optional*. the IRI for accessing a JSON Schema for this document resource.
-`inlineSchema` | *Optional*. A JSON Schema inline. Must be a string that contains a legal JSON Schema.
+`inlineSchema` | *Optional*. An alternate way to include a JSON Schema, as a string.
 
 Profiles MUST use at most one of `schema` and `inlineSchema` for Document Resources
-
 
 Learning Record Store Clients sending Document Resources
 * MUST use the @id as the stateId or profileId (as appropriate) when interacting with the corresponding resource.
@@ -161,17 +162,7 @@ Learning Record Store Clients sending Document Resources
 
 These Concepts are just literal xAPI Activity definitions the profile wants to provide for use. This is the profile's canonical version of the Activity.
 
-When using the Activity, a Statement MUST use the `@id` for the Activity `id`, and MUST NOT include `@context` in the Activity definition.
 
-Except for `@context`, the activityDefinition in this Concept MUST be a legal xAPI Activity Definition.
-
-All other properties of the activityDefinition are considered part of the definition. A Learning Record Provider sending a Statement using the Activity:
-* SHOULD either not include the definition or include all properties given here in the definition.
-* if included, the properties SHOULD be exactly as given in the Profile, except for `name` and `description` and other Language Maps.
-* Language Maps SHOULD only include languages appropriate to the situation.
-* Language Maps MAY include languages not present in the profile yet.
-
-Due to restrictions in JSON-LD, all extensions in the Activity definition that do not have primitive values (string, number, boolean, null, or arrays thereof) MUST include a JSON-LD @context in the top-level object, or in every top-level object if array-valued.
 
 Name | Values
 ---- | ------
@@ -197,11 +188,25 @@ Name | Values
 `target` | *Optional*. As in xAPI Activity Definitions.
 `steps` | *Optional*. As in xAPI Activity Definitions.
 
+Except for `@context`, the activityDefinition in this Concept MUST be a legal xAPI Activity Definition.
+
+Profile Authors:
+* MUST include a JSON-LD `@context` in all top-level objects of extensions, or in every top-level object if array-valued. This is due to restrictions in JSON-LD, and is not applicable to extensions with primitive values (string, number, boolean, null, or arrays thereof).
+* MUST ensure every extension `@context` is sufficient to guarantee all properties in the extension expand to absolute IRIs during JSON-LD processing.
+
+
+Learning Record Providers using the Activity in Statements:
+* MUST use the `@id` for the Activity `id`, and MUST NOT include `@context` in the Activity Definition.
+* SHOULD either not include the definition or include all properties given here in the definition.
+* if included, the properties SHOULD be exactly as given in the Profile, except for `name` and `description` and other Language Maps.
+* Language Maps SHOULD only include languages appropriate to the situation.
+* Language Maps MAY include languages not present in the profile yet.
+
+
 ## Statement Templates
 
-A Statement Template describes one way statements following the profile may be structured. The verb, object activity type, attachment usage types, and context activity types listed are the determining properties. When authoring a statement to follow a template, a Learning Record Provider MUST include all the determining properties, as well as follow all rules in the template. Any statement including all the determining properties and using the profile version as a category context activity MUST follow the rules, object StatementRef property, and context StatementRef property.  We recommend picking one of the determining properties to use in all Statement Templates in a profile to be reused in Patterns, with different values in each, since this ensures each statement matches at most one Statement Template in a given profile. A profile SHOULD ensure each statement following any of its Statement Templates used in Patterns will match at most one Statement Template.
+A Statement Template describes one way statements following the profile may be structured.
 
-If a statement matches a Statement Template's determining values and uses the profile version as a category context activity, it MUST be sent as part of a Pattern or Implied Pattern.
 
 Name | Values
 ---- | ------
@@ -219,10 +224,21 @@ Name | Values
 `contextOtherActivityType` | *Optional*. Array of contextActivities other activity type IRIs
 `contextCategoryActivityType` | *Optional*. Array of contextActivities category activity type IRIs
 `attachmentUsageType` | *Optional*. Array of attachment usage type IRIs
-`objectStatementRefTemplate` | *Optional*. An array of Statement Template identifiers from this profile version. May not be used with `objectActivityType`. If specified, the Statement object must be a StatementRef and the Learning Record Provider MUST make it the UUID of a Statement matching at least one of the specified Statement Templates.
-`contextStatementRefTemplate`. | *Optional*. An array of Statement Template identifiers from this profile version. If specified, the Statement context statement property must be a StatementRef and the Learning Record Provider MUST make it the UUID of a Statement matching at least one of the specified Statement Templates.
+`objectStatementRefTemplate` | *Optional*. An array of Statement Template identifiers from this profile version.
+`contextStatementRefTemplate`. | *Optional*. An array of Statement Template identifiers from this profile version.
 `rules` | *Optional*. Array of Statement Template Rules
 
+If a statement matches a Statement Template's determining values and uses the profile version as a category context activity, it MUST be sent as part of a Pattern or Implied Pattern.
+
+A Profile author MUST NOT include both `objectStatementRefTemplate` and `objectActivityType` in a Statement Template.
+
+The verb, object activity type, attachment usage types, and context activity types listed are called Determining Properties.
+
+A Learning Record Provider authoring a Statement following a Statement Template:
+* MUST include all the Determining Properties in the Statement Template.
+* MUST follow all rules in the Statement Template.
+* MUST, if objectStatementRefTemplate is specified, set the Statement object to a StatementRef with the `id` of a Statement matching at least one of the specified Statement Templates.
+* MUST, if contextStatementRefTemplate is specified, set the Statement context statement property to a StatementRef with the `id` of a Statement matching at least one of the specified Statement Templates.
 
 ### Statement Template Rules
 
@@ -260,21 +276,7 @@ The syntax and behavior of JSONPath is described at http://goessner.net/articles
 
 ## Patterns
 
-Patterns describe groups of statements matching particular statement templates, ordered in certain ways. For example, an allowed pattern in a video profile might start with a statement about playing a video and then be followed by statements about pausing, skipping, playing again, and so forth. A pattern is determined by a given registration, and possibly subregistration, a new extension. Specifically,
-
-* all statements following a primary Pattern MUST use the same registration.
-* when only one profile or only one pattern occurrence of each profile will be used, in a given registration, subregistrations SHOULD NOT be used.
-* if any Statements following a primary Pattern do not contain a subregistration, all statements with the same registration and profile version in category MUST follow that primary Pattern.
-* if any Statements with a given registration contain the subregistration extension, then all statements with that registration with the same subregistration identifier for a given profile version MUST follow the same primary Pattern.
-* the extension key of the subregistration extension is https://TODO/REPLACE/WITH/REAL/ID (a value in the w3id xAPI space should be used for this).
-* the subregistration extension MUST only be present in Statements with a registration.
-* the subregistration extension is an array-valued context extension. The array MUST NOT be empty. Each value of the array MUST be an object with the properties in the table below.
-
-Name | Values
----- | ------
-`profile` | The URI of a profile present in the category context activities that this is a subregistration for.
-`subregistration` | A variant 2 UUID as specified in RFC 4122. This is the subregistration identifier in the requirements above.
-
+Patterns describe groups of statements matching particular statement templates, ordered in certain ways. For example, an allowed pattern in a video profile might start with a statement about playing a video and then be followed by statements about pausing, skipping, playing again, and so forth.
 
 Patterns have these properties:
 
@@ -298,17 +300,33 @@ Name | Values
 A primary pattern MUST include prefLabel and definition. They are optional otherwise.
 A pattern MUST contain exactly one of `alternates`, `optional`, `oneOrMore`, `sequence`, and `zeroOrMore`.
 
-A pattern MUST NOT refer to any pattern that has itself in the array or single value for any of `alternates`, `optional`, `oneOrMore`, `sequence`, or `zeroOrMore`, considered recursively.
-
-Learning Record Providers:
-* MUST send Statements following a Pattern ordered by Statement timestamp.
-* MUST give Statements following a Pattern different timestamps if they are in different batches.
-* SHOULD give all Statements following a Pattern different timestamps.
-* MUST order Statements following a Pattern within the same batch with the same timestamp so ones intended to match earlier in the Pattern are earlier in the array than ones intended to match later in the Pattern
 
 Profile Authors:
 * MUST make sure their primary patterns behave appropriately given the greedy matching rules in the algorithms section.
 * MUST NOT put optional or zeroOrMore directly inside alternates.
+* MUST NOT include any pattern within itself, or within any pattern within itself, or at any depth.
+
+Learning Record Providers:
+* MUST follow a Pattern or the allowedSolo Templates from a Profile for every Statement that has the Profile in the category context activities.
+* MUST send Statements following a Pattern ordered by Statement timestamp.
+* MUST give Statements following a Pattern different timestamps if they are in different batches.
+* SHOULD give all Statements following a Pattern different timestamps.
+* MUST order Statements following a Pattern within the same batch with the same timestamp so ones intended to match earlier in the Pattern are earlier in the array than ones intended to match later in the Pattern
+* MUST follow the rules given for a primary Pattern or allowedSolo template within a registration and possibly subregistration (a new extension). Specifically,
+    * all statements following a primary Pattern MUST use the same registration.
+    * when only one profile or only one pattern occurrence of each profile will be used, in a given registration, subregistrations SHOULD NOT be used.
+    * if any Statements following a primary Pattern do not contain a subregistration, all statements with the same registration and profile version in category MUST follow that primary Pattern.
+    * if any Statements with a given registration contain the subregistration extension, then all statements with that registration with the same subregistration identifier for a given profile version MUST follow the same primary Pattern.
+    * the extension key of the subregistration extension is https://TODO/REPLACE/WITH/REAL/ID (a value in the w3id xAPI space should be used for this).
+    * the subregistration extension MUST only be present in Statements with a registration.
+    * the subregistration extension is an array-valued context extension. The array MUST NOT be empty. Each value of the array MUST be an object with the properties in the table below.
+
+
+
+Name | Values
+---- | ------
+`profile` | The URI of a profile present in the category context activities that this is a subregistration for.
+`subregistration` | A variant 2 UUID as specified in RFC 4122. This is the subregistration identifier in the requirements above.
 
 Some Profiles may contain Patterns very similar to Statement data sent by previously existing Learning Record Providers, not strictly following this specification. It may be very close, but not follow it in all particulars, such as by missing a registration. While the details of how to handle this are outside the scope of this specification, Profiles aware of such existing data SHOULD make note of this and include descriptive language covering the degree of adherence.
 
