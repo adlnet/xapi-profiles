@@ -1,0 +1,249 @@
+{
+    "@context": {
+        "type": "@type",
+        "id": "@id",
+        "prov": "http://www.w3.org/ns/prov#",
+        "skos": "http://www.w3.org/2004/02/skos/core#",
+        "xapi": "http://purl.org/xapi/ontology#",
+        "profile": "http://purl.org/xapi/profile/ontology#",
+        "dcterms": "http://purl.org/dc/terms/",
+        "schemaorg": "http://schema.org/",
+        "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+        "Profile": "profile:Profile",
+        "Organization": "schemaorg:Organization",
+        "Person": "schemaorg:Person",
+        "Verb": "xapi:Verb",
+        "ActivityType": "xapi:ActivityType",
+        "AttachmentUsageType": "xapi:AttachmentUsageType",
+        "ContextExtension": "xapi:ContextExtension",
+        "ResultExtension": "xapi:ResultExtension",
+        "ActivityExtension": "xapi:ActivityExtension",
+        "StateResource": "xapi:StateResource",
+        "AgentProfileResource": "xapi:AgentProfileResource",
+        "ActivityProfileResource": "xapi:ActivityProfileResource",
+        "Activity": "xapi:Activity",
+        "StatementTemplate": "profile:StatementTemplate",
+        "Pattern": "profile:Pattern",
+        "conformsTo": {
+            "@type": "@id",
+            "@id": "dcterms:conformsTo"
+        },
+        "prefLabel": {
+            "@id": "skos:prefLabel",
+            "@container": "@language"
+        },
+        "definition": {
+            "@id": "skos:definition",
+            "@container": "@language"
+        },
+        "seeAlso": {
+            "@type": "@id",
+            "@id": "rdfs:seeAlso"
+        },
+        "versions": {
+            "@id": "profile:versions",
+            "@container": "@set"
+        },
+        "author": {
+            "@id": "schemaorg:author"
+        },
+        "concepts": {
+            "@id": "profile:concepts",
+            "@container": "@set"
+        },
+        "templates": {
+            "@id": "profile:templates",
+            "@container": "@set"
+        },
+        "patterns": {
+            "@id": "profile:patterns",
+            "@container": "@set"
+        },
+        "wasRevisionOf": {
+            "@id": "prov:wasRevisionOf",
+            "@container": "@set",
+            "@type": "@id"
+        },
+        "generatedAtTime": {
+            "@id": "prov:generatedAtTime",
+            "@type": "http://www.w3.org/2001/XMLSchema#dateTime"
+        },
+        "name": {
+            "@id": "schemaorg:name"
+        },
+        "url": {
+            "@id": "schemaorg:url"
+        },
+        "inScheme": {
+            "@id": "skos:inScheme",
+            "@type": "@id"
+        },
+        "deprecated": {
+            "@id": "profile:deprecated",
+            "@type": "http://www.w3.org/2001/XMLSchema#boolean"
+        },
+        "broader": {
+            "@id": "skos:broader",
+            "@type": "@id",
+            "@container": "@set"
+        },
+        "narrower": {
+            "@id": "skos:narrower",
+            "@type": "@id",
+            "@container": "@set"
+        },
+        "broadMatch": {
+            "@id": "skos:broadMatch",
+            "@type": "@id",
+            "@container": "@set"
+        },
+        "narrowMatch": {
+            "@id": "skos:narrowMatch",
+            "@type": "@id",
+            "@container": "@set"
+        },
+        "exactMatch": {
+            "@id": "skos:exactMatch",
+            "@type": "@id",
+            "@container": "@set"
+        },
+        "relatedMatch": {
+            "@id": "skos:relatedMatch",
+            "@type": "@id",
+            "@container": "@set"
+        },
+        "related": {
+            "@id": "skos:related",
+            "@type": "@id",
+            "@container": "@set"
+        },
+        "recommendedActivityTypes": {
+            "@id": "profile:recommendedActivityTypes",
+            "@type": "@id",
+            "@container": "@set"
+        },
+        "recommendedVerbs": {
+            "@id": "profile:recommendedVerbs",
+            "@type": "@id",
+            "@container": "@set"
+        },
+        "context": {
+            "@id": "profile:context",
+            "@type": "@id"
+        },
+        "schema": {
+            "@id": "profile:schema",
+            "@type": "@id"
+        },
+        "inlineSchema": {
+            "@id": "profile:inlineSchema"
+        },
+        "contentType": {
+            "@id": "profile:contentType"
+        },
+        "activityDefinition": {
+            "@id": "profile:activityDefinition"
+        },
+        "allowedSolo": {
+            "@id": "profile:allowedSolo",
+            "@type": "http://www.w3.org/2001/XMLSchema#boolean"
+        },
+        "verb": {
+            "@id": "profile:verb",
+            "@type": "@id"
+        },
+        "objectActivityType": {
+            "@id": "profile:objectActivityType",
+            "@type": "@id"
+        },
+        "contextGroupingActivityType": {
+            "@id": "profile:contextGroupingActivityType",
+            "@type": "@id",
+            "@container": "@set"
+        },
+        "contextParentActivityType": {
+            "@id": "profile:contextParentActivityType",
+            "@type": "@id",
+            "@container": "@set"
+        },
+        "contextOtherActivityType": {
+            "@id": "profile:contextOtherActivityType",
+            "@type": "@id",
+            "@container": "@set"
+        },
+        "contextCategoryActivityType": {
+            "@id": "profile:contextCategoryActivityType",
+            "@type": "@id",
+            "@container": "@set"
+        },
+        "attachmentUsageType": {
+            "@id": "profile:attachmentUsageType",
+            "@type": "@id",
+            "@container": "@set"
+        },
+        "objectStatementRefTemplate": {
+            "@id": "profile:objectStatementRefTemplate",
+            "@type": "@id",
+            "@container": "@set"
+        },
+        "contextStatementRefTemplate": {
+            "@id": "profile:contextStatementRefTemplate",
+            "@type": "@id",
+            "@container": "@set"
+        },
+        "rules": {
+            "@id": "profile:rules",
+            "@container": "@set"
+        },
+        "location": {
+            "@id": "profile:location"
+        },
+        "selector": {
+            "@id": "profile:selector"
+        },
+        "rule": {
+            "@id": "profile:rule"
+        },
+        "any": {
+            "@id": "profile:any",
+            "@container": "@set"
+        },
+        "all": {
+            "@id": "profile:all",
+            "@container": "@set"
+        },
+        "none": {
+            "@id": "profile:none",
+            "@container": "@set"
+        },
+        "scopeNote": {
+            "@id": "skos:scopeNote"
+        },
+        "primary": {
+            "@id": "profile:primary",
+            "@type": "http://www.w3.org/2001/XMLSchema#boolean"
+        },
+        "alternates": {
+            "@id": "profile:alternates",
+            "@type": "@id",
+            "@container": "@set"
+        },
+        "optional": {
+            "@id": "profile:alternates",
+            "@type": "@id"
+        },
+        "oneOrMore": {
+            "@id": "profile:alternates",
+            "@type": "@id"
+        },
+        "sequence": {
+            "@id": "profile:alternates",
+            "@type": "@id",
+            "@container": "@list"
+        },
+        "zeroOrMore": {
+            "@id": "profile:alternates",
+            "@type": "@id"
+        }
+    }
+}
