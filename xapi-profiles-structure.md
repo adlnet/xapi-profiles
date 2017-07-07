@@ -231,7 +231,7 @@ Name | Values
 
 A Statement Template Rule MUST include one or more of `rule`, `any`, `all`, or `none`.
 
-When processing a statement for Statement Template Rules, it MUST have normalized contextActivities, with singletons replaced by arrays of length one.
+When validating a Statement for Statement Template Rules, contextActivities normalization MUST have already been performed as described in the Experience API specification. That is, singleton objects MUST be replaced by arrays of length one.
 
 The syntax and behavior of JSONPath is described at http://goessner.net/articles/JsonPath/index.html#e2. In addition, the following requirements and clarifications apply:
 * Filter and script expressions MUST NOT be used.
