@@ -221,9 +221,9 @@ They have these properties:
 
 Name | Values
 ---- | ------
-`location` | A JSONPath string
-`selector` | *Optional*. A JSONPath string. This JSONPath is executed on the array of values resulting from the location selector, and the resulting values are what are used for matching. If it returns nothing on a location, that represents an unmatchable value for that location, meaning "all" will fail, as will included.
-`rule` | *Optional*. `included`, `excluded`, or `recommended`. If included, there must be at least one matchable value for this Statement Template Rule to be fulfilled, and if excluded, no matchable values. If `recommended`, this rule represents a recommended inclusion and `any`, `all`, and `none` requirements on the same rule are only applied if the results of looking up `location` are nonempty.
+`location` | A JSONPath string. This is evaluated on a Statement to find the values to apply the requirements in this rule to.
+`selector` | *Optional*. A JSONPath string. If specified, this JSONPath is evaluated on each member of the array of values resulting from the location selector, and the resulting values are what are used for matching. If it returns nothing on a location, that represents an unmatchable value for that location, meaning `all` will fail, as will a `rule` of `included`.
+`rule` | *Optional*. `included`, `excluded`, or `recommended`. If `included`, there must be at least one matchable value for this Statement Template Rule to be fulfilled, and if `excluded`, no matchable values. If `recommended`, this rule represents a recommended inclusion, meaning `any`, `all`, and `none` requirements on the same rule are only applied if the results of evaluating `location` are nonempty.
 `any` | *Optional*. an array of values that are allowed in this location. Useful for constraining the presence of particular activities, for example. If the rule returns multiple values for a statement, then this Statement Template Rule is fulfilled if any one returned value matches any one specified value — that is, if the intersection is not empty.
 `all` | *Optional*. an array of values, which all values returned by the JSONPath must match one of to fulfill this Statement Template Rule.
 `none` | *Optional*. an array of values, which no values returned by the JSONPath may match to fulfill this Statement Template Rule.
@@ -232,7 +232,11 @@ Name | Values
 A Statement Template Rule MUST include one or more of `rule`, `any`, `all`, or `none`.
 
 When processing a statement for Statement Template Rules, it MUST have normalized contextActivities, with singletons replaced by arrays of length one.
-The syntax of JSONPath is described at http://goessner.net/articles/JsonPath/index.html#e2, except filter and script expressions may not be used. The union operator (a comma) may be used inside array or child expressions, so the result is the union on each expression being used separately. The legal values in an array or child expression are: strings (child expressions), non-negative integers (array expressions), and the star character `*` representing all children/members. Effectively this means the `@` syntax is also illegal. TODO: consider allowing limited scripting a la https://github.com/json-path/JsonPath . TODO: consider if use cases require allowing a JSONPath expression to be a union of other JSONPath expressions.
+
+The syntax and behavior of JSONPath is described at http://goessner.net/articles/JsonPath/index.html#e2. In addition, the following requirements and clarifications apply:
+* Filter and script expressions MUST NOT be used.
+* The union operator (a comma) may be used inside array or child expressions, so the result is the union on each expression being used separately.
+* The legal values in an array or child expression are: strings (child expressions), non-negative integers (array expressions), the star character `*` representing all children/members, and unions of these as described above.
 
 ## Patterns
 
