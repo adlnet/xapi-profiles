@@ -32,10 +32,12 @@ To assist in accomplishing these two primary goals, profiles also contain metada
 * All properties that are not JSON-LD keywords (or aliases thereof) and not described by this specification MUST be expressed using compact IRIs or full IRIs.
 * JSON-LD keywords (or aliases thereof) that are not specified as properties in this document MAY be included anywhere they are legal in JSON-LD.
 * Values in a profile MUST NOT be: empty objects, null, empty strings, or empty arrays.
+* All requirements on the structure of Profiles MUST be followed by Profile Authors.
+* All requirements on Statements following Profiles MUST be followed by Learning Record Providers when authoring Statements and by Profile Validators when validating Statements.
 
 ## Using Profiles in Statements
 
-Using an introduced Concept, such as an activity type, verb, attachment usage type, extension, activity, or document resource, should be done freely, provided the defined usage and meaning are adhered to. But a Learning Record Provider can go further, and make sure to adhere to profile-described statement templates and patterns. Learning Record Providers creating statements that conform to matching profile-described statement templates and patterns SHOULD include the most up to date conformant profile version as a category context activity with id equal to the version's `@id` in those statements, and statements containing a profile version as a category context activity MUST conform to any matching templates and patterns that profile version describes.
+Using an introduced Concept, such as an activity type, verb, attachment usage type, extension, activity, or document resource, should be done freely, provided the defined usage and meaning are adhered to. But a Learning Record Provider can go further, and make sure to adhere to profile-described statement templates and patterns. Learning Record Providers authoring statements that conform to matching profile-described statement templates and patterns SHOULD include the most up to date conformant profile version as a category context activity with id equal to the version's `@id` in those statements, and statements containing a profile version as a category context activity MUST conform to any matching templates and patterns that profile version describes.
 
 ## Profile Properties
 
@@ -130,10 +132,10 @@ Name | Values
 
 Profiles MUST use at most one of `schema` and `inlineSchema` for Extensions.
 
-Learning Record Providers MUST, for xAPI Statements using Extensions defined here, follow the following rules:
-* a ContextExtension MUST only be used in context
-* a ResultExtension MUST only be used in result
-* an ActivityExtension MUST only be used in an Activity Definition.
+Statements including extensions defined in a Profile MUST:
+* only use a ContextExtension in context
+* only use a ResultExtension in result
+* only use an ActivityExtension in an Activity Definition.
 
 ### Document Resources
 
@@ -157,11 +159,12 @@ Learning Record Store Clients sending Document Resources
 * MUST use the contentType given in the Content-Type header, including any parameters as given.
 * MAY add additional parameters to the Content-Type header that are not specified in the Concept.
 
+Profile Validators receiving Document Resources MUST validate Learning Record Store Clients follow the requirements for Document Resources.
+
 
 ### Activities
 
 These Concepts are just literal xAPI Activity definitions the profile wants to provide for use. This is the profile's canonical version of the Activity.
-
 
 
 Name | Values
@@ -170,7 +173,7 @@ Name | Values
 `@type` | `Activity`
 `inScheme` | The IRI of the specific profile version currently being described
 `deprecated` | *Optional*. A boolean. If true, this concept is deprecated.
-`activityDefinition` | An Activity Definition as in xAPI, plus an @context, as in the table below.
+`activityDefinition` | An Activity Definition as in xAPI, plus an `@context`, as in the table below.
 
 Name | Values
 ---- | ------
@@ -228,9 +231,7 @@ Name | Values
 `contextStatementRefTemplate`. | *Optional*. An array of Statement Template identifiers from this profile version.
 `rules` | *Optional*. Array of Statement Template Rules
 
-If a statement matches a Statement Template's determining values and uses the profile version as a category context activity, it MUST be sent as part of a Pattern or Implied Pattern.
-
-A Profile author MUST NOT include both `objectStatementRefTemplate` and `objectActivityType` in a Statement Template.
+A Statement Template MUST NOT have both `objectStatementRefTemplate` and `objectActivityType`.
 
 The verb, object activity type, attachment usage types, and context activity types listed are called Determining Properties.
 
@@ -240,6 +241,8 @@ A Learning Record Provider authoring a Statement following a Statement Template:
 * MUST, if objectStatementRefTemplate is specified, set the Statement object to a StatementRef with the `id` of a Statement matching at least one of the specified Statement Templates.
 * MUST, if contextStatementRefTemplate is specified, set the Statement context statement property to a StatementRef with the `id` of a Statement matching at least one of the specified Statement Templates.
 
+A Profile Validator validating a Statement MUST validate all the Learning Record Provider requirements for a Statement Template are followed.
+
 ### Statement Template Rules
 
 Statement Template Rules describe a location or locations within statements using JSONPath, then describe the restrictions on that value, such as inclusion, exclusion, or specific values allowed or disallowed. For example, to require at least one grouping, the rules might be something like:
@@ -247,7 +250,7 @@ Statement Template Rules describe a location or locations within statements usin
 ```
 "rules": [
     {
-        "location": "context.contextActivities.grouping[0]",
+        "location": "context.contextActivities.grouping[*].id",
         "presence": "included"
     }
 ]
@@ -257,15 +260,30 @@ They have these properties:
 
 Name | Values
 ---- | ------
-`location` | A JSONPath string. This is evaluated on a Statement to find the values to apply the requirements in this rule to.
-`selector` | *Optional*. A JSONPath string. If specified, this JSONPath is evaluated on each member of the array of values resulting from the location selector, and the resulting values are what are used for matching. If it returns nothing on a location, that represents an unmatchable value for that location, meaning `all` will fail, as will a `presence` of `included`.
-`presence` | *Optional*. `included`, `excluded`, or `recommended`. If `included`, there must be at least one matchable value for this Statement Template Rule to be fulfilled, and if `excluded`, no matchable values. If `recommended`, this rule represents a recommended inclusion, meaning `any`, `all`, and `none` requirements on the same rule are only applied if the results of evaluating `location` are nonempty.
-`any` | *Optional*. an array of values that are allowed in this location. Useful for constraining the presence of particular activities, for example. If the JSONPath returns multiple values for a statement, then this Statement Template Rule is fulfilled if any one returned value matches any one specified value — that is, if the intersection is not empty.
-`all` | *Optional*. an array of values, which all values returned by the JSONPath must match one of to fulfill this Statement Template Rule.
-`none` | *Optional*. an array of values, which no values returned by the JSONPath may match to fulfill this Statement Template Rule.
+`location` | A JSONPath string. This is evaluated on a Statement to find the evaluated values to apply the requirements in this rule to. All evaluated values from `location` are matchable values.
+`selector` | *Optional*. A JSONPath string. If specified, this JSONPath is evaluated on each member of the evaluated values resulting from the location selector, and the resulting values become the evaluated values instead. If it returns nothing on a location, that represents an unmatchable value for that location, meaning `all` will fail, as will a `presence` of `included`. All other values returned are matchable values.
+`presence` | *Optional*. `included`, `excluded`, or `recommended`.
+`any` | *Optional*. an array of values that needs to intersect with the matchable values.
+`all` | *Optional*. an array of values which all the evaluated values must be from.
+`none` | *Optional*. an array of values that can't be in the matchable values.
 `scopeNote` | *Optional*. A language map describing usage details for the parts of Statements addressed by this rule. For example, a profile with a rule requiring result.duration might provide guidance on how to calculate it.
 
 A Statement Template Rule MUST include one or more of `presence`, `any`, `all`, or `none`.
+
+A Profile Author MUST include the keys of any non-primitive objects in `any`, `all`, and `none` in additional `@context` beyond the ones provided by this specification.
+
+A Learning Record Provider authoring a Statement for the Statement Template including this Statement Template Rule:
+* MUST include at least one matchable value if `presence` is `included`
+* MUST NOT include any unmatchable values if `presence` is `included`
+* MUST NOT include any matchable values if `presence` is `excluded`
+* MUST apply the following requirements if `presence` is missing, if `presence` is `included`, or if `presence` is `recommended` and any matchable values are in the Statement:
+    * MUST, if `any` is provided, include at least one value in `any` as one of the matchable values
+    * MUST, if `all` is provided, only include values in `all` as matchable values
+    * MUST NOT, if `all` is provided, include any unmatchable values
+    * MUST NOT, if `none` is provided, include any values in `none` as matchable values
+
+A Profile Validator validating Statements MUST validate the Statement Template Rule requirements for Learning Record Providers are followed. See the Communication document for further details on how to do so.
+
 
 When validating a Statement for Statement Template Rules, contextActivities normalization MUST have already been performed as described in the Experience API specification. That is, singleton objects MUST be replaced by arrays of length one.
 
@@ -321,6 +339,7 @@ Learning Record Providers:
     * the subregistration extension MUST only be present in Statements with a registration.
     * the subregistration extension is an array-valued context extension. The array MUST NOT be empty. Each value of the array MUST be an object with the properties in the table below.
 
+Profile Validators validating Statements MUST validate all the requirements for Learning Record Providers for Patterns have been followed. See the Communication document for further details on how to do so.
 
 
 Name | Values
