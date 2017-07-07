@@ -1,4 +1,4 @@
-# xAPI Profiles Document Structure Specification
+up-to-date# xAPI Profiles Document Structure Specification
 
 ## Reference Specifications
 
