@@ -37,7 +37,7 @@ To assist in accomplishing these two primary goals, profiles also contain metada
 
 ## Using Profiles in Statements
 
-Using an introduced Concept, such as an activity type, verb, attachment usage type, extension, activity, or document resource, should be done freely, provided the defined usage and meaning are adhered to. But a Learning Record Provider can go further, and make sure to adhere to profile-described statement templates and patterns. Learning Record Providers authoring statements that conform to matching profile-described statement templates and patterns SHOULD include the most up to date conformant profile version as a category context activity with id equal to the version's `@id` in those statements, and statements containing a profile version as a category context activity MUST conform to any matching templates and patterns that profile version describes.
+Using an introduced Concept, such as an activity type, verb, attachment usage type, extension, activity, or document resource, can be done freely, provided the defined usage and meaning are adhered to. But a Learning Record Provider can go further, and make sure to adhere to profile-described statement templates and patterns. Learning Record Providers authoring statements that conform to matching profile-described statement templates and patterns SHOULD include the most up to date conformant profile version as a category context activity with id equal to the version's `@id` in those statements, and statements containing a profile version as a category context activity MUST conform to any matching templates and patterns that profile version describes.
 
 ## Profile Properties
 
@@ -264,7 +264,7 @@ Name | Values
 `selector` | *Optional*. A JSONPath string. If specified, this JSONPath is evaluated on each member of the evaluated values resulting from the location selector, and the resulting values become the evaluated values instead. If it returns nothing on a location, that represents an unmatchable value for that location, meaning `all` will fail, as will a `presence` of `included`. All other values returned are matchable values.
 `presence` | *Optional*. `included`, `excluded`, or `recommended`.
 `any` | *Optional*. an array of values that needs to intersect with the matchable values.
-`all` | *Optional*. an array of values which all the evaluated values must be from.
+`all` | *Optional*. an array of values which all the evaluated values need to be from.
 `none` | *Optional*. an array of values that can't be in the matchable values.
 `scopeNote` | *Optional*. A language map describing usage details for the parts of Statements addressed by this rule. For example, a profile with a rule requiring result.duration might provide guidance on how to calculate it.
 
@@ -335,7 +335,7 @@ Learning Record Providers:
     * when only one profile or only one pattern occurrence of each profile will be used, in a given registration, subregistrations SHOULD NOT be used.
     * if any Statements following a primary Pattern do not contain a subregistration, all statements with the same registration and profile version in category MUST follow that primary Pattern.
     * if any Statements with a given registration contain the subregistration extension, then all statements with that registration with the same subregistration identifier for a given profile version MUST follow the same primary Pattern.
-    * the extension key of the subregistration extension is https://TODO/REPLACE/WITH/REAL/ID (a value in the w3id xAPI space should be used for this).
+    * the extension key of the subregistration extension is https://TODO/REPLACE/WITH/REAL/ID (a value in the w3id xAPI space will be used for this).
     * the subregistration extension MUST only be present in Statements with a registration.
     * the subregistration extension is an array-valued context extension. The array MUST NOT be empty. Each value of the array MUST be an object with the properties in the table below.
 
@@ -355,7 +355,7 @@ If a Statement Template is allowed solo, Learning Record Providers MAY send it a
 
 When checking for pattern match of a Statement with a registration, if there is only one Statement for the registration and it matches a Statement Template that is allowed solo, it MUST be considered an Implied Pattern. Implied Patterns MUST NOT be used in Statements with registrations present in multiple statements.
 
-An allowed solo Statement Template MUST describe when Learning Record Providers should use it as an Implied Pattern. While this cannot be checked programmatically, without it Learning Record Providers will be unable to understand the solo usage of Statement Templates.
+An allowed solo Statement Template MUST describe when Learning Record Providers are supposed use it as an Implied Pattern. While this cannot be checked programmatically, without it Learning Record Providers will be unable to understand the solo usage of Statement Templates.
 
 ## The Context
 
