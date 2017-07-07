@@ -42,6 +42,7 @@ Using an introduced Concept, such as an activity type, verb, attachment usage ty
 Name | Values
 ---- | ------
 `@id` | The IRI of the profile overall (not a specific version)
+`@context` | SHOULD be `http://example.org/figure/out/where/this/goes/profile-context.jsonld` and MUST contain this URI if array-valued.
 `@type` | Must be `Profile`.
 `conformsTo` | Canonical URI of the profile specification version conformed to. The profile specification version of this document is https://github.com/DataInteroperability/xapi-profiles/tree/master#1.0-development, and it is a development version that may undergo incompatible changes without updating the version URI.
 `prefLabel` | Language map of names for this profile.
@@ -162,7 +163,7 @@ Name | Values
 
 Name | Values
 ---- | ------
-`@context` | Must be TODO create an Activity context and host it at a URI.
+`@context` | SHOULD be `http://example.org/host/somewhere/activity-context.jsonld` and MUST contain this URI if array-valued.
 `type` | *Optional*. As in xAPI Activity Definitions.
 `name` | *Optional*. As in xAPI Activity Definitions.
 `description` | *Optional*. As in xAPI Activity Definitions.
@@ -292,139 +293,9 @@ When checking for pattern match of a Statement with a registration, if there is 
 
 An allowed solo Statement Template MUST describe when Learning Record Providers should use it as an Implied Pattern. While this cannot be checked programmatically, without it Learning Record Providers will be unable to understand the solo usage of Statement Templates.
 
-## Very Preliminary Draft Context
+## The Context
 
-```
-{
-    "@context": {
-        "prov": "http://www.w3.org/ns/prov#",
-        "skos": "http://www.w3.org/2004/02/skos/core#",
-        "xapi": "http://purl.org/xapi/ontology#",
-
-        "type": "@type",
-        "id": "@id",
-        "Profile": "xapi:Profile",
-        "Verb": "xapi:Verb",
-        "ActivityType": "xapi:ActivityType",
-        "AttachmentUsageType": "xapi:AttachmentUsageType",
-        "Extension": "xapi:Extension",
-        "inScheme": "skos:inScheme",
-        "wasRevisionOf": {
-            "@id": "prov:wasRevisionOf",
-            "@type": "@id"
-        },
-        "wasGeneratedBy": {
-            "@id": "prov:wasGeneratedBy",
-            "@type": "prov:Activity"
-        },
-        "versions": {
-            "@reverse": "prov:specializationOf",
-            "@type": "xapi:Profile",
-            "@container": "@set"
-        },
-        "concepts": {
-            "@reverse": "xapi:inProfile",
-            "@container": "@set"
-        },
-        "prefLabel": {
-            "@id": "skos:prefLabel",
-            "@container": "@language"
-        },
-        "definition": {
-            "@id": "skos:definition",
-            "@container": "@language"
-        },
-        "broadMatch": {
-            "@id": "skos:broadMatch",
-            "@type": "@id"
-        },
-        "narrowMatch": {
-            "@id": "skos:narrowMatch",
-            "@type": "@id"
-        },
-        "broader": {
-            "@id": "skos:broader",
-            "@type": "@id"
-        },
-        "narrower": {
-            "@id": "skos:narrower",
-            "@type": "@id"
-        },
-        "name": {
-            "@id": "http://www.w3.org/2000/01/rdf-schema#label",
-            "@container": "@language"
-        }
-    }
-}
-```
-
-## Initial Very Rough Sketch of an Example Profile
-
-There will be lots of examples, but this is largely an exercise in feeling out what things will look like, for now. Currently contains a number of errors related to the above as it needs updating.
-
-```
-{
-    "@id": "http://myvocab.example.com/xapi/",
-    "@type": "Profile",
-    "versions": [
-        {
-            "@id": "http://myvocab.example.com/xapi/2.0/",
-            "wasRevisionOf": "http://myvocab.example.com/xapi/1.0/"
-        },
-        {
-            "@id": "http://myvocab.example.com/xapi/1.0/"
-        }
-    ],
-    "wasGeneratedBy": {
-        "name": {
-            "en": "Sports and Competition xAPI Vocabulary Working Group"
-        }
-    },
-    "patterns": [
-        {
-            "name": "",
-            "sequence": ["entered", {}, ""]
-        }
-    ],
-    "concepts": [
-        {
-            "@id": "http://myvocab.example.com/xapi/placed",
-            "@type": "Verb",
-            "inScheme": "http://myvocab.example.com/xapi/2.0/",
-            "prefLabel": {
-                "en": "placed"
-            },
-            "definition": {
-                "en": "To achieve a ranked outcome in the Activity object, which is a competitive event"
-            },
-            "broadMatch": ["http://www.adlnet.gov/expapi/verbs/completed"],
-        },
-        {
-            "@id": "http://myvocab.example.com/xapi/judgingScores",
-            "@type": "Extension",
-            "prefLabel": {
-                "en": "Judging Scores"
-            },
-            "definition": {
-                "en": "The judging scores, expressed in JUDGING-JSON, as described at ___"
-            },
-            "seeAlso": "http://judgingjson.example.org",
-            "context": "http://judgingjson.example.org/context.jsonld",
-            "location": ["result"]
-        },
-        {
-            "@id": "http://myvocab.example.com/xapi/SummerOlympics2016",
-            "definition": {
-                "type": "http://myvocab.example.com/xapi/OlympicGames",
-                "name": {
-                    "en": "Summer Olympics 2016"
-                }
-            }
-        }
-    ]
-
-}
-```
+The way JSON-LD documents are mapped onto semantics is through what's called a context, which is specified with `@context`. Most of the time Profile authors and consumers do not need to worry about this at all -- this specification says what needs to go where, and provides the values to put in `@context` in the necessary places. In addition to being hosted at the given URLs, the contexts used are also in the repository this specification is developed in.
 
 # Communication
 
