@@ -68,6 +68,8 @@ Name | Values
 
 Profile version objects make it convenient to track version history for profiles, following recommendations for SKOS concept schemes and PROV version tracking generally. By using versions this way, it is possible to answer precise questions such as “what version of this profile was current on the 3rd of January last year?”. Lack of robust versioning is frequently identified as an issue with RDF data.
 
+`wasRevisionOf` may sometimes contain multiple profile versions to support the scenario where a profile subsumes another. In this case, a new profile version would be defined with the two (or more) contributing profiles listed within the `wasRevisionOf` array.
+
 ### Organizations and Persons
 
 Use one of these in the `author` property to indicate the author of this profile version.
