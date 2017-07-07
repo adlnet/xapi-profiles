@@ -265,8 +265,8 @@ Name | Values
 `@type` | `Pattern`
 `primary` | *Optional*. Boolean. Default false. Only primary patterns are checked for matching sequences of statements.
 `inScheme` | The IRI of the specific profile version currently being described
-`prefLabel` | A language map of descriptive names for the pattern
-`definition` | A language map of descriptions of the purpose and usage of the pattern
+`prefLabel` | *Optional*. A language map of descriptive names for the pattern
+`definition` | *Optional*. A language map of descriptions of the purpose and usage of the pattern
 `deprecated` | *Optional*. A boolean. If true, this pattern is deprecated.
 `alternates` | *Optional*. A two-or-more length array of pattern or statement template identifiers. An alternates pattern matches if any member of the array matches
 `optional` | *Optional*. A single pattern or statement template identifier. An optional pattern matches if the identified thing matches once, or is not present at all
@@ -278,10 +278,17 @@ Name | Values
 A primary pattern MUST include prefLabel and definition. They are optional otherwise.
 A pattern MUST contain exactly one of `alternates`, `optional`, `oneOrMore`, `sequence`, and `zeroOrMore`.
 
-A pattern MUST not refer to any pattern that has itself in the array or single value for any of `alternates`, `optional`, `oneOrMore`, `sequence`, or `zeroOrMore`, considered recursively.
-A pattern only matches if it matches greedily. That is, each optional, zeroOrMore, oneOrMore, and alternate pattern MUST always be considered to match the maximum length possible before considering any patterns later in a sequence. That is, no backtracking is allowed. This constrains useful statement patterns, but guarantees efficient processing, as once a statement is matched it does not need to be reconsidered (except in cases where it is part of an ultimately unmatched alternate).
-When checking previously collected statements for matching a pattern, ordering MUST be based on timestamp. In the event two or more statements have identical timestamps, any order within those statements is allowed.
-When checking statements for matching a pattern upon receipt, ordering MUST be based on receipt order insofar as that can be determined. If statements are received in the same batch and they are being checked upon receipt, within the batch statements MUST be ordered first by timestamp, and if timestamps are the same, by order within the statement array, with lower indices earlier.
+A pattern MUST NOT refer to any pattern that has itself in the array or single value for any of `alternates`, `optional`, `oneOrMore`, `sequence`, or `zeroOrMore`, considered recursively.
+
+Learning Record Providers:
+* MUST send Statements following a Pattern ordered by Statement timestamp.
+* MUST give Statements following a Pattern different timestamps if they are in different batches.
+* SHOULD give all Statements following a Pattern different timestamps.
+* MUST order Statements following a Pattern within the same batch with the same timestamp so ones intended to match earlier in the Pattern are earlier in the array than ones intended to match later in the Pattern
+
+Profile Authors:
+* MUST make sure their primary patterns behave appropriately given the greedy matching rules in the algorithms section.
+* MUST NOT put optional or zeroOrMore directly inside alternates.
 
 Some Profiles may contain Patterns very similar to Statement data sent by previously existing Learning Record Providers, not strictly following this specification. It may be very close, but not follow it in all particulars, such as by missing a registration. While the details of how to handle this are outside the scope of this specification, Profiles aware of such existing data SHOULD make note of this and include descriptive language covering the degree of adherence.
 
