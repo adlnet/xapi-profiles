@@ -260,7 +260,7 @@ The syntax and behavior of JSONPath is described at http://goessner.net/articles
 
 ## Patterns
 
-Patterns are groups of statements matching particular statement templates, ordered in certain ways. For example, an allowed pattern in a video profile might start with a statement about playing a video and then be followed by statements about pausing, skipping, playing again, and so forth. A pattern is determined by a given registration, and possibly subregistration, a new extension. Specifically,
+Patterns describe groups of statements matching particular statement templates, ordered in certain ways. For example, an allowed pattern in a video profile might start with a statement about playing a video and then be followed by statements about pausing, skipping, playing again, and so forth. A pattern is determined by a given registration, and possibly subregistration, a new extension. Specifically,
 
 * all statements following a primary Pattern MUST use the same registration.
 * when only one profile or only one pattern occurrence of each profile will be used, in a given registration, subregistrations SHOULD NOT be used.
