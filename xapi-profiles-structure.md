@@ -234,10 +234,6 @@ A Statement Template Rule MUST include one or more of `rule`, `any`, `all`, or `
 When processing a statement for Statement Template Rules, it MUST have normalized contextActivities, with singletons replaced by arrays of length one.
 The syntax of JSONPath is described at http://goessner.net/articles/JsonPath/index.html#e2, except filter and script expressions may not be used. The union operator (a comma) may be used inside array or child expressions, so the result is the union on each expression being used separately. The legal values in an array or child expression are: strings (child expressions), non-negative integers (array expressions), and the star character `*` representing all children/members. Effectively this means the `@` syntax is also illegal. TODO: consider allowing limited scripting a la https://github.com/json-path/JsonPath . TODO: consider if use cases require allowing a JSONPath expression to be a union of other JSONPath expressions.
 
-### Statement References
-
-I'm unsure enough how to do this I propose we do not include statement reference constraints in the initial draft. It would probably be included as a special case in the statement template rules, above.
-
 ## Patterns
 
 Patterns are groups of statements matching particular statement templates, ordered in certain ways. For example, an allowed pattern in a video profile might start with a statement about playing a video and then be followed by statements about pausing, skipping, playing again, and so forth. A pattern is determined by a given registration, and possibly subregistration, a new extension. Specifically,
