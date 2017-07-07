@@ -232,7 +232,7 @@ Statement Template Rules describe a location or locations within statements usin
 "rules": [
     {
         "location": "context.contextActivities.grouping[0]",
-        "rule": "included"
+        "presence": "included"
     }
 ]
 ```
@@ -242,14 +242,14 @@ They have these properties:
 Name | Values
 ---- | ------
 `location` | A JSONPath string. This is evaluated on a Statement to find the values to apply the requirements in this rule to.
-`selector` | *Optional*. A JSONPath string. If specified, this JSONPath is evaluated on each member of the array of values resulting from the location selector, and the resulting values are what are used for matching. If it returns nothing on a location, that represents an unmatchable value for that location, meaning `all` will fail, as will a `rule` of `included`.
-`rule` | *Optional*. `included`, `excluded`, or `recommended`. If `included`, there must be at least one matchable value for this Statement Template Rule to be fulfilled, and if `excluded`, no matchable values. If `recommended`, this rule represents a recommended inclusion, meaning `any`, `all`, and `none` requirements on the same rule are only applied if the results of evaluating `location` are nonempty.
-`any` | *Optional*. an array of values that are allowed in this location. Useful for constraining the presence of particular activities, for example. If the rule returns multiple values for a statement, then this Statement Template Rule is fulfilled if any one returned value matches any one specified value — that is, if the intersection is not empty.
+`selector` | *Optional*. A JSONPath string. If specified, this JSONPath is evaluated on each member of the array of values resulting from the location selector, and the resulting values are what are used for matching. If it returns nothing on a location, that represents an unmatchable value for that location, meaning `all` will fail, as will a `presence` of `included`.
+`presence` | *Optional*. `included`, `excluded`, or `recommended`. If `included`, there must be at least one matchable value for this Statement Template Rule to be fulfilled, and if `excluded`, no matchable values. If `recommended`, this rule represents a recommended inclusion, meaning `any`, `all`, and `none` requirements on the same rule are only applied if the results of evaluating `location` are nonempty.
+`any` | *Optional*. an array of values that are allowed in this location. Useful for constraining the presence of particular activities, for example. If the JSONPath returns multiple values for a statement, then this Statement Template Rule is fulfilled if any one returned value matches any one specified value — that is, if the intersection is not empty.
 `all` | *Optional*. an array of values, which all values returned by the JSONPath must match one of to fulfill this Statement Template Rule.
 `none` | *Optional*. an array of values, which no values returned by the JSONPath may match to fulfill this Statement Template Rule.
 `scopeNote` | *Optional*. A language map describing usage details for the parts of Statements addressed by this rule. For example, a profile with a rule requiring result.duration might provide guidance on how to calculate it.
 
-A Statement Template Rule MUST include one or more of `rule`, `any`, `all`, or `none`.
+A Statement Template Rule MUST include one or more of `presence`, `any`, `all`, or `none`.
 
 When validating a Statement for Statement Template Rules, contextActivities normalization MUST have already been performed as described in the Experience API specification. That is, singleton objects MUST be replaced by arrays of length one.
 
