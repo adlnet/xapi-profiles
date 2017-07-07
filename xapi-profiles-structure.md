@@ -138,13 +138,17 @@ Name | Values
 `inScheme` | The IRI of the specific profile version currently being described
 `prefLabel` | A language map of descriptive names for the document resource
 `definition` | A language map of descriptions of the purpose and usage of the document resource
-`contentType` | The content-type for the resource
+`contentType` | The media type for the resource, as described in RFC 2046 (e.g. `application/json`).
 `deprecated` | *Optional*. A boolean. If true, this concept is deprecated.
 `context` | *Optional*. the IRI of a JSON-LD context for this document resource
 `schema` | *Optional*. the IRI for accessing a JSON Schema for this document resource.
 `inlineSchema` | *Optional*. A JSON Schema inline. Must be a string that contains a legal JSON Schema.
 
-* profiles MUST use at most one of `schema` and `inlineSchema` for Document Resources
+Profiles MUST use at most one of `schema` and `inlineSchema` for Document Resources
+
+Learning Record Store Clients sending Document Resources
+* MUST use the contentType given in the Content-Type header, including any parameters as given.
+* MAY add additional parameters to the Content-Type header that are not specified in the Concept.
 
 
 ### Activities
