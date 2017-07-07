@@ -50,9 +50,9 @@ Name | Values
 `seeAlso` | *Optional*. A URL containing information about the profile. Recommended instead of especially long definitions.
 `versions` | An array of all profile version objects for this profile, see below.
 `author` | An Organization or Person, see below.
-`concepts` | *Optional*. The concepts that make up this Profile, see the Concepts section.
-`templates` | *Optional*. The Statement Templates for this profile, see that section.
-`patterns` | *Optional*. The Patterns for this profile, see that section.
+`concepts` | *Optional*. An array of Concepts that make up this Profile, see the Concepts section.
+`templates` | *Optional*. An array of Statement Templates for this profile, see that section.
+`patterns` | *Optional*. An array of Patterns for this profile, see that section.
 
 
 
