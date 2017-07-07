@@ -537,6 +537,13 @@
         {
             "id": "_:toplevel",
             "type": "Pattern",
+            "primary": true,
+            "prefLabel": {
+                "en": "General Pattern"
+            },
+            "definition": {
+                "en": "This pattern describes the sequence of statements sent over the an entire course registration"
+            },
             "inScheme": "https://w3id.org/xapi/cmi5/context/categories/cmi5",
             "sequence": ["_:satisfieds", "typicalsessions"]
         }
