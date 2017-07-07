@@ -87,13 +87,13 @@ Name | Values
 
 * All members of a profile's `concepts` array MUST be one of the concepts listed in this section.
 
-### Core Concepts: Verbs, Activity Types, and Attachment Usage Types
+### Verbs, Activity Types, and Attachment Usage Types
 
-These Concepts are the most central to building rich, reusable profiles.
+Verb, Activity Type, and Attachment Usage Type Concepts share the same properties. They're all Concepts that make sense to relate semantically to others of the same type, such as indicating one is a narrower form of another.
 
 Name | Values
 ---- | ------
-`@id` | The IRI of this core concept
+`@id` | The IRI of this Concept
 `@type` | `Verb`, `ActivityType`, or `AttachmentUsageType`
 `inScheme` | The IRI of the specific profile version currently being described
 `prefLabel` | A language map of the preferred names in each language
