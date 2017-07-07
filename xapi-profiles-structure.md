@@ -128,7 +128,6 @@ Learning Record Providers MUST, for xAPI Statements using Extensions defined her
 
 ### Document Resources
 
-The @id MUST be used as the stateId or profileId (as appropriate) when interacting with the corresponding resource.
 
 
 Name | Values
@@ -146,7 +145,9 @@ Name | Values
 
 Profiles MUST use at most one of `schema` and `inlineSchema` for Document Resources
 
+
 Learning Record Store Clients sending Document Resources
+* MUST use the @id as the stateId or profileId (as appropriate) when interacting with the corresponding resource.
 * MUST use the contentType given in the Content-Type header, including any parameters as given.
 * MAY add additional parameters to the Content-Type header that are not specified in the Concept.
 
