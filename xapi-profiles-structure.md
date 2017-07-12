@@ -234,6 +234,8 @@ A Statement Template MUST NOT have both `objectStatementRefTemplate` and `object
 
 The verb, object activity type, attachment usage types, and context activity types listed are called Determining Properties.
 
+A Profile Author MUST change a Statement Template's `id` between versions if any of the Determining Properties, StatementRef properties, or rules change. Changes of `scopeNote` are not considered changes in rules.
+
 A Learning Record Provider authoring a Statement following a Statement Template:
 * MUST include all the Determining Properties in the Statement Template.
 * MUST follow all rules in the Statement Template.
@@ -326,6 +328,7 @@ Profile Authors:
 * MUST NOT include any pattern within itself, or within any pattern within itself, or at any depth.
 * MUST include at least two members in `alternates`.
 * MUST include at least two members in `sequence`, unless `sequence` is in a primary Pattern that is not used elsewhere and the member of `sequence` is a single Statement Template.
+* MAY re-use Statement Templates from other Profiles in Patterns. In this case, validating is done as if the Statement Template were present in this Profile.
 
 Learning Record Providers:
 * MUST follow a Pattern from a Profile for every Statement that has the Profile in the category context activities.
