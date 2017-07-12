@@ -234,7 +234,7 @@ A Statement Template MUST NOT have both `objectStatementRefTemplate` and `object
 
 The verb, object activity type, attachment usage types, and context activity types listed are called Determining Properties.
 
-A Profile Author MUST change a Statement Template's `id` between versions if any of the Determining Properties, StatementRef properties, or rules change. Changes in `scopeNote` are not considered changes in rules.
+A Profile Author MUST change a Statement Template's `id` between versions if any of the Determining Properties, StatementRef properties, or rules change. Changes of `scopeNote` are not considered changes in rules.
 
 A Learning Record Provider authoring a Statement following a Statement Template:
 * MUST include all the Determining Properties in the Statement Template.
