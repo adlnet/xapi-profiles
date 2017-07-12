@@ -158,6 +158,10 @@ Learning Record Store Clients sending Document Resources
 * MUST use the @id as the stateId or profileId (as appropriate) when interacting with the corresponding resource.
 * MUST use the contentType given in the Content-Type header, including any parameters as given.
 * MAY add additional parameters to the Content-Type header that are not specified in the Concept.
+* MUST
+    * only send a StateResource to a State Resource location
+    * only send an AgentProfileResource to an Agent Profile Resource location
+    * only send an ActivityProfileResource to an Activity Profile Resource location
 
 Profile Validators receiving Document Resources MUST validate Learning Record Store Clients follow the requirements for Document Resources.
 
