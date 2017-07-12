@@ -218,7 +218,6 @@ Name | Values
 `inScheme` | The IRI of the specific profile version currently being described
 `prefLabel` | a language map of descriptive names for the Statement Template
 `definition` | A language map of descriptions of the purpose and usage of the Statement Template
-`allowedSolo` | *Optional*. A boolean, default false. If true, this Statement Template can be used as a single statement Implied Pattern (see that section). A Statement Template may be both used in Patterns and allowedSolo true.
 `deprecated` | *Optional*. A boolean, default false. If true, this Statement Template is deprecated.
 `verb` | *Optional*. Verb IRI
 `objectActivityType` | *Optional*. Object activity type IRI
@@ -308,29 +307,33 @@ Name | Values
 `prefLabel` | *Optional*. A language map of descriptive names for the pattern
 `definition` | *Optional*. A language map of descriptions of the purpose and usage of the pattern
 `deprecated` | *Optional*. A boolean. If true, this pattern is deprecated.
-`alternates` | *Optional*. A two-or-more length array of pattern or statement template identifiers. An alternates pattern matches if any member of the array matches
+`alternates` | *Optional*. An array of pattern or statement template identifiers. An alternates pattern matches if any member of the array matches
 `optional` | *Optional*. A single pattern or statement template identifier. An optional pattern matches if the identified thing matches once, or is not present at all
 `oneOrMore` | *Optional*. A single pattern or statement template identifier. A oneOrMore pattern matches if the identified thing matches once, or any number of times more than once
-`sequence` | *Optional*. An two-or-more length array of pattern or statement template identifiers. A sequence pattern matches if the identified things match in the order specified.
+`sequence` | *Optional*. An array of pattern or statement template identifiers. A sequence pattern matches if the identified things match in the order specified.
 `zeroOrMore` | *Optional*. A single pattern or statement template identifier. A zeroOrMore pattern matches if the identified thing is not present or is present one or more times
 
 
 A primary pattern MUST include prefLabel and definition. They are optional otherwise.
+
 A pattern MUST contain exactly one of `alternates`, `optional`, `oneOrMore`, `sequence`, and `zeroOrMore`.
+
 
 
 Profile Authors:
 * MUST make sure their primary patterns behave appropriately given the greedy matching rules in the algorithms section.
 * MUST NOT put optional or zeroOrMore directly inside alternates.
 * MUST NOT include any pattern within itself, or within any pattern within itself, or at any depth.
+* MUST include at least two members in `alternates`.
+* MUST include at least two members in `sequence`, unless `sequence` is in a primary Pattern that is not used elsewhere and the member of `sequence` is a single Statement Template.
 
 Learning Record Providers:
-* MUST follow a Pattern or the allowedSolo Templates from a Profile for every Statement that has the Profile in the category context activities.
+* MUST follow a Pattern from a Profile for every Statement that has the Profile in the category context activities.
 * MUST send Statements following a Pattern ordered by Statement timestamp.
 * MUST give Statements following a Pattern different timestamps if they are in different batches.
 * SHOULD give all Statements following a Pattern different timestamps.
 * MUST order Statements following a Pattern within the same batch with the same timestamp so ones intended to match earlier in the Pattern are earlier in the array than ones intended to match later in the Pattern
-* MUST follow the rules given for a primary Pattern or allowedSolo template within a registration and possibly subregistration (a new extension). Specifically,
+* MUST follow the rules given for a primary Pattern within a registration and possibly subregistration (a new extension). Specifically,
     * all statements following a primary Pattern MUST use the same registration.
     * when only one profile or only one pattern occurrence of each profile will be used, in a given registration, subregistrations SHOULD NOT be used.
     * if any Statements following a primary Pattern do not contain a subregistration, all statements with the same registration and profile version in category MUST follow that primary Pattern.
@@ -348,14 +351,6 @@ Name | Values
 `subregistration` | A variant 2 UUID as specified in RFC 4122. This is the subregistration identifier in the requirements above.
 
 Some Profiles may contain Patterns very similar to Statement data sent by previously existing Learning Record Providers, not strictly following this specification. It may be very close, but not follow it in all particulars, such as by missing a registration. While the details of how to handle this are outside the scope of this specification, Profiles aware of such existing data SHOULD make note of this and include descriptive language covering the degree of adherence.
-
-### Implied Patterns
-
-If a Statement Template is allowed solo, Learning Record Providers MAY send it as an Implied Pattern. If it is not, Learning Record Providers MUST NOT send it as an Implied Pattern. An Implied Pattern MUST include the profile version in category, and MAY include a registration (and subregistration) as if it were described as a Pattern with a sequence of one statement template, but MAY leave off the registration (and subregistration).
-
-When checking for pattern match of a Statement with a registration, if there is only one Statement for the registration and it matches a Statement Template that is allowed solo, it MUST be considered an Implied Pattern. Implied Patterns MUST NOT be used in Statements with registrations present in multiple statements.
-
-An allowed solo Statement Template MUST describe when Learning Record Providers are supposed use it as an Implied Pattern. While this cannot be checked programmatically, without it Learning Record Providers will be unable to understand the solo usage of Statement Templates.
 
 ## The Context
 
