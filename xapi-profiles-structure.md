@@ -173,23 +173,12 @@ Name | Values
 `@type` | `Activity`
 `inScheme` | The IRI of the specific profile version currently being described
 `deprecated` | *Optional*. A boolean. If true, this concept is deprecated.
-`activityDefinition` | An Activity Definition as in xAPI, plus an `@context`, as in the table below.
+`activityDefinition` | An Activity Definition as in xAPI, plus a `@context`, as in the table below.
 
 Name | Values
 ---- | ------
 `@context` | SHOULD be `http://example.org/host/somewhere/activity-context.jsonld` and MUST contain this URI if array-valued.
-`type` | *Optional*. As in xAPI Activity Definitions.
-`name` | *Optional*. As in xAPI Activity Definitions.
-`description` | *Optional*. As in xAPI Activity Definitions.
-`moreInfo` | *Optional*. As in xAPI Activity Definitions.
-`extensions` | *Optional*. As in xAPI Activity Definitions.
-`interactionType` | *Optional*. As in xAPI Activity Definitions.
-`correctResponsesPattern` | *Optional*. As in xAPI Activity Definitions.
-`choices` | *Optional*. As in xAPI Activity Definitions.
-`scale` | *Optional*. As in xAPI Activity Definitions.
-`source` | *Optional*. As in xAPI Activity Definitions.
-`target` | *Optional*. As in xAPI Activity Definitions.
-`steps` | *Optional*. As in xAPI Activity Definitions.
+*other properties* | All as in xAPI 1.0.x Activity Definitions, defined at https://github.com/adlnet/xAPI-Spec/blob/master/xAPI-Data.md#activity-definition
 
 Except for `@context`, the activityDefinition in this Concept MUST be a legal xAPI Activity Definition.
 
