@@ -1,5 +1,5 @@
-*	Part Two:	[xAPI Profiles Document Structure Specification](./xapi-profiles-structure.md#parttwo)  
-	*	1.0.	[Reference Specifications](./xapi-profiles-structure#1.0)
+Part Two:	[xAPI Profiles Document Structure Specification](./xapi-profiles-structure.md#parttwo)  
+   *	1.0.	[Reference Specifications](./xapi-profiles-structure#1.0)
    *	2.0.	[Technical Foundations](./xapi-profiles-structure#2.0)
    *  3.0.  [Structure](./xapi-profiles-structure#3.0)
    *  4.0.  [Document Interpretation and General Restrictions](./xapi-profiles-structure.md#4.0)
@@ -9,7 +9,7 @@
       *  6.2.  [Organizations and Persons](./xapi-profiles-structure.md#6.2)
    *  7.0.  [Concepts](./xapi-profiles-structure.md#7.0)
       *  7.1.  [Verbs, Activity Types, and Attachment Usage Types](./xapi-profiles-structure.md#7.1)
-      *  7.2.  [Extensions](./xapi-profiles-structure.md#7.2)
+      *  7.2.  [Extension Concepts](./xapi-profiles-structure.md#7.2)
       *  7.3.  [Document Resources](./xapi-profiles-structure.md#7.3)
       *  7.4.  [Activities](./xapi-profiles-structure.md#7.4)
    *  8.0.  [Statement Templates](./xapi-profiles-structure.md#8.0)
@@ -136,7 +136,7 @@ Name | Values
 * `relatedMatch` SHOULD be used to connect possible replacement Concepts to removed Concepts from previous versions of the same profile, and for possible replacement Concepts in other profiles of deprecated concepts, as well as other loose relations.
 * `exactMatch` SHOULD be used rarely, mostly to describe connections to vocabularies that are no longer managed and do not use good URLs.
 
-### <a name="7.2">7.2</a> Extensions
+### <a name="7.2">7.2</a> Extension Concepts
 
 
 Name | Values
