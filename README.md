@@ -3,12 +3,12 @@ A set of documents addressing the structure of and supporting services for xAPI 
 
 This Github repository contains the xAPI Profiles Specification. [xAPI](https://github.com/adlnet/xAPI-Spec) is a learning
 technologies interoperability specification that describes communication
-about learner activity and experiences between technologies. The specification stands as a 
+about learner activity and experiences between technologies. The xAPI Profiles Specification stands as a 
 companion to xAPI, and is divided into three documents:
 
-*   Part One:   [About xAPI Profiles](./xapi-profiles-about.md)
-*   Part Two:   [xAPI Profiles Structure](./xapi-profiles-structure.md)
-*   Part Three: [xAPI Profiles Communication](./xapi-profiles-communication.md)
+* Part One: [About xAPI Profiles](./xapi-profiles-about.md)
+* Part Two: [xAPI Profiles Structure](./xapi-profiles-structure.md)
+* Part Three: [xAPI Profiles Communication](./xapi-profiles-communication.md)
 
 ## Specification versions
 
@@ -26,9 +26,9 @@ raising an issue, please give as much detail as you can in regards to:
 
 * Which part/parts of the specification you are reading.
 * Your understanding of what these parts mean.
-* The product and feature you are implementing xAPI in; what's the use case you
-  are trying to achieve?
-* How you would like the specification to be improved. Suggest some specific new
+* The product and feature you are implementing xAPI Profiles in; what's the use case you
+  are trying to achieve? What user stories are you trying to support?
+* How you would like the specification to be improved? Suggest some specific new
   wording if you like!
 
 You'll need to [sign up for a GitHub account](https://github.com/signup/free) if
