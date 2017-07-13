@@ -43,4 +43,5 @@ You'll need to [sign up for a GitHub account](https://github.com/signup/free) if
 you do not already have one in order to contribute to the specification.
 
 ADL's xAPI Spec Working Group meets
-the first, second, and third Wednesdays of each month on GoToWebinar. You can register at [https://attendee.gotowebinar.com/register/5526804432322315009](https://attendee.gotowebinar.com/register/5526804432322315009)
+the first, second, and third Wednesdays of each month. Instructions to register for these online meetings and
+more information related to ADL's xAPI work can be found at [https://www.adlnet.gov/xAPI](https://www.adlnet.gov/xAPI)
