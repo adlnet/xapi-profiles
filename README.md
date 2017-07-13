@@ -13,9 +13,7 @@ companion to xAPI, and is divided into three documents:
 ## Specification versions
 
 The current version of the specification is
-[1.0](https://github.com/DataInteroperability/xapi-profiles).
-
-The next version of the specification has not been planned. 
+[1.0](https://github.com/DataInteroperability/xapi-profiles). 
 
 ## What to do if the spec is unclear
 
