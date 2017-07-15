@@ -43,33 +43,35 @@ Using an introduced Concept, such as an activity type, verb, attachment usage ty
 
 A Profile includes a variety of metadata, both natural language text for humans to understand the Profile, and structured data about versions and who created it. In addition to the metadata, there are properties for describing the Concepts, Statement Templates, and Patterns of the Profile.
 
-Name | Values
----- | ------
-`@id` | The IRI of the profile overall (not a specific version)
-`@context` | SHOULD be `http://example.org/figure/out/where/this/goes/profile-context.jsonld` and MUST contain this URI if array-valued.
-`@type` | Must be `Profile`.
-`conformsTo` | Canonical URI of the profile specification version conformed to. The profile specification version of this document is https://github.com/DataInteroperability/xapi-profiles/tree/master#1.0-development, and it is a development version that may undergo incompatible changes without updating the version URI.
-`prefLabel` | Language map of names for this profile.
-`definition` | Language map of descriptions for this profile. If there are additional rules for the profile as a whole that cannot be expressed using this specification, include them here, or at the seeAlso URL.
-`seeAlso` | *Optional*. A URL containing information about the profile. Recommended instead of especially long definitions.
-`versions` | An array of all profile version objects for this profile, see below.
-`author` | An Organization or Person, see below.
-`concepts` | *Optional*. An array of Concepts that make up this Profile, see the Concepts section.
-`templates` | *Optional*. An array of Statement Templates for this profile, see that section.
-`patterns` | *Optional*. An array of Patterns for this profile, see that section.
+Property | Type | Description | Required
+-------- | ---- | ----------- | --------
+`@id` | IRI | The IRI of the profile overall (not a specific version) | Required
+`@context` | URI | SHOULD be `http://example.org/figure/out/where/this/goes/profile-context.jsonld` and MUST contain this URI if array-valued. | Required
+`@type` | String | MUST be `Profile`. | Required
+`conformsTo` | URI | Canonical URI of the profile specification version conformed to. The profile specification version of this document is https://github.com/DataInteroperability/xapi-profiles/tree/master#1.0-development, and it is a development version that may undergo incompatible changes without updating the version URI. | Required
+`prefLabel` | Object | Language map of names for this profile. | Required
+`definition` | Object | Language map of descriptions for this profile. If there are additional rules for the profile as a whole that cannot be expressed using this specification, include them here, or at the seeAlso URL. | Required
+`seeAlso` | URL | A URL containing information about the profile. Recommended instead of especially long definitions. | Optional
+`versions` | Array | An array of all profile version objects for this profile, see below. | Required
+`author` | Object | An Organization or Person, see below. | Required
+`concepts` | Array | An array of Concepts that make up this Profile, see the Concepts section. | Optional
+`templates` | Array | An array of Statement Templates for this profile, see that section. | Optional
+`patterns` | Array | An array of Patterns for this profile, see that section. | Optional
 
 When `seeAlso` is provided `definition` SHOULD only include a short description of the Profile to aid in discovery and display.
 
 ### Profile Version Objects
 
-Profile version objects make it convenient to track version history for profiles, following recommendations for SKOS concept schemes and PROV version tracking generally. By using versions this way, it is possible to answer precise questions such as “what version of this profile was current on the 3rd of January last year?”. Lack of robust versioning is frequently identified as an issue with RDF data.
+Profile version objects make it convenient to track version history for profiles, following recommendations 
+for SKOS concept schemes and PROV version tracking generally. By using versions this way, it is possible to 
+answer precise questions such as “what version of this profile was current on the 3rd of January last year?”. 
+Lack of robust versioning is frequently identified as an issue with RDF data.
 
-
-Name | Values
----- | ------
-`@id` | The IRI of the version ID
-`wasRevisionOf` | *Optional*. an array, usually of length one, of IRIs of all profile versions this version was written as a revision of
-`generatedAtTime` | the date this version was created on
+Property | Type | Description | Required
+-------- | ---- | ----------- | --------
+`@id` | IRI | The IRI of the version ID | Required
+`wasRevisionOf` | Array | An array, usually of length one, of IRIs of all profile versions this version was written as a revision of | Optional
+`generatedAtTime` | Timestamp | The date this version was created on | Required
 
 `wasRevisionOf` MUST be used with all versions that succeed other profile versions.
 
@@ -79,11 +81,11 @@ Name | Values
 
 Use one of these in the `author` property to indicate the author of this profile version.
 
-Name | Values
----- | ------
-`@type` | `Organization` or `Person`
-`name` | A string with the name of the organization or person
-`url` | *Optional*. A URL for the Person or Group.
+Property | Type | Description | Required
+-------- | ---- | ----------- | --------
+`@type` | Object | `Organization` or `Person` | Required
+`name` | String | A string with the name of the organization or person | Required
+`url` | URL | A URL for the Person or Group. | Optional
 
 ## Concepts
 
@@ -93,21 +95,21 @@ All Concepts in a Profile MUST follow the rules of one of the subsections within
 
 Verb, Activity Type, and Attachment Usage Type Concepts share the same properties. They're all Concepts that make sense to relate semantically to others of the same type, such as indicating one is a narrower form of another.
 
-Name | Values
----- | ------
-`@id` | The IRI of this Concept
-`@type` | `Verb`, `ActivityType`, or `AttachmentUsageType`
-`inScheme` | The IRI of the specific profile version currently being described
-`prefLabel` | A language map of the preferred names in each language
-`definition` | A language map of the precise definition, including how to use the concept properly in statements
-`deprecated` | *Optional*. A boolean. If true, this concept is deprecated.
-`broader` | *Optional*. An array of IRIs of concepts of the same @type from this profile version that have a broader meaning.
-`broadMatch` | *Optional*. An array of IRIs of concepts of the same @type from a different profile that have a broader meaning.
-`narrower` | *Optional*. An array of IRIs of concepts of the same @type from this profile version that have a narrower meaning.
-`narrowMatch` | *Optional*. An array of IRIs of concepts of the same @type from different profiles that have narrower meanings.
-`related` | *Optional*. An array of IRIs of concepts of the same @type from this profile version that are close conceptual matches to this concept's meaning.
-`relatedMatch` | *Optional*. An array of IRIs of concepts of the same @type from a different profile or a different version of the same profile that has a related meaning that is not clearly narrower or broader. Useful to establish conceptual links between profiles that can be used for discovery.
-`exactMatch` | *Optional*. An array of IRIs of concepts of the same @type from a different profile or a different version of the same profile that have exactly the same meaning.
+Property | Type | Description | Required
+-------- | ---- | ----------- | --------
+`@id` | IRI | The IRI of this Concept | Required
+`@type` | String | `Verb`, `ActivityType`, or `AttachmentUsageType` | Required
+`inScheme` | IRI | The IRI of the specific profile version currently being described | Required
+`prefLabel` | Object | A language map of the preferred names in each language | Required
+`definition` | Object | A language map of the precise definition, including how to use the concept properly in statements | Required
+`deprecated` | Boolean | A boolean. If true, this concept is deprecated. | Optional
+`broader` | Array | An array of IRIs of concepts of the same @type from this profile version that have a broader meaning. | Optional
+`broadMatch` | Array | An array of IRIs of concepts of the same @type from a different profile that have a broader meaning. | Optional
+`narrower` | Array | An array of IRIs of concepts of the same @type from this profile version that have a narrower meaning. | Optional
+`narrowMatch` | Array | An array of IRIs of concepts of the same @type from different profiles that have narrower meanings. | Optional
+`related` | Array | An array of IRIs of concepts of the same @type from this profile version that are close conceptual matches to this concept's meaning. | Optional
+`relatedMatch` | Array | An array of IRIs of concepts of the same @type from a different profile or a different version of the same profile that has a related meaning that is not clearly narrower or broader. Useful to establish conceptual links between profiles that can be used for discovery. | Optional
+`exactMatch` | Array | An array of IRIs of concepts of the same @type from a different profile or a different version of the same profile that have exactly the same meaning. | Optional
 
 * `related` MUST only be used on concepts that are deprecated to indicate possible replacement concepts in the same profile, if there are any.
 * `relatedMatch` SHOULD be used to connect possible replacement Concepts to removed Concepts from previous versions of the same profile, and for possible replacement Concepts in other profiles of deprecated concepts, as well as other loose relations.
@@ -116,19 +118,19 @@ Name | Values
 ### Extensions
 
 
-Name | Values
----- | ------
-`@id` | The IRI of the extension, used as the extension key in xAPI
-`@type` | `ContextExtension`, `ResultExtension`, or `ActivityExtension`
-`inScheme` | The IRI of the specific profile version currently being described
-`prefLabel` | A language map of descriptive names for the extension
-`definition` | A language map of descriptions of the purpose and usage of the extension
-`deprecated` | *Optional*. A boolean. If true, this concept is deprecated.
-`recommendedActivityTypes` | *Optional*. Only allowed on `ActivityExtension`s. An array of activity type URIs that this extension is recommended for use with (extending to narrower of the same).
-`recommendedVerbs` | *Optional*. Only allowed on `ContextExtension`s and `ResultExtension`s. An array of verb URIs that this extension is recommended for use with (extending to narrower of the same).
-`context` | *Optional*. the IRI of a JSON-LD context for this extension
-`schema` | *Optional*. the IRI for accessing a JSON Schema for this extension. The JSON Schema can be used to constrain the extension to a single type.
-`inlineSchema` | *Optional*. An alternate way to include a JSON Schema, as a string.
+Property | Type | Description | Required
+-------- | ---- | ----------- | --------
+`@id` | IRI | The IRI of the extension, used as the extension key in xAPI | Required
+`@type` | String | `ContextExtension`, `ResultExtension`, or `ActivityExtension` | Required
+`inScheme` | IRI | The IRI of the specific profile version currently being described | Required
+`prefLabel` | Object | A language map of descriptive names for the extension | Required
+`definition` | Object | A language map of descriptions of the purpose and usage of the extension | Required
+`deprecated` | Boolean | A boolean. If true, this concept is deprecated. | Optional
+`recommendedActivityTypes` | Array | Only allowed on `ActivityExtension`s. An array of activity type URIs that this extension is recommended for use with (extending to narrower of the same). | Optional
+`recommendedVerbs` | Array | Only allowed on `ContextExtension`s and `ResultExtension`s. An array of verb URIs that this extension is recommended for use with (extending to narrower of the same). | Optional
+`context` | IRI | the IRI of a JSON-LD context for this extension |  Optional
+`schema` | IRI | the IRI for accessing a JSON Schema for this extension. The JSON Schema can be used to constrain the extension to a single type. | Optional
+`inlineSchema` | Object | An alternate way to include a JSON Schema, as a string. | Optional
 
 Profiles MUST use at most one of `schema` and `inlineSchema` for Extensions.
 
@@ -139,18 +141,18 @@ Statements including extensions defined in a Profile MUST:
 
 ### Document Resources
 
-Name | Values
----- | ------
-`@id` | The IRI of the document resource, used as the stateId/profileId in xAPI
-`@type` | One of: `StateResource`, `AgentProfileResource`, `ActivityProfileResource`
-`inScheme` | The IRI of the specific profile version currently being described
-`prefLabel` | A language map of descriptive names for the document resource
-`definition` | A language map of descriptions of the purpose and usage of the document resource
-`contentType` | The media type for the resource, as described in RFC 2046 (e.g. `application/json`).
-`deprecated` | *Optional*. A boolean. If true, this concept is deprecated.
-`context` | *Optional*. the IRI of a JSON-LD context for this document resource
-`schema` | *Optional*. the IRI for accessing a JSON Schema for this document resource.
-`inlineSchema` | *Optional*. An alternate way to include a JSON Schema, as a string.
+Property | Type | Description | Required
+-------- | ---- | ----------- | --------
+`@id` | IRI | The IRI of the document resource, used as the stateId/profileId in xAPI | Required
+`@type` | String | One of: `StateResource`, `AgentProfileResource`, `ActivityProfileResource` | Required
+`inScheme` | IRI | The IRI of the specific profile version currently being described | Required
+`prefLabel` | Object | A language map of descriptive names for the document resource | Required
+`definition` | Object | A language map of descriptions of the purpose and usage of the document resource | Required
+`contentType` | String | The media type for the resource, as described in RFC 2046 (e.g. `application/json`). | Required
+`deprecated` | Boolean | A boolean. If true, this concept is deprecated. | Optional
+`context` | IRI | The IRI of a JSON-LD context for this document resource. | Optional
+`schema` | IRI | the IRI for accessing a JSON Schema for this document resource. | Optional
+`inlineSchema` | String | An alternate way to include a JSON Schema, as a string. | Optional
 
 Profiles MUST use at most one of `schema` and `inlineSchema` for Document Resources
 
@@ -171,13 +173,13 @@ Profile Validators receiving Document Resources MUST validate Learning Record St
 These Concepts are just literal xAPI Activity definitions the profile wants to provide for use. This is the profile's canonical version of the Activity.
 
 
-Name | Values
----- | ------
-`@id` | The IRI of the activity
-`@type` | `Activity`
-`inScheme` | The IRI of the specific profile version currently being described
-`deprecated` | *Optional*. A boolean. If true, this concept is deprecated.
-`activityDefinition` | An Activity Definition as in xAPI, plus a `@context`, as in the table below.
+Property | Type | Description | Required
+-------- | ---- | ----------- | --------
+`@id` | IRI | The IRI of the activity | Required
+`@type` | String | `Activity` | Required
+`inScheme` | IRI | The IRI of the specific profile version currently being described | Required
+`deprecated` | Boolean | A boolean. If true, this concept is deprecated. | Optional
+`activityDefinition` | Object | An Activity Definition as in xAPI, plus a `@context`, as in the table below. | Required
 
 Name | Values
 ---- | ------
@@ -204,24 +206,24 @@ Learning Record Providers using the Activity in Statements:
 A Statement Template describes one way statements following the profile may be structured.
 
 
-Name | Values
----- | ------
-`@id` | A URI for this Statement Template.
-`@type` | `StatementTemplate`
-`inScheme` | The IRI of the specific profile version currently being described
-`prefLabel` | a language map of descriptive names for the Statement Template
-`definition` | A language map of descriptions of the purpose and usage of the Statement Template
-`deprecated` | *Optional*. A boolean, default false. If true, this Statement Template is deprecated.
-`verb` | *Optional*. Verb IRI
-`objectActivityType` | *Optional*. Object activity type IRI
-`contextGroupingActivityType` | *Optional*. Array of contextActivities grouping activity type IRIs
-`contextParentActivityType` | *Optional*. Array of contextActivities parent activity type IRIs
-`contextOtherActivityType` | *Optional*. Array of contextActivities other activity type IRIs
-`contextCategoryActivityType` | *Optional*. Array of contextActivities category activity type IRIs
-`attachmentUsageType` | *Optional*. Array of attachment usage type IRIs
-`objectStatementRefTemplate` | *Optional*. An array of Statement Template identifiers from this profile version.
-`contextStatementRefTemplate`. | *Optional*. An array of Statement Template identifiers from this profile version.
-`rules` | *Optional*. Array of Statement Template Rules
+Property | Type | Description | Required
+-------- | ---- | ----------- | --------
+`@id` | A URI for this Statement Template. | Required
+`@type` | `StatementTemplate` | Required
+`inScheme` | The IRI of the specific profile version currently being described | Required
+`prefLabel` | Object |A language map of descriptive names for the Statement Template | Required
+`definition` | Object |A language map of descriptions of the purpose and usage of the Statement Template | Required
+`deprecated` | Boolean | A boolean, default false. If true, this Statement Template is deprecated. | Optional
+`verb` | IRI | Verb IRI | Optional
+`objectActivityType` | Object | Object activity type IRI | Optional
+`contextGroupingActivityType` | Array | Array of contextActivities grouping activity type IRIs | Optional
+`contextParentActivityType` | Array | Array of contextActivities parent activity type IRIs | Optional
+`contextOtherActivityType` | Array | Array of contextActivities other activity type IRIs | Optional
+`contextCategoryActivityType` | Array | Array of contextActivities category activity type IRIs | Optional
+`attachmentUsageType` | Array | Array of attachment usage type IRIs | Optional
+`objectStatementRefTemplate` | Array | An array of Statement Template identifiers from this profile version. | Optional
+`contextStatementRefTemplate`. | Array | An array of Statement Template identifiers from this profile version. | Optional
+`rules` | Array | Array of Statement Template Rules | Optional
 
 A Statement Template MUST NOT have both `objectStatementRefTemplate` and `objectActivityType`.
 
@@ -252,15 +254,15 @@ Statement Template Rules describe a location or locations within statements usin
 
 They have these properties:
 
-Name | Values
----- | ------
-`location` | A JSONPath string. This is evaluated on a Statement to find the evaluated values to apply the requirements in this rule to. All evaluated values from `location` are matchable values.
-`selector` | *Optional*. A JSONPath string. If specified, this JSONPath is evaluated on each member of the evaluated values resulting from the location selector, and the resulting values become the evaluated values instead. If it returns nothing on a location, that represents an unmatchable value for that location, meaning `all` will fail, as will a `presence` of `included`. All other values returned are matchable values.
-`presence` | *Optional*. `included`, `excluded`, or `recommended`.
-`any` | *Optional*. an array of values that needs to intersect with the matchable values.
-`all` | *Optional*. an array of values which all the evaluated values need to be from.
-`none` | *Optional*. an array of values that can't be in the matchable values.
-`scopeNote` | *Optional*. A language map describing usage details for the parts of Statements addressed by this rule. For example, a profile with a rule requiring result.duration might provide guidance on how to calculate it.
+Property | Type | Description | Required
+-------- | ---- | ----------- | --------
+`location` | String | A JSONPath string. This is evaluated on a Statement to find the evaluated values to apply the requirements in this rule to. All evaluated values from `location` are matchable values. | Required
+`selector` | String | A JSONPath string. If specified, this JSONPath is evaluated on each member of the evaluated values resulting from the location selector, and the resulting values become the evaluated values instead. If it returns nothing on a location, that represents an unmatchable value for that location, meaning `all` will fail, as will a `presence` of `included`. All other values returned are matchable values. | Optional
+`presence` | String | `included`, `excluded`, or `recommended`. | Optional
+`any` | Array | An array of values that needs to intersect with the matchable values. | Optional
+`all` | Array | An array of values which all the evaluated values need to be from. | Optional
+`none` | Array | An array of values that can't be in the matchable values. | Optional
+`scopeNote` | Object | A language map describing usage details for the parts of Statements addressed by this rule. For example, a profile with a rule requiring result.duration might provide guidance on how to calculate it. | Optional
 
 A Statement Template Rule MUST include one or more of `presence`, `any`, `all`, or `none`.
 
@@ -294,20 +296,20 @@ Patterns describe groups of statements matching particular statement templates, 
 Patterns have these properties:
 
 
-Name | Values
----- | ------
-`@id` | A URI for the template.
-`@type` | `Pattern`
-`primary` | *Optional*. Boolean. Default false. Only primary patterns are checked for matching sequences of statements.
-`inScheme` | The IRI of the specific profile version currently being described
-`prefLabel` | *Optional*. A language map of descriptive names for the pattern
-`definition` | *Optional*. A language map of descriptions of the purpose and usage of the pattern
-`deprecated` | *Optional*. A boolean. If true, this pattern is deprecated.
-`alternates` | *Optional*. An array of pattern or statement template identifiers. An alternates pattern matches if any member of the array matches
-`optional` | *Optional*. A single pattern or statement template identifier. An optional pattern matches if the identified thing matches once, or is not present at all
-`oneOrMore` | *Optional*. A single pattern or statement template identifier. A oneOrMore pattern matches if the identified thing matches once, or any number of times more than once
-`sequence` | *Optional*. An array of pattern or statement template identifiers. A sequence pattern matches if the identified things match in the order specified.
-`zeroOrMore` | *Optional*. A single pattern or statement template identifier. A zeroOrMore pattern matches if the identified thing is not present or is present one or more times
+Property | Type | Description | Required
+-------- | ---- | ----------- | --------
+`@id` | URI | A URI for the template. | Required
+`@type` | String | `Pattern` | Required
+`primary` | Boolean | Default false. Only primary patterns are checked for matching sequences of statements. | Optional
+`inScheme` | IRI | The IRI of the specific profile version currently being described | Optional
+`prefLabel` | Object | A language map of descriptive names for the pattern | Optional
+`definition` | Object | A language map of descriptions of the purpose and usage of the pattern | Optional
+`deprecated` | Boolean | A boolean. If true, this pattern is deprecated. | Optional
+`alternates` | Array | An array of pattern or statement template identifiers. An alternates pattern matches if any member of the array matches | Optional
+`optional` | Object | A single pattern or statement template identifier. An optional pattern matches if the identified thing matches once, or is not present at all | Optional
+`oneOrMore` | Object | A single pattern or statement template identifier. A oneOrMore pattern matches if the identified thing matches once, or any number of times more than once | Optional
+`sequence` | Array | An array of pattern or statement template identifiers. A sequence pattern matches if the identified things match in the order specified. | Optional
+`zeroOrMore` | Object | A single pattern or statement template identifier. A zeroOrMore pattern matches if the identified thing is not present or is present one or more times | Optional
 
 
 A primary pattern MUST include prefLabel and definition. They are optional otherwise.
