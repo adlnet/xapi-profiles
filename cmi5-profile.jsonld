@@ -20,6 +20,51 @@
         "name": "cmi5 Working Group"
     },
     "concepts": [
+    {
+      "@id": "https://w3id.org/xapi/adl/verbs/satisfied",
+      "inScheme": "https://w3id.org/xapi/cmi5/context/categories/cmi5",
+      "@type": "Verb",
+      "definition": {
+        "en": "Indicates that the authority or activity provider determined the actor has fulfilled the criteria of the object or activity."
+      },
+      "prefLabel": {
+        "en": "satisfied"
+      }
+    },
+    {
+      "@id": "https://w3id.org/xapi/adl/verbs/waived",
+      "inScheme": "https://w3id.org/xapi/cmi5/context/categories/cmi5",
+      "@type": "Verb",
+      "definition": {
+        "en": "Indicates that the learning activity requirements were met by means other than completing the activity. A waived statement is used to indicate that the activity may be skipped by the actor."
+      },
+      "prefLabel": {
+        "en": "waived"
+      }
+    },    
+   	{
+		"@id": "https://w3id.org/xapi/cmi5/activities/block",
+        "inScheme": "https://w3id.org/xapi/cmi5/context/categories/cmi5",
+		"@type": "ActivityType",
+		"definition": {
+			"en": "A block represents a number of Assignable Units of which progress (completion/success) is rolled up to.  In cmi5 it is every level above the AU and below the Course."
+		},
+		"prefLabel": {
+			"en": "block"
+		}
+	}, 
+	{
+		"@id": "https://w3id.org/xapi/cmi5/activities/course",
+        "inScheme": "https://w3id.org/xapi/cmi5/context/categories/cmi5",
+		"@type": "ActivityType",
+		"definition": {
+			"en": "A course represents an amount of content that is published and registered for with the purpose of gaining completion.  It is represented with a Course Structure Format in cmi5 as the highest level of content (above Block and AU)."
+		},
+		"prefLabel": {
+			"en": "course"
+		}
+	}, 
+    
         {
             "id": "https://w3id.org/xapi/cmi5/result/extensions/progress",
             "inScheme": "https://w3id.org/xapi/cmi5/context/categories/cmi5",
