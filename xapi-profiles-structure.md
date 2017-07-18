@@ -1,6 +1,28 @@
-# xAPI Profiles Document Structure Specification
+Part Two:	[xAPI Profiles Document Structure Specification](./xapi-profiles-structure.md#parttwo)  
+   *	1.0.	[Reference Specifications](./xapi-profiles-structure#1.0)
+   *	2.0.	[Technical Foundations](./xapi-profiles-structure#2.0)
+   *  3.0.  [Structure](./xapi-profiles-structure#3.0)
+   *  4.0.  [Document Interpretation and General Restrictions](./xapi-profiles-structure.md#4.0)
+   *  5.0.  [Using Profiles in Statements](./xapi-profiles-structure.md#5.0)
+   *  6.0.  [Profile Properties](./xapi-profiles-structure.md#6.0)
+      *  6.1.  [Profile Version Objects](./xapi-profiles-structure.md#6.1)
+      *  6.2.  [Organizations and Persons](./xapi-profiles-structure.md#6.2)
+   *  7.0.  [Concepts](./xapi-profiles-structure.md#7.0)
+      *  7.1.  [Verbs, Activity Types, and Attachment Usage Types](./xapi-profiles-structure.md#7.1)
+      *  7.2.  [Extension Concepts](./xapi-profiles-structure.md#7.2)
+      *  7.3.  [Document Resources](./xapi-profiles-structure.md#7.3)
+      *  7.4.  [Activities](./xapi-profiles-structure.md#7.4)
+   *  8.0.  [Statement Templates](./xapi-profiles-structure.md#8.0)
+      *  8.1.  [Statement Template Rules](./xapi-profiles-structure.md#8.1)
+   *  9.0.  [Patterns](./xapi-profiles-structure.md#9.0)
+   *  10.0. [The Context](./xapi-profiles-structure.md#10.0)
+   
+  
 
-## Reference Specifications
+<a name="parttwo"></a>
+# Part Two: xAPI Profiles Document Structure Specification
+
+## <a name="1.0">1.0</a> Reference Specifications
 
 * [http://json-ld.org](http://json-ld.org/)
 * [https://www.w3.org/TR/skos-reference/](https://www.w3.org/TR/skos-reference/)
@@ -8,7 +30,7 @@
 * [https://www.w3.org/TR/activitystreams-core/](https://www.w3.org/TR/activitystreams-core/)
 * [https://www.w3.org/TR/rdf-sparql-query/](https://www.w3.org/TR/rdf-sparql-query/)
 
-## Technical Foundations
+## <a name="2.0">2.0</a> Technical Foundations
 
 This specification describes how to author an xAPI Profile. It describes a set of rules for authoring JSON, specifically JSON-LD. Since JSON-LD is a syntax for RDF, the resulting profile is really a set of triples—subject, predicate, object—creating a semantic data set. However, for authoring, all that matters is following the rules given for JSON, which will lead to the richer semantic data naturally. Because of this, no JSON-LD processing is required by systems consuming xAPI Profiles, though there will be advantages to doing so for some purposes.
 
@@ -16,7 +38,7 @@ When a profile is serialized into JSON, it MUST be consistent with what would be
 
 Under the hood, xAPI Profiles will use several well-established semantic web technologies: SKOS, to connect xAPI concepts together, and PROV, to describe the provenance (most notably the versioning) of profiles. Several properties in xAPI Profiles use names of properties from SKOS and PROV.
 
-# Structure
+## <a name="3.0">3.0</a> Structure
 
 Profiles serve two primary technical goals. First, they contain metadata about xAPI Concepts intended for reuse within statements, such as verbs and activity types. The metadata includes connections between Concepts, not just within the current profile, but also as used in other profiles, supporting a rich ecosystem of related terms. An xAPI Concept is any building block for use in Statements, and new versions of the profile specification may introduce new Concepts that can be described. The basis for xAPI Concepts is the SKOS Concept, a flexible way to refer to "specific ideas or meanings established within a knowledge organization system."
 
@@ -24,7 +46,7 @@ Second, they contain specific rules about using those Concepts properly in speci
 
 To assist in accomplishing these two primary goals, profiles also contain metadata about themselves—descriptions, authorship, versioning, and so forth.
 
-## Document Interpretation and General Restrictions
+## <a name="4.0">4.0</a> Document Interpretation and General Restrictions
 
 * All properties in tables are required in all cases unless marked optional.
 * Properties marked optional may be required in some situations. If no additional information is provided on the usage of an optional property, including it or not is entirely up to the profile author.
@@ -35,11 +57,11 @@ To assist in accomplishing these two primary goals, profiles also contain metada
 * All requirements on the structure of Profiles MUST be followed by Profile Authors.
 * All requirements on Statements following Profiles MUST be followed by Learning Record Providers when authoring Statements and by Profile Validators when validating Statements.
 
-## Using Profiles in Statements
+## <a name="5.0">5.0</a> Using Profiles in Statements
 
 Using an introduced Concept, such as an activity type, verb, attachment usage type, extension, activity, or document resource, can be done freely, provided the defined usage and meaning are adhered to. But a Learning Record Provider can go further, and make sure to adhere to profile-described statement templates and patterns. Learning Record Providers authoring statements that conform to matching profile-described statement templates and patterns SHOULD include the most up-to-date conformant profile version as a category context activity with id equal to the version's `@id` in those statements, and statements containing a profile version as a category context activity MUST conform to any matching templates and patterns that profile version describes.
 
-## Profile Properties
+## <a name="6.0">6.0</a> Profile Properties
 
 A Profile includes a variety of metadata, both natural language text for humans to understand the Profile, and structured data about versions and who created it. In addition to the metadata, there are properties for describing the Concepts, Statement Templates, and Patterns of the Profile.
 
@@ -60,7 +82,8 @@ Property | Type | Description | Required
 
 When `seeAlso` is provided `definition` SHOULD only include a short description of the Profile to aid in discovery and display.
 
-### Profile Version Objects
+### <a name="6.1">6.1</a> Profile Version Objects
+
 
 Profile version objects make it convenient to track version history for profiles, following recommendations 
 for SKOS concept schemes and PROV version tracking generally. By using versions this way, it is possible to 
@@ -77,7 +100,7 @@ Property | Type | Description | Required
 
 `wasRevisionOf` may sometimes contain multiple profile versions to support the scenario where a profile subsumes another. In this case, a new profile version would be defined with the two (or more) contributing profiles listed within the `wasRevisionOf` array.
 
-### Organizations and Persons
+### <a name="6.2">6.2</a> Organizations and Persons
 
 Use one of these in the `author` property to indicate the author of this profile version.
 
@@ -87,11 +110,11 @@ Property | Type | Description | Required
 `name` | String | A string with the name of the organization or person | Required
 `url` | URL | A URL for the Person or Group. | Optional
 
-## Concepts
+## <a name="7.0">7.0</a> Concepts
 
 All Concepts in a Profile MUST follow the rules of one of the subsections within this section. Since the types listed in each subsection are exclusive and required, that will always distinguish which section applies.
 
-### Verbs, Activity Types, and Attachment Usage Types
+### <a name="7.1">7.1</a> Verbs, Activity Types, and Attachment Usage Types
 
 Verb, Activity Type, and Attachment Usage Type Concepts share the same properties. They're all Concepts that make sense to relate semantically to others of the same type, such as indicating one is a narrower form of another.
 
@@ -115,7 +138,7 @@ Property | Type | Description | Required
 * `relatedMatch` SHOULD be used to connect possible replacement Concepts to removed Concepts from previous versions of the same profile, and for possible replacement Concepts in other profiles of deprecated concepts, as well as other loose relations.
 * `exactMatch` SHOULD be used rarely, mostly to describe connections to vocabularies that are no longer managed and do not use good URLs.
 
-### Extensions
+### <a name="7.2">7.2</a> Extension Concepts
 
 
 Property | Type | Description | Required
@@ -139,7 +162,7 @@ Statements including extensions defined in a Profile MUST:
 * only use a ResultExtension in result
 * only use an ActivityExtension in an Activity Definition.
 
-### Document Resources
+### <a name="7.3">7.3</a> Document Resources
 
 Property | Type | Description | Required
 -------- | ---- | ----------- | --------
@@ -168,7 +191,7 @@ Learning Record Store Clients sending Document Resources
 Profile Validators receiving Document Resources MUST validate Learning Record Store Clients follow the requirements for Document Resources.
 
 
-### Activities
+### <a name="7.4">7.4</a> Activities
 
 These Concepts are just literal xAPI Activity definitions the profile wants to provide for use. This is the profile's canonical version of the Activity.
 
@@ -201,7 +224,7 @@ Learning Record Providers using the Activity in Statements:
 * Language Maps MAY include languages not present in the profile yet.
 
 
-## Statement Templates
+## <a name="8.0">8.0</a> Statement Templates
 
 A Statement Template describes one way statements following the profile may be structured.
 
@@ -239,7 +262,7 @@ A Learning Record Provider authoring a Statement following a Statement Template:
 
 A Profile Validator validating a Statement MUST validate all the Learning Record Provider requirements for a Statement Template are followed.
 
-### Statement Template Rules
+### <a name="8.1">8.1</a> Statement Template Rules
 
 Statement Template Rules describe a location or locations within statements using JSONPath, then describe the restrictions on that value, such as inclusion, exclusion, or specific values allowed or disallowed. For example, to require at least one grouping, the rules might be something like:
 
@@ -289,7 +312,7 @@ The syntax and behavior of JSONPath is described at http://goessner.net/articles
 * The legal values in an array or child expression are: strings (child expressions), non-negative integers (array expressions), the star character `*` representing all children/members, and unions of these as described above.
 * Any two or more legal JSONPath expressions, joined together by the pipe character `|`, optionally with whitespace around the pipe, are also considered a legal JSONPath expression. The value of this expression is all the values returned by each expression individually, flattened (that is, if one expression returns N values and another returns a single value, the combination returns N+1 values, not two values).
 
-## Patterns
+## <a name="9.0">9.0</a> Patterns
 
 Patterns describe groups of statements matching particular statement templates, ordered in certain ways. For example, an allowed pattern in a video profile might start with a statement about playing a video and then be followed by statements about pausing, skipping, playing again, and so forth.
 
@@ -351,6 +374,6 @@ Name | Values
 
 Some Profiles may contain Patterns very similar to Statement data sent by previously existing Learning Record Providers, not strictly following this specification. It may be very close, but not follow it in all particulars, such as by missing a registration. While the details of how to handle this are outside the scope of this specification, Profiles aware of such existing data SHOULD make note of this and include descriptive language covering the degree of adherence.
 
-## The Context
+## <a name="10.0">10.0</a> The Context
 
 The way JSON-LD documents are mapped onto semantics is through what's called a context, which is specified with `@context`. Most of the time Profile authors and consumers do not need to worry about this at all -- this specification says what needs to go where, and provides the values to put in `@context` in the necessary places. In addition to being hosted at the given URLs, the contexts used are also in the repository this specification is developed in.
