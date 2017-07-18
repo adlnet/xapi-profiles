@@ -54,9 +54,104 @@ Virtually identical to the above, just replace being a Verb or Activity Type wit
 
 ## Algorithms
 
+This section specifies two algorithms. The first validates, given a Statement and a Profile, validates against any applicable Statement Templates of a Profile. The second, given a collection of Statements and a Profile, validates if the Statements follow at least one primary Pattern of the Profile.
 
 
-### Validating Statements
+### Statement Templates
+
+```
+function validates(statement, templates):
+    matching_templates = []
+    for template in templates:
+        if matches_determining_properties(statement, template):
+            if follows_rules(statement, template):
+                matching_templates.append(template.id)
+            else:
+                return false, []
+    return true, matching_templates
+
+
+function follows_rules(statement, template):
+    if template.objectStatementRefTemplate is specified:
+        if statement.object is a StatementRef:
+            if a Statement with id == statement.object.id is available to the checking system:
+                if validates(that other statement, templates)[1] does not intersect with template.objectStatementRefTemplate:
+                    return false
+        else:
+            return false
+    if template.contextStatementRefTemplate is specified:
+        if statement.context.statement is a StatementRef:
+            if a Statement with id == statement.context.statement.id is available to the checking system:
+                if validates(that other statement, templates)[1] does not intersect with template.contextStatementRefTemplate:
+                    return false
+        else:
+            return false
+    for rule in template.rules:
+        if follows_rule(statement, rule):
+            continue
+        else:
+            return false
+    return true
+
+
+function matches_determining_properties(statement, template):
+    for each specified Determining Property in the template:
+        if the corresponding Statement locations equal or are a superset of that Determining Properties values:
+            continue
+        else:
+            return false
+    return true
+
+
+function follows_rule(statement, rule):
+    strict = true
+    values = apply_jsonpath(statement, rule.location)
+    if rule.selector:
+        originals = values
+        values = []
+        for value in originals:
+            selection = apply_jsonpath(value, rule.selector)
+            if selection is empty:
+                values.append(UNMATCHABLE)
+            else:
+                values = values concatenated with selection
+    if rule.presence is specified:
+        if rule.presence is "included":
+            if values contains UNMATCHABLE:
+                return false
+            if values is empty:
+                return false
+        if rule.presence is "excluded":
+            if values is not empty and any members are not UNMATCHABLE:
+                return false
+        if rule.presence is "recommended":
+            strict = false
+    if rule.any is specified:
+        if strict or values is not empty:
+            if values does not intersect with rule.any:
+                return false
+    if rule.all is specified:
+        if strict or values is not empty:
+            if values contains UNMATCHABLE:
+                return false
+            for value in values:
+                if rule.all does not contain value:
+                    return false
+    if rule.none is specified:
+        if strict or values is not empty:
+            for value in values:
+                if rule.none contains value:
+                    return false
+
+
+function apply_jsonpath(statement, path):
+    The definition of this is beyond the scope of this document, but it follows
+    the JSONPath specification as constrained by the requirements in this
+    specification. If a single value is found in the Statement matching the
+    path, it is returned in an array (even if it itself is already an array). If
+    multiple values are found, they are returned in an array.
+    If no values are found, an empty array is returned.
+```
 
 To retrieve the information needed to validate a statement, a simple SPARQL query suffices — retrieve all the statement templates, with their rules, for the profile version(s) indicated in the statement. From there, apply a series of operations. First, for each profile, find templates with determining properties that match in full. There will generally be one or zero. If zero, this statement does not match any templates in the profile and does not validate. From there, for each template with matching determining properties, iterate through the rules, executing the JSONPath queries and applying the requirements. Additionally, check if the object StatementRef and context StatementRef requirements are met. If the referenced Statement is available to the checking system, it MUST be checked for matching the given Statement Template, but if it is not, it MUST be assumed to match the given Statement Template. If all the rules are fulfilled, and the StatementRefs check out, then the statement matches the template. If for every Statement Template in a profile with matching determining properties, it matches the template, the statement validates against the profile. If a statement validates for every profile in its context, it validates generally.
 
