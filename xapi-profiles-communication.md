@@ -3,15 +3,16 @@
 
 In addition to the ability to host profiles separately, there will be one or more pieces of infrastructure for querying and manipulating profiles. A central component will be a “Profile Server” to make it easier to manage and answer questions about profiles from a centralized location.
 
-Administrators will be able to add profiles by their contents or by URI to the Profile Server. On a Public Profile Server run by... DISC? ADL? ... there will be a review process people desiring to add profiles can submit to. The review process will check profiles for following the specification and assist in helping them be of highest quality, after which they will be added to the server.
+A public Profile Server will
+* allow administrators to add profiles by their contents or by URI to the Profile Server
+* provide a review process people desiring to add profiles can submit to.
 
-The Profile Server will host a SPARQL endpoint containing the RDF information from the contained profiles at the path /sparql. SPARQL servers have the ability to divide information into multiple datasets, or graphs, and offer separate querying on them. One of these is the default graph, which is queried when no other graph is specified. The default graph at this SPARQL endpoint will contain all the current versions of profiles. Additionally, every profile version will be in a Named Graph with a URI equal to the profile version's URI. Thus, by default queries will only operate on up to date information, but if historical profile information is needed, it is available.
+The review process will check profiles for following the specification and assist in helping them be of highest quality, after which they will be added to the server.
 
-TODO: consider having the default graph only contain the versioning information, which would make queries slightly more complex but would make it harder for accidental profile trampling to occur...
+A public Profile Server will host a SPARQL endpoint containing the RDF information from the contained profiles at the path /sparql. SPARQL servers have the ability to divide information into multiple datasets, or graphs, and offer separate querying on them. One of these is the default graph, which is queried when no other graph is specified. The default graph at this SPARQL endpoint will contain all the current versions of profiles. Additionally, every profile version will be in a Named Graph with a URI equal to the profile version's URI. Thus, by default queries will only operate on up to date information, but if historical profile information is needed, it is available.
 
-Here are a selection of SPARQL queries for retrieving commonly needed information from the server. All these SPARQL queries can also be run locally by loading one or more profiles into an RDF library and running sparql queries against them directly.
+Here are a selection of questions and the SPARQL queries that answer them, for retrieving commonly needed information from the server. All these SPARQL queries can also be run locally by loading one or more profiles into an RDF library and running sparql queries against them directly, with minor modifications depending on how the data is loaded.
 
-Using that SPARQL server, it will be easy to answer questions such as:
 
 “What profiles are on the server?”
 
@@ -51,7 +52,11 @@ Virtually identical to the above, just replace being a Verb or Activity Type wit
 
 (Prefixes are omitted in these examples until a complete context is ready).
 
-## Validating Statements
+## Algorithms
+
+
+
+### Validating Statements
 
 To retrieve the information needed to validate a statement, a simple SPARQL query suffices — retrieve all the statement templates, with their rules, for the profile version(s) indicated in the statement. From there, apply a series of operations. First, for each profile, find templates with determining properties that match in full. There will generally be one or zero. If zero, this statement does not match any templates in the profile and does not validate. From there, for each template with matching determining properties, iterate through the rules, executing the JSONPath queries and applying the requirements. Additionally, check if the object StatementRef and context StatementRef requirements are met. If the referenced Statement is available to the checking system, it MUST be checked for matching the given Statement Template, but if it is not, it MUST be assumed to match the given Statement Template. If all the rules are fulfilled, and the StatementRefs check out, then the statement matches the template. If for every Statement Template in a profile with matching determining properties, it matches the template, the statement validates against the profile. If a statement validates for every profile in its context, it validates generally.
 
@@ -129,8 +134,6 @@ function matches(statements, element):
             return success, statements
 ```
 
-TODO: continue testing of the above. Fairly extensive testing has already been done using generative testing, in the companion python code.
-
 This table summarizes the possible return values and what they indicate:
 
 outcome | remaining statements | outcome
@@ -148,9 +151,9 @@ When checking previously collected statements for matching a pattern, ordering M
 When checking statements for matching a pattern upon receipt, ordering MUST be based on receipt order insofar as that can be determined. If statements are received in the same batch and they are being checked upon receipt, within the batch statements MUST be ordered first by timestamp, and if timestamps are the same, by order within the statement array, with lower indices earlier.
 
 
-### Libraries
+## Libraries
 
-Any library that implements the algorithms given here will be an xAPI Profile Processor library. Reference implementation libraries in one or more languages will be provided.
+Any library that implements the algorithms given here will be an xAPI Profile Processor library.
 
 For each of the library operations, the Profile Server will provide web APIs that are strongly Not Recommended for production usage, but are suitable for experimentation and demonstration.
 
