@@ -16,8 +16,8 @@ Part Two:	[xAPI Profiles Document Structure Specification](./xapi-profiles-struc
       *  8.1.  [Statement Template Rules](./xapi-profiles-structure.md#8.1)
    *  9.0.  [Patterns](./xapi-profiles-structure.md#9.0)
    *  10.0. [The Context](./xapi-profiles-structure.md#10.0)
-   
-  
+
+
 
 <a name="parttwo"></a>
 # Part Two: xAPI Profiles Document Structure Specification
@@ -59,7 +59,7 @@ To assist in accomplishing these two primary goals, profiles also contain metada
 
 ## <a name="5.0">5.0</a> Using Profiles in Statements
 
-Using an introduced Concept, such as an activity type, verb, attachment usage type, extension, activity, or document resource, can be done freely, provided the defined usage and meaning are adhered to. But a Learning Record Provider can go further, and make sure to adhere to profile-described statement templates and patterns. Learning Record Providers authoring statements that conform to matching profile-described statement templates and patterns SHOULD include the most up-to-date conformant profile version as a category context activity with id equal to the version's `@id` in those statements, and statements containing a profile version as a category context activity MUST conform to any matching templates and patterns that profile version describes.
+Using an introduced Concept, such as an activity type, verb, attachment usage type, extension, activity, or document resource, can be done freely, provided the defined usage and meaning are adhered to. But a Learning Record Provider can go further, and make sure to adhere to profile-described statement templates and patterns. Learning Record Providers authoring statements that conform to matching profile-described statement templates and patterns SHOULD include the most up-to-date conformant profile version as a category context activity with id equal to the version's `id` in those statements, and statements containing a profile version as a category context activity MUST conform to any matching templates and patterns that profile version describes.
 
 ## <a name="6.0">6.0</a> Profile Properties
 
@@ -67,9 +67,9 @@ A Profile includes a variety of metadata, both natural language text for humans 
 
 Property | Type | Description | Required
 -------- | ---- | ----------- | --------
-`@id` | IRI | The IRI of the profile overall (not a specific version) | Required
+`id` | IRI | The IRI of the profile overall (not a specific version) | Required
 `@context` | URI | SHOULD be `http://example.org/figure/out/where/this/goes/profile-context.jsonld` and MUST contain this URI if array-valued. | Required
-`@type` | String | MUST be `Profile`. | Required
+`type` | String | MUST be `Profile`. | Required
 `conformsTo` | URI | Canonical URI of the profile specification version conformed to. The profile specification version of this document is https://github.com/DataInteroperability/xapi-profiles/tree/master#1.0-development, and it is a development version that may undergo incompatible changes without updating the version URI. | Required
 `prefLabel` | Object | Language map of names for this profile. | Required
 `definition` | Object | Language map of descriptions for this profile. If there are additional rules for the profile as a whole that cannot be expressed using this specification, include them here, or at the seeAlso URL. | Required
@@ -85,14 +85,14 @@ When `seeAlso` is provided `definition` SHOULD only include a short description 
 ### <a name="6.1">6.1</a> Profile Version Objects
 
 
-Profile version objects make it convenient to track version history for profiles, following recommendations 
-for SKOS concept schemes and PROV version tracking generally. By using versions this way, it is possible to 
-answer precise questions such as “what version of this profile was current on the 3rd of January last year?”. 
+Profile version objects make it convenient to track version history for profiles, following recommendations
+for SKOS concept schemes and PROV version tracking generally. By using versions this way, it is possible to
+answer precise questions such as “what version of this profile was current on the 3rd of January last year?”.
 Lack of robust versioning is frequently identified as an issue with RDF data.
 
 Property | Type | Description | Required
 -------- | ---- | ----------- | --------
-`@id` | IRI | The IRI of the version ID | Required
+`id` | IRI | The IRI of the version ID | Required
 `wasRevisionOf` | Array | An array, usually of length one, of IRIs of all profile versions this version was written as a revision of | Optional
 `generatedAtTime` | Timestamp | The date this version was created on | Required
 
@@ -106,7 +106,7 @@ Use one of these in the `author` property to indicate the author of this profile
 
 Property | Type | Description | Required
 -------- | ---- | ----------- | --------
-`@type` | Object | `Organization` or `Person` | Required
+`type` | Object | `Organization` or `Person` | Required
 `name` | String | A string with the name of the organization or person | Required
 `url` | URL | A URL for the Person or Group. | Optional
 
@@ -120,19 +120,19 @@ Verb, Activity Type, and Attachment Usage Type Concepts share the same propertie
 
 Property | Type | Description | Required
 -------- | ---- | ----------- | --------
-`@id` | IRI | The IRI of this Concept | Required
-`@type` | String | `Verb`, `ActivityType`, or `AttachmentUsageType` | Required
+`id` | IRI | The IRI of this Concept | Required
+`type` | String | `Verb`, `ActivityType`, or `AttachmentUsageType` | Required
 `inScheme` | IRI | The IRI of the specific profile version currently being described | Required
 `prefLabel` | Object | A language map of the preferred names in each language | Required
 `definition` | Object | A language map of the precise definition, including how to use the concept properly in statements | Required
 `deprecated` | Boolean | A boolean. If true, this concept is deprecated. | Optional
-`broader` | Array | An array of IRIs of concepts of the same @type from this profile version that have a broader meaning. | Optional
-`broadMatch` | Array | An array of IRIs of concepts of the same @type from a different profile that have a broader meaning. | Optional
-`narrower` | Array | An array of IRIs of concepts of the same @type from this profile version that have a narrower meaning. | Optional
-`narrowMatch` | Array | An array of IRIs of concepts of the same @type from different profiles that have narrower meanings. | Optional
-`related` | Array | An array of IRIs of concepts of the same @type from this profile version that are close conceptual matches to this concept's meaning. | Optional
-`relatedMatch` | Array | An array of IRIs of concepts of the same @type from a different profile or a different version of the same profile that has a related meaning that is not clearly narrower or broader. Useful to establish conceptual links between profiles that can be used for discovery. | Optional
-`exactMatch` | Array | An array of IRIs of concepts of the same @type from a different profile or a different version of the same profile that have exactly the same meaning. | Optional
+`broader` | Array | An array of IRIs of concepts of the same `type` from this profile version that have a broader meaning. | Optional
+`broadMatch` | Array | An array of IRIs of concepts of the same `type` from a different profile that have a broader meaning. | Optional
+`narrower` | Array | An array of IRIs of concepts of the same `type` from this profile version that have a narrower meaning. | Optional
+`narrowMatch` | Array | An array of IRIs of concepts of the same `type` from different profiles that have narrower meanings. | Optional
+`related` | Array | An array of IRIs of concepts of the same `type` from this profile version that are close conceptual matches to this concept's meaning. | Optional
+`relatedMatch` | Array | An array of IRIs of concepts of the same `type` from a different profile or a different version of the same profile that has a related meaning that is not clearly narrower or broader. Useful to establish conceptual links between profiles that can be used for discovery. | Optional
+`exactMatch` | Array | An array of IRIs of concepts of the same `type` from a different profile or a different version of the same profile that have exactly the same meaning. | Optional
 
 * `related` MUST only be used on concepts that are deprecated to indicate possible replacement concepts in the same profile, if there are any.
 * `relatedMatch` SHOULD be used to connect possible replacement Concepts to removed Concepts from previous versions of the same profile, and for possible replacement Concepts in other profiles of deprecated concepts, as well as other loose relations.
@@ -143,8 +143,8 @@ Property | Type | Description | Required
 
 Property | Type | Description | Required
 -------- | ---- | ----------- | --------
-`@id` | IRI | The IRI of the extension, used as the extension key in xAPI | Required
-`@type` | String | `ContextExtension`, `ResultExtension`, or `ActivityExtension` | Required
+`id` | IRI | The IRI of the extension, used as the extension key in xAPI | Required
+`type` | String | `ContextExtension`, `ResultExtension`, or `ActivityExtension` | Required
 `inScheme` | IRI | The IRI of the specific profile version currently being described | Required
 `prefLabel` | Object | A language map of descriptive names for the extension | Required
 `definition` | Object | A language map of descriptions of the purpose and usage of the extension | Required
@@ -166,8 +166,8 @@ Statements including extensions defined in a Profile MUST:
 
 Property | Type | Description | Required
 -------- | ---- | ----------- | --------
-`@id` | IRI | The IRI of the document resource, used as the stateId/profileId in xAPI | Required
-`@type` | String | One of: `StateResource`, `AgentProfileResource`, `ActivityProfileResource` | Required
+`id` | IRI | The IRI of the document resource, used as the stateId/profileId in xAPI | Required
+`type` | String | One of: `StateResource`, `AgentProfileResource`, `ActivityProfileResource` | Required
 `inScheme` | IRI | The IRI of the specific profile version currently being described | Required
 `prefLabel` | Object | A language map of descriptive names for the document resource | Required
 `definition` | Object | A language map of descriptions of the purpose and usage of the document resource | Required
@@ -180,7 +180,7 @@ Property | Type | Description | Required
 Profiles MUST use at most one of `schema` and `inlineSchema` for Document Resources
 
 Learning Record Store Clients sending Document Resources
-* MUST use the @id as the stateId or profileId (as appropriate) when interacting with the corresponding resource.
+* MUST use the `id` as the stateId or profileId (as appropriate) when interacting with the corresponding resource.
 * MUST use the contentType given in the Content-Type header, including any parameters as given.
 * MAY add additional parameters to the Content-Type header that are not specified in the Concept.
 * MUST
@@ -198,8 +198,8 @@ These Concepts are just literal xAPI Activity definitions the profile wants to p
 
 Property | Type | Description | Required
 -------- | ---- | ----------- | --------
-`@id` | IRI | The IRI of the activity | Required
-`@type` | String | `Activity` | Required
+`id` | IRI | The IRI of the activity | Required
+`type` | String | `Activity` | Required
 `inScheme` | IRI | The IRI of the specific profile version currently being described | Required
 `deprecated` | Boolean | A boolean. If true, this concept is deprecated. | Optional
 `activityDefinition` | Object | An Activity Definition as in xAPI, plus a `@context`, as in the table below. | Required
@@ -217,7 +217,7 @@ Profile Authors:
 
 
 Learning Record Providers using the Activity in Statements:
-* MUST use the `@id` for the Activity `id`, and MUST NOT include `@context` in the Activity Definition.
+* MUST use the `id` for the Activity `id`, and MUST NOT include `@context` in the Activity Definition.
 * SHOULD either not include the definition or include all properties given here in the definition.
 * if included, the properties SHOULD be exactly as given in the Profile, except for `name` and `description` and other Language Maps.
 * Language Maps SHOULD only include languages appropriate to the situation.
@@ -231,8 +231,8 @@ A Statement Template describes one way statements following the profile may be s
 
 Property | Type | Description | Required
 -------- | ---- | ----------- | --------
-`@id` | A URI for this Statement Template. | Required
-`@type` | `StatementTemplate` | Required
+`id` | A URI for this Statement Template. | Required
+`type` | `StatementTemplate` | Required
 `inScheme` | The IRI of the specific profile version currently being described | Required
 `prefLabel` | Object |A language map of descriptive names for the Statement Template | Required
 `definition` | Object |A language map of descriptions of the purpose and usage of the Statement Template | Required
@@ -321,8 +321,8 @@ Patterns have these properties:
 
 Property | Type | Description | Required
 -------- | ---- | ----------- | --------
-`@id` | URI | A URI for the template. | Required
-`@type` | String | `Pattern` | Required
+`id` | URI | A URI for the template. | Required
+`type` | String | `Pattern` | Required
 `primary` | Boolean | Default false. Only primary patterns are checked for matching sequences of statements. | Optional
 `inScheme` | IRI | The IRI of the specific profile version currently being described | Optional
 `prefLabel` | Object | A language map of descriptive names for the pattern | Optional
