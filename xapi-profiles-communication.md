@@ -54,21 +54,32 @@ Virtually identical to the above, just replace being a Verb or Activity Type wit
 
 ## Algorithms
 
-This section specifies two algorithms. The first validates, given a Statement and a Profile, validates against any applicable Statement Templates of a Profile. The second, given a collection of Statements and a Profile, validates if the Statements follow at least one primary Pattern of the Profile.
+This section specifies two algorithms. The first, given a Statement and a set of Statement Templates, validates the Statement against all applicable Statement Templates in those provided and returns the templates that match, or an error if any of the matching templates does not validate against the Statement. The second, given a collection of Statements and a Pattern, validates if the Statements follow that Pattern.
 
 
 ### Statement Templates
 
+To validate a Statement against the Statement Templates of a Profile, call the `validates` function described in pseudocode below with the Statement and all the Statement Templates from the Profile. This function returns an outcome and an array of templates. To interpret the results, consult the table after the algorithm definition.
+
 ```
 function validates(statement, templates):
     matching_templates = []
+    failing_templates = []
+    outcome = success
     for template in templates:
         if matches_determining_properties(statement, template):
             if follows_rules(statement, template):
                 matching_templates.append(template.id)
             else:
-                return false, []
-    return true, matching_templates
+                outcome = invalid
+                failing_templates.append(template.id)
+    if outcome is success:
+        if length of matching_templates > 0:
+            return success, matching_templates
+        else:
+            return unmatched, []
+    else:
+        return invalid, failing_templates
 
 
 function follows_rules(statement, template):
@@ -148,25 +159,43 @@ function apply_jsonpath(statement, path):
     The definition of this is beyond the scope of this document, but it follows
     the JSONPath specification as constrained by the requirements in this
     specification. If a single value is found in the Statement matching the
-    path, it is returned in an array (even if it itself is already an array). If
+    path, it is returned in an array (even if the single value is already an array). If
     multiple values are found, they are returned in an array.
     If no values are found, an empty array is returned.
 ```
 
-To retrieve the information needed to validate a statement, a simple SPARQL query suffices — retrieve all the statement templates, with their rules, for the profile version(s) indicated in the statement. From there, apply a series of operations. First, for each profile, find templates with determining properties that match in full. There will generally be one or zero. If zero, this statement does not match any templates in the profile and does not validate. From there, for each template with matching determining properties, iterate through the rules, executing the JSONPath queries and applying the requirements. Additionally, check if the object StatementRef and context StatementRef requirements are met. If the referenced Statement is available to the checking system, it MUST be checked for matching the given Statement Template, but if it is not, it MUST be assumed to match the given Statement Template. If all the rules are fulfilled, and the StatementRefs check out, then the statement matches the template. If for every Statement Template in a profile with matching determining properties, it matches the template, the statement validates against the profile. If a statement validates for every profile in its context, it validates generally.
+This table summarizes the possible return values of `validates` and what they indicate.
+
+outcome   | templates | outcome
+--------- | --------- | -------
+success   | non empty | one or more templates matched and all their rules are followed. The templates array contains all matched templates.
+invalid   | non empty | one or more templates matched but not all their rules were followed. The templates array contains all templates that matched but had some rules unfollowed.
+unmatched | empty     | none of templates matched
+
 
 ### Patterns
 
-To validate a series of statements sharing a registration (and, if applicable, subregistration) matches a pattern for a specified profile, include the profile's patterns in the retrieved data along with the data for statement templates. For each statement, check which statement templates are matched. If a statement does not match at least one statement template for the specified profile, the statements do not match the pattern.
-
-Next, check each top-level pattern in the specified profile for matching. If at least one top-level pattern matches, the series of statements validates. A pattern match validates if matches(series, pattern) returns success for the first value and the second value is empty. The algorithm follows, in pseudocode:
+To validate a series of Statements sharing a registration (and, if applicable, subregistration) follows a specified Profile, apply the `follows` algorithm described below, which returns simple success or failure. For more nuanced interpretation, examine the `matches` algorithm, which is used by `follows`. A table for interpreting the return values of the `matches` algorithm is provided following the pseudocode for the algorithms.
 
 ```
+
+function follows(statements, templates, patterns):
+    for statement in statements:
+        outcome, templates = validates(statement, templates)
+        if outcome is not success:
+            return failure
+        statement.templates = templates
+    for pattern in patterns:
+        outcome, remaining = matches(statements, pattern)
+        if outcome is success and remaining is empty:
+            return success
+    return failure
+
 function matches(statements, element):
     if element is a template:
         if statements is empty:
             return partial, []
-        if statements[0]'s set of statement templates includes element:
+        if statements[0].templates includes element:
             return success, statements[1:]
         else:
             return failure, statements
@@ -229,7 +258,7 @@ function matches(statements, element):
             return success, statements
 ```
 
-This table summarizes the possible return values and what they indicate:
+This table summarizes the possible return values of `matches` and what they indicate:
 
 outcome | remaining statements | outcome
 ------- | -------------------- | -------
@@ -240,20 +269,17 @@ partial | non empty            | outcome could be interpreted as success with no
 failure | original statements  | pattern failed to match statements. Note: if an optional or zeroOrMore pattern is directly inside an alternates pattern, it is possible for failure to be returned when partial is correct, due to decidability issues.
 
 
-
-A pattern only matches if it matches greedily. That is, each optional, zeroOrMore, oneOrMore, and alternate pattern MUST always be considered to match the maximum length possible before considering any patterns later in a sequence. That is, no backtracking is allowed. This constrains useful statement patterns, but guarantees efficient processing, as once a statement is matched it does not need to be reconsidered (except in cases where it is part of an ultimately unmatched alternate).
+A pattern only matches if it matches greedily. That is, each optional, zeroOrMore, oneOrMore, and alternate pattern MUST always be considered to match the maximum length possible before considering any patterns later in a sequence. No backtracking is allowed. This constrains useful statement patterns, but guarantees efficient processing, as once a statement is matched it does not need to be reconsidered (except in cases where it is part of an ultimately unmatched alternate).
 When checking previously collected statements for matching a pattern, ordering MUST be based on timestamp. In the event two or more statements have identical timestamps, any order within those statements is allowed.
 When checking statements for matching a pattern upon receipt, ordering MUST be based on receipt order insofar as that can be determined. If statements are received in the same batch and they are being checked upon receipt, within the batch statements MUST be ordered first by timestamp, and if timestamps are the same, by order within the statement array, with lower indices earlier.
 
 
 ## Libraries
 
-Any library that implements the algorithms given here will be an xAPI Profile Processor library.
+Any library that implements the algorithms given here, exposing all of the listed functions, will be an xAPI Profile Processor library.
 
-For each of the library operations, the Profile Server will provide web APIs that are strongly Not Recommended for production usage, but are suitable for experimentation and demonstration.
+For each of the `validates`, and `follows`, the Profile Server will provide web APIs that are strongly Not Recommended for production usage, but are suitable for experimentation and demonstration.
 
-One URL will be at /validate_templates, and the other at /validate_patterns. The first will take a single xAPI statement and a profile specified by id, specified in POST variables as “statement” and “profile”. The second will take an array of xAPI statements and a profile specified by id, both specified in POST variables as “statements” and “profile”. Both will check if the single statement or sequence of statements matches any template or pattern in the profile given.
+Their URL paths will be /validate_templates and /validate_patterns, respectively. The first will take a single xAPI statement and a profile specified by id, specified in POST variables as “statement” and “profile”. The second will take an array of xAPI statements and a profile specified by id, both specified in POST variables as “statements” and “profile”.
 
 Both will perform the algorithms above and return 204 on successful validation and 400 on failure, with descriptive comments attached on failure.
-
-TODO: figure out if the profile parameter is really needed, consider return values that are the array of profiles with a matching template or pattern, or maybe even the templates or patterns themselves?
