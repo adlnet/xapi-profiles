@@ -1,10 +1,10 @@
 
 Part Three:	[xAPI Profiles Communication and Processing Specification](./xapi-profiles-communication.md#partthree)  
-    * 1.0. [Profile Server](./xapi-profiles-communication#1.0)
-    * 2.0. [Algorithms](./xapi-profiles-communication#2.0)
-        * 2.1. [Statement Template Validation](./xapi-profiles-communication#2.1)
-        * 2.2. [Pattern Validation](./xapi-profiles-communication#2.2)
-   * 3.0. [Libraries](./xapi-profiles-communication#3.0)
+ * 1.0. [Profile Server](./xapi-profiles-communication#1.0)
+ * 2.0. [Algorithms](./xapi-profiles-communication#2.0)
+    * 2.1. [Statement Template Validation](./xapi-profiles-communication#2.1)
+    * 2.2. [Pattern Validation](./xapi-profiles-communication#2.2)
+ * 3.0. [Libraries](./xapi-profiles-communication#3.0)
 
 
 <a name="partthree"></a>
