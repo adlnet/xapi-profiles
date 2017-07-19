@@ -1,17 +1,31 @@
 
-# Communication
+Part Three:	[xAPI Profiles Communication and Processing Specification](./xapi-profiles-communication.md#partthree)  
+    * 1.0. [Profile Server](./xapi-profiles-communication#1.0)
+    * 2.0. [Algorithms](./xapi-profiles-communication#2.0)
+        * 2.1. [Statement Template Validation](./xapi-profiles-communication#2.1)
+        * 2.2. [Pattern Validation](./xapi-profiles-communication#2.2)
+   * 3.0. [Libraries](./xapi-profiles-communication#3.0)
 
-In addition to the ability to host profiles separately, there will be one or more pieces of infrastructure for querying and manipulating profiles. A central component will be a “Profile Server” to make it easier to manage and answer questions about profiles from a centralized location.
 
-A public Profile Server will
+<a name="partthree"></a>
+# Part Three: Communication and Processing
+
+In addition to the ability to host profiles as documents, there will be infrastructure for querying and manipulating profiles. This document describes the algorithms for processing profiles, including the exact rules by which Statement Templates and Patterns are validated against Statements. It also describes a “Profile Server” to make it easier to manage and answer questions about profiles from a centralized location, including implementing the algorithms.
+
+## <a name="1.0">1.0</a> Profile Server
+
+A Profile Server will
 * allow administrators to add profiles by their contents or by URI to the Profile Server
 * provide a review process people desiring to add profiles can submit to.
 
 The review process will check profiles for following the specification and assist in helping them be of highest quality, after which they will be added to the server.
 
-A public Profile Server will host a SPARQL endpoint containing the RDF information from the contained profiles at the path /sparql. SPARQL servers have the ability to divide information into multiple datasets, or graphs, and offer separate querying on them. One of these is the default graph, which is queried when no other graph is specified. The default graph at this SPARQL endpoint will contain all the current versions of profiles. Additionally, every profile version will be in a Named Graph with a URI equal to the profile version's URI. Thus, by default queries will only operate on up to date information, but if historical profile information is needed, it is available.
+A Profile Server will host a SPARQL endpoint containing the RDF information from the contained profiles at the path /SPARQL. SPARQL servers have the ability to divide information into multiple datasets, or graphs, and offer separate querying on them. One of these is the default graph, which is queried when no other graph is specified. The default graph at this SPARQL endpoint will contain all the current versions of profiles. Additionally, every profile version will be in a Named Graph with a URI equal to the profile version's URI. Thus, by default queries will only operate on up to date information, but if historical profile information is needed, it is available.
 
-Here are a selection of questions and the SPARQL queries that answer them, for retrieving commonly needed information from the server. All these SPARQL queries can also be run locally by loading one or more profiles into an RDF library and running sparql queries against them directly, with minor modifications depending on how the data is loaded.
+
+### <a name="1.1">1.1</a> Example SPARQL Queries
+
+Here are a selection of questions and the SPARQL queries that answer them, for retrieving commonly needed information from the server. All these SPARQL queries can also be run locally by loading one or more profiles into an RDF library and running SPARQL queries against them directly, with minor modifications depending on how the data is loaded.
 
 
 “What profiles are on the server?”
@@ -52,12 +66,12 @@ Virtually identical to the above, just replace being a Verb or Activity Type wit
 
 (Prefixes are omitted in these examples until a complete context is ready).
 
-## Algorithms
+## <a name="2.0">2.0</a> Algorithms
 
-This section specifies two algorithms. The first, given a Statement and a set of Statement Templates, validates the Statement against all applicable Statement Templates in those provided and returns the templates that match, or an error if any of the matching templates does not validate against the Statement. The second, given a collection of Statements and a Pattern, validates if the Statements follow that Pattern.
+This section specifies two primary algorithms. The first, given a Statement and a set of Statement Templates, validates the Statement against all applicable Statement Templates in those provided and returns the templates that match, or an error if any of the matching templates does not validate against the Statement. The second, given a collection of Statements and a set of Patterns, validates if the Statements follows any of the Patterns.
 
 
-### Statement Templates
+### <a name="2.1">2.1</a> Statement Template Validation
 
 To validate a Statement against the Statement Templates of a Profile, call the `validates` function described in pseudocode below with the Statement and all the Statement Templates from the Profile. This function returns an outcome and an array of templates. To interpret the results, consult the table after the algorithm definition.
 
@@ -173,7 +187,7 @@ invalid   | non empty | one or more templates matched but not all their rules we
 unmatched | empty     | none of templates matched
 
 
-### Patterns
+### <a name="2.2">2.2</a> Pattern Validation
 
 To validate a series of Statements sharing a registration (and, if applicable, subregistration) follows a specified Profile, apply the `follows` algorithm described below, which returns simple success or failure. For more nuanced interpretation, examine the `matches` algorithm, which is used by `follows`. A table for interpreting the return values of the `matches` algorithm is provided following the pseudocode for the algorithms.
 
@@ -274,7 +288,7 @@ When checking previously collected statements for matching a pattern, ordering M
 When checking statements for matching a pattern upon receipt, ordering MUST be based on receipt order insofar as that can be determined. If statements are received in the same batch and they are being checked upon receipt, within the batch statements MUST be ordered first by timestamp, and if timestamps are the same, by order within the statement array, with lower indices earlier.
 
 
-## Libraries
+## <a name="3.0">3.0</a> Libraries
 
 Any library that implements the algorithms given here, exposing all of the listed functions, will be an xAPI Profile Processor library.
 
