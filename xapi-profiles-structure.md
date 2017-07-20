@@ -153,8 +153,8 @@ Property | Type | Description | Required
 `prefLabel` | Object | A Language Map of descriptive names for the extension | Required
 `definition` | Object | A Language Map of descriptions of the purpose and usage of the extension | Required
 `deprecated` | Boolean | A boolean. If true, this Concept is deprecated. | Optional
-`recommendedActivityTypes` | Array | Only allowed on `ActivityExtension`s. An array of activity type URIs that this extension is recommended for use with (extending to narrower of the same). | Optional
-`recommendedVerbs` | Array | Only allowed on `ContextExtension`s and `ResultExtension`s. An array of verb URIs that this extension is recommended for use with (extending to narrower of the same). | Optional
+`recommendedActivityTypes` | Array | Only allowed on an `ActivityExtension`. An array of activity type URIs that this extension is recommended for use with (extending to narrower of the same). | Optional
+`recommendedVerbs` | Array | Only allowed on a `ContextExtension` or a `ResultExtension`. An array of verb URIs that this extension is recommended for use with (extending to narrower of the same). | Optional
 `context` | IRI | the IRI of a JSON-LD context for this extension |  Optional
 `schema` | IRI | the IRI for accessing a JSON Schema for this extension. The JSON Schema can be used to constrain the extension to a single type. | Optional
 `inlineSchema` | Object | An alternate way to include a JSON Schema, as a string. | Optional
