@@ -339,7 +339,7 @@ A primary pattern MUST include prefLabel and definition. They are optional other
 
 A pattern MUST contain exactly one of `alternates`, `optional`, `oneOrMore`, `sequence`, and `zeroOrMore`.
 
-
+A Profile Author MUST change a Pattern's `id` between versions if any of optional, oneOrMore, sequence, or zeroOrMore change. Note that if a Pattern used within another Pattern changes, the change will "bubble up" as each `id` gets changed.
 
 Profile Authors:
 * MUST make sure their primary patterns behave appropriately given the greedy matching rules in the algorithms section.
