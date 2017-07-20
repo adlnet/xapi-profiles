@@ -127,8 +127,8 @@ Property | Type | Description | Required
 `id` | IRI | The IRI of this Concept | Required
 `type` | String | `Verb`, `ActivityType`, or `AttachmentUsageType` | Required
 `inScheme` | IRI | The IRI of the specific Profile version currently being described | Required
-`prefLabel` | Object | A language map of the preferred names in each language | Required
-`definition` | Object | A language map of the precise definition, including how to use the Concept properly in Statements | Required
+`prefLabel` | Object | A Language Map of the preferred names in each language | Required
+`definition` | Object | A Language Map of the precise definition, including how to use the Concept properly in Statements | Required
 `deprecated` | Boolean | A boolean. If true, this Concept is deprecated. | Optional
 `broader` | Array | An array of IRIs of Concepts of the same `type` from this Profile version that have a broader meaning. | Optional
 `broadMatch` | Array | An array of IRIs of Concepts of the same `type` from a different Profile that have a broader meaning. | Optional
@@ -150,8 +150,8 @@ Property | Type | Description | Required
 `id` | IRI | The IRI of the extension, used as the extension key in xAPI | Required
 `type` | String | `ContextExtension`, `ResultExtension`, or `ActivityExtension` | Required
 `inScheme` | IRI | The IRI of the specific Profile version currently being described | Required
-`prefLabel` | Object | A language map of descriptive names for the extension | Required
-`definition` | Object | A language map of descriptions of the purpose and usage of the extension | Required
+`prefLabel` | Object | A Language Map of descriptive names for the extension | Required
+`definition` | Object | A Language Map of descriptions of the purpose and usage of the extension | Required
 `deprecated` | Boolean | A boolean. If true, this Concept is deprecated. | Optional
 `recommendedActivityTypes` | Array | Only allowed on `ActivityExtension`s. An array of activity type URIs that this extension is recommended for use with (extending to narrower of the same). | Optional
 `recommendedVerbs` | Array | Only allowed on `ContextExtension`s and `ResultExtension`s. An array of verb URIs that this extension is recommended for use with (extending to narrower of the same). | Optional
@@ -173,8 +173,8 @@ Property | Type | Description | Required
 `id` | IRI | The IRI of the document resource, used as the stateId/profileId in xAPI | Required
 `type` | String | One of: `StateResource`, `AgentProfileResource`, `ActivityProfileResource` | Required
 `inScheme` | IRI | The IRI of the specific Profile version currently being described | Required
-`prefLabel` | Object | A language map of descriptive names for the document resource | Required
-`definition` | Object | A language map of descriptions of the purpose and usage of the document resource | Required
+`prefLabel` | Object | A Language Map of descriptive names for the document resource | Required
+`definition` | Object | A Language Map of descriptions of the purpose and usage of the document resource | Required
 `contentType` | String | The media type for the resource, as described in RFC 2046 (e.g. `application/json`). | Required
 `deprecated` | Boolean | A boolean. If true, this Concept is deprecated. | Optional
 `context` | IRI | The IRI of a JSON-LD context for this document resource. | Optional
@@ -184,8 +184,8 @@ Property | Type | Description | Required
 Profiles MUST use at most one of `schema` and `inlineSchema` for Document Resources
 
 Learning Record Store Clients sending Document Resources
-* MUST use the `id` as the stateId or profileId (as appropriate) when interacting with the corresponding resource.
-* MUST use the contentType given in the Content-Type header, including any parameters as given.
+* MUST use the `id` as the `stateId` or `profileId` (as appropriate) when interacting with the corresponding resource.
+* MUST use the `contentType` given in the Content-Type header, including any parameters as given.
 * MAY add additional parameters to the Content-Type header that are not specified in the Concept.
 * MUST
     * only send a StateResource to a State Resource location
@@ -238,8 +238,8 @@ Property | Type | Description | Required
 `id` | A URI for this Statement Template. | Required
 `type` | `StatementTemplate` | Required
 `inScheme` | The IRI of the specific Profile version currently being described | Required
-`prefLabel` | Object |A language map of descriptive names for the Statement Template | Required
-`definition` | Object |A language map of descriptions of the purpose and usage of the Statement Template | Required
+`prefLabel` | Object |A Language Map of descriptive names for the Statement Template | Required
+`definition` | Object |A Language Map of descriptions of the purpose and usage of the Statement Template | Required
 `deprecated` | Boolean | A boolean, default false. If true, this Statement Template is deprecated. | Optional
 `verb` | IRI | Verb IRI | Optional
 `objectActivityType` | Object | Object activity type IRI | Optional
@@ -261,14 +261,14 @@ A Profile Author MUST change a Statement Template's `id` between versions if any
 A Learning Record Provider authoring a Statement following a Statement Template:
 * MUST include all the Determining Properties in the Statement Template.
 * MUST follow all rules in the Statement Template.
-* MUST, if objectStatementRefTemplate is specified, set the Statement object to a StatementRef with the `id` of a Statement matching at least one of the specified Statement Templates.
-* MUST, if contextStatementRefTemplate is specified, set the Statement context Statement property to a StatementRef with the `id` of a Statement matching at least one of the specified Statement Templates.
+* MUST, if `objectStatementRefTemplate` is specified, set the Statement object to a StatementRef with the `id` of a Statement matching at least one of the specified Statement Templates.
+* MUST, if `contextStatementRefTemplate` is specified, set the Statement context Statement property to a StatementRef with the `id` of a Statement matching at least one of the specified Statement Templates.
 
 A Profile Validator validating a Statement MUST validate all the Learning Record Provider requirements for a Statement Template are followed.
 
 ### <a name="8.1">8.1</a> Statement Template Rules
 
-Statement Template Rules describe a location or locations within Statements using JSONPath, then describe the restrictions on that value, such as inclusion, exclusion, or specific values allowed or disallowed. For example, to require at least one grouping, the rules might be something like:
+Statement Template Rules describe a location or locations within Statements using JSONPath, then describe the restrictions on the value(s) there, such as inclusion, exclusion, or specific values allowed or disallowed. For example, to require at least one grouping, the rules might be something like:
 
 ```
 "rules": [
@@ -289,7 +289,7 @@ Property | Type | Description | Required
 `any` | Array | An array of values that needs to intersect with the matchable values. | Optional
 `all` | Array | An array of values which all the evaluated values need to be from. | Optional
 `none` | Array | An array of values that can't be in the matchable values. | Optional
-`scopeNote` | Object | A language map describing usage details for the parts of Statements addressed by this rule. For example, a Profile with a rule requiring result.duration might provide guidance on how to calculate it. | Optional
+`scopeNote` | Object | A Language Map describing usage details for the parts of Statements addressed by this rule. For example, a Profile with a rule requiring result.duration might provide guidance on how to calculate it. | Optional
 
 A Statement Template Rule MUST include one or more of `presence`, `any`, `all`, or `none`.
 
@@ -308,7 +308,7 @@ A Learning Record Provider authoring a Statement for the Statement Template incl
 A Profile Validator validating Statements MUST validate the Statement Template Rule requirements for Learning Record Providers are followed. See the Communication document for further details on how to do so.
 
 
-When validating a Statement for Statement Template Rules, contextActivities normalization MUST have already been performed as described in the Experience API specification. That is, singleton objects MUST be replaced by arrays of length one.
+When validating a Statement for Statement Template Rules, `contextActivities` normalization MUST have already been performed as described in the Experience API specification. That is, singleton objects MUST be replaced by arrays of length one.
 
 The syntax and behavior of JSONPath is described at http://goessner.net/articles/JsonPath/index.html#e2. In addition, the following requirements, clarifications, and additions apply:
 * Filter and script expressions MUST NOT be used.
@@ -329,17 +329,17 @@ Property | Type | Description | Required
 `type` | String | `Pattern` | Required
 `primary` | Boolean | Default false. Only primary Patterns are checked for matching sequences of Statements. | Optional
 `inScheme` | IRI | The IRI of the specific Profile version currently being described | Optional
-`prefLabel` | Object | A language map of descriptive names for the Pattern | Optional
-`definition` | Object | A language map of descriptions of the purpose and usage of the Pattern | Optional
+`prefLabel` | Object | A Language Map of descriptive names for the Pattern | Optional
+`definition` | Object | A Language Map of descriptions of the purpose and usage of the Pattern | Optional
 `deprecated` | Boolean | A boolean. If true, this Pattern is deprecated. | Optional
-`alternates` | Array | An array of Pattern or Statement Template identifiers. An alternates Pattern matches if any member of the array matches | Optional
-`optional` | Object | A single Pattern or Statement Template identifier. An optional Pattern matches if the identified thing matches once, or is not present at all | Optional
-`oneOrMore` | Object | A single Pattern or Statement Template identifier. A oneOrMore Pattern matches if the identified thing matches once, or any number of times more than once | Optional
-`sequence` | Array | An array of Pattern or Statement Template identifiers. A sequence Pattern matches if the identified things match in the order specified. | Optional
-`zeroOrMore` | Object | A single Pattern or Statement Template identifier. A zeroOrMore Pattern matches if the identified thing is not present or is present one or more times | Optional
+`alternates` | Array | An array of Pattern or Statement Template identifiers. An `alternates` Pattern matches if any member of the array matches | Optional
+`optional` | Object | A single Pattern or Statement Template identifier. An `optional` Pattern matches if the identified thing matches once, or is not present at all | Optional
+`oneOrMore` | Object | A single Pattern or Statement Template identifier. A `oneOrMore` Pattern matches if the identified thing matches once, or any number of times more than once | Optional
+`sequence` | Array | An array of Pattern or Statement Template identifiers. A `sequence` Pattern matches if the identified things match in the order specified. | Optional
+`zeroOrMore` | Object | A single Pattern or Statement Template identifier. A `zeroOrMore` Pattern matches if the identified thing is not present or is present one or more times | Optional
 
 
-A primary Pattern MUST include prefLabel and definition. They are optional otherwise.
+A primary Pattern MUST include `prefLabel` and `definition`. They are optional otherwise.
 
 A Pattern MUST contain exactly one of `alternates`, `optional`, `oneOrMore`, `sequence`, and `zeroOrMore`.
 
@@ -347,11 +347,12 @@ A Profile Author MUST change a Pattern's `id` between versions if any of `altern
 
 Profile Authors:
 * MUST make sure their primary Patterns behave appropriately given the greedy matching rules in the algorithms section.
-* MUST NOT put optional or zeroOrMore directly inside alternates.
+* MUST NOT put `optional` or `zeroOrMore` directly inside alternates.
 * MUST NOT include any Pattern within itself, or within any Pattern within itself, or at any depth.
 * MUST include at least two members in `alternates`.
 * MUST include at least two members in `sequence`, unless `sequence` is in a primary Pattern that is not used elsewhere and the member of `sequence` is a single Statement Template.
 * MAY re-use Statement Templates from other Profiles in Patterns. In this case, validating is done as if the Statement Template were present in this Profile.
+* MAY re-use Patterns from other Profiles in Patterns. In this case, validating is done as if the Pattern were present in this Profile.
 
 Learning Record Providers:
 * MUST follow a Pattern from a Profile for every Statement that has the Profile in the category context activities.

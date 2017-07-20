@@ -62,7 +62,7 @@ where {
 
 “What Statement Templates are available in this profile?”, “What Patterns are available in this profile?”
 
-Virtually identical to the above, just replace being a Verb or Activity Type with Statement Template or Pattern. We're able to use inScheme because the server includes semantic metadata letting it know that being a Statement Template, being a concept, and being a Pattern are all forms of being inScheme, which is a general inclusion operator.
+Virtually identical to the above, just replace being a Verb or Activity Type with Statement Template or Pattern. We're able to use inScheme because the server includes semantic metadata letting it know that being a Statement Template, being a Concept, and being a Pattern are all forms of being inScheme, which is a general inclusion operator.
 
 (Prefixes are omitted in these examples until a complete context is ready).
 
