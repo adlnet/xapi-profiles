@@ -9,7 +9,7 @@ Part Two:	[xAPI Profiles Document Structure Specification](./xapi-profiles-struc
       *  6.2.  [Organizations and Persons](./xapi-profiles-structure.md#6.2)
    *  7.0.  [Concepts](./xapi-profiles-structure.md#7.0)
       *  7.1.  [Verbs, Activity Types, and Attachment Usage Types](./xapi-profiles-structure.md#7.1)
-      *  7.2.  [Extension Concepts](./xapi-profiles-structure.md#7.2)
+      *  7.2.  [Extensions](./xapi-profiles-structure.md#7.2)
       *  7.3.  [Document Resources](./xapi-profiles-structure.md#7.3)
       *  7.4.  [Activities](./xapi-profiles-structure.md#7.4)
    *  8.0.  [Statement Templates](./xapi-profiles-structure.md#8.0)
@@ -112,6 +112,10 @@ Property | Type | Description | Required
 
 ## <a name="7.0">7.0</a> Concepts
 
+Concepts are building blocks for use and reuse in xAPI data and other Profiles. In the case of Verbs, Activity Types,  Attachment Usage Types, and Activities, the Concept is "the thing", and when you use that Concept in xAPI you're using it directly. In the case of Document Resources and Extensions, the Concept is "the shape of the thing" that the identifier can be used to point at, and will be used with many different values xAPI data.
+
+A Profile MUST NOT define a Concept that is defined in another Profile unless it supersedes all versions of the other Profile containing the Concept and indicates that in with `wasRevisionOf`.
+
 All Concepts in a Profile MUST follow the rules of one of the subsections within this section. Since the types listed in each subsection are exclusive and required, that will always distinguish which section applies.
 
 ### <a name="7.1">7.1</a> Verbs, Activity Types, and Attachment Usage Types
@@ -138,7 +142,7 @@ Property | Type | Description | Required
 * `relatedMatch` SHOULD be used to connect possible replacement Concepts to removed Concepts from previous versions of the same profile, and for possible replacement Concepts in other profiles of deprecated concepts, as well as other loose relations.
 * `exactMatch` SHOULD be used rarely, mostly to describe connections to vocabularies that are no longer managed and do not use good URLs.
 
-### <a name="7.2">7.2</a> Extension Concepts
+### <a name="7.2">7.2</a> Extensions
 
 
 Property | Type | Description | Required
