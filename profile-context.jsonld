@@ -144,10 +144,6 @@
         "activityDefinition": {
             "@id": "profile:activityDefinition"
         },
-        "allowedSolo": {
-            "@id": "profile:allowedSolo",
-            "@type": "http://www.w3.org/2001/XMLSchema#boolean"
-        },
         "verb": {
             "@id": "profile:verb",
             "@type": "@id"
@@ -201,8 +197,8 @@
         "selector": {
             "@id": "profile:selector"
         },
-        "rule": {
-            "@id": "profile:rule"
+        "presence": {
+            "@id": "profile:presence"
         },
         "any": {
             "@id": "profile:any",

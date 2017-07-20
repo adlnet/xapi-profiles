@@ -32,34 +32,34 @@ Part Two:	[xAPI Profiles Document Structure Specification](./xapi-profiles-struc
 
 ## <a name="2.0">2.0</a> Technical Foundations
 
-This specification describes how to author an xAPI Profile. It describes a set of rules for authoring JSON, specifically JSON-LD. Since JSON-LD is a syntax for RDF, the resulting profile is really a set of triples—subject, predicate, object—creating a semantic data set. However, for authoring, all that matters is following the rules given for JSON, which will lead to the richer semantic data naturally. Because of this, no JSON-LD processing is required by systems consuming xAPI Profiles, though there will be advantages to doing so for some purposes.
+This specification describes how to author an xAPI Profile. It describes a set of rules for authoring JSON, specifically JSON-LD. Since JSON-LD is a syntax for RDF, the resulting Profile is really a set of triples—subject, predicate, object—creating a semantic data set. However, for authoring, all that matters is following the rules given for JSON, which will lead to the richer semantic data naturally. Because of this, no JSON-LD processing is required by systems consuming xAPI Profiles, though there will be advantages to doing so for some purposes.
 
-When a profile is serialized into JSON, it MUST be consistent with what would be produced by the standard JSON-LD 1.1 Processing Algorithms and API Compaction Algorithm. The compaction must use, at least, the normative JSON-LD contexts provided with this specification. Following all the rules given in this document is sufficient to ensure that.
+When a Profile is serialized into JSON, it MUST be consistent with what would be produced by the standard JSON-LD 1.1 Processing Algorithms and API Compaction Algorithm. The compaction must use, at least, the normative JSON-LD contexts provided with this specification. Following all the rules given in this document is sufficient to ensure that.
 
-Under the hood, xAPI Profiles will use several well-established semantic web technologies: SKOS, to connect xAPI concepts together, and PROV, to describe the provenance (most notably the versioning) of profiles. Several properties in xAPI Profiles use names of properties from SKOS and PROV.
+Under the hood, xAPI Profiles will use several well-established semantic web technologies: SKOS, to connect xAPI Concepts together, and PROV, to describe the provenance (most notably the versioning) of Profiles. Several properties in xAPI Profiles use names of properties from SKOS and PROV.
 
 ## <a name="3.0">3.0</a> Structure
 
-Profiles serve two primary technical goals. First, they contain metadata about xAPI Concepts intended for reuse within statements, such as verbs and activity types. The metadata includes connections between Concepts, not just within the current profile, but also as used in other profiles, supporting a rich ecosystem of related terms. An xAPI Concept is any building block for use in Statements, and new versions of the profile specification may introduce new Concepts that can be described. The basis for xAPI Concepts is the SKOS Concept, a flexible way to refer to "specific ideas or meanings established within a knowledge organization system."
+Profiles serve two primary technical goals. First, they contain metadata about xAPI Concepts intended for reuse within Statements, such as verbs and activity types. The metadata includes connections between Concepts, not just within the current Profile, but also as used in other Profiles, supporting a rich ecosystem of related terms. An xAPI Concept is any building block for use in Statements, and new versions of the Profile specification may introduce new Concepts that can be described. The basis for xAPI Concepts is the SKOS Concept, a flexible way to refer to "specific ideas or meanings established within a knowledge organization system."
 
-Second, they contain specific rules about using those Concepts properly in specific situations, both on how to form individual statements containing specific Concepts, and how to group those statements together in patterns of multiple statements. These rules allow profile authors to require specific elements, describe precise orderings, and many other options.
+Second, they contain specific rules about using those Concepts properly in specific situations, both on how to form individual Statements containing specific Concepts, and how to group those Statements together in Patterns of multiple Statements. These rules allow Profile authors to require specific elements, describe precise orderings, and many other options.
 
-To assist in accomplishing these two primary goals, profiles also contain metadata about themselves—descriptions, authorship, versioning, and so forth.
+To assist in accomplishing these two primary goals, Profiles also contain metadata about themselves—descriptions, authorship, versioning, and so forth.
 
 ## <a name="4.0">4.0</a> Document Interpretation and General Restrictions
 
 * All properties in tables are required in all cases unless marked optional.
-* Properties marked optional may be required in some situations. If no additional information is provided on the usage of an optional property, including it or not is entirely up to the profile author.
+* Properties marked optional may be required in some situations. If no additional information is provided on the usage of an optional property, including it or not is entirely up to the Profile author.
 * All properties that are not JSON-LD keywords (or aliases thereof) MUST expand to absolute IRIs during processing as defined in the JSON-LD specification.
 * All properties that are not JSON-LD keywords (or aliases thereof) and not described by this specification MUST be expressed using compact IRIs or full IRIs.
 * JSON-LD keywords (or aliases thereof) that are not specified as properties in this document MAY be included anywhere they are legal in JSON-LD.
-* Values in a profile MUST NOT be: empty objects, null, empty strings, or empty arrays.
+* Values in a Profile MUST NOT be: empty objects, null, empty strings, or empty arrays.
 * All requirements on the structure of Profiles MUST be followed by Profile Authors.
 * All requirements on Statements following Profiles MUST be followed by Learning Record Providers when authoring Statements and by Profile Validators when validating Statements.
 
 ## <a name="5.0">5.0</a> Using Profiles in Statements
 
-Using an introduced Concept, such as an activity type, verb, attachment usage type, extension, activity, or document resource, can be done freely, provided the defined usage and meaning are adhered to. But a Learning Record Provider can go further, and make sure to adhere to profile-described statement templates and patterns. Learning Record Providers authoring statements that conform to matching profile-described statement templates and patterns SHOULD include the most up-to-date conformant profile version as a category context activity with id equal to the version's `id` in those statements, and statements containing a profile version as a category context activity MUST conform to any matching templates and patterns that profile version describes.
+Using an introduced Concept, such as an activity type, verb, attachment usage type, extension, activity, or document resource, can be done freely, provided the defined usage and meaning are adhered to. But a Learning Record Provider can go further, and make sure to adhere to Profile-described Statement Templates and Patterns. Learning Record Providers authoring Statements that conform to matching Profile-described Statement Templates and Patterns SHOULD include the most up-to-date conformant Profile version as a category context activity with id equal to the version's `id` in those Statements, and Statements containing a Profile version as a category context activity MUST conform to any matching Statement Templates and Patterns that Profile version describes.
 
 ## <a name="6.0">6.0</a> Profile Properties
 
@@ -67,42 +67,42 @@ A Profile includes a variety of metadata, both natural language text for humans 
 
 Property | Type | Description | Required
 -------- | ---- | ----------- | --------
-`id` | IRI | The IRI of the profile overall (not a specific version) | Required
+`id` | IRI | The IRI of the Profile overall (not a specific version) | Required
 `@context` | URI | SHOULD be `http://example.org/figure/out/where/this/goes/profile-context.jsonld` and MUST contain this URI if array-valued. | Required
 `type` | String | MUST be `Profile`. | Required
-`conformsTo` | URI | Canonical URI of the profile specification version conformed to. The profile specification version of this document is https://github.com/DataInteroperability/xapi-profiles/tree/master#1.0-development, and it is a development version that may undergo incompatible changes without updating the version URI. | Required
-`prefLabel` | Object | Language map of names for this profile. | Required
-`definition` | Object | Language map of descriptions for this profile. If there are additional rules for the profile as a whole that cannot be expressed using this specification, include them here, or at the seeAlso URL. | Required
-`seeAlso` | URL | A URL containing information about the profile. Recommended instead of especially long definitions. | Optional
-`versions` | Array | An array of all profile version objects for this profile, see below. | Required
+`conformsTo` | URI | Canonical URI of the Profile specification version conformed to. The Profile specification version of this document is https://github.com/DataInteroperability/xapi-profiles/tree/master#1.0-development, and it is a development version that may undergo incompatible changes without updating the version URI. | Required
+`prefLabel` | Object | Language map of names for this Profile. | Required
+`definition` | Object | Language map of descriptions for this Profile. If there are additional rules for the Profile as a whole that cannot be expressed using this specification, include them here, or at the seeAlso URL. | Required
+`seeAlso` | URL | A URL containing information about the Profile. Recommended instead of especially long definitions. | Optional
+`versions` | Array | An array of all Profile version objects for this Profile, see below. | Required
 `author` | Object | An Organization or Person, see below. | Required
 `concepts` | Array | An array of Concepts that make up this Profile, see the Concepts section. | Optional
-`templates` | Array | An array of Statement Templates for this profile, see that section. | Optional
-`patterns` | Array | An array of Patterns for this profile, see that section. | Optional
+`templates` | Array | An array of Statement Templates for this Profile, see that section. | Optional
+`patterns` | Array | An array of Patterns for this Profile, see that section. | Optional
 
 When `seeAlso` is provided `definition` SHOULD only include a short description of the Profile to aid in discovery and display.
 
 ### <a name="6.1">6.1</a> Profile Version Objects
 
 
-Profile version objects make it convenient to track version history for profiles, following recommendations
+Profile version objects make it convenient to track version history for Profiles, following recommendations
 for SKOS concept schemes and PROV version tracking generally. By using versions this way, it is possible to
-answer precise questions such as “what version of this profile was current on the 3rd of January last year?”.
+answer precise questions such as “what version of this Profile was current on the 3rd of January last year?”.
 Lack of robust versioning is frequently identified as an issue with RDF data.
 
 Property | Type | Description | Required
 -------- | ---- | ----------- | --------
 `id` | IRI | The IRI of the version ID | Required
-`wasRevisionOf` | Array | An array, usually of length one, of IRIs of all profile versions this version was written as a revision of | Optional
+`wasRevisionOf` | Array | An array, usually of length one, of IRIs of all Profile versions this version was written as a revision of | Optional
 `generatedAtTime` | Timestamp | The date this version was created on | Required
 
-`wasRevisionOf` MUST be used with all versions that succeed other profile versions.
+`wasRevisionOf` MUST be used with all versions that succeed other Profile versions.
 
-`wasRevisionOf` may sometimes contain multiple profile versions to support the scenario where a profile subsumes another. In this case, a new profile version would be defined with the two (or more) contributing profiles listed within the `wasRevisionOf` array.
+`wasRevisionOf` may sometimes contain multiple Profile versions to support the scenario where a Profile subsumes another. In this case, a new Profile version would be defined with the two (or more) contributing Profiles listed within the `wasRevisionOf` array.
 
 ### <a name="6.2">6.2</a> Organizations and Persons
 
-Use one of these in the `author` property to indicate the author of this profile version.
+Use one of these in the `author` property to indicate the author of this Profile version.
 
 Property | Type | Description | Required
 -------- | ---- | ----------- | --------
@@ -126,20 +126,20 @@ Property | Type | Description | Required
 -------- | ---- | ----------- | --------
 `id` | IRI | The IRI of this Concept | Required
 `type` | String | `Verb`, `ActivityType`, or `AttachmentUsageType` | Required
-`inScheme` | IRI | The IRI of the specific profile version currently being described | Required
-`prefLabel` | Object | A language map of the preferred names in each language | Required
-`definition` | Object | A language map of the precise definition, including how to use the concept properly in statements | Required
-`deprecated` | Boolean | A boolean. If true, this concept is deprecated. | Optional
-`broader` | Array | An array of IRIs of concepts of the same `type` from this profile version that have a broader meaning. | Optional
-`broadMatch` | Array | An array of IRIs of concepts of the same `type` from a different profile that have a broader meaning. | Optional
-`narrower` | Array | An array of IRIs of concepts of the same `type` from this profile version that have a narrower meaning. | Optional
-`narrowMatch` | Array | An array of IRIs of concepts of the same `type` from different profiles that have narrower meanings. | Optional
-`related` | Array | An array of IRIs of concepts of the same `type` from this profile version that are close conceptual matches to this concept's meaning. | Optional
-`relatedMatch` | Array | An array of IRIs of concepts of the same `type` from a different profile or a different version of the same profile that has a related meaning that is not clearly narrower or broader. Useful to establish conceptual links between profiles that can be used for discovery. | Optional
-`exactMatch` | Array | An array of IRIs of concepts of the same `type` from a different profile or a different version of the same profile that have exactly the same meaning. | Optional
+`inScheme` | IRI | The IRI of the specific Profile version currently being described | Required
+`prefLabel` | Object | A Language Map of the preferred names in each language | Required
+`definition` | Object | A Language Map of the precise definition, including how to use the Concept properly in Statements | Required
+`deprecated` | Boolean | A boolean. If true, this Concept is deprecated. | Optional
+`broader` | Array | An array of IRIs of Concepts of the same `type` from this Profile version that have a broader meaning. | Optional
+`broadMatch` | Array | An array of IRIs of Concepts of the same `type` from a different Profile that have a broader meaning. | Optional
+`narrower` | Array | An array of IRIs of Concepts of the same `type` from this Profile version that have a narrower meaning. | Optional
+`narrowMatch` | Array | An array of IRIs of Concepts of the same `type` from different Profiles that have narrower meanings. | Optional
+`related` | Array | An array of IRIs of Concepts of the same `type` from this Profile version that are close conceptual matches to this Concept's meaning. | Optional
+`relatedMatch` | Array | An array of IRIs of Concepts of the same `type` from a different Profile or a different version of the same Profile that has a related meaning that is not clearly narrower or broader. Useful to establish conceptual links between Profiles that can be used for discovery. | Optional
+`exactMatch` | Array | An array of IRIs of Concepts of the same `type` from a different Profile or a different version of the same Profile that have exactly the same meaning. | Optional
 
-* `related` MUST only be used on concepts that are deprecated to indicate possible replacement concepts in the same profile, if there are any.
-* `relatedMatch` SHOULD be used to connect possible replacement Concepts to removed Concepts from previous versions of the same profile, and for possible replacement Concepts in other profiles of deprecated concepts, as well as other loose relations.
+* `related` MUST only be used on Concepts that are deprecated to indicate possible replacement Concepts in the same Profile, if there are any.
+* `relatedMatch` SHOULD be used to connect possible replacement Concepts to removed Concepts from previous versions of the same Profile, and for possible replacement Concepts in other Profiles of deprecated Concepts, as well as other loose relations.
 * `exactMatch` SHOULD be used rarely, mostly to describe connections to vocabularies that are no longer managed and do not use good URLs.
 
 ### <a name="7.2">7.2</a> Extensions
@@ -149,10 +149,10 @@ Property | Type | Description | Required
 -------- | ---- | ----------- | --------
 `id` | IRI | The IRI of the extension, used as the extension key in xAPI | Required
 `type` | String | `ContextExtension`, `ResultExtension`, or `ActivityExtension` | Required
-`inScheme` | IRI | The IRI of the specific profile version currently being described | Required
-`prefLabel` | Object | A language map of descriptive names for the extension | Required
-`definition` | Object | A language map of descriptions of the purpose and usage of the extension | Required
-`deprecated` | Boolean | A boolean. If true, this concept is deprecated. | Optional
+`inScheme` | IRI | The IRI of the specific Profile version currently being described | Required
+`prefLabel` | Object | A Language Map of descriptive names for the extension | Required
+`definition` | Object | A Language Map of descriptions of the purpose and usage of the extension | Required
+`deprecated` | Boolean | A boolean. If true, this Concept is deprecated. | Optional
 `recommendedActivityTypes` | Array | Only allowed on `ActivityExtension`s. An array of activity type URIs that this extension is recommended for use with (extending to narrower of the same). | Optional
 `recommendedVerbs` | Array | Only allowed on `ContextExtension`s and `ResultExtension`s. An array of verb URIs that this extension is recommended for use with (extending to narrower of the same). | Optional
 `context` | IRI | the IRI of a JSON-LD context for this extension |  Optional
@@ -172,11 +172,11 @@ Property | Type | Description | Required
 -------- | ---- | ----------- | --------
 `id` | IRI | The IRI of the document resource, used as the stateId/profileId in xAPI | Required
 `type` | String | One of: `StateResource`, `AgentProfileResource`, `ActivityProfileResource` | Required
-`inScheme` | IRI | The IRI of the specific profile version currently being described | Required
-`prefLabel` | Object | A language map of descriptive names for the document resource | Required
-`definition` | Object | A language map of descriptions of the purpose and usage of the document resource | Required
+`inScheme` | IRI | The IRI of the specific Profile version currently being described | Required
+`prefLabel` | Object | A Language Map of descriptive names for the document resource | Required
+`definition` | Object | A Language Map of descriptions of the purpose and usage of the document resource | Required
 `contentType` | String | The media type for the resource, as described in RFC 2046 (e.g. `application/json`). | Required
-`deprecated` | Boolean | A boolean. If true, this concept is deprecated. | Optional
+`deprecated` | Boolean | A boolean. If true, this Concept is deprecated. | Optional
 `context` | IRI | The IRI of a JSON-LD context for this document resource. | Optional
 `schema` | IRI | the IRI for accessing a JSON Schema for this document resource. | Optional
 `inlineSchema` | String | An alternate way to include a JSON Schema, as a string. | Optional
@@ -184,8 +184,8 @@ Property | Type | Description | Required
 Profiles MUST use at most one of `schema` and `inlineSchema` for Document Resources
 
 Learning Record Store Clients sending Document Resources
-* MUST use the `id` as the stateId or profileId (as appropriate) when interacting with the corresponding resource.
-* MUST use the contentType given in the Content-Type header, including any parameters as given.
+* MUST use the `id` as the `stateId` or `profileId` (as appropriate) when interacting with the corresponding resource.
+* MUST use the `contentType` given in the Content-Type header, including any parameters as given.
 * MAY add additional parameters to the Content-Type header that are not specified in the Concept.
 * MUST
     * only send a StateResource to a State Resource location
@@ -197,15 +197,15 @@ Profile Validators receiving Document Resources MUST validate Learning Record St
 
 ### <a name="7.4">7.4</a> Activities
 
-These Concepts are just literal xAPI Activity definitions the profile wants to provide for use. This is the profile's canonical version of the Activity.
+These Concepts are just literal xAPI Activity definitions the Profile wants to provide for use. This is the Profile's canonical version of the Activity.
 
 
 Property | Type | Description | Required
 -------- | ---- | ----------- | --------
 `id` | IRI | The IRI of the activity | Required
 `type` | String | `Activity` | Required
-`inScheme` | IRI | The IRI of the specific profile version currently being described | Required
-`deprecated` | Boolean | A boolean. If true, this concept is deprecated. | Optional
+`inScheme` | IRI | The IRI of the specific Profile version currently being described | Required
+`deprecated` | Boolean | A boolean. If true, this Concept is deprecated. | Optional
 `activityDefinition` | Object | An Activity Definition as in xAPI, plus a `@context`, as in the table below. | Required
 
 Name | Values
@@ -225,21 +225,21 @@ Learning Record Providers using the Activity in Statements:
 * SHOULD either not include the definition or include all properties given here in the definition.
 * if included, the properties SHOULD be exactly as given in the Profile, except for `name` and `description` and other Language Maps.
 * Language Maps SHOULD only include languages appropriate to the situation.
-* Language Maps MAY include languages not present in the profile yet.
+* Language Maps MAY include languages not present in the Profile yet.
 
 
 ## <a name="8.0">8.0</a> Statement Templates
 
-A Statement Template describes one way statements following the profile may be structured.
+A Statement Template describes one way Statements following the Profile may be structured.
 
 
 Property | Type | Description | Required
 -------- | ---- | ----------- | --------
 `id` | A URI for this Statement Template. | Required
 `type` | `StatementTemplate` | Required
-`inScheme` | The IRI of the specific profile version currently being described | Required
-`prefLabel` | Object |A language map of descriptive names for the Statement Template | Required
-`definition` | Object |A language map of descriptions of the purpose and usage of the Statement Template | Required
+`inScheme` | The IRI of the specific Profile version currently being described | Required
+`prefLabel` | Object |A Language Map of descriptive names for the Statement Template | Required
+`definition` | Object |A Language Map of descriptions of the purpose and usage of the Statement Template | Required
 `deprecated` | Boolean | A boolean, default false. If true, this Statement Template is deprecated. | Optional
 `verb` | IRI | Verb IRI | Optional
 `objectActivityType` | Object | Object activity type IRI | Optional
@@ -248,8 +248,8 @@ Property | Type | Description | Required
 `contextOtherActivityType` | Array | Array of contextActivities other activity type IRIs | Optional
 `contextCategoryActivityType` | Array | Array of contextActivities category activity type IRIs | Optional
 `attachmentUsageType` | Array | Array of attachment usage type IRIs | Optional
-`objectStatementRefTemplate` | Array | An array of Statement Template identifiers from this profile version. | Optional
-`contextStatementRefTemplate`. | Array | An array of Statement Template identifiers from this profile version. | Optional
+`objectStatementRefTemplate` | Array | An array of Statement Template identifiers from this Profile version. | Optional
+`contextStatementRefTemplate`. | Array | An array of Statement Template identifiers from this Profile version. | Optional
 `rules` | Array | Array of Statement Template Rules | Optional
 
 A Statement Template MUST NOT have both `objectStatementRefTemplate` and `objectActivityType`.
@@ -261,14 +261,14 @@ A Profile Author MUST change a Statement Template's `id` between versions if any
 A Learning Record Provider authoring a Statement following a Statement Template:
 * MUST include all the Determining Properties in the Statement Template.
 * MUST follow all rules in the Statement Template.
-* MUST, if objectStatementRefTemplate is specified, set the Statement object to a StatementRef with the `id` of a Statement matching at least one of the specified Statement Templates.
-* MUST, if contextStatementRefTemplate is specified, set the Statement context statement property to a StatementRef with the `id` of a Statement matching at least one of the specified Statement Templates.
+* MUST, if `objectStatementRefTemplate` is specified, set the Statement object to a StatementRef with the `id` of a Statement matching at least one of the specified Statement Templates.
+* MUST, if `contextStatementRefTemplate` is specified, set the Statement context Statement property to a StatementRef with the `id` of a Statement matching at least one of the specified Statement Templates.
 
 A Profile Validator validating a Statement MUST validate all the Learning Record Provider requirements for a Statement Template are followed.
 
 ### <a name="8.1">8.1</a> Statement Template Rules
 
-Statement Template Rules describe a location or locations within statements using JSONPath, then describe the restrictions on that value, such as inclusion, exclusion, or specific values allowed or disallowed. For example, to require at least one grouping, the rules might be something like:
+Statement Template Rules describe a location or locations within Statements using JSONPath, then describe the restrictions on the value(s) there, such as inclusion, exclusion, or specific values allowed or disallowed. For example, to require at least one grouping, the rules might be something like:
 
 ```
 "rules": [
@@ -289,7 +289,7 @@ Property | Type | Description | Required
 `any` | Array | An array of values that needs to intersect with the matchable values. | Optional
 `all` | Array | An array of values which all the evaluated values need to be from. | Optional
 `none` | Array | An array of values that can't be in the matchable values. | Optional
-`scopeNote` | Object | A language map describing usage details for the parts of Statements addressed by this rule. For example, a profile with a rule requiring result.duration might provide guidance on how to calculate it. | Optional
+`scopeNote` | Object | A Language Map describing usage details for the parts of Statements addressed by this rule. For example, a Profile with a rule requiring result.duration might provide guidance on how to calculate it. | Optional
 
 A Statement Template Rule MUST include one or more of `presence`, `any`, `all`, or `none`.
 
@@ -308,7 +308,7 @@ A Learning Record Provider authoring a Statement for the Statement Template incl
 A Profile Validator validating Statements MUST validate the Statement Template Rule requirements for Learning Record Providers are followed. See the Communication document for further details on how to do so.
 
 
-When validating a Statement for Statement Template Rules, contextActivities normalization MUST have already been performed as described in the Experience API specification. That is, singleton objects MUST be replaced by arrays of length one.
+When validating a Statement for Statement Template Rules, `contextActivities` normalization MUST have already been performed as described in the Experience API specification. That is, singleton objects MUST be replaced by arrays of length one.
 
 The syntax and behavior of JSONPath is described at http://goessner.net/articles/JsonPath/index.html#e2. In addition, the following requirements, clarifications, and additions apply:
 * Filter and script expressions MUST NOT be used.
@@ -318,40 +318,41 @@ The syntax and behavior of JSONPath is described at http://goessner.net/articles
 
 ## <a name="9.0">9.0</a> Patterns
 
-Patterns describe groups of statements matching particular statement templates, ordered in certain ways. For example, an allowed pattern in a video profile might start with a statement about playing a video and then be followed by statements about pausing, skipping, playing again, and so forth.
+Patterns describe groups of Statements matching particular Statement Templates, ordered in certain ways. For example, a Pattern in a video Profile might start with a Statement about playing a video and then be followed by Statements about pausing, skipping, playing again, and so forth.
 
 Patterns have these properties:
 
 
 Property | Type | Description | Required
 -------- | ---- | ----------- | --------
-`id` | URI | A URI for the template. | Required
+`id` | URI | A URI for the Statement Template. | Required
 `type` | String | `Pattern` | Required
-`primary` | Boolean | Default false. Only primary patterns are checked for matching sequences of statements. | Optional
-`inScheme` | IRI | The IRI of the specific profile version currently being described | Optional
-`prefLabel` | Object | A language map of descriptive names for the pattern | Optional
-`definition` | Object | A language map of descriptions of the purpose and usage of the pattern | Optional
-`deprecated` | Boolean | A boolean. If true, this pattern is deprecated. | Optional
-`alternates` | Array | An array of pattern or statement template identifiers. An alternates pattern matches if any member of the array matches | Optional
-`optional` | Object | A single pattern or statement template identifier. An optional pattern matches if the identified thing matches once, or is not present at all | Optional
-`oneOrMore` | Object | A single pattern or statement template identifier. A oneOrMore pattern matches if the identified thing matches once, or any number of times more than once | Optional
-`sequence` | Array | An array of pattern or statement template identifiers. A sequence pattern matches if the identified things match in the order specified. | Optional
-`zeroOrMore` | Object | A single pattern or statement template identifier. A zeroOrMore pattern matches if the identified thing is not present or is present one or more times | Optional
+`primary` | Boolean | Default false. Only primary Patterns are checked for matching sequences of Statements. | Optional
+`inScheme` | IRI | The IRI of the specific Profile version currently being described | Optional
+`prefLabel` | Object | A Language Map of descriptive names for the Pattern | Optional
+`definition` | Object | A Language Map of descriptions of the purpose and usage of the Pattern | Optional
+`deprecated` | Boolean | A boolean. If true, this Pattern is deprecated. | Optional
+`alternates` | Array | An array of Pattern or Statement Template identifiers. An `alternates` Pattern matches if any member of the array matches | Optional
+`optional` | Object | A single Pattern or Statement Template identifier. An `optional` Pattern matches if the identified thing matches once, or is not present at all | Optional
+`oneOrMore` | Object | A single Pattern or Statement Template identifier. A `oneOrMore` Pattern matches if the identified thing matches once, or any number of times more than once | Optional
+`sequence` | Array | An array of Pattern or Statement Template identifiers. A `sequence` Pattern matches if the identified things match in the order specified. | Optional
+`zeroOrMore` | Object | A single Pattern or Statement Template identifier. A `zeroOrMore` Pattern matches if the identified thing is not present or is present one or more times | Optional
 
 
-A primary pattern MUST include prefLabel and definition. They are optional otherwise.
+A primary Pattern MUST include `prefLabel` and `definition`. They are optional otherwise.
 
-A pattern MUST contain exactly one of `alternates`, `optional`, `oneOrMore`, `sequence`, and `zeroOrMore`.
+A Pattern MUST contain exactly one of `alternates`, `optional`, `oneOrMore`, `sequence`, and `zeroOrMore`.
 
 A Profile Author MUST change a Pattern's `id` between versions if any of `alternates`, `optional`, `oneOrMore`, `sequence`, or `zeroOrMore` change. Note that if a Pattern used within another Pattern changes, the change will "bubble up" as each `id` gets changed.
 
 Profile Authors:
-* MUST make sure their primary patterns behave appropriately given the greedy matching rules in the algorithms section.
-* MUST NOT put optional or zeroOrMore directly inside alternates.
-* MUST NOT include any pattern within itself, or within any pattern within itself, or at any depth.
+* MUST make sure their primary Patterns behave appropriately given the greedy matching rules in the algorithms section.
+* MUST NOT put `optional` or `zeroOrMore` directly inside alternates.
+* MUST NOT include any Pattern within itself, or within any Pattern within itself, or at any depth.
 * MUST include at least two members in `alternates`.
 * MUST include at least two members in `sequence`, unless `sequence` is in a primary Pattern that is not used elsewhere and the member of `sequence` is a single Statement Template.
 * MAY re-use Statement Templates from other Profiles in Patterns. In this case, validating is done as if the Statement Template were present in this Profile.
+* MAY re-use Patterns from other Profiles in Patterns. In this case, validating is done as if the Pattern were present in this Profile.
 
 Learning Record Providers:
 * MUST follow a Pattern from a Profile for every Statement that has the Profile in the category context activities.
@@ -360,10 +361,10 @@ Learning Record Providers:
 * SHOULD give all Statements following a Pattern different timestamps.
 * MUST order Statements following a Pattern within the same batch with the same timestamp so ones intended to match earlier in the Pattern are earlier in the array than ones intended to match later in the Pattern
 * MUST follow the rules given for a primary Pattern within a registration and possibly subregistration (a new extension). Specifically,
-    * all statements following a primary Pattern MUST use the same registration.
-    * when only one profile or only one pattern occurrence of each profile will be used, in a given registration, subregistrations SHOULD NOT be used.
-    * if any Statements following a primary Pattern do not contain a subregistration, all statements with the same registration and profile version in category MUST follow that primary Pattern.
-    * if any Statements with a given registration contain the subregistration extension, then all statements with that registration with the same subregistration identifier for a given profile version MUST follow the same primary Pattern.
+    * all Statements following a primary Pattern MUST use the same registration.
+    * when only one Profile or only one Pattern occurrence of each Profile will be used, in a given registration, subregistrations SHOULD NOT be used.
+    * if any Statements following a primary Pattern do not contain a subregistration, all Statements with the same registration and Profile version in category MUST follow that primary Pattern.
+    * if any Statements with a given registration contain the subregistration extension, then all Statements with that registration with the same subregistration identifier for a given Profile version MUST follow the same primary Pattern.
     * the extension key of the subregistration extension is https://TODO/REPLACE/WITH/REAL/ID (a value in the w3id xAPI space will be used for this).
     * the subregistration extension MUST only be present in Statements with a registration.
     * the subregistration extension is an array-valued context extension. The array MUST NOT be empty. Each value of the array MUST be an object with the properties in the table below.
@@ -373,7 +374,7 @@ Profile Validators validating Statements MUST validate all the requirements for 
 
 Name | Values
 ---- | ------
-`profile` | The URI of a profile present in the category context activities that this is a subregistration for.
+`profile` | The URI of a Profile present in the category context activities that this is a subregistration for.
 `subregistration` | A variant 2 UUID as specified in RFC 4122. This is the subregistration identifier in the requirements above.
 
 Some Profiles may contain Patterns very similar to Statement data sent by previously existing Learning Record Providers, not strictly following this specification. It may be very close, but not follow it in all particulars, such as by missing a registration. While the details of how to handle this are outside the scope of this specification, Profiles aware of such existing data SHOULD make note of this and include descriptive language covering the degree of adherence.
