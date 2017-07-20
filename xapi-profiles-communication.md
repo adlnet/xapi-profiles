@@ -1,4 +1,4 @@
-
+Statement Template
 Part Three:	[xAPI Profiles Communication and Processing Specification](./xapi-profiles-communication.md#partthree)  
  * 1.0. [Profile Server](./xapi-profiles-communication#1.0)
  * 2.0. [Algorithms](./xapi-profiles-communication#2.0)
@@ -60,20 +60,20 @@ where {
 ```
 
 
-“What statement templates are available in this profile?”, “What patterns are available in this profile?”
+“What Statement Templates are available in this profile?”, “What Patterns are available in this profile?”
 
-Virtually identical to the above, just replace being a Verb or Activity Type with templates or patterns. We're able to use inScheme because the server includes semantic metadata letting it know that being a template, being a concept, and being a pattern are all forms of being inScheme, which is a general inclusion operator.
+Virtually identical to the above, just replace being a Verb or Activity Type with Statement Template or Pattern. We're able to use inScheme because the server includes semantic metadata letting it know that being a Statement Template, being a concept, and being a Pattern are all forms of being inScheme, which is a general inclusion operator.
 
 (Prefixes are omitted in these examples until a complete context is ready).
 
 ## <a name="2.0">2.0</a> Algorithms
 
-This section specifies two primary algorithms. The first, given a Statement and a set of Statement Templates, validates the Statement against all applicable Statement Templates in those provided and returns the templates that match, or an error if any of the matching templates does not validate against the Statement. The second, given a collection of Statements and a set of Patterns, validates if the Statements follows any of the Patterns.
+This section specifies two primary algorithms. The first, given a Statement and a set of Statement Templates, validates the Statement against all applicable Statement Templates in those provided and returns the Statement Templates that match, or an error if any of the matching Statement Templates does not validate against the Statement. The second, given a collection of Statements and a set of Patterns, validates if the Statements follows any of the Patterns.
 
 
 ### <a name="2.1">2.1</a> Statement Template Validation
 
-To validate a Statement against the Statement Templates of a Profile, call the `validates` function described in pseudocode below with the Statement and all the Statement Templates from the Profile. This function returns an outcome and an array of templates. To interpret the results, consult the table after the algorithm definition.
+To validate a Statement against the Statement Templates of a Profile, call the `validates` function described in pseudocode below with the Statement and all the Statement Templates from the Profile. This function returns an outcome and an array of Statement Templates. To interpret the results, consult the table after the algorithm definition.
 
 ```
 function validates(statement, templates):
@@ -182,9 +182,9 @@ This table summarizes the possible return values of `validates` and what they in
 
 outcome   | templates | outcome
 --------- | --------- | -------
-success   | non empty | one or more templates matched and all their rules are followed. The templates array contains all matched templates.
-invalid   | non empty | one or more templates matched but not all their rules were followed. The templates array contains all templates that matched but had some rules unfollowed.
-unmatched | empty     | none of templates matched
+success   | non empty | one or more Statement Templates matched and all their rules are followed. The templates array contains all matched Statement Templates.
+invalid   | non empty | one or more Statement Templates matched but not all their rules were followed. The templates array contains all Statement Templates that matched but had some rules unfollowed.
+unmatched | empty     | no Statement Templates matched
 
 
 ### <a name="2.2">2.2</a> Pattern Validation
@@ -276,16 +276,16 @@ This table summarizes the possible return values of `matches` and what they indi
 
 outcome | remaining statements | outcome
 ------- | -------------------- | -------
-success | empty                | pattern validates for these statements
-success | non empty            | pattern matches some of the statements, but not all
-partial | empty                | pattern was in the middle of matching and ran out of statements
-partial | non empty            | outcome could be interpreted as success with non empty remaining, but pattern could also continue matching
-failure | original statements  | pattern failed to match statements. Note: if an optional or zeroOrMore pattern is directly inside an alternates pattern, it is possible for failure to be returned when partial is correct, due to decidability issues.
+success | empty                | Pattern validates for these Statements
+success | non empty            | Pattern matches some of the Statements, but not all
+partial | empty                | Pattern was in the middle of matching and ran out of Statements
+partial | non empty            | outcome could be interpreted as success with non empty remaining, but Pattern could also continue matching
+failure | original statements  | Pattern failed to match Statements. Note: if an optional or zeroOrMore Pattern is directly inside an alternates Pattern, it is possible for failure to be returned when partial is correct, due to decidability issues.
 
 
-A pattern only matches if it matches greedily. That is, each optional, zeroOrMore, oneOrMore, and alternate pattern MUST always be considered to match the maximum length possible before considering any patterns later in a sequence. No backtracking is allowed. This constrains useful statement patterns, but guarantees efficient processing, as once a statement is matched it does not need to be reconsidered (except in cases where it is part of an ultimately unmatched alternate).
-When checking previously collected statements for matching a pattern, ordering MUST be based on timestamp. In the event two or more statements have identical timestamps, any order within those statements is allowed.
-When checking statements for matching a pattern upon receipt, ordering MUST be based on receipt order insofar as that can be determined. If statements are received in the same batch and they are being checked upon receipt, within the batch statements MUST be ordered first by timestamp, and if timestamps are the same, by order within the statement array, with lower indices earlier.
+A Pattern only matches if it matches greedily. That is, each optional, zeroOrMore, oneOrMore, and alternate Pattern MUST always be considered to match the maximum length possible before considering any Patterns later in a sequence. No backtracking is allowed. This constrains useful Patterns, but guarantees efficient processing, as once a Statement is matched it does not need to be reconsidered (except in cases where it is part of an ultimately unmatched alternate).
+When checking previously collected Statements for matching a Pattern, ordering MUST be based on timestamp. In the event two or more Statements have identical timestamps, any order within those Statements is allowed.
+When checking Statements for matching a Pattern upon receipt, ordering MUST be based on receipt order insofar as that can be determined. If Statements are received in the same batch and they are being checked upon receipt, within the batch Statements MUST be ordered first by timestamp, and if timestamps are the same, by order within the Statement array, with lower indices earlier.
 
 
 ## <a name="3.0">3.0</a> Libraries
@@ -294,6 +294,6 @@ Any library that implements the algorithms given here, exposing all of the liste
 
 For each of the `validates`, and `follows`, the Profile Server will provide web APIs that are strongly Not Recommended for production usage, but are suitable for experimentation and demonstration.
 
-Their URL paths will be /validate_templates and /validate_patterns, respectively. The first will take a single xAPI statement and a profile specified by id, specified in POST variables as “statement” and “profile”. The second will take an array of xAPI statements and a profile specified by id, both specified in POST variables as “statements” and “profile”.
+Their URL paths will be /validate_templates and /validate_patterns, respectively. The first will take a single xAPI Statement and a profile specified by id, specified in POST variables as “statement” and “profile”. The second will take an array of xAPI Statements and a profile specified by id, both specified in POST variables as “statements” and “profile”.
 
 Both will perform the algorithms above and return 204 on successful validation and 400 on failure, with descriptive comments attached on failure.
