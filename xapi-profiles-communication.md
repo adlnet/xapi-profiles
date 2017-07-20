@@ -17,6 +17,8 @@ In addition to the ability to host profiles as documents, there will be infrastr
 A Profile Server will
 * allow administrators to add profiles by their contents or by URI to the Profile Server
 * provide a review process people desiring to add profiles can submit to.
+* provide mechanisms to encourage contribution of Profile translations
+* encourage open licensing of Profiles
 
 The review process will check profiles for following the specification and assist in helping them be of highest quality, after which they will be added to the server.
 
