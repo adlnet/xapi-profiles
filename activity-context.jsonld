@@ -47,6 +47,9 @@
         "steps": {
             "@id": "xapi:steps",
             "@container": "@list"
+        },
+        "id": {
+            "@id": "xapi:interactionId"
         }
     }
 }
