@@ -175,38 +175,73 @@ even if there no requirement in a given area.
 * [xAPI Profile Processor Library](#library)
 
 <a name="absoluteiri"></a>**Absolute IRI**: an IRI. [Used in the JSON-LD specification](https://www.w3.org/TR/json-ld/#dfn-absolute-iri) to contrast with compact IRIs and relative IRIs.
+
 <a name="activity"></a>**Activity**: an [Experience API Activity](https://github.com/adlnet/xAPI-Spec/blob/master/xAPI-Data.md#2441-when-the-objecttype-is-activity). This specification helps Profile Authors mint canonical Activities.
+
 <a name="activitydefinition"></a>**Activity Definition**: an [Experience API Activity Definition](https://github.com/adlnet/xAPI-Spec/blob/master/xAPI-Data.md#activity-definition).
+
 <a name="activitytype"></a>**Activity Type**: an [Experience API Activity Type](https://github.com/adlnet/xAPI-Spec/blob/master/xAPI-Data.md#activity-definition). This specification helps Profile Authors provide additional metadata for Activity Types they control.
+
 <a name="attachmentusagetype"></a>**Attachment Usage Type**: an [Experience API Attachment Usage Type](https://github.com/adlnet/xAPI-Spec/blob/master/xAPI-Data.md#2411-attachments). This specification helps Profile Authors provide additional metadata for Attachment Usage Types they control.
+
 <a name="compactiri"></a>**Compact IRI**: A shortened IRI in the form `prefix:name` that becomes expanded on processing to an absolute IRI. [Described in the JSON-LD specification](https://www.w3.org/TR/json-ld/#compact-iris).
+
 <a name=concept""></a>**Concept**: In SKOS, any unit of thought. In this specification, any of a particular list of possible things a Profile might describe.
+
 <a name="context"></a>**Context**: In xAPI this refers to a part of a Statement, but in this specification it usually means a [JSON-LD `@context`](https://www.w3.org/TR/json-ld/#the-context), which is a way of mapping JSON onto semantic terms and RDF.
+
 <a name="documentresource"></a>**Document Resource**: An [Experience API Document Resource](https://github.com/adlnet/xAPI-Spec/blob/master/xAPI-Communication.md#22-document-resources). This specification helps Profile Authors describe what Document Resources in particular locations need to look like.
+
 <a name="xapi"></a>**Experience API (xAPI)**: The [Experience API Specification](https://github.com/adlnet/xAPI-Spec). For this specification, any 1.0.x version is relevant. Describes data structures for describing experiences and APIs for communicating them.
+
 <a name="extension"></a>**Extension**: An [Experience API Extension](https://github.com/adlnet/xAPI-Spec/blob/master/xAPI-Data.md#miscext). This specification helps Profile Authors describe what Extensions with specific identifiers need to look like.
+
 <a name="iri"></a>**IRI**: An [Internationalized Resource Identifier](https://www.ietf.org/rfc/rfc3987.txt). Like a URL, but more general. A distributed, structured, persistent identifier.
+
 <a name="json"></a>**JSON**: [JavaScript Object Notation](http://www.json.org). A simple way to represent data structures for computers that humans don't have too hard a time writing or reading. The way Profiles are represented in this specification.
+
 <a name="jsonschema"></a>**JSON Schema**: [JSON Schema](http://json-schema.org) are a way to describe and constrain the form of JSON documents.
+
 <a name="jsonld"></a>**JSON-LD**: [JSON-LD](https://json-ld.org) turns JSON into Linked Data, making it easy to use with Linked Data tools and integrate with other datasets.
+
 <a name="jsonpath"></a>**JSONPath**: [JSONPath](http://goessner.net/articles/JsonPath/index.html#e2) provides a way to address parts of JSON documents using a `JSONPath expression`.
+
 <a name="languagemap"></a>**Language Map**: A Language Map expresses multiple language-specific values at once. While used in the xAPI specification essentially identically, the controlling specification is [JSON-LD Language Maps](https://www.w3.org/TR/json-ld/#language-maps).
+
 <a name="learningrecordprovider"></a>**Learning Record Provider**: As in the Experience API specification, anything creating Learning Records (xAPI Statements and Document Resources).
+
 <a name="mediatype"></a>**Media Type**: A [media type](https://www.iana.org/assignments/media-types/media-types.xhtml) is a simple, structured way to refer to particular types of content. Also known as MIME Type or Content Type.
+
 <a name="pattern"></a>**Pattern**: One way a series of Statements following a Profile could look. Defined by this specification.
+
 <a name="profile"></a>**Profile**: What this specification focuses on. A way to talk about Concepts, Statement Templates, and Patterns for Experience API data, and in particular to describe them so machines can do some processing automatically.
+
 <a name="profileauthor"></a>**Profile Author**: Some person or group writing a Profile.
+
 <a name="profileserver"></a>**Profile Server**: A place to find and browse Profiles.
+
 <a name="profilevalidator"></a>**Profile Validator**: Any person or machine attempting to verify if the rules in a Profile are followed for a particular set of data.
+
 <a name="profileversion"></a>**Profile version**: A Profile at a particular point in time.
+
 <a name="prov"></a>**PROV**: [PROV](https://www.w3.org/TR/prov-overview/) models the provenance of things. In this specification, PROV is used to provide rich versioning support.
+
 <a name="rdf"></a>**RDF**: The [Resource Description Framework](https://www.w3.org/RDF/) standardizes the exchange of semantic data by describing an information model of subject, predicate, and object.
+
 <a name="registration"></a>**Registration**: An [Experience API Registration](https://github.com/adlnet/xAPI-Spec/blob/master/xAPI-Data.md#2461-registration-property). This specification uses registration to connect Statements that are following the same Pattern or Patterns.
+
 <a name="skos"></a>**SKOS**: The [Simple Knowledge Organization System](https://www.w3.org/TR/2009/REC-skos-reference-20090818/) provides the building blocks to describe and relate Concepts.
+
 <a name="sparql"></a>**SPARQL**: [SPARQL](https://www.w3.org/TR/sparql11-overview/) is a query language for RDF data.
+
 <a name="statement"></a>**Statement**: An [Experience API Statement](https://github.com/adlnet/xAPI-Spec/blob/master/xAPI-Data.md#statements). The core unit of recorded data in the Experience API.
+
 <a name="statementtemplate"></a>**Statement Template**: A set of rules for how Statements using certain Concepts should look. Defined by this specification.
+
 <a name="statementref"></a>**StatementRef**: An [Experience API Statement Reference](https://github.com/adlnet/xAPI-Spec/blob/master/xAPI-Data.md#statement-references). Used for pointing at a second Statement from a first.
+
 <a name="subregistration"></a>**Subregistration**: When multiple Patterns are being followed within a registration, subregistration is an extension specific to this specification to distinguish between them.
+
 <a name="verb"></a>**Verb**: An [Experience API Verb](https://github.com/adlnet/xAPI-Spec/blob/master/xAPI-Data.md#verb). This specification helps Profile Authors provide additional metadata about verbs they control.
+
 <a name="library"></a>**xAPI Profile Processor Library**: A programming library implementing the algorithms described in this specification.
