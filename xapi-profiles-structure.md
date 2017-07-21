@@ -27,7 +27,6 @@ Part Two:	[xAPI Profiles Document Structure Specification](./xapi-profiles-struc
 * [http://json-ld.org](http://json-ld.org/)
 * [https://www.w3.org/TR/skos-reference/](https://www.w3.org/TR/skos-reference/)
 * [https://www.w3.org/TR/2013/REC-prov-dm-20130430/](https://www.w3.org/TR/2013/REC-prov-dm-20130430/)
-* [https://www.w3.org/TR/activitystreams-core/](https://www.w3.org/TR/activitystreams-core/)
 * [https://www.w3.org/TR/rdf-sparql-query/](https://www.w3.org/TR/rdf-sparql-query/)
 
 ## <a name="2.0">2.0</a> Technical Foundations
@@ -51,7 +50,7 @@ To assist in accomplishing these two primary goals, Profiles also contain metada
 * All properties in tables are required in all cases unless marked optional.
 * Properties marked optional may be required in some situations. If no additional information is provided on the usage of an optional property, including it or not is entirely up to the Profile author.
 * All properties that are not JSON-LD keywords (or aliases thereof) MUST expand to absolute IRIs during processing as defined in the JSON-LD specification.
-* All properties that are not JSON-LD keywords (or aliases thereof) and not described by this specification MUST be expressed using compact IRIs or full IRIs.
+* All properties that are not JSON-LD keywords (or aliases thereof) and not described by this specification MUST be expressed using compact IRIs or absolute IRIs.
 * JSON-LD keywords (or aliases thereof) that are not specified as properties in this document MAY be included anywhere they are legal in JSON-LD.
 * Values in a Profile MUST NOT be: empty objects, null, empty strings, or empty arrays.
 * All requirements on the structure of Profiles MUST be followed by Profile Authors.
@@ -134,7 +133,7 @@ Property | Type | Description | Required
 `broadMatch` | Array | An array of IRIs of Concepts of the same `type` from a different Profile that have a broader meaning. | Optional
 `narrower` | Array | An array of IRIs of Concepts of the same `type` from this Profile version that have a narrower meaning. | Optional
 `narrowMatch` | Array | An array of IRIs of Concepts of the same `type` from different Profiles that have narrower meanings. | Optional
-`related` | Array | An array of IRIs of Concepts of the same `type` from this Profile version that are close conceptual matches to this Concept's meaning. | Optional
+`related` | Array | An array of IRIs of Concepts of the same `type` from this Profile version that are close to this Concept's meaning. | Optional
 `relatedMatch` | Array | An array of IRIs of Concepts of the same `type` from a different Profile or a different version of the same Profile that has a related meaning that is not clearly narrower or broader. Useful to establish conceptual links between Profiles that can be used for discovery. | Optional
 `exactMatch` | Array | An array of IRIs of Concepts of the same `type` from a different Profile or a different version of the same Profile that have exactly the same meaning. | Optional
 
@@ -346,7 +345,7 @@ A Pattern MUST contain exactly one of `alternates`, `optional`, `oneOrMore`, `se
 A Profile Author MUST change a Pattern's `id` between versions if any of `alternates`, `optional`, `oneOrMore`, `sequence`, or `zeroOrMore` change. Note that if a Pattern used within another Pattern changes, the change will "bubble up" as each `id` gets changed.
 
 Profile Authors:
-* MUST make sure their primary Patterns behave appropriately given the greedy matching rules in the algorithms section.
+* MUST make sure their primary Patterns behave appropriately given the [greedy matching rules in the algorithms section](./xapi-profiles-communication.md#2.2).
 * MUST NOT put `optional` or `zeroOrMore` directly inside alternates.
 * MUST NOT include any Pattern within itself, or within any Pattern within itself, or at any depth.
 * MUST include at least two members in `alternates`.
