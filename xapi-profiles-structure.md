@@ -99,6 +99,32 @@ Property | Type | Description | Required
 
 `wasRevisionOf` may sometimes contain multiple Profile versions to support the scenario where a Profile subsumes another. In this case, a new Profile version would be defined with the two (or more) contributing Profiles listed within the `wasRevisionOf` array.
 
+#### Examples
+
+A Profile that's been revised twice will have an array of Profile versions that looks something like:
+
+```javascript
+[
+    {
+        "id": "http://example.com/profiles/superheroes/v3",
+        "wasRevisionOf": ["http://example.com/profiles/superheroes/v2"],
+        "generatedAtTime": "2020-02-20T20:20:20Z"
+    },
+    {
+        "id": "http://example.com/profiles/superheroes/v2",
+        "wasRevisionOf": ["http://example.com/profiles/superheroes/v1"],
+        "generatedAtTime": "2010-01-15T03:14:15Z"
+    },
+    {
+        "id": "http://example.com/profiles/superheroes/v1",
+        "generatedAtTime": "2010-01-14T12:13:14Z"
+    }
+]
+```
+
+Note: there is nothing special about the URI structure, such as the use of "v#" on the end. Any URIs are legal, so long as every Profile version `id` is unique and different from the overall Profile URI. Using a predictable URI structure is  a good idea, though.
+
+
 ### <a name="6.2">6.2</a> Organizations and Persons
 
 Use one of these in the `author` property to indicate the author of this Profile version.
@@ -141,6 +167,63 @@ Property | Type | Description | Required
 * `relatedMatch` SHOULD be used to connect possible replacement Concepts to removed Concepts from previous versions of the same Profile, and for possible replacement Concepts in other Profiles of deprecated Concepts, as well as other loose relations.
 * `exactMatch` SHOULD be used rarely, mostly to describe connections to vocabularies that are no longer managed and do not use good URLs.
 
+#### Examples
+
+A Profile for competitive events might have verbs in it such as:
+
+```javascript
+{
+    "id": "http://example.org/profiles/sports/verbs/placed",
+    "type": "Verb",
+    "inScheme": "http://example.org/profiles/sports/v2",
+    "prefLabel": {
+        "en": "placed"
+    },
+    "definition": {
+        "en": "Indicates a person finished the event in a ranked order. Use with the 'placement' extension."
+    },
+    "broadMatch": ["http://adlnet.gov/expapi/verbs/completed"]
+}
+```
+
+The use of `broadMatch` means that the ADL's `completed` verb is a more general term than `placed`.
+
+```javascript
+{
+    "id": "http://example.org/profiles/sports/verbs/medaled",
+    "type": "Verb",
+    "inScheme": "http://example.org/profiles/sports/v2",
+    "prefLabel": {
+        "en": "medaled"
+    },
+    "definition": {
+        "en": "Indicates a person received a medal in a particular event. Use with the 'placement' extension."
+    },
+    "broader": ["http://example.org/profiles/sports/verbs/placed"]
+}
+```
+
+`broader` here works like `broadMatch` did above, but is used instead because the two verbs are in the same Profile.
+
+
+```javascript
+{
+    "id": "http://example.org/profiles/sports/verbs/qualified",
+    "type": "Verb",
+    "inScheme": "http://example.org/profiles/sports/v2",
+    "prefLabel": {
+        "en": "qualified"
+    },
+    "definition": {
+        "en": "Indicates a person is eligible for the event in the object."
+    },
+    "relatedMatch": ["https://w3id.org/xapi/adl/verbs/satisfied"]
+}
+```
+
+Qualifying for an event isn't the same as (or broader or narrower than) satisfying it's requirements in the way meant in the ADL profile, but they're related concepts. By creating `relatedMatch` links a Profile makes it easier for people using Profiles to discover appropriate terms.
+
+
 ### <a name="7.2">7.2</a> Extensions
 
 
@@ -164,6 +247,32 @@ Statements including extensions defined in a Profile MUST:
 * only use a ContextExtension in context
 * only use a ResultExtension in result
 * only use an ActivityExtension in an Activity Definition.
+
+#### Example
+
+A Profile for competitive events might define an extension to represent placing, such as
+
+```javascript
+{
+    "id": "http://example.org/profiles/sports/extensions/place",
+    "type": "ResultExtension",
+    "inScheme": "http://example.org/profiles/sports/v2",
+    "prefLabel": {
+        "en": "placement"
+    },
+    "definition": {
+        "en": "Defines the place a person received in an event. The value is an object with a required numerical rank and an optional medal as a string"
+    },
+    "recommendedVerbs": [
+        "http://example.org/profiles/sports/verbs/placed"
+    ],
+    "inlineSchema": "{ \"type\": \"object\", \"properties\":{\"rank\": {\"type\": \"number\", \"required\": true}, \"medal\": {\"type\": \"string\"}}}"
+}
+```
+
+This extension includes a JSON Schema that systems handling Statements with it can use to validate the structure of extension values. Also, it recommends a verb to use it with. While it only mentions the `placed` verb, if the `medaled` verb is defined as given above, it is narrower than `placed` and is recommended as well.
+
+
 
 ### <a name="7.3">7.3</a> Document Resources
 
@@ -192,6 +301,28 @@ Learning Record Store Clients sending Document Resources
     * only send an ActivityProfileResource to an Activity Profile Resource location
 
 Profile Validators receiving Document Resources MUST validate Learning Record Store Clients follow the requirements for Document Resources.
+
+#### Example
+
+A Profile for competitive events might include a way to store preferred t-shirt sizes for competitors, to help in prefilling race forms.
+
+```javascript
+{
+    "id": "http://example.org/profiles/sports/resources/tshirt",
+    "type": "AgentProfileResource",
+    "inScheme": "http://example.org/profiles/sports/v2",
+    "prefLabel": {
+        "en": "T-Shirt Preference"
+    },
+    "definition": {
+        "en": "Stores a t-shirt preference for prefilling race registrations."
+    },
+    "contentType": "application/json",
+    "inlineSchema": "{ \"type\": \"object\", \"properties\":{\"cut\": {\"enum\": [\"straight\", \"fitted\"], \"required\": true}, \"size\": {\"enum\": [\"x-small\", \"small\", \"medium\", \"large\", \"x-large\", \"2x-large\", \"3x-large\"], \"required\": true}}}"
+}
+```
+
+This looks much like the `placement` extension, with the addition of `contentType` and without any recommended verbs.
 
 
 ### <a name="7.4">7.4</a> Activities
@@ -226,6 +357,30 @@ Learning Record Providers using the Activity in Statements:
 * Language Maps SHOULD only include languages appropriate to the situation.
 * Language Maps MAY include languages not present in the Profile yet.
 
+
+#### Examples
+
+A Profile for competitive events might define Activities to represent standardized events, such as the 100 meter dash:
+
+```javascript
+{
+    "id": "http://example.org/profiles/sports/activities/100mdash",
+    "type": "Activity",
+    "inScheme": "http://example.org/profiles/sports/v2",
+    "activityDefinition": {
+        "@context": "http://example.org/host/somewhere/activity-context.jsonld"
+        "type": "http://example.org/profiles/sports/activitytypes/event"
+        "name": {
+            "en": "100 Meter Dash"
+        },
+        "description": {
+            "en": "Represents the 100 meter dash as a general category of race. When this is in the 'grouping' contextActivities of a Statement, that means the Statement is about a particular 100 meter dash that is the object Activity."
+        }
+    }
+}
+```
+
+The `description` includes guidance on how to interpret this Activity's use in Statements, which also serves as guidance on how to use it.
 
 ## <a name="8.0">8.0</a> Statement Templates
 
@@ -315,6 +470,35 @@ The syntax and behavior of JSONPath is described at http://goessner.net/articles
 * The legal values in an array or child expression are: strings (child expressions), non-negative integers (array expressions), the star character `*` representing all children/members, and unions of these as described above.
 * Any two or more legal JSONPath expressions, joined together by the pipe character `|`, optionally with whitespace around the pipe, are also considered a legal JSONPath expression. The value of this expression is all the values returned by each expression individually, flattened (that is, if one expression returns N values and another returns a single value, the combination returns N+1 values, not two values).
 
+#### Example
+
+A Profile for competitive events might define a Statement Template for recording the outcomes of events:
+
+```javascript
+{
+    "id": "http://example.org/profiles/sports/templates/placing",
+    "type": "StatementTemplate",
+    "inScheme": "http://example.org/profiles/sports/v2",
+    "prefLabel": {
+        "en": "Placing"
+    },
+    "definition": {
+        "en": "Records the actor placing in a particular event. The object is the specific event participated in, and an Activity representing the general type of event goes in grouping contextActivities."
+    },
+    "verb": "http://example.org/profiles/sports/verbs/placed",
+    "objectActivityType": "http://example.org/profiles/sports/activitytypes/event",
+    "contextGroupingActivityType": ["http://example.org/profiles/sports/activitytypes/event"],
+    "rules": [
+        {
+            "location": "$.result.extensions['http://example.org/profiles/sports/extensions/place']",
+            "presence": "included"
+        }
+    ]
+}
+```
+
+
+
 ## <a name="9.0">9.0</a> Patterns
 
 Patterns describe groups of Statements matching particular Statement Templates, ordered in certain ways. For example, a Pattern in a video Profile might start with a Statement about playing a video and then be followed by Statements about pausing, skipping, playing again, and so forth.
@@ -377,6 +561,104 @@ Name | Values
 `subregistration` | A variant 2 UUID as specified in RFC 4122. This is the subregistration identifier in the requirements above.
 
 Some Profiles may contain Patterns very similar to Statement data sent by previously existing Learning Record Providers, not strictly following this specification. It may be very close, but not follow it in all particulars, such as by missing a registration. While the details of how to handle this are outside the scope of this specification, Profiles aware of such existing data SHOULD make note of this and include descriptive language covering the degree of adherence.
+
+#### Examples
+
+A Profile for competitive events could define a primary Pattern and other associated Patterns for recording the running of a relay race.
+
+```javascript
+{
+    "id": "http://example.org/profiles/sports/patterns/relay",
+    "type": "Pattern",
+    "primary": true,
+    "inScheme": "http://example.org/profiles/sports/v2",
+    "prefLabel": {
+        "en": "Relay Race"
+    },
+    "definition": {
+        "en": "A detailed recording of a relay race by a team in track and field. The actor of the `start` Statement should be the single runner who starts, and the actor of the `placed` Statement should be a Group of the entire team."
+    },
+    "sequence": [
+        "http://example.org/profiles/sports/templates/start",
+        "http://example.org/profiles/sports/patterns/handoffs",
+        "http://example.org/profiles/sports/templates/placed"
+    ]
+}
+```
+
+The primary Pattern for a relay race, it says a sequence of things happens: first, there's a Statement matching the `start` template (not defined in the examples), then there's a Pattern of `handoffs`, as defined next, and then there's a Statement matching the `placed` template (defined in an earlier example).
+
+```javascript
+{
+    "id": "http://example.org/profiles/sports/patterns/handoffs",
+    "type": "Pattern",
+    "inScheme": "http://example.org/profiles/sports/v2",
+    "definition": "The actor of each `handoff` Statement should be the runner receiving the baton, as described in that Statement Template.",
+    "oneOrMore": "http://example.org/profiles/sports/templates/handoff"
+}
+```
+
+The Pattern for `handoffs` is pretty simple--there's one or more of Statements matching the `handoff` template. There's a definition on this Pattern even though it isn't required since it isn't primary, to aid people in using it.
+
+In a real Profile these Patterns would be more complicated, accounting for various disqualifications, for example.
+
+A common sort of occurrence will be the possibility of someone taking a "redo" of some section of an experience. For example, a Profile for a game supporting "redo" of levels after doing them the first time might have a Pattern like the following:
+
+```javascript
+{
+    "id": "http://example.org/profiles/examplegame/patterns/levels",
+    "type": "Pattern",
+    "inScheme": "http://example.org/profiles/examplegame/v1",
+    "sequence": [
+        "http://example.org/profiles/examplegame/patterns/level1",
+        "http://example.org/profiles/examplegame/patterns/level1redos",
+        "http://example.org/profiles/examplegame/patterns/level2",
+        "http://example.org/profiles/examplegame/patterns/uptolevel2redos",
+        "http://example.org/profiles/examplegame/patterns/level3",
+        "http://example.org/profiles/examplegame/patterns/uptolevel3redos"
+    ]
+}
+```
+
+The `levels` Pattern shows both the progression of levels and the possible redos between levels.
+
+```javascript
+{
+    "id": "http://example.org/profiles/examplegame/patterns/level1redos",
+    "type": "Pattern",
+    "inScheme": "http://example.org/profiles/examplegame/v1",
+    "zeroOrMore": "http://example.org/profiles/examplegame/patterns/level1"
+}
+```
+
+Level 1 redos are simple--the only level that can be redone is level 1.
+
+```javascript
+{
+    "id": "http://example.org/profiles/examplegame/patterns/uptolevel2redos",
+    "type": "Pattern",
+    "inScheme": "http://example.org/profiles/examplegame/v1",
+    "zeroOrMore": "http://example.org/profiles/examplegame/patterns/uptolevel2"
+}
+```
+
+For level 2, redos get more complicated, since someone can redo either level 1 or level 2.
+
+```javascript
+{
+    "id": "http://example.org/profiles/examplegame/patterns/uptolevel2",
+    "type": "Pattern",
+    "inScheme": "http://example.org/profiles/examplegame/v1",
+    "alternates": [
+        "http://example.org/profiles/examplegame/patterns/level1",
+        "http://example.org/profiles/examplegame/patterns/level2"
+    ]
+}
+```
+
+The option of doing level 1 or level 2 with each redo is encapsulated in an `alternates` Pattern.
+
+
 
 ## <a name="10.0">10.0</a> The Context
 
