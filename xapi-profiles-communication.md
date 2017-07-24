@@ -24,23 +24,36 @@ The review process will check profiles for following the specification and assis
 
 A Profile Server will host a SPARQL endpoint containing the RDF information from the contained profiles at the path /SPARQL. SPARQL servers have the ability to divide information into multiple datasets, or graphs, and offer separate querying on them. One of these is the default graph, which is queried when no other graph is specified. The default graph at this SPARQL endpoint will contain all the current versions of profiles. Additionally, every profile version will be in a Named Graph with a URI equal to the profile version's URI. Thus, by default queries will only operate on up to date information, but if historical profile information is needed, it is available.
 
+A Profile Server will include inference logic for the following, at minimum: all SKOS predicate relationships, and `profile:concepts`, `profile:templates`, and `profile:patterns` being subproperties of the inverse of `skos:inScheme`.
+
 
 ### <a name="1.1">1.1</a> Example SPARQL Queries
 
 Here are a selection of questions and the SPARQL queries that answer them, for retrieving commonly needed information from the server. All these SPARQL queries can also be run locally by loading one or more profiles into an RDF library and running SPARQL queries against them directly, with minor modifications depending on how the data is loaded.
 
+All queries start with the following block of prefixes:
+
+```sparql
+PREFIX prov: <http://www.w3.org/ns/prov#>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX xapi: <https://w3id.org/xapi/ontology#>
+PREFIX profile: <https://w3id.org/xapi/profiles/ontology#>
+PREFIX dcterms: <http://purl.org/dc/terms/>
+PREFIX schemaorg: <http://schema.org/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+```
 
 “What profiles are on the server?”
 
-```
+```sparql
 select
     ?profile,
-    ?name,
+    ?prefLabel,
     ?definition
 where {
-    ?profile a :Profile ;
-             :name ?name ;
-             :definition ?definition .
+    ?profile a profile:Profile ;
+             skos:prefLabel ?prefLabel ;
+             skos:definition ?definition .
 }
 ```
 
@@ -49,24 +62,23 @@ Depending on some modeling choices, it may be necessary to add a line that preve
 “What verbs and activity types does this profile describe?”
 
 
-```
+```sparql
 select
-    ?name,
+    ?concept,
+    ?prefLabel,
     ?definition
 where {
-    (?concept a :Verb || ?concept a ActivityType) .                
-    ?concept :inScheme <profileid> ;
-             :name ?name ;
-             :definition ?definition .
+    (?concept a xapi:Verb || ?concept a xapi:ActivityType) .                
+    ?concept skos:inScheme <http://example.org/profiles/sports> ;
+             skos:prefLabel ?prefLabel ;
+             skos:definition ?definition .
 }
 ```
 
 
 “What Statement Templates are available in this profile?”, “What Patterns are available in this profile?”
 
-Virtually identical to the above, just replace being a Verb or Activity Type with Statement Template or Pattern. We're able to use inScheme because the server includes semantic metadata letting it know that being a Statement Template, being a Concept, and being a Pattern are all forms of being inScheme, which is a general inclusion operator.
-
-(Prefixes are omitted in these examples until a complete context is ready).
+Virtually identical to the above, just replace being a Verb or Activity Type with Statement Template or Pattern. We're able to use inScheme because the server includes semantic metadata letting it know that being a Statement Template, being a Concept, and being a Pattern are all forms of being inScheme, which is a general inclusion predicate.
 
 ## <a name="2.0">2.0</a> Algorithms
 
