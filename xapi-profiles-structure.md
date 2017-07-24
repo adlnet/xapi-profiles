@@ -180,7 +180,8 @@ A Profile for competitive events might have verbs in it such as:
         "en": "placed"
     },
     "definition": {
-        "en": "Indicates a person finished the event in a ranked order. Use with the 'placement' extension."
+        "en": "Indicates a person finished the event in a ranked order.
+        Use with the 'placement' extension."
     },
     "broadMatch": ["http://adlnet.gov/expapi/verbs/completed"]
 }
@@ -197,7 +198,8 @@ The use of `broadMatch` means that the ADL's `completed` verb is a more general 
         "en": "medaled"
     },
     "definition": {
-        "en": "Indicates a person received a medal in a particular event. Use with the 'placement' extension."
+        "en": "Indicates a person received a medal in a particular event.
+        Use with the 'placement' extension."
     },
     "broader": ["http://example.org/profiles/sports/verbs/placed"]
 }
@@ -261,7 +263,9 @@ A Profile for competitive events might define an extension to represent placing,
         "en": "placement"
     },
     "definition": {
-        "en": "Defines the place a person received in an event. The value is an object with a required numerical rank and an optional medal as a string"
+        "en": "Defines the place a person received in an event.
+        The value is an object with a required numerical rank
+        and an optional medal as a string"
     },
     "recommendedVerbs": [
         "http://example.org/profiles/sports/verbs/placed"
@@ -318,7 +322,10 @@ A Profile for competitive events might include a way to store preferred t-shirt 
         "en": "Stores a t-shirt preference for prefilling race registrations."
     },
     "contentType": "application/json",
-    "inlineSchema": "{ \"type\": \"object\", \"properties\":{\"cut\": {\"enum\": [\"straight\", \"fitted\"], \"required\": true}, \"size\": {\"enum\": [\"x-small\", \"small\", \"medium\", \"large\", \"x-large\", \"2x-large\", \"3x-large\"], \"required\": true}}}"
+    "inlineSchema": "{ \"type\": \"object\", \"properties\": {
+        \"cut\": {\"enum\": [\"straight\", \"fitted\"], \"required\": true},
+        \"size\": {\"enum\": [\"x-small\", \"small\", \"medium\", \"large\",
+            \"x-large\", \"2x-large\", \"3x-large\"], \"required\": true}}}"
 }
 ```
 
@@ -374,7 +381,10 @@ A Profile for competitive events might define Activities to represent standardiz
             "en": "100 Meter Dash"
         },
         "description": {
-            "en": "Represents the 100 meter dash as a general category of race. When this is in the 'grouping' contextActivities of a Statement, that means the Statement is about a particular 100 meter dash that is the object Activity."
+            "en": "Represents the 100 meter dash as a general category of race.
+            When this is in the 'grouping' contextActivities of a Statement,
+            that means the Statement is about a particular 100 meter dash
+            that is the object Activity."
         }
     }
 }
@@ -483,14 +493,20 @@ A Profile for competitive events might define a Statement Template for recording
         "en": "Placing"
     },
     "definition": {
-        "en": "Records the actor placing in a particular event. The object is the specific event participated in, and an Activity representing the general type of event goes in grouping contextActivities."
+        "en": "Records the actor placing in a particular event.
+        The object is the specific event participated in, and an Activity
+        representing the general type of event goes in grouping
+        contextActivities."
     },
     "verb": "http://example.org/profiles/sports/verbs/placed",
-    "objectActivityType": "http://example.org/profiles/sports/activitytypes/event",
-    "contextGroupingActivityType": ["http://example.org/profiles/sports/activitytypes/event"],
+    "objectActivityType":
+        "http://example.org/profiles/sports/activitytypes/event",
+    "contextGroupingActivityType": [
+        "http://example.org/profiles/sports/activitytypes/event"],
     "rules": [
         {
-            "location": "$.result.extensions['http://example.org/profiles/sports/extensions/place']",
+            "location":
+                "$.result.extensions['http://example.org/profiles/sports/extensions/place']",
             "presence": "included"
         }
     ]
@@ -576,7 +592,10 @@ A Profile for competitive events could define a primary Pattern and other associ
         "en": "Relay Race"
     },
     "definition": {
-        "en": "A detailed recording of a relay race by a team in track and field. The actor of the `start` Statement should be the single runner who starts, and the actor of the `placed` Statement should be a Group of the entire team."
+        "en": "A detailed recording of a relay race by a team in track and
+        field. The actor of the `start` Statement should be the single runner
+        who starts, and the actor of the `placed` Statement
+        should be a Group of the entire team."
     },
     "sequence": [
         "http://example.org/profiles/sports/templates/start",
@@ -593,7 +612,8 @@ The primary Pattern for a relay race, it says a sequence of things happens: firs
     "id": "http://example.org/profiles/sports/patterns/handoffs",
     "type": "Pattern",
     "inScheme": "http://example.org/profiles/sports/v2",
-    "definition": "The actor of each `handoff` Statement should be the runner receiving the baton, as described in that Statement Template.",
+    "definition": "The actor of each `handoff` Statement should be the runner
+    receiving the baton, as described in that Statement Template.",
     "oneOrMore": "http://example.org/profiles/sports/templates/handoff"
 }
 ```
