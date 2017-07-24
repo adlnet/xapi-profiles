@@ -24,7 +24,7 @@ The review process will check profiles for following the specification and assis
 
 A Profile Server will host a SPARQL endpoint containing the RDF information from the contained profiles at the path /SPARQL. SPARQL servers have the ability to divide information into multiple datasets, or graphs, and offer separate querying on them. One of these is the default graph, which is queried when no other graph is specified. The default graph at this SPARQL endpoint will contain all the current versions of profiles. Additionally, every profile version will be in a Named Graph with a URI equal to the profile version's URI. Thus, by default queries will only operate on up to date information, but if historical profile information is needed, it is available.
 
-A Profile Server will include inference logic for the following, at minimum: all SKOS predicate relationships, and profile:concepts, profile:templates, and profile:patterns being subproperties of the inverse of skos:inScheme.
+A Profile Server will include inference logic for the following, at minimum: all SKOS predicate relationships, and `profile:concepts`, `profile:templates`, and `profile:patterns` being subproperties of the inverse of `skos:inScheme`.
 
 
 ### <a name="1.1">1.1</a> Example SPARQL Queries
@@ -33,7 +33,7 @@ Here are a selection of questions and the SPARQL queries that answer them, for r
 
 All queries start with the following block of prefixes:
 
-```
+```sparql
 PREFIX prov: <http://www.w3.org/ns/prov#>
 PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
 PREFIX xapi: <https://w3id.org/xapi/ontology#>
@@ -45,7 +45,7 @@ PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 
 “What profiles are on the server?”
 
-```
+```sparql
 select
     ?profile,
     ?prefLabel,
@@ -62,7 +62,7 @@ Depending on some modeling choices, it may be necessary to add a line that preve
 “What verbs and activity types does this profile describe?”
 
 
-```
+```sparql
 select
     ?concept,
     ?prefLabel,
