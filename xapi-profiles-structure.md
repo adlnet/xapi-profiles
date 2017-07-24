@@ -270,7 +270,9 @@ A Profile for competitive events might define an extension to represent placing,
     "recommendedVerbs": [
         "http://example.org/profiles/sports/verbs/placed"
     ],
-    "inlineSchema": "{ \"type\": \"object\", \"properties\":{\"rank\": {\"type\": \"number\", \"required\": true}, \"medal\": {\"type\": \"string\"}}}"
+    "inlineSchema": "{ \"type\": \"object\", \"properties\":{ \
+        \"rank\": {\"type\": \"number\", \"required\": true}, \
+        \"medal\": {\"type\": \"string\"}}}"
 }
 ```
 
