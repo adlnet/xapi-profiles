@@ -602,12 +602,12 @@ A Profile for competitive events could define a primary Pattern and other associ
     "sequence": [
         "http://example.org/profiles/sports/templates/start",
         "http://example.org/profiles/sports/patterns/handoffs",
-        "http://example.org/profiles/sports/templates/placed"
+        "http://example.org/profiles/sports/templates/placing"
     ]
 }
 ```
 
-The primary Pattern for a relay race, it says a sequence of things happens: first, there's a Statement matching the `start` template (not defined in the examples), then there's a Pattern of `handoffs`, as defined next, and then there's a Statement matching the `placed` template (defined in an earlier example).
+The primary Pattern for a relay race, it says a sequence of things happens: first, there's a Statement matching the `start` template (not defined in the examples), then there's a Pattern of `handoffs`, as defined next, and then there's a Statement matching the `placing` template (defined in an earlier example).
 
 ```javascript
 {
