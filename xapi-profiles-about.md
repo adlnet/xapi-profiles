@@ -1,5 +1,39 @@
 # xAPI Profiles
 
+Part One: [About xAPI Profiles](./xapi-profiles-about.md#partone)
+   *  1.0. [Introduction](./xapi-profiles-about.md#introduction-partone)
+   *  2.0. [How to Use This Document](./xapi-profiles-about.md#2.0)
+      *  2.1. [MUST / SHOULD / MAY](./xapi-profiles-about.md#def-must-should-may)
+      *  2.2. [Guidelines for Interpreting Descriptive Text and Tables]./xapi-profiles-about.md#interpret-text-table)
+   *  3.0. [Definitions](./xapi-profiles-about.md#definitions)
+Part Two:	[xAPI Profiles Document Structure Specification](./xapi-profiles-structure.md#parttwo)  
+   *	1.0.	[Reference Specifications](./xapi-profiles-structure#1.0)
+   *	2.0.	[Technical Foundations](./xapi-profiles-structure#2.0)
+   *  3.0.  [Structure](./xapi-profiles-structure#3.0)
+   *  4.0.  [Document Interpretation and General Restrictions](./xapi-profiles-structure.md#4.0)
+   *  5.0.  [Using Profiles in Statements](./xapi-profiles-structure.md#5.0)
+   *  6.0.  [Profile Properties](./xapi-profiles-structure.md#6.0)
+      *  6.1.  [Profile Version Objects](./xapi-profiles-structure.md#6.1)
+      *  6.2.  [Organizations and Persons](./xapi-profiles-structure.md#6.2)
+   *  7.0.  [Concepts](./xapi-profiles-structure.md#7.0)
+      *  7.1.  [Verbs, Activity Types, and Attachment Usage Types](./xapi-profiles-structure.md#7.1)
+      *  7.2.  [Extensions](./xapi-profiles-structure.md#7.2)
+      *  7.3.  [Document Resources](./xapi-profiles-structure.md#7.3)
+      *  7.4.  [Activities](./xapi-profiles-structure.md#7.4)
+   *  8.0.  [Statement Templates](./xapi-profiles-structure.md#8.0)
+      *  8.1.  [Statement Template Rules](./xapi-profiles-structure.md#8.1)
+   *  9.0.  [Patterns](./xapi-profiles-structure.md#9.0)
+   *  10.0. [The Context](./xapi-profiles-structure.md#10.0)
+Part Three:	[xAPI Profiles Communication and Processing Specification](./xapi-profiles-communication.md#partthree)  
+   * 1.0. [Profile Server](./xapi-profiles-communication#1.0)
+      * 1.1. [Profile Versions](./xapi-profiles-communication#profile_versions)
+      * 1.2. [Best Practices](xapi-profiles-communication#profile_server_best_practices)
+      * 1.3. [Example SPARQL Queries](xapi-profiles-communication#1.3)
+   * 2.0. [Algorithms](./xapi-profiles-communication#2.0)
+      * 2.1. [Statement Template Validation](./xapi-profiles-communication#2.1)
+      * 2.2. [Pattern Validation](./xapi-profiles-communication#2.2)
+  * 3.0. [Libraries](./xapi-profiles-communication#3.0)
+
 >#### License
 >
 >"Copyright 2017 Advanced Distributed Learning (ADL) Initiative, U.S. Department of Defense
@@ -70,7 +104,7 @@ and not-as-technical):
 >Don’t worry - you are not a dummy. But computers definitely are, which is exactly why we need
 >linked data on the web...”
 
-## 2.0 How to Use This Document
+## <a name="2.0">2.0</a> How to Use This Document
 
 This is a definitive document which describes how the xAPI Profiles are to be implemented.
 It is a technical document authored specifically for individuals and organizations implementing this
@@ -92,8 +126,8 @@ This part helps to ensure that services implementing this specification follow a
 Part three of this specification sets out the communication methods that can be used when seeking information
 about xAPI Profiles among services that adhere to the specification.
 
-<a name="def-must-should-may"></a>
-### 2.1 MUST / SHOULD / MAY
+
+### <a name="def-must-should-may">2.1</a> MUST / SHOULD / MAY
 There are three levels of obligation with regards to conformance to the xAPI specification identified by the terms
 MUST, SHOULD and MAY. A service or system that fails to implement a MUST (or a MUST NOT) requirement is non-conformant.
 Failing to meet a SHOULD requirement is not a violation of conformity, but goes against the recommendations of the specification.
@@ -108,8 +142,8 @@ These recommendations cannot be MUST requirements within this version as these w
 The xAPI Working Group strongly encourages adopters to implement these requirements as though they were MUST
 requirements, while continuing to support other adopters that might not do so.
 
-<a name="interpret-text-table"></a>
-### 2.2 Guidelines for Interpreting Descriptive Text and Tables
+
+### <a name="interpret-text-table">2.2</a> Guidelines for Interpreting Descriptive Text and Tables
 As a rule of thumb, if the guideline appears technical or seems to be a requirement, interpret it
 as such. This is especially true of longer, more, detailed explanations and of tables, each of which would
 be unintuitive and/or lengthy to dissect into a list of requirements.
@@ -133,8 +167,7 @@ that detail can be considered to be outside of the scope of this specification. 
 to determine a sensible approach. This specification tries to avoid vagueness and will usually give a rationale
 even if there no requirement in a given area.
 
-<a name="definitions"></a>
-## 3.0 Definitions
+## <a name="definitions">3.0</a> Definitions
 
 
 * [Absolute IRI](#absoluteiri)
