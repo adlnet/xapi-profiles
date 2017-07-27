@@ -1,6 +1,9 @@
 Statement Template
 Part Three:	[xAPI Profiles Communication and Processing Specification](./xapi-profiles-communication.md#partthree)  
  * 1.0. [Profile Server](./xapi-profiles-communication#1.0)
+    * 1.1. [Profile Versions](./xapi-profiles-communication#profile_versions)
+    * 1.2. [Best Practices](xapi-profiles-communication#profile_server_best_practices)
+    * 1.3. [Example SPARQL Queries](xapi-profiles-communication#1.3)
  * 2.0. [Algorithms](./xapi-profiles-communication#2.0)
     * 2.1. [Statement Template Validation](./xapi-profiles-communication#2.1)
     * 2.2. [Pattern Validation](./xapi-profiles-communication#2.2)
@@ -10,26 +13,61 @@ Part Three:	[xAPI Profiles Communication and Processing Specification](./xapi-pr
 <a name="partthree"></a>
 # Part Three: Communication and Processing
 
-In addition to the ability to host profiles as documents, there will be infrastructure for querying and manipulating profiles. This document describes the algorithms for processing profiles, including the exact rules by which Statement Templates and Patterns are validated against Statements. It also describes a “Profile Server” to make it easier to manage and answer questions about profiles from a centralized location, including implementing the algorithms.
+In addition to the ability to host profiles as documents, there will be infrastructure 
+for querying and manipulating profiles. This document describes the algorithms for 
+processing profiles, including the exact rules by which Statement Templates and Patterns 
+are validated against Statements. It also describes a “Profile Server” to make it easier 
+to manage and answer questions about profiles from a centralized location, including 
+implementing the algorithms.
 
 ## <a name="1.0">1.0</a> Profile Server
 
-A Profile Server will
-* allow administrators to add profiles by their contents or by URI to the Profile Server
-* provide a review process people desiring to add profiles can submit to.
-* provide mechanisms to encourage contribution of Profile translations
-* encourage open licensing of Profiles
+A Profile Server manages xAPI Profiles from a centralized location. [An RDF triple store](https://en.wikipedia.org/wiki/Triplestore) is responsible for the storage of profiles. 
+A Profile Server will allow administrators to add profiles by their contents or by URI to the Profile Server
 
-The review process will check profiles for following the specification and assist in helping them be of highest quality, after which they will be added to the server.
+A Profile Server will host a SPARQL endpoint containing the RDF information from the 
+contained profiles at the path /SPARQL. This enables xAPI Profiles to be queried. SPARQL 
+servers have the ability to divide information into multiple datasets, or graphs, and 
+offer separate querying on them. One of these is the default graph, which is queried 
+when no other graph is specified. The default graph at this SPARQL endpoint will 
+contain all the current versions of profiles. 
 
-A Profile Server will host a SPARQL endpoint containing the RDF information from the contained profiles at the path /SPARQL. SPARQL servers have the ability to divide information into multiple datasets, or graphs, and offer separate querying on them. One of these is the default graph, which is queried when no other graph is specified. The default graph at this SPARQL endpoint will contain all the current versions of profiles. Additionally, every profile version will be in a Named Graph with a URI equal to the profile version's URI. Thus, by default queries will only operate on up to date information, but if historical profile information is needed, it is available.
+### <a name="profile_versions">1.1</a> Profile Versions
 
-A Profile Server will include inference logic for the following, at minimum: all SKOS predicate relationships, and `profile:concepts`, `profile:templates`, and `profile:patterns` being subproperties of the inverse of `skos:inScheme`.
+Every profile version will be in a [Named Graph](https://www.w3.org/TR/sparql11-query/#namedGraphs) 
+with a URI equal to the profile version's URI.  Non-current (and current) versions of 
+Profiles are required to be in named graphs with URIs of their version.  This means 
+they can be queried directly by specifying the URI. Additionally, the current version 
+in the default graph has the versioning information, making it possible to traverse 
+them without knowing their URIs in advance. Reasons why one would query versions 
+of xAPI Profiles include retrieving a version used by an xAPI Statement, and/or 
+understanding when a concept was deprecated or removed.
 
+The URI of the named graph is always the URI of the profile version. Note: The URI of the 
+named graph doesn't mean the URI it is retrieved at, it means the URI used to refer to it 
+within SPARQL/the RDF store.
 
-### <a name="1.1">1.1</a> Example SPARQL Queries
+In summary: by default, queries will only operate on up to date 
+information; if historical profile information is needed, it is available.
 
-Here are a selection of questions and the SPARQL queries that answer them, for retrieving commonly needed information from the server. All these SPARQL queries can also be run locally by loading one or more profiles into an RDF library and running SPARQL queries against them directly, with minor modifications depending on how the data is loaded.
+### <a name="profile_server_best_practices">1.2</a> Best Practices
+
+Some best practices are recomended when adding a profile to a profile server. A technical 
+review process is warranted to check profiles for following the specification. As well, 
+analysis is recommended to ensure the contents of a profile are of the highest quality. 
+Upon following these practices, a profile should be added to a profile server.
+
+As language maps enable the multiple translations of an xAPI Profile, it is advisable to
+provide mechanisms to encourage contribution of xAPI Profile translations. To promote and 
+to protect the use of an xAPI Profile made publicly available, it is strongly encouraged
+that any xAPI Profile provided through a Profile Server be open-licensed.
+
+### <a name="1.3">1.3</a> Example SPARQL Queries
+
+Here are a selection of questions and the SPARQL queries that answer them, for retrieving 
+commonly needed information from the server. All these SPARQL queries can also be run 
+locally by loading one or more profiles into an RDF library and running SPARQL queries 
+against them directly, with minor modifications depending on how the data is loaded.
 
 All queries start with the following block of prefixes:
 
@@ -57,7 +95,8 @@ where {
 }
 ```
 
-Depending on some modeling choices, it may be necessary to add a line that prevents retrieving the versions as well.
+Depending on some modeling choices, it may be necessary to add a line that prevents 
+retrieving the versions as well.
 
 “What verbs and activity types does this profile describe?”
 
@@ -76,18 +115,29 @@ where {
 ```
 
 
-“What Statement Templates are available in this profile?”, “What Patterns are available in this profile?”
+“What Statement Templates are available in this profile?”, “What Patterns are available 
+in this profile?”
 
-Virtually identical to the above, just replace being a Verb or Activity Type with Statement Template or Pattern. We're able to use inScheme because the server includes semantic metadata letting it know that being a Statement Template, being a Concept, and being a Pattern are all forms of being inScheme, which is a general inclusion predicate.
+Virtually identical to the above, just replace being a Verb or Activity Type with Statement 
+Template or Pattern. We're able to use inScheme because the server includes semantic 
+metadata letting it know that being a Statement Template, being a Concept, and being a 
+Pattern are all forms of being inScheme, which is a general inclusion predicate.
 
 ## <a name="2.0">2.0</a> Algorithms
 
-This section specifies two primary algorithms. The first, given a Statement and a set of Statement Templates, validates the Statement against all applicable Statement Templates in those provided and returns the Statement Templates that match, or an error if any of the matching Statement Templates does not validate against the Statement. The second, given a collection of Statements and a set of Patterns, validates if the Statements follows any of the Patterns.
-
+This section specifies two primary algorithms. The first, given a Statement and a set of 
+Statement Templates, validates the Statement against all applicable Statement Templates in 
+those provided and returns the Statement Templates that match, or an error if any of the 
+matching Statement Templates does not validate against the Statement. The second, given a 
+collection of Statements and a set of Patterns, validates if the Statements follows any of 
+the Patterns.
 
 ### <a name="2.1">2.1</a> Statement Template Validation
 
-To validate a Statement against the Statement Templates of a Profile, call the `validates` function described in pseudocode below with the Statement and all the Statement Templates from the Profile. This function returns an outcome and an array of Statement Templates. To interpret the results, consult the table after the algorithm definition.
+To validate a Statement against the Statement Templates of a Profile, call the `validates` 
+function described in pseudocode below with the Statement and all the Statement Templates 
+from the Profile. This function returns an outcome and an array of Statement Templates. To 
+interpret the results, consult the table after the algorithm definition.
 
 ```
 function validates(statement, templates):
@@ -203,7 +253,11 @@ unmatched | empty     | no Statement Templates matched
 
 ### <a name="2.2">2.2</a> Pattern Validation
 
-To validate a series of Statements sharing a registration (and, if applicable, subregistration) follows a specified Profile, apply the `follows` algorithm described below, which returns simple success or failure. For more nuanced interpretation, examine the `matches` algorithm, which is used by `follows`. A table for interpreting the return values of the `matches` algorithm is provided following the pseudocode for the algorithms.
+To validate a series of Statements sharing a registration (and, if applicable, subregistration) 
+follows a specified Profile, apply the `follows` algorithm described below, which returns 
+simple success or failure. For more nuanced interpretation, examine the `matches` algorithm, 
+which is used by `follows`. A table for interpreting the return values of the `matches` 
+algorithm is provided following the pseudocode for the algorithms.
 
 ```
 
@@ -297,17 +351,43 @@ partial | non empty            | outcome could be interpreted as success with no
 failure | original statements  | Pattern failed to match Statements. Note: if an optional or zeroOrMore Pattern is directly inside an alternates Pattern, it is possible for failure to be returned when partial is correct, due to decidability issues.
 
 
-A Pattern only matches if it matches greedily. That is, each optional, zeroOrMore, oneOrMore, and alternate Pattern MUST always be considered to match the maximum length possible before considering any Patterns later in a sequence. No backtracking is allowed. This constrains useful Patterns, but guarantees efficient processing, as once a Statement is matched it does not need to be reconsidered (except in cases where it is part of an ultimately unmatched alternate).
-When checking previously collected Statements for matching a Pattern, ordering MUST be based on timestamp. In the event two or more Statements have identical timestamps, any order within those Statements is allowed.
-When checking Statements for matching a Pattern upon receipt, ordering MUST be based on receipt order insofar as that can be determined. If Statements are received in the same batch and they are being checked upon receipt, within the batch Statements MUST be ordered first by timestamp, and if timestamps are the same, by order within the Statement array, with lower indices earlier.
+A Pattern only matches if it matches greedily. That is, each optional, zeroOrMore, oneOrMore, 
+and alternate Pattern MUST always be considered to match the maximum length possible before 
+considering any Patterns later in a sequence. No backtracking is allowed. This constrains 
+useful Patterns, but guarantees efficient processing, as once a Statement is matched it does 
+not need to be reconsidered (except in cases where it is part of an ultimately unmatched 
+alternate).
 
+When checking previously collected Statements for matching a Pattern, ordering MUST be based 
+on timestamp. In the event two or more Statements have identical timestamps, any order within 
+those Statements is allowed.
+
+When checking Statements for matching a Pattern upon receipt, ordering MUST be based on receipt 
+order insofar as that can be determined. If Statements are received in the same batch and they 
+are being checked upon receipt, within the batch Statements MUST be ordered first by timestamp, 
+and if timestamps are the same, by order within the Statement array, with lower indices earlier.
 
 ## <a name="3.0">3.0</a> Libraries
 
-Any library that implements the algorithms given here, exposing all of the listed functions, will be an xAPI Profile Processor library.
+Any programming library that implements the algorithms given here, exposing all of the listed 
+functions, will be an xAPI Profile Processor library.
 
-For each of the `validates`, and `follows`, the Profile Server will provide web APIs that are strongly Not Recommended for production usage, but are suitable for experimentation and demonstration.
+For each of the `validates`, and `follows`, the Profile Server will provide web APIs that are 
+strongly Not Recommended for production usage, but are suitable for experimentation and 
+demonstration. It is against best practice to go out to a third party server (or any server, 
+unnecessarily) on the critical path (such as when doing server-side validation of an API), 
+or in a context where internet access isn't guaranteed (such as when using an authoring tool). 
 
-Their URL paths will be /validate_templates and /validate_patterns, respectively. The first will take a single xAPI Statement and a profile specified by id, specified in POST variables as “statement” and “profile”. The second will take an array of xAPI Statements and a profile specified by id, both specified in POST variables as “statements” and “profile”.
+Additionally, the pseudocode above isn't written to support processing as data is received, 
+as that both adds complication and needs to be adapted to the exact capabilities of the 
+implementing system.
 
-Both will perform the algorithms above and return 204 on successful validation and 400 on failure, with descriptive comments attached on failure.
+Their URL paths will be /validate_templates and /validate_patterns, respectively. The first 
+will take a single xAPI Statement and a profile specified by id, specified in POST variables 
+as “statement” and “profile”. The second will take an array of xAPI Statements and a profile 
+specified by id, both specified in POST variables as “statements” and “profile”.
+
+Both will perform the algorithms above and return 204 on successful validation and 400 on 
+failure, with descriptive comments that provide information as to which rule was violated (in
+the case of statement template processing) or which part of the pattern was violated (in the 
+case of pattern processing.
