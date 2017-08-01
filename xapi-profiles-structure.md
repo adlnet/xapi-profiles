@@ -31,8 +31,8 @@ Part Three:	[xAPI Profiles Communication and Processing Specification](./xapi-pr
       * 2.1. [Statement Template Validation](./xapi-profiles-communication#2.1)
       * 2.2. [Pattern Validation](./xapi-profiles-communication#2.2)
   * 3.0. [Libraries](./xapi-profiles-communication#3.0)
-  
-  
+
+
 
 <a name="parttwo"></a>
 # Part Two: xAPI Profiles Document Structure Specification
@@ -82,9 +82,9 @@ A Profile includes a variety of metadata, both natural language text for humans 
 Property | Type | Description | Required
 -------- | ---- | ----------- | --------
 `id` | IRI | The IRI of the Profile overall (not a specific version) | Required
-`@context` | URI | SHOULD be `http://example.org/figure/out/where/this/goes/profile-context.jsonld` and MUST contain this URI if array-valued. | Required
+`@context` | URI | SHOULD be `https://w3id.org/xapi/profiles/context` and MUST contain this URI if array-valued. | Required
 `type` | String | MUST be `Profile`. | Required
-`conformsTo` | URI | Canonical URI of the Profile specification version conformed to. The Profile specification version of this document is https://github.com/DataInteroperability/xapi-profiles/tree/master#1.0-development, and it is a development version that may undergo incompatible changes without updating the version URI. | Required
+`conformsTo` | URI | Canonical URI of the Profile specification version conformed to. The Profile specification version of this document is https://w3id.org/xapi/profiles#1.0. | Required
 `prefLabel` | Object | Language map of names for this Profile. | Required
 `definition` | Object | Language map of descriptions for this Profile. If there are additional rules for the Profile as a whole that cannot be expressed using this specification, include them here, or at the seeAlso URL. | Required
 `seeAlso` | URL | A URL containing information about the Profile. Recommended instead of especially long definitions. | Optional
@@ -364,7 +364,7 @@ Property | Type | Description | Required
 
 Name | Values
 ---- | ------
-`@context` | SHOULD be `http://example.org/host/somewhere/activity-context.jsonld` and MUST contain this URI if array-valued.
+`@context` | SHOULD be `https://w3id.org/xapi/profiles/activity-context` and MUST contain this URI if array-valued.
 *other properties* | All as in xAPI 1.0.x Activity Definitions, defined at https://github.com/adlnet/xAPI-Spec/blob/master/xAPI-Data.md#activity-definition
 
 Except for `@context`, the activityDefinition in this Concept MUST be a legal xAPI Activity Definition.
@@ -392,7 +392,7 @@ A Profile for competitive events might define Activities to represent standardiz
     "type": "Activity",
     "inScheme": "http://example.org/profiles/sports/v2",
     "activityDefinition": {
-        "@context": "http://example.org/host/somewhere/activity-context.jsonld"
+        "@context": "https://w3id.org/xapi/profiles/activity-context"
         "type": "http://example.org/profiles/sports/activitytypes/event"
         "name": {
             "en": "100 Meter Dash"
@@ -581,7 +581,7 @@ Learning Record Providers:
     * when only one Profile or only one Pattern occurrence of each Profile will be used, in a given registration, subregistrations SHOULD NOT be used.
     * if any Statements following a primary Pattern do not contain a subregistration, all Statements with the same registration and Profile version in category MUST follow that primary Pattern.
     * if any Statements with a given registration contain the subregistration extension, then all Statements with that registration with the same subregistration identifier for a given Profile version MUST follow the same primary Pattern.
-    * the extension key of the subregistration extension is https://TODO/REPLACE/WITH/REAL/ID (a value in the w3id xAPI space will be used for this).
+    * the extension key of the subregistration extension is https://w3id.org/xapi/profiles/extensions/subregistration.
     * the subregistration extension MUST only be present in Statements with a registration.
     * the subregistration extension is an array-valued context extension. The array MUST NOT be empty. Each value of the array MUST be an object with the properties in the table below.
 

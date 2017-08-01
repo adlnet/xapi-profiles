@@ -163,7 +163,7 @@
     ],
     "templates": [
         {
-            "id": "_:generalrestrictions",
+            "id": "https://w3id.org/xapi/scorm#generalrestrictions",
             "type": "StatementTemplate",
             "prefLabel": {
                 "en": "general restrictions on statements"
@@ -184,7 +184,7 @@
             ]
         },
         {
-            "id": "_:initialization",
+            "id": "https://w3id.org/xapi/scorm#initialization",
             "type": "StatementTemplate",
             "prefLabel": {
                 "en": "initialization"
@@ -195,7 +195,7 @@
             ]
         },
         {
-            "id": "_:termination",
+            "id": "https://w3id.org/xapi/scorm#termination",
             "type": "StatementTemplate",
             "prefLabel": {
                 "en": "termination"
@@ -206,7 +206,7 @@
             ]
         },
         {
-            "id": "_:suspension",
+            "id": "https://w3id.org/xapi/scorm#suspension",
             "type": "StatementTemplate",
             "prefLabel": {
                 "en": "suspension"
@@ -217,7 +217,7 @@
             ]
         },
         {
-            "id": "_:resumption",
+            "id": "https://w3id.org/xapi/scorm#resumption",
             "type": "StatementTemplate",
             "prefLabel": {
                 "en": "resumption"
@@ -228,7 +228,7 @@
             ]
         },
         {
-            "id": "_:scoactivity",
+            "id": "https://w3id.org/xapi/scorm#scoactivity",
             "type": "StatementTemplate",
             "prefLabel": {
                 "en": "SCO activity"
@@ -238,7 +238,7 @@
             ]
         },
         {
-            "id": "_:commenting",
+            "id": "https://w3id.org/xapi/scorm#commenting",
             "type": "StatementTemplate",
             "prefLabel": {
                 "en": "commenting"
@@ -253,7 +253,7 @@
             ]
         },
         {
-            "id": "_:completing",
+            "id": "https://w3id.org/xapi/scorm#completing",
             "type": "StatementTemplate",
             "prefLabel": {
                 "en": "completing"
@@ -264,7 +264,7 @@
             ]
         },
         {
-            "id": "_:otheractivity",
+            "id": "https://w3id.org/xapi/scorm#otheractivity",
             "type": "StatementTemplate",
             "prefLabel": {
                 "en": "other activity"
@@ -274,7 +274,7 @@
             ]
         },
         {
-            "id": "_:interactionactivity",
+            "id": "https://w3id.org/xapi/scorm#interactionactivity",
             "type": "StatementTemplate",
             "prefLabel": {
                 "en": "interaction activity"
@@ -288,7 +288,7 @@
     ],
     "patterns": [
         {
-            "id": "_:generalpattern",
+            "id": "https://w3id.org/xapi/scorm#generalpattern",
             "type": "Pattern",
             "primary": true,
             "prefLabel": {
@@ -297,27 +297,27 @@
             "definition": {
                 "en": "This pattern describes the overall sequence of statements sent over the course of an attempt"
             },
-            "sequence": ["_:initialization", "_:middlestatements", "_:optionallycontinue", "_:termination"]
+            "sequence": ["https://w3id.org/xapi/scorm#initialization", "https://w3id.org/xapi/scorm#middlestatements", "https://w3id.org/xapi/scorm#optionallycontinue", "https://w3id.org/xapi/scorm#termination"]
         },
         {
-            "id": "_:activitystatements",
+            "id": "https://w3id.org/xapi/scorm#activitystatements",
             "type": "Pattern",
-            "alternates": ["_:scoactivity", "_:otheractivity", "_:commenting", "_:interactionactivity", "_:completing"]
+            "alternates": ["https://w3id.org/xapi/scorm#scoactivity", "https://w3id.org/xapi/scorm#otheractivity", "https://w3id.org/xapi/scorm#commenting", "https://w3id.org/xapi/scorm#interactionactivity", "https://w3id.org/xapi/scorm#completing"]
         },
         {
-            "id": "_:middlestatements",
+            "id": "https://w3id.org/xapi/scorm#middlestatements",
             "type": "Pattern",
-            "zeroOrMore": "_:activitystatements"
+            "zeroOrMore": "https://w3id.org/xapi/scorm#activitystatements"
         },
         {
-            "id": "_:suspendresume",
+            "id": "https://w3id.org/xapi/scorm#suspendresume",
             "type": "Pattern",
-            "sequence": ["_:suspension", "_:resumption", "_:middlestatements"]
+            "sequence": ["https://w3id.org/xapi/scorm#suspension", "https://w3id.org/xapi/scorm#resumption", "https://w3id.org/xapi/scorm#middlestatements"]
         },
         {
-            "id": "_:optionallycontinue",
+            "id": "https://w3id.org/xapi/scorm#optionallycontinue",
             "type": "Pattern",
-            "zeroOrMore": "_:suspendresume"
+            "zeroOrMore": "https://w3id.org/xapi/scorm#suspendresume"
         }
 
     ]

@@ -225,20 +225,20 @@
             "@container": "@set"
         },
         "optional": {
-            "@id": "profile:alternates",
+            "@id": "profile:optional",
             "@type": "@id"
         },
         "oneOrMore": {
-            "@id": "profile:alternates",
+            "@id": "profile:oneOrMore",
             "@type": "@id"
         },
         "sequence": {
-            "@id": "profile:alternates",
+            "@id": "profile:sequence",
             "@type": "@id",
             "@container": "@list"
         },
         "zeroOrMore": {
-            "@id": "profile:alternates",
+            "@id": "profile:zeroOrMore",
             "@type": "@id"
         }
     }
