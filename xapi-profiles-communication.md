@@ -37,29 +37,29 @@ Part Three:	[xAPI Profiles Communication and Processing Specification](./xapi-pr
 <a name="partthree"></a>
 # Part Three: Communication and Processing
 
-In addition to the ability to host profiles as documents, there will be infrastructure 
-for querying and manipulating profiles. This document describes the algorithms for 
-processing profiles, including the exact rules by which Statement Templates and Patterns 
+In addition to the ability to host Profiles as documents, there will be infrastructure 
+for querying and manipulating Profiles. This document describes the algorithms for 
+processing Profiles, including the exact rules by which Statement Templates and Patterns 
 are validated against Statements. It also describes a “Profile Server” to make it easier 
-to manage and answer questions about profiles from a centralized location, including 
+to manage and answer questions about Profiles from a centralized location, including 
 implementing the algorithms.
 
 ## <a name="1.0">1.0</a> Profile Server
 
-A Profile Server manages xAPI Profiles from a centralized location. [An RDF triple store](https://en.wikipedia.org/wiki/Triplestore) is responsible for the storage of profiles. 
-A Profile Server will allow administrators to add profiles by their contents or by URI to the Profile Server
+A Profile Server manages xAPI Profiles from a centralized location. [An RDF triple store](https://en.wikipedia.org/wiki/Triplestore) is responsible for the storage of Profiles. 
+A Profile Server will allow administrators to add Profiles by their contents or by URI to the Profile Server
 
 A Profile Server will host a SPARQL endpoint containing the RDF information from the 
-contained profiles at the path /SPARQL. This enables xAPI Profiles to be queried. SPARQL 
+contained Profiles at the path /sparql. This enables xAPI Profiles to be queried. SPARQL 
 servers have the ability to divide information into multiple datasets, or graphs, and 
 offer separate querying on them. One of these is the default graph, which is queried 
 when no other graph is specified. The default graph at this SPARQL endpoint will 
-contain all the current versions of profiles. 
+contain all the current versions of Profiles. 
 
 ### <a name="profile_versions">1.1</a> Profile Versions
 
-Every profile version will be in a [Named Graph](https://www.w3.org/TR/sparql11-query/#namedGraphs) 
-with a URI equal to the profile version's URI.  Non-current (and current) versions of 
+Every Profile version will be in a [Named Graph](https://www.w3.org/TR/sparql11-query/#namedGraphs) 
+with a URI equal to the Profile version's URI.  Non-current (and current) versions of 
 Profiles are required to be in named graphs with URIs of their version.  This means 
 they can be queried directly by specifying the URI. Additionally, the current version 
 in the default graph has the versioning information, making it possible to traverse 
@@ -67,21 +67,21 @@ them without knowing their URIs in advance. Reasons why one would query versions
 of xAPI Profiles include retrieving a version used by an xAPI Statement, and/or 
 understanding when a concept was deprecated or removed.
 
-The URI of the named graph is always the URI of the profile version. Note: The URI of the 
+The URI of the named graph is always the URI of the Profile version. Note: The URI of the 
 named graph doesn't mean the URI it is retrieved at, it means the URI used to refer to it 
 within SPARQL/the RDF store.
 
 In summary: by default, queries will only operate on up to date 
-information; if historical profile information is needed, it is available.
+information; if historical Profile information is needed, it is available.
 
 ### <a name="profile_server_best_practices">1.2</a> Best Practices
 
-Some best practices are recomended when adding a profile to a profile server. A technical 
-review process is warranted to check profiles for following the specification. As well, 
-analysis is recommended to ensure the contents of a profile are of the highest quality. 
-Upon following these practices, a profile should be added to a profile server.
+Some best practices are recomended when adding a Profile to a Profile Server. A technical 
+review process is warranted to check Profiles for following the specification. As well, 
+analysis is recommended to ensure the contents of a Profile are of the highest quality. 
+Upon following these practices, a Profile should be added to a Profile server.
 
-As language maps enable the multiple translations of an xAPI Profile, it is advisable to
+As Profiles support localizations to multiple languages and localities, it is advisable to
 provide mechanisms to encourage contribution of xAPI Profile translations. To promote and 
 to protect the use of an xAPI Profile made publicly available, it is strongly encouraged
 that any xAPI Profile provided through a Profile Server be open-licensed.
@@ -90,7 +90,7 @@ that any xAPI Profile provided through a Profile Server be open-licensed.
 
 Here are a selection of questions and the SPARQL queries that answer them, for retrieving 
 commonly needed information from the server. All these SPARQL queries can also be run 
-locally by loading one or more profiles into an RDF library and running SPARQL queries 
+locally by loading one or more Profiles into an RDF library and running SPARQL queries 
 against them directly, with minor modifications depending on how the data is loaded.
 
 All queries start with the following block of prefixes:
@@ -122,7 +122,7 @@ where {
 Depending on some modeling choices, it may be necessary to add a line that prevents 
 retrieving the versions as well.
 
-“What verbs and activity types does this profile describe?”
+“What verbs and activity types does this Profile describe?”
 
 
 ```sparql
@@ -139,8 +139,8 @@ where {
 ```
 
 
-“What Statement Templates are available in this profile?”, “What Patterns are available 
-in this profile?”
+“What Statement Templates are available in this Profile?”, “What Patterns are available 
+in this Profile?”
 
 Virtually identical to the above, just replace being a Verb or Activity Type with Statement 
 Template or Pattern. We're able to use inScheme because the server includes semantic 
@@ -398,17 +398,18 @@ functions, will be an xAPI Profile Processor library.
 
 For each of the `validates`, and `follows`, the Profile Server will provide web APIs that are 
 strongly Not Recommended for production usage, but are suitable for experimentation and 
-demonstration. It is against best practice to go out to a third party server (or any server, 
-unnecessarily) on the critical path (such as when doing server-side validation of an API), 
-or in a context where internet access isn't guaranteed (such as when using an authoring tool). 
+demonstration. Code on the critical path (such as validating Statements against Profiles on LRS
+intake), or that might be used when internet access is not available (such as when using an
+authoring tool), should not use these APIs, and should use their own code or an xAPI Profile
+Processor Library as appropriate. 
 
 Additionally, the pseudocode above isn't written to support processing as data is received, 
 as that both adds complication and needs to be adapted to the exact capabilities of the 
 implementing system.
 
 Their URL paths will be /validate_templates and /validate_patterns, respectively. The first 
-will take a single xAPI Statement and a profile specified by id, specified in POST variables 
-as “statement” and “profile”. The second will take an array of xAPI Statements and a profile 
+will take a single xAPI Statement and a Profile specified by id, specified in POST variables 
+as “statement” and “profile”. The second will take an array of xAPI Statements and a Profile 
 specified by id, both specified in POST variables as “statements” and “profile”.
 
 Both will perform the algorithms above and return 204 on successful validation and 400 on 
