@@ -1,5 +1,5 @@
 # xapi-profiles
-A set of documents addressing the structure of and supporting services for xAPI Profiles.
+A companion specification to xAPI that addresses the structure and supporting services for xAPI Profiles.
 
 This Github repository contains the xAPI Profiles Specification. [xAPI](https://github.com/adlnet/xAPI-Spec) is a learning
 technologies interoperability specification that describes communication
