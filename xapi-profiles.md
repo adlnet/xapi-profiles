@@ -104,7 +104,8 @@ and not-as-technical):
 >Don’t worry - you are not a dummy. But computers definitely are, which is exactly why we need
 >linked data on the web...”
 
-<a name="how-to-use-partone">## 2.0</a> How to Use This Document 
+## 
+<a name="how-to-use-partone">2.0</a> How to Use This Document 
 
 
 This is a definitive document which describes how the xAPI Profiles are to be implemented.
