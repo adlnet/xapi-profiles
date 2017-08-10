@@ -1,8 +1,8 @@
 # xAPI Profiles
 
 * Part One: [About xAPI Profiles](#partone)
-   *  1.0. [Introduction](#introduction)
-   *  2.0. [How to Use This Document](#how-to-use-this-document)
+   *  1.0. [Introduction](#introduction-partone)
+   *  2.0. [How to Use This Document](#how-partone)
       *  2.1. [MUST / SHOULD / MAY](./xapi-profiles.md#def-must-should-may)
       *  2.2. [Guidelines for Interpreting Descriptive Text and Tables](./xapi-profiles.md#interpret-text-table)
    *  3.0. [Definitions](./xapi-profiles.md#definitions)
