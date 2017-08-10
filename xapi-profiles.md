@@ -4,7 +4,7 @@
    *  1.0. [Introduction](./xapi-profiles.md#introduction-partone)
    *  2.0. [How to Use This Document](./xapi-profiles.md#2.0)
       *  2.1. [MUST / SHOULD / MAY](./xapi-profiles.md#def-must-should-may)
-      *  2.2. [Guidelines for Interpreting Descriptive Text and Tables]./xapi-profiles.md#interpret-text-table)
+      *  2.2. [Guidelines for Interpreting Descriptive Text and Tables](./xapi-profiles.md#interpret-text-table)
    *  3.0. [Definitions](./xapi-profiles.md#definitions)
 * Part Two:	[xAPI Profiles Document Structure Specification](./xapi-profiles.md#parttwo)  
    *	1.0.	[Reference Specifications](./xapi-profiles.md#1.0)
