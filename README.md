@@ -6,9 +6,10 @@ technologies interoperability specification that describes communication
 about learner activity and experiences between technologies. The xAPI Profiles Specification stands as a
 companion to xAPI, and is divided into three documents:
 
-* Part One: [About xAPI Profiles](./xapi-profiles-about.md)
-* Part Two: [xAPI Profiles Structure](./xapi-profiles-structure.md)
-* Part Three: [xAPI Profiles Communication and Processing](./xapi-profiles-communication.md)
+* Table of Contents: [TOC xAPI Profiles](./xapi-profiles.md)
+* Part One: [About xAPI Profiles](./xapi-profiles.md#part-one)
+* Part Two: [xAPI Profiles Structure](./xapi-profiles.md#part-two)
+* Part Three: [xAPI Profiles Communication and Processing](./xapi-profiles.md#part-three)
 
 ## Specification versions
 
