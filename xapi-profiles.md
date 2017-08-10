@@ -2,7 +2,7 @@
 
 * Part One: [About xAPI Profiles](#partone)
    *  1.0. [Introduction](#introduction-partone)
-   *  2.0. [How to Use This Document](#how-partone)
+   *  2.0. [How to Use This Document](#how-to-use-partone)
       *  2.1. [MUST / SHOULD / MAY](./xapi-profiles.md#def-must-should-may)
       *  2.2. [Guidelines for Interpreting Descriptive Text and Tables](./xapi-profiles.md#interpret-text-table)
    *  3.0. [Definitions](./xapi-profiles.md#definitions)
@@ -104,7 +104,7 @@ and not-as-technical):
 >Don’t worry - you are not a dummy. But computers definitely are, which is exactly why we need
 >linked data on the web...”
 
-## <a name="2.0">2.0</a> How to Use This Document
+## <a name="how-to-use-partone">2.0</a> How to Use This Document
 
 This is a definitive document which describes how the xAPI Profiles are to be implemented.
 It is a technical document authored specifically for individuals and organizations implementing this
