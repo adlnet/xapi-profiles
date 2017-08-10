@@ -32,7 +32,7 @@
    * 2.0. [Algorithms](./xapi-profiles-communication#2.0)
       * 2.1. [Statement Template Validation](./xapi-profiles-communication#2.1)
       * 2.2. [Pattern Validation](./xapi-profiles-communication#2.2)
-  * 3.0. [Libraries](#Libraries)
+  * 3.0. [Libraries](./xapi-profiles-communication#3.0)
 
 >#### License
 >
@@ -1304,7 +1304,7 @@ order insofar as that can be determined. If Statements are received in the same 
 are being checked upon receipt, within the batch Statements MUST be ordered first by timestamp,
 and if timestamps are the same, by order within the Statement array, with lower indices earlier.
 
-### Libraries
+### <a name="3.0">3.0</a> Libraries
 
 Any programming library that implements the algorithms given here, exposing all of the listed
 functions, will be an xAPI Profile Processor library.
