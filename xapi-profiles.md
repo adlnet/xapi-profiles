@@ -1304,7 +1304,7 @@ order insofar as that can be determined. If Statements are received in the same 
 are being checked upon receipt, within the batch Statements MUST be ordered first by timestamp,
 and if timestamps are the same, by order within the Statement array, with lower indices earlier.
 
-### <a name="3.0">3.0</a> Libraries
+### Libraries
 
 Any programming library that implements the algorithms given here, exposing all of the listed
 functions, will be an xAPI Profile Processor library.
