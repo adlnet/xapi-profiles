@@ -1,8 +1,8 @@
 # xAPI Profiles
 
 * Part One: [About xAPI Profiles](#partone)
-   *  1.0. [Introduction](#introduction-partone)
-   *  2.0. [How to Use This Document](#how-to-use-partone)
+   *  1.0. [Introduction](#introduction)
+   *  2.0. [How to Use This Document](#how-to-use-this-doc)
       *  2.1. [MUST / SHOULD / MAY](./xapi-profiles.md#def-must-should-may)
       *  2.2. [Guidelines for Interpreting Descriptive Text and Tables](./xapi-profiles.md#interpret-text-table)
    *  3.0. [Definitions](./xapi-profiles.md#definitions)
@@ -57,7 +57,7 @@
 <a name="partone"></a>
 # Part One: About xAPI Profiles
 
-<a name="introduction-partone"></a>
+<a name="introduction"></a>
 ## 1.0 Introduction
 
 The Experience API (xAPI) Profiles Specification is a technical document that aims to
@@ -104,8 +104,8 @@ and not-as-technical):
 >Don’t worry - you are not a dummy. But computers definitely are, which is exactly why we need
 >linked data on the web...”
 
-## 
-<a name="how-to-use-partone">2.0</a> How to Use This Document 
+<a name="how-to-use-this-doc"></a>
+## 2.0 How to Use This Document 
 
 
 This is a definitive document which describes how the xAPI Profiles are to be implemented.
