@@ -26,7 +26,7 @@
    *  10.0. [The Context](#context)
 * Part Three:	[xAPI Profiles Communication and Processing Specification](#part-three)  
    * 1.0. [Profile Server](#prof-server)
-      * 1.1. [Profile Versions](#prof_versions)
+      * 1.1. [Profile Versions](#prof-versions)
       * 1.2. [Best Practices](#best-practices)
       * 1.3. [Example SPARQL Queries](#example-sparql)
    * 2.0. [Algorithms](#algorithms)
