@@ -32,7 +32,7 @@
    * 2.0. [Algorithms](./xapi-profiles.md#2.0)
       * 2.1. [Statement Template Validation](./xapi-profiles.md#2.1)
       * 2.2. [Pattern Validation](./xapi-profiles.md#2.2)
-  * 3.0. [Libraries](./xapi-profiles.md#3.0)
+  * 3.0. [Libraries](./xapi-profiles.md#3.0-libraries)
 
 >#### License
 >
