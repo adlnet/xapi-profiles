@@ -32,7 +32,7 @@
    * 2.0. [Algorithms](./xapi-profiles.md#2.0)
       * 2.1. [Statement Template Validation](./xapi-profiles.md#2.1)
       * 2.2. [Pattern Validation](./xapi-profiles.md#2.2)
-  * 3.0. [Libraries](#Libraries)
+  * 3.0. [Libraries](./xapi-profiles.md#libraries)
 
 >#### License
 >
@@ -54,7 +54,7 @@
 
 ## Table of Contents
 
-
+<a name="partone"></a>
 # Part One: About xAPI Profiles
 
 <a name="introduction-partone"></a>
