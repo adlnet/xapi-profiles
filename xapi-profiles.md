@@ -181,7 +181,7 @@ even if there no requirement in a given area.
 * [Attachment Usage Type](#attachmentusagetype)
 * [Compact IRI](#compactiri)
 * [Concept](#concept)
-* [Context](#context)
+* [Context](#def-context)
 * [Document Resource](#documentresource)
 * [Experience API (xAPI)](#xapi)
 * [Extension](#extension)
@@ -225,7 +225,7 @@ even if there no requirement in a given area.
 
 <a name=concept""></a>**Concept**: In SKOS, any unit of thought. In this specification, any of a particular list of possible things a Profile might describe.
 
-<a name="context"></a>**Context**: In xAPI this refers to a part of a Statement, but in this specification it usually means a [JSON-LD `@context`](https://www.w3.org/TR/json-ld/#the-context), which is a way of mapping JSON onto semantic terms and RDF.
+<a name="def-context"></a>**Context**: In xAPI this refers to a part of a Statement, but in this specification it usually means a [JSON-LD `@context`](https://www.w3.org/TR/json-ld/#the-context), which is a way of mapping JSON onto semantic terms and RDF.
 
 <a name="documentresource"></a>**Document Resource**: An [Experience API Document Resource](https://github.com/adlnet/xAPI-Spec/blob/master/xAPI-Communication.md#22-document-resources). This specification helps Profile Authors describe what Document Resources in particular locations need to look like.
 
