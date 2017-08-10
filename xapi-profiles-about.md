@@ -1,12 +1,12 @@
 # xAPI Profiles
 
-Part One: [About xAPI Profiles](./xapi-profiles-about.md#partone)
+[__Part One: [About xAPI Profiles]__](./xapi-profiles-about.md#partone)
    *  1.0. [Introduction](./xapi-profiles-about.md#introduction-partone)
    *  2.0. [How to Use This Document](./xapi-profiles-about.md#2.0)
       *  2.1. [MUST / SHOULD / MAY](./xapi-profiles-about.md#def-must-should-may)
       *  2.2. [Guidelines for Interpreting Descriptive Text and Tables]./xapi-profiles-about.md#interpret-text-table)
    *  3.0. [Definitions](./xapi-profiles-about.md#definitions)
-Part Two:	[xAPI Profiles Document Structure Specification](./xapi-profiles-structure.md#parttwo)  
+[__Part Two:	[xAPI Profiles Document Structure Specification]__](./xapi-profiles-structure.md#parttwo)  
    *	1.0.	[Reference Specifications](./xapi-profiles-structure#1.0)
    *	2.0.	[Technical Foundations](./xapi-profiles-structure#2.0)
    *  3.0.  [Structure](./xapi-profiles-structure#3.0)
@@ -24,7 +24,7 @@ Part Two:	[xAPI Profiles Document Structure Specification](./xapi-profiles-struc
       *  8.1.  [Statement Template Rules](./xapi-profiles-structure.md#8.1)
    *  9.0.  [Patterns](./xapi-profiles-structure.md#9.0)
    *  10.0. [The Context](./xapi-profiles-structure.md#10.0)
-Part Three:	[xAPI Profiles Communication and Processing Specification](./xapi-profiles-communication.md#partthree)  
+[__Part Three:	[xAPI Profiles Communication and Processing Specification]__](./xapi-profiles-communication.md#partthree)  
    * 1.0. [Profile Server](./xapi-profiles-communication#1.0)
       * 1.1. [Profile Versions](./xapi-profiles-communication#profile_versions)
       * 1.2. [Best Practices](xapi-profiles-communication#profile_server_best_practices)
