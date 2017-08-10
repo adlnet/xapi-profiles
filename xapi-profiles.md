@@ -32,7 +32,7 @@
    * 2.0. [Algorithms](./xapi-profiles-communication#2.0)
       * 2.1. [Statement Template Validation](./xapi-profiles-communication#2.1)
       * 2.2. [Pattern Validation](./xapi-profiles-communication#2.2)
-  * 3.0. [Libraries](./xapi-profiles-communication#3.0)
+  * 3.0. [Libraries](./xapi-profiles-communication#30-libraries)
 
 >#### License
 >
