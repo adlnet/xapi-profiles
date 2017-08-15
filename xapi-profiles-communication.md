@@ -1,40 +1,42 @@
-Part One: [About xAPI Profiles](./xapi-profiles-about.md#partone)
-   *  1.0. [Introduction](./xapi-profiles-about.md#introduction-partone)
-   *  2.0. [How to Use This Document](./xapi-profiles-about.md#2.0)
+# xAPI Profiles
+
+* Part One: [About xAPI Profiles](./xapi-profiles-about.md#part-one)
+   *  1.0. [Introduction](./xapi-profiles-about.md#introduction)
+   *  2.0. [How to Use This Document](./xapi-profiles-about.md#how-to-use-this-doc)
       *  2.1. [MUST / SHOULD / MAY](./xapi-profiles-about.md#def-must-should-may)
-      *  2.2. [Guidelines for Interpreting Descriptive Text and Tables]./xapi-profiles-about.md#interpret-text-table)
+      *  2.2. [Guidelines for Interpreting Descriptive Text and Tables](./xapi-profiles-about.md#interpret-text-table)
    *  3.0. [Definitions](./xapi-profiles-about.md#definitions)
-Part Two:	[xAPI Profiles Document Structure Specification](./xapi-profiles-structure.md#parttwo)  
-   *	1.0.	[Reference Specifications](./xapi-profiles-structure#1.0)
-   *	2.0.	[Technical Foundations](./xapi-profiles-structure#2.0)
-   *  3.0.  [Structure](./xapi-profiles-structure#3.0)
-   *  4.0.  [Document Interpretation and General Restrictions](./xapi-profiles-structure.md#4.0)
-   *  5.0.  [Using Profiles in Statements](./xapi-profiles-structure.md#5.0)
-   *  6.0.  [Profile Properties](./xapi-profiles-structure.md#6.0)
-      *  6.1.  [Profile Version Objects](./xapi-profiles-structure.md#6.1)
-      *  6.2.  [Organizations and Persons](./xapi-profiles-structure.md#6.2)
-   *  7.0.  [Concepts](./xapi-profiles-structure.md#7.0)
-      *  7.1.  [Verbs, Activity Types, and Attachment Usage Types](./xapi-profiles-structure.md#7.1)
-      *  7.2.  [Extensions](./xapi-profiles-structure.md#7.2)
-      *  7.3.  [Document Resources](./xapi-profiles-structure.md#7.3)
-      *  7.4.  [Activities](./xapi-profiles-structure.md#7.4)
-   *  8.0.  [Statement Templates](./xapi-profiles-structure.md#8.0)
-      *  8.1.  [Statement Template Rules](./xapi-profiles-structure.md#8.1)
-   *  9.0.  [Patterns](./xapi-profiles-structure.md#9.0)
-   *  10.0. [The Context](./xapi-profiles-structure.md#10.0)
-Part Three:	[xAPI Profiles Communication and Processing Specification](./xapi-profiles-communication.md#partthree)  
- * 1.0. [Profile Server](./xapi-profiles-communication#1.0)
-    * 1.1. [Profile Versions](./xapi-profiles-communication#profile_versions)
-    * 1.2. [Best Practices](xapi-profiles-communication#profile_server_best_practices)
-    * 1.3. [Example SPARQL Queries](xapi-profiles-communication#1.3)
- * 2.0. [Algorithms](./xapi-profiles-communication#2.0)
-    * 2.1. [Statement Template Validation](./xapi-profiles-communication#2.1)
-    * 2.2. [Pattern Validation](./xapi-profiles-communication#2.2)
- * 3.0. [Libraries](./xapi-profiles-communication#3.0)
+* Part Two: [xAPI Profiles Document Structure Specification](./xapi-profiles-structure.md#part-two)  
+   *  1.0.  [Reference Specifications](./xapi-profiles-structure.md#ref-spec)
+   *  2.0.  [Technical Foundations](./xapi-profiles-structure.md#tech-foundations)
+   *  3.0.  [Structure](./xapi-profiles-structure.md#structure)
+   *  4.0.  [Document Interpretation and General Restrictions](./xapi-profiles-structure.md#doc-interp-gen-restrict)
+   *  5.0.  [Using Profiles in Statements](./xapi-profiles-structure.md#using-prof-statements)
+   *  6.0.  [Profile Properties](./xapi-profiles-structure.md#prof-props)
+      *  6.1.  [Profile Version Objects](./xapi-profiles-structure.md#prof-ver-obj)
+      *  6.2.  [Organizations and Persons](./xapi-profiles-structure.md#orgs-persons)
+   *  7.0.  [Concepts](./xapi-profiles-structure.md#concepts)
+      *  7.1.  [Verbs, Activity Types, and Attachment Usage Types](./xapi-profiles-structure.md#verb-activity-attach)
+      *  7.2.  [Extensions](./xapi-profiles-structure.md#extensions)
+      *  7.3.  [Document Resources](./xapi-profiles-structure.md#doc-resources)
+      *  7.4.  [Activities](./xapi-profiles-structure.md#activities)
+   *  8.0.  [Statement Templates](./xapi-profiles-structure.md#statment-templates)
+      *  8.1.  [Statement Template Rules](./xapi-profiles-structure.md#statement-template-rules)
+   *  9.0.  [Patterns](./xapi-profiles-structure.md#patterns)
+   *  10.0. [The Context](./xapi-profiles-structure.md#context)
+* Part Three: [xAPI Profiles Communication and Processing Specification](./xapi-profiles-communication.md#part-three)  
+   * 1.0. [Profile Server](./xapi-profiles-communication.md#prof-server)
+      * 1.1. [Profile Versions](./xapi-profiles-communication.md#prof-versions)
+      * 1.2. [Best Practices](./xapi-profiles-communication.md#best-practices)
+      * 1.3. [Example SPARQL Queries](./xapi-profiles-communication.md#example-sparql)
+   * 2.0. [Algorithms](./xapi-profiles-communication.md#algorithms)
+      * 2.1. [Statement Template Validation](./xapi-profiles-communication.md#statement-template-valid)
+      * 2.2. [Pattern Validation](./xapi-profiles-communication.md#pattern-valid)
+  * 3.0. [Libraries](./xapi-profiles-communication.md#libraries)
 
 
 
-<a name="partthree"></a>
+<a name="part-three"></a>
 # Part Three: Communication and Processing
 
 In addition to the ability to host Profiles as documents, there will be infrastructure
@@ -44,7 +46,8 @@ are validated against Statements. It also describes a “Profile Server” to ma
 to manage and answer questions about Profiles from a centralized location, including
 implementing the algorithms.
 
-## <a name="1.0">1.0</a> Profile Server
+<a name="prof-server"></a>
+## 1.0 Profile Server
 
 A Profile Server manages xAPI Profiles from a centralized location. [An RDF triple store](https://en.wikipedia.org/wiki/Triplestore) is responsible for the storage of Profiles.
 A Profile Server will allow administrators to add Profiles by their contents or by URI to the Profile Server
@@ -58,7 +61,8 @@ contain all the current versions of Profiles.
 
 A Profile Server will include inference logic for the following, at minimum: all SKOS predicate relationships, and `profile:concepts`, `profile:templates`, and `profile:patterns` being subproperties of the inverse of `skos:inScheme`.
 
-### <a name="profile_versions">1.1</a> Profile Versions
+<a name="prof-versions"></a>
+### 1.1 Profile Versions
 
 Every Profile version will be in a [Named Graph](https://www.w3.org/TR/sparql11-query/#namedGraphs)
 with a URI equal to the Profile version's URI.  Non-current (and current) versions of
@@ -76,7 +80,8 @@ within SPARQL/the RDF store.
 In summary: by default, queries will only operate on up to date
 information; if historical Profile information is needed, it is available.
 
-### <a name="profile_server_best_practices">1.2</a> Best Practices
+<a name="best-practices"></a>
+### 1.2 Best Practices
 
 Some best practices are recomended when adding a Profile to a Profile Server. A technical
 review process is warranted to check Profiles for following the specification. As well,
@@ -88,7 +93,9 @@ provide mechanisms to encourage contribution of xAPI Profile translations. To pr
 to protect the use of an xAPI Profile made publicly available, it is strongly encouraged
 that any xAPI Profile provided through a Profile Server be open-licensed.
 
-### <a name="1.3">1.3</a> Example SPARQL Queries
+<a name="example-sparql"></a>
+### 1.3 Example SPARQL Queries
+
 
 Here are a selection of questions and the SPARQL queries that answer them, for retrieving
 commonly needed information from the server. All these SPARQL queries can also be run
@@ -147,7 +154,8 @@ Template or Pattern. We're able to use inScheme because the server includes sema
 metadata letting it know that being a Statement Template, being a Concept, and being a
 Pattern are all forms of being inScheme, which is a general inclusion predicate.
 
-## <a name="2.0">2.0</a> Algorithms
+<a name="algorithms"></a>
+## 2.0 Algorithms
 
 This section specifies two primary algorithms. The first, given a Statement and a set of
 Statement Templates, validates the Statement against all applicable Statement Templates in
@@ -156,7 +164,8 @@ matching Statement Templates does not validate against the Statement. The second
 collection of Statements and a set of Patterns, validates if the Statements follows any of
 the Patterns.
 
-### <a name="2.1">2.1</a> Statement Template Validation
+<a name="statement-template-valid"></a>
+### 2.1 Statement Template Validation
 
 To validate a Statement against the Statement Templates of a Profile, call the `validates`
 function described in pseudocode below with the Statement and all the Statement Templates
@@ -275,7 +284,8 @@ invalid   | non empty | one or more Statement Templates matched but not all thei
 unmatched | empty     | no Statement Templates matched
 
 
-### <a name="2.2">2.2</a> Pattern Validation
+<a name="pattern-valid"></a>
+### 2.2 Pattern Validation
 
 To validate a series of Statements sharing a registration (and, if applicable, subregistration)
 follows a specified Profile, apply the `follows` algorithm described below, which returns
@@ -391,7 +401,8 @@ order insofar as that can be determined. If Statements are received in the same 
 are being checked upon receipt, within the batch Statements MUST be ordered first by timestamp,
 and if timestamps are the same, by order within the Statement array, with lower indices earlier.
 
-## <a name="3.0">3.0</a> Libraries
+<a name="libraries"></a>
+## 3.0 Libraries
 
 Any programming library that implements the algorithms given here, exposing all of the listed
 functions, will be an xAPI Profile Processor library.
