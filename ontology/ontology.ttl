@@ -1,0 +1,284 @@
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix xapi: <https://w3id.org/xapi/ontology#> .
+@prefix xapiprof: <https://w3id.org/xapi/profiles/ontology#> .
+
+xapiprof: a owl:Ontology ;
+  rdfs:label "xAPI Profile Ontology"@en ;
+  rdfs:comment "This ontology contains the classes and properties that are used when for semantically expressing the concepts and statement templates associated with an xAPI Profile."@en .
+
+#################################################################
+### Classes
+#################################################################
+
+xapiprof:Profile a owl:Class ;
+    rdfs:label "Profile"@en ;
+    rdfs:comment "The Class used to represent an xAPI Profile."@en ;
+    rdfs:subClassOf skos:ConceptScheme .
+
+xapiprof:StatementTemplate a owl:Class ;
+    rdfs:label "StatementTemplate"@en ;
+    rdfs:comment "The Class used to represent a Statement Template in a Profile."@en ;
+    rdfs:subClassOf skos:Concept .
+
+xapiprof:StatementTemplateRule a owl:Class ;
+    rdfs:label "StatementTemplateRule"@en ;
+    rdfs:comment "The Class used to represent a Statement Template Rule associated with a Statement Template."@en .
+
+xapiprof:Pattern a owl:Class ;
+    rdfs:label "Pattern"@en ;
+    rdfs:comment "The Class used to represent a Pattern of Statement Templates in a Profile."@en ;
+    rdfs:subClassOf skos:Concept .
+
+#################################################################
+### Properties
+#################################################################
+
+xapiprof:concepts a owl:ObjectProperty ;
+    rdfs:label "concepts"@en ;
+    rdfs:comment "A property used to indicate an array of Concepts associated with a Profile."@en ;
+    rdfs:subPropertyOf [
+        owl:inverseOf skos:inScheme
+    ] .
+
+xapiprof:templates a owl:ObjectProperty ;
+    rdfs:label "templates"@en ;
+    rdfs:comment "A property used to indicate an array of Statement Templates associated with a Profile."@en ;
+    rdfs:subPropertyOf [
+        owl:inverseOf skos:inScheme
+    ] .
+
+
+xapiprof:patterns a owl:ObjectProperty ;
+    rdfs:label "patterns"@en ;
+    rdfs:comment "A property used to indicate an array of Statement Templates associated with a Profile."@en ;
+    rdfs:subPropertyOf [
+        owl:inverseOf skos:inScheme
+    ] .
+
+
+xapiprof:deprecated a owl:DatatypeProperty ;
+    rdfs:label "deprecated"@en ;
+    rdfs:comment "A property used to indicate a Concept has become obsolete."@en ;
+    rdfs:domain skos:Concept ;
+    rdfs:range xsd:boolean .
+
+
+xapiprof:versions a owl:ObjectProperty ;
+    rdfs:label "versions"@en ;
+    rdfs:comment "A property used to indicate an array of all Profile version objects for this Profile."@en ;
+    rdfs:subPropertyOf prov:specializationOf ;
+    rdfs:domain xapiprof:Profile ;
+    rdfs:range xapiprof:Profile .
+
+xapiprof:recommendedActivityTypes a owl:ObjectProperty ;
+    rdfs:label "recommendedActivityTypes"@en ;
+    rdfs:comment "A property used to indicate an array of activity type URIs that is recommended to be used with an Extension."@en ;
+    rdfs:domain xapi:Extension ;
+    rdfs:range xapi:ActivityType .
+
+xapiprof:recommendedVerbs a owl:ObjectProperty ;
+    rdfs:label "recommendedVerbs"@en ;
+    rdfs:comment "A property used to indicate an array of activity type URIs that is recommended to be used with an Extension."@en ;
+    rdfs:domain xapi:Extension ;
+    rdfs:range xapi:Verb .
+
+
+xapiprof:context a owl:ObjectProperty ;
+    rdfs:label "context"@en ;
+    rdfs:comment "A property used to identify the IRI of a JSON-LD context for an Extension."@en ;
+    rdfs:domain [
+        owl:disjointUnionOf (
+            xapi:Extension
+            xapi:DocumentResource
+        )
+    ] ;
+    rdfs:range rdfs:Resource .
+
+xapiprof:schema a owl:ObjectProperty ;
+    rdfs:label "schema"@en ;
+    rdfs:comment "A property used to identify the IRI for accessing a JSON Schema for an Extension. The JSON Schema can be used to constrain the Extension to a single type."@en ;
+    rdfs:domain [
+        owl:disjointUnionOf (
+            xapi:Extension
+            xapi:DocumentResource
+        )
+    ] ;
+    rdfs:range rdfs:Resource .
+
+
+xapiprof:inlineSchema a owl:DatatypeProperty ;
+    rdfs:label "inlineSchema"@en ;
+    rdfs:comment "A property used to identify an alternate way to include a JSON Schema, as a string."@en ;
+    rdfs:domain [
+        owl:disjointUnionOf (
+            xapi:Extension
+            xapi:DocumentResource
+        )
+    ] ;
+    rdfs:range xsd:string .
+
+xapiprof:contentType a owl:DatatypeProperty ;
+    rdfs:label "contentType"@en ;
+    rdfs:comment "A property used to identify the media type for the resource, as described in RFC 2046 (e.g. application/json)."@en ;
+    rdfs:domain xapi:DocumentResource ;
+    rdfs:range xsd:string .
+
+xapiprof:activityDefinition a owl:ObjectProperty ;
+    rdfs:label "activityDefinition"@en ;
+    rdfs:comment "A property used to identify the ActivityDefinition in a Statement Template ."@en ;
+    rdfs:domain xapi:Activity ;
+    rdfs:range xapi:ActivityDefinition .
+
+xapiprof:verb a owl:ObjectProperty ;
+    rdfs:label "verb"@en ;
+    rdfs:comment "A property used to identify the Verb IRI in a Statement Template."@en ;
+    rdfs:domain xapiprof:StatementTemplate ;
+    rdfs:range xapi:Verb .
+
+xapiprof:objectActivityType a owl:ObjectProperty ;
+    rdfs:label "objectActivityType"@en ;
+    rdfs:comment "A property used to identify the ActivityType IRI in a Statement Template."@en ;
+    rdfs:domain xapiprof:StatementTemplate ;
+    rdfs:range xapi:ActivityType .
+
+xapiprof:contextGroupingActivityType a owl:ObjectProperty ;
+    rdfs:label "contextGroupingActivityType"@en ;
+    rdfs:comment "A property used to indicate an array of contextActivities grouping of activity type IRIs in a Statement Template."@en ;
+    rdfs:domain xapiprof:StatementTemplate ;
+    rdfs:range xapi:ActivityType .
+
+xapiprof:contextParentActivityType a owl:ObjectProperty ;
+    rdfs:label "contextParentActivityType"@en ;
+    rdfs:comment "A property used to indicate an array of contextActivities parent activity type IRIs in a Statement Template."@en ;
+    rdfs:domain xapiprof:StatementTemplate ;
+    rdfs:range xapi:ActivityType .
+
+xapiprof:contextOtherActivityType a owl:ObjectProperty ;
+    rdfs:label "contextOtherActivityType"@en ;
+    rdfs:comment "A property used to indicate an array of contextActivities other activity type IRIs in a Statement Template."@en ;
+    rdfs:domain xapiprof:StatementTemplate ;
+    rdfs:range xapi:ActivityType .
+
+xapiprof:contextCategoryActivityType a owl:ObjectProperty ;
+    rdfs:label "contextCategoryActivityType"@en ;
+    rdfs:comment "A property used to indicate an array of contextActivities category activity type IRIs in a Statement Template."@en ;
+    rdfs:domain xapiprof:StatementTemplate ;
+    rdfs:range xapi:ActivityType .
+
+xapiprof:attachmentUsageType a owl:ObjectProperty ;
+    rdfs:label "attachmentUsageType"@en ;
+    rdfs:comment "A property used to indicate an array of attachment usage type IRIs in a Statement Template."@en ;
+    rdfs:domain xapiprof:StatementTemplate ;
+    rdfs:range xapi:AttachmentUsageType .
+
+xapiprof:objectStatementRefTemplate a owl:ObjectProperty ;
+    rdfs:label "objectStatementRefTemplate"@en ;
+    rdfs:comment "A property used to indicate an array of object identifiers in a Statement Template."@en ;
+    rdfs:domain xapiprof:StatementTemplate ;
+    rdfs:range xapiprof:StatementTemplate .
+
+xapiprof:contextStatementRefTemplate a owl:ObjectProperty ;
+    rdfs:label "contextStatementRefTemplate"@en ;
+    rdfs:comment "A property used to indicate an array of context identifiers in a Statement Template."@en ;
+    rdfs:domain xapiprof:StatementTemplate ;
+    rdfs:range xapiprof:StatementTemplate .
+
+xapiprof:rules a owl:ObjectProperty ;
+    rdfs:label "rules"@en ;
+    rdfs:comment "A property used to indicate an array of of Statement Template Rules in a Profile."@en ;
+    rdfs:domain xapiprof:StatementTemplate ;
+    rdfs:range xapiprof:StatementTemplateRule .
+
+xapiprof:location a owl:DatatypeProperty ;
+    rdfs:label "location"@en ;
+    rdfs:comment "A property used to indicate a JSONPath string of values for evaluating and applying the requirements in a Statement Template Rule."@en ;
+    rdfs:domain xapiprof:Pattern ;
+    rdfs:range xsd:string .
+
+xapiprof:selector a owl:DatatypeProperty ;
+    rdfs:label "selector"@en ;
+    rdfs:comment "A property used to indicate a JSONPath string of values for evaluating each member of the location in a Statement Template Rule."@en ;
+    rdfs:domain xapiprof:Pattern ;
+    rdfs:range xsd:string .
+
+xapiprof:presence a owl:DatatypeProperty ;
+    rdfs:label "presence"@en ;
+    rdfs:comment "A property used to used to determine the value of a selector in a Statement Template Rule. The value should be 'included', 'excluded', or 'recommended'."@en ;
+    rdfs:domain xapiprof:Pattern ;
+    rdfs:range xsd:string .
+
+xapiprof:any a rdf:Property ;
+    rdfs:label "any"@en ;
+    rdfs:comment "A property used to indicate an array of values that must intersect with the matchable values in a Statement Template Rule."@en ;
+    rdfs:domain xapiprof:Pattern .
+
+xapiprof:all a rdf:Property ;
+    rdfs:label "all"@en ;
+    rdfs:comment "A property used to indicate an array of values in which all the evaluated values must be matchable in a Statement Template Rule."@en ;
+    rdfs:domain xapiprof:Pattern .
+
+xapiprof:none a rdf:Property ;
+    rdfs:label "none"@en ;
+    rdfs:comment "A property used to indicate an array of values that can't be in the matchable values in a Statement Template Rule."@en ;
+    rdfs:domain xapiprof:Pattern .
+
+xapiprof:primary a owl:DatatypeProperty ;
+    rdfs:label "primary"@en ;
+    rdfs:comment "A property used to identify the primary patterns that should be checked for matching sequences of Statements. The default value is 'false'."@en ;
+    rdfs:domain xapiprof:Pattern ;
+    rdfs:range xsd:boolean .
+
+xapiprof:alternates a owl:ObjectProperty ;
+    rdfs:label "alternates"@en ;
+    rdfs:comment "A property used to indicate an array of alternate Pattern or Statement Template identifiers. An alternates Pattern matches if any member of the array matches."@en ;
+    rdfs:domain xapiprof:Pattern ;
+    rdfs:range [
+        owl:disjointUnionOf (
+            xapiprof:Pattern
+            xapiprof:StatementTemplate
+        )
+    ] .
+
+xapiprof:optional a owl:ObjectProperty ;
+    rdfs:label "optional"@en ;
+    rdfs:comment "A property used to identify a single optional Pattern or Statement Template identifier that matches if it occurs once or not at all. "@en ;
+    rdfs:domain xapiprof:Pattern ;
+    rdfs:range [
+        owl:disjointUnionOf (
+            xapiprof:Pattern
+            xapiprof:StatementTemplate
+        )
+    ] .
+
+xapiprof:oneOrMore a owl:ObjectProperty ;
+    rdfs:label "oneOrMore"@en ;
+    rdfs:comment "A property used to identify a single Pattern or Statement Template identifier that matches if occurs one or more times."@en ;
+    rdfs:domain xapiprof:Pattern ;
+    rdfs:range [
+        owl:disjointUnionOf (
+            xapiprof:Pattern
+            xapiprof:StatementTemplate
+        )
+    ] .
+
+xapiprof:sequence a owl:ObjectProperty ;
+    rdfs:label "sequence"@en ;
+    rdfs:comment "A property used to indicate an array of Pattern or Statement Template identifiers that matches if it is the order specified."@en ;
+    rdfs:domain xapiprof:Pattern ;
+    rdfs:range rdf:List .
+
+xapiprof:zeroOrMore a owl:ObjectProperty ;
+    rdfs:label "zeroOrMore"@en ;
+    rdfs:comment "A property used to identify a single Pattern or Statement Template identifier that matches if it is not present at all or if it is present one or more times."@en ;
+    rdfs:domain xapiprof:Pattern ;
+    rdfs:range [
+        owl:disjointUnionOf (
+            xapiprof:Pattern
+            xapiprof:StatementTemplate
+        )
+    ] .

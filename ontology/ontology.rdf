@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rdf:RDF xml:base="https://w3id.org/xapi/profiles/ontology#"
+  xmlns:owl="http://www.w3.org/2002/07/owl#"
+  xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+  xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+>
+<owl:Ontology rdf:about="https://w3id.org/xapi/profiles/ontology#">
+  <rdfs:label xml:lang="en">xAPI Profile Ontology</rdfs:label>
+  <rdfs:comment xml:lang="en">This ontology contains the classes and properties that are used when for semantically expressing the concepts and statement templates associated with an xAPI Profile.</rdfs:comment>
+</owl:Ontology>
+  <owl:ObjectProperty rdf:about="https://w3id.org/xapi/profiles/ontology#recommendedActivityTypes">
+    <rdfs:domain rdf:resource="https://w3id.org/xapi/ontology#Extension"/>
+    <rdfs:label xml:lang="en">recommendedActivityTypes</rdfs:label>
+    <rdfs:comment xml:lang="en">A property used to indicate an array of activity type URIs that is recommended to be used with an Extension.</rdfs:comment>
+    <rdfs:range rdf:resource="https://w3id.org/xapi/ontology#ActivityType"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="https://w3id.org/xapi/profiles/ontology#schema">
+    <rdfs:domain>
+      <rdf:Description rdf:nodeID="ub13bL104C17">
+        <owl:disjointUnionOf rdf:parseType="Collection">
+          <rdf:Description rdf:about="https://w3id.org/xapi/ontology#Extension"/>
+          <rdf:Description rdf:about="https://w3id.org/xapi/ontology#DocumentResource"/>
+        </owl:disjointUnionOf>
+      </rdf:Description>
+    </rdfs:domain>
+    <rdfs:range rdf:resource="http://www.w3.org/2000/01/rdf-schema#Resource"/>
+    <rdfs:comment xml:lang="en">A property used to identify the IRI for accessing a JSON Schema for an Extension. The JSON Schema can be used to constrain the Extension to a single type.</rdfs:comment>
+    <rdfs:label xml:lang="en">schema</rdfs:label>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="https://w3id.org/xapi/profiles/ontology#objectActivityType">
+    <rdfs:range rdf:resource="https://w3id.org/xapi/ontology#ActivityType"/>
+    <rdfs:comment xml:lang="en">A property used to identify the ActivityType IRI in a Statement Template.</rdfs:comment>
+    <rdfs:label xml:lang="en">objectActivityType</rdfs:label>
+    <rdfs:domain rdf:resource="https://w3id.org/xapi/profiles/ontology#StatementTemplate"/>
+  </owl:ObjectProperty>
+  <rdf:Property rdf:about="https://w3id.org/xapi/profiles/ontology#any">
+    <rdfs:domain rdf:resource="https://w3id.org/xapi/profiles/ontology#Pattern"/>
+    <rdfs:comment xml:lang="en">A property used to indicate an array of values that must intersect with the matchable values in a Statement Template Rule.</rdfs:comment>
+    <rdfs:label xml:lang="en">any</rdfs:label>
+  </rdf:Property>
+  <owl:ObjectProperty rdf:about="https://w3id.org/xapi/profiles/ontology#zeroOrMore">
+    <rdfs:range>
+      <rdf:Description rdf:nodeID="ub13bL278C16">
+        <owl:disjointUnionOf rdf:parseType="Collection">
+          <rdf:Description rdf:about="https://w3id.org/xapi/profiles/ontology#Pattern"/>
+          <rdf:Description rdf:about="https://w3id.org/xapi/profiles/ontology#StatementTemplate"/>
+        </owl:disjointUnionOf>
+      </rdf:Description>
+    </rdfs:range>
+    <rdfs:domain rdf:resource="https://w3id.org/xapi/profiles/ontology#Pattern"/>
+    <rdfs:comment xml:lang="en">A property used to identify a single Pattern or Statement Template identifier that matches if it is not present at all or if it is present one or more times.</rdfs:comment>
+    <rdfs:label xml:lang="en">zeroOrMore</rdfs:label>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="https://w3id.org/xapi/profiles/ontology#rules">
+    <rdfs:label xml:lang="en">rules</rdfs:label>
+    <rdfs:comment xml:lang="en">A property used to indicate an array of of Statement Template Rules in a Profile.</rdfs:comment>
+    <rdfs:range rdf:resource="https://w3id.org/xapi/profiles/ontology#StatementTemplateRule"/>
+    <rdfs:domain rdf:resource="https://w3id.org/xapi/profiles/ontology#StatementTemplate"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="https://w3id.org/xapi/profiles/ontology#contextOtherActivityType">
+    <rdfs:comment xml:lang="en">A property used to indicate an array of contextActivities other activity type IRIs in a Statement Template.</rdfs:comment>
+    <rdfs:domain rdf:resource="https://w3id.org/xapi/profiles/ontology#StatementTemplate"/>
+    <rdfs:label xml:lang="en">contextOtherActivityType</rdfs:label>
+    <rdfs:range rdf:resource="https://w3id.org/xapi/ontology#ActivityType"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="https://w3id.org/xapi/profiles/ontology#oneOrMore">
+    <rdfs:range>
+      <rdf:Description rdf:nodeID="ub13bL261C16">
+        <owl:disjointUnionOf rdf:parseType="Collection">
+          <rdf:Description rdf:about="https://w3id.org/xapi/profiles/ontology#Pattern"/>
+          <rdf:Description rdf:about="https://w3id.org/xapi/profiles/ontology#StatementTemplate"/>
+        </owl:disjointUnionOf>
+      </rdf:Description>
+    </rdfs:range>
+    <rdfs:domain rdf:resource="https://w3id.org/xapi/profiles/ontology#Pattern"/>
+    <rdfs:label xml:lang="en">oneOrMore</rdfs:label>
+    <rdfs:comment xml:lang="en">A property used to identify a single Pattern or Statement Template identifier that matches if occurs one or more times.</rdfs:comment>
+  </owl:ObjectProperty>
+  <owl:DatatypeProperty rdf:about="https://w3id.org/xapi/profiles/ontology#deprecated">
+    <rdfs:label xml:lang="en">deprecated</rdfs:label>
+    <rdfs:domain rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
+    <rdfs:comment xml:lang="en">A property used to indicate a Concept has become obsolete.</rdfs:comment>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="https://w3id.org/xapi/profiles/ontology#selector">
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <rdfs:label xml:lang="en">selector</rdfs:label>
+    <rdfs:comment xml:lang="en">A property used to indicate a JSONPath string of values for evaluating each member of the location in a Statement Template Rule.</rdfs:comment>
+    <rdfs:domain rdf:resource="https://w3id.org/xapi/profiles/ontology#Pattern"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="https://w3id.org/xapi/profiles/ontology#contentType">
+    <rdfs:comment xml:lang="en">A property used to identify the media type for the resource, as described in RFC 2046 (e.g. application/json).</rdfs:comment>
+    <rdfs:label xml:lang="en">contentType</rdfs:label>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <rdfs:domain rdf:resource="https://w3id.org/xapi/ontology#DocumentResource"/>
+  </owl:DatatypeProperty>
+  <owl:ObjectProperty rdf:about="https://w3id.org/xapi/profiles/ontology#attachmentUsageType">
+    <rdfs:comment xml:lang="en">A property used to indicate an array of attachment usage type IRIs in a Statement Template.</rdfs:comment>
+    <rdfs:range rdf:resource="https://w3id.org/xapi/ontology#AttachmentUsageType"/>
+    <rdfs:domain rdf:resource="https://w3id.org/xapi/profiles/ontology#StatementTemplate"/>
+    <rdfs:label xml:lang="en">attachmentUsageType</rdfs:label>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="https://w3id.org/xapi/profiles/ontology#objectStatementRefTemplate">
+    <rdfs:domain rdf:resource="https://w3id.org/xapi/profiles/ontology#StatementTemplate"/>
+    <rdfs:label xml:lang="en">objectStatementRefTemplate</rdfs:label>
+    <rdfs:comment xml:lang="en">A property used to indicate an array of object identifiers in a Statement Template.</rdfs:comment>
+    <rdfs:range rdf:resource="https://w3id.org/xapi/profiles/ontology#StatementTemplate"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="https://w3id.org/xapi/profiles/ontology#contextCategoryActivityType">
+    <rdfs:domain rdf:resource="https://w3id.org/xapi/profiles/ontology#StatementTemplate"/>
+    <rdfs:label xml:lang="en">contextCategoryActivityType</rdfs:label>
+    <rdfs:range rdf:resource="https://w3id.org/xapi/ontology#ActivityType"/>
+    <rdfs:comment xml:lang="en">A property used to indicate an array of contextActivities category activity type IRIs in a Statement Template.</rdfs:comment>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="https://w3id.org/xapi/profiles/ontology#sequence">
+    <rdfs:comment xml:lang="en">A property used to indicate an array of Pattern or Statement Template identifiers that matches if it is the order specified.</rdfs:comment>
+    <rdfs:range rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#List"/>
+    <rdfs:label xml:lang="en">sequence</rdfs:label>
+    <rdfs:domain rdf:resource="https://w3id.org/xapi/profiles/ontology#Pattern"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="https://w3id.org/xapi/profiles/ontology#contextParentActivityType">
+    <rdfs:label xml:lang="en">contextParentActivityType</rdfs:label>
+    <rdfs:domain rdf:resource="https://w3id.org/xapi/profiles/ontology#StatementTemplate"/>
+    <rdfs:range rdf:resource="https://w3id.org/xapi/ontology#ActivityType"/>
+    <rdfs:comment xml:lang="en">A property used to indicate an array of contextActivities parent activity type IRIs in a Statement Template.</rdfs:comment>
+  </owl:ObjectProperty>
+  <rdf:Property rdf:about="https://w3id.org/xapi/profiles/ontology#none">
+    <rdfs:label xml:lang="en">none</rdfs:label>
+    <rdfs:domain rdf:resource="https://w3id.org/xapi/profiles/ontology#Pattern"/>
+    <rdfs:comment xml:lang="en">A property used to indicate an array of values that can't be in the matchable values in a Statement Template Rule.</rdfs:comment>
+  </rdf:Property>
+  <owl:ObjectProperty rdf:about="https://w3id.org/xapi/profiles/ontology#context">
+    <rdfs:label xml:lang="en">context</rdfs:label>
+    <rdfs:range rdf:resource="http://www.w3.org/2000/01/rdf-schema#Resource"/>
+    <rdfs:comment xml:lang="en">A property used to identify the IRI of a JSON-LD context for an Extension.</rdfs:comment>
+    <rdfs:domain>
+      <rdf:Description rdf:nodeID="ub13bL93C17">
+        <owl:disjointUnionOf rdf:parseType="Collection">
+          <rdf:Description rdf:about="https://w3id.org/xapi/ontology#Extension"/>
+          <rdf:Description rdf:about="https://w3id.org/xapi/ontology#DocumentResource"/>
+        </owl:disjointUnionOf>
+      </rdf:Description>
+    </rdfs:domain>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="https://w3id.org/xapi/profiles/ontology#verb">
+    <rdfs:comment xml:lang="en">A property used to identify the Verb IRI in a Statement Template.</rdfs:comment>
+    <rdfs:label xml:lang="en">verb</rdfs:label>
+    <rdfs:domain rdf:resource="https://w3id.org/xapi/profiles/ontology#StatementTemplate"/>
+    <rdfs:range rdf:resource="https://w3id.org/xapi/ontology#Verb"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="https://w3id.org/xapi/profiles/ontology#contextStatementRefTemplate">
+    <rdfs:domain rdf:resource="https://w3id.org/xapi/profiles/ontology#StatementTemplate"/>
+    <rdfs:comment xml:lang="en">A property used to indicate an array of context identifiers in a Statement Template.</rdfs:comment>
+    <rdfs:label xml:lang="en">contextStatementRefTemplate</rdfs:label>
+    <rdfs:range rdf:resource="https://w3id.org/xapi/profiles/ontology#StatementTemplate"/>
+  </owl:ObjectProperty>
+  <rdf:Property rdf:about="https://w3id.org/xapi/profiles/ontology#all">
+    <rdfs:label xml:lang="en">all</rdfs:label>
+    <rdfs:comment xml:lang="en">A property used to indicate an array of values in which all the evaluated values must be matchable in a Statement Template Rule.</rdfs:comment>
+    <rdfs:domain rdf:resource="https://w3id.org/xapi/profiles/ontology#Pattern"/>
+  </rdf:Property>
+  <owl:DatatypeProperty rdf:about="https://w3id.org/xapi/profiles/ontology#presence">
+    <rdfs:comment xml:lang="en">A property used to used to determine the value of a selector in a Statement Template Rule. The value should be 'included', 'excluded', or 'recommended'.</rdfs:comment>
+    <rdfs:domain rdf:resource="https://w3id.org/xapi/profiles/ontology#Pattern"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <rdfs:label xml:lang="en">presence</rdfs:label>
+  </owl:DatatypeProperty>
+  <owl:ObjectProperty rdf:about="https://w3id.org/xapi/profiles/ontology#activityDefinition">
+    <rdfs:domain rdf:resource="https://w3id.org/xapi/ontology#Activity"/>
+    <rdfs:comment xml:lang="en">A property used to identify the ActivityDefinition in a Statement Template .</rdfs:comment>
+    <rdfs:range rdf:resource="https://w3id.org/xapi/ontology#ActivityDefinition"/>
+    <rdfs:label xml:lang="en">activityDefinition</rdfs:label>
+  </owl:ObjectProperty>
+  <owl:DatatypeProperty rdf:about="https://w3id.org/xapi/profiles/ontology#inlineSchema">
+    <rdfs:domain>
+      <rdf:Description rdf:nodeID="ub13bL116C17">
+        <owl:disjointUnionOf rdf:parseType="Collection">
+          <rdf:Description rdf:about="https://w3id.org/xapi/ontology#Extension"/>
+          <rdf:Description rdf:about="https://w3id.org/xapi/ontology#DocumentResource"/>
+        </owl:disjointUnionOf>
+      </rdf:Description>
+    </rdfs:domain>
+    <rdfs:label xml:lang="en">inlineSchema</rdfs:label>
+    <rdfs:comment xml:lang="en">A property used to identify an alternate way to include a JSON Schema, as a string.</rdfs:comment>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </owl:DatatypeProperty>
+  <owl:ObjectProperty rdf:about="https://w3id.org/xapi/profiles/ontology#contextGroupingActivityType">
+    <rdfs:label xml:lang="en">contextGroupingActivityType</rdfs:label>
+    <rdfs:range rdf:resource="https://w3id.org/xapi/ontology#ActivityType"/>
+    <rdfs:comment xml:lang="en">A property used to indicate an array of contextActivities grouping of activity type IRIs in a Statement Template.</rdfs:comment>
+    <rdfs:domain rdf:resource="https://w3id.org/xapi/profiles/ontology#StatementTemplate"/>
+  </owl:ObjectProperty>
+  <owl:DatatypeProperty rdf:about="https://w3id.org/xapi/profiles/ontology#location">
+    <rdfs:label xml:lang="en">location</rdfs:label>
+    <rdfs:domain rdf:resource="https://w3id.org/xapi/profiles/ontology#Pattern"/>
+    <rdfs:comment xml:lang="en">A property used to indicate a JSONPath string of values for evaluating and applying the requirements in a Statement Template Rule.</rdfs:comment>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </owl:DatatypeProperty>
+  <owl:ObjectProperty rdf:about="https://w3id.org/xapi/profiles/ontology#alternates">
+    <rdfs:domain rdf:resource="https://w3id.org/xapi/profiles/ontology#Pattern"/>
+    <rdfs:range>
+      <rdf:Description rdf:nodeID="ub13bL239C16">
+        <owl:disjointUnionOf rdf:parseType="Collection">
+          <rdf:Description rdf:about="https://w3id.org/xapi/profiles/ontology#Pattern"/>
+          <rdf:Description rdf:about="https://w3id.org/xapi/profiles/ontology#StatementTemplate"/>
+        </owl:disjointUnionOf>
+      </rdf:Description>
+    </rdfs:range>
+    <rdfs:label xml:lang="en">alternates</rdfs:label>
+    <rdfs:comment xml:lang="en">A property used to indicate an array of alternate Pattern or Statement Template identifiers. An alternates Pattern matches if any member of the array matches.</rdfs:comment>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="https://w3id.org/xapi/profiles/ontology#concepts">
+    <rdfs:label xml:lang="en">concepts</rdfs:label>
+    <rdfs:comment xml:lang="en">A property used to indicate an array of Concepts associated with a Profile.</rdfs:comment>
+    <rdfs:subPropertyOf>
+      <rdf:Description rdf:nodeID="ub13bL43C24">
+        <owl:inverseOf rdf:resource="http://www.w3.org/2004/02/skos/core#inScheme"/>
+      </rdf:Description>
+    </rdfs:subPropertyOf>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="https://w3id.org/xapi/profiles/ontology#templates">
+    <rdfs:label xml:lang="en">templates</rdfs:label>
+    <rdfs:subPropertyOf>
+      <rdf:Description rdf:nodeID="ub13bL50C24">
+        <owl:inverseOf rdf:resource="http://www.w3.org/2004/02/skos/core#inScheme"/>
+      </rdf:Description>
+    </rdfs:subPropertyOf>
+    <rdfs:comment xml:lang="en">A property used to indicate an array of Statement Templates associated with a Profile.</rdfs:comment>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="https://w3id.org/xapi/profiles/ontology#patterns">
+    <rdfs:comment xml:lang="en">A property used to indicate an array of Statement Templates associated with a Profile.</rdfs:comment>
+    <rdfs:subPropertyOf>
+      <rdf:Description rdf:nodeID="ub13bL58C24">
+        <owl:inverseOf rdf:resource="http://www.w3.org/2004/02/skos/core#inScheme"/>
+      </rdf:Description>
+    </rdfs:subPropertyOf>
+    <rdfs:label xml:lang="en">patterns</rdfs:label>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="https://w3id.org/xapi/profiles/ontology#versions">
+    <rdfs:label xml:lang="en">versions</rdfs:label>
+    <rdfs:subPropertyOf rdf:resource="http://www.w3.org/ns/prov#specializationOf"/>
+    <rdfs:range rdf:resource="https://w3id.org/xapi/profiles/ontology#Profile"/>
+    <rdfs:comment xml:lang="en">A property used to indicate an array of all Profile version objects for this Profile.</rdfs:comment>
+    <rdfs:domain rdf:resource="https://w3id.org/xapi/profiles/ontology#Profile"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="https://w3id.org/xapi/profiles/ontology#recommendedVerbs">
+    <rdfs:label xml:lang="en">recommendedVerbs</rdfs:label>
+    <rdfs:domain rdf:resource="https://w3id.org/xapi/ontology#Extension"/>
+    <rdfs:range rdf:resource="https://w3id.org/xapi/ontology#Verb"/>
+    <rdfs:comment xml:lang="en">A property used to indicate an array of activity type URIs that is recommended to be used with an Extension.</rdfs:comment>
+  </owl:ObjectProperty>
+  <owl:DatatypeProperty rdf:about="https://w3id.org/xapi/profiles/ontology#primary">
+    <rdfs:label xml:lang="en">primary</rdfs:label>
+    <rdfs:domain rdf:resource="https://w3id.org/xapi/profiles/ontology#Pattern"/>
+    <rdfs:comment xml:lang="en">A property used to identify the primary patterns that should be checked for matching sequences of Statements. The default value is 'false'.</rdfs:comment>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
+  </owl:DatatypeProperty>
+  <owl:ObjectProperty rdf:about="https://w3id.org/xapi/profiles/ontology#optional">
+    <rdfs:label xml:lang="en">optional</rdfs:label>
+    <rdfs:domain rdf:resource="https://w3id.org/xapi/profiles/ontology#Pattern"/>
+    <rdfs:comment xml:lang="en">A property used to identify a single optional Pattern or Statement Template identifier that matches if it occurs once or not at all. </rdfs:comment>
+    <rdfs:range>
+      <rdf:Description rdf:nodeID="ub13bL250C16">
+        <owl:disjointUnionOf rdf:parseType="Collection">
+          <rdf:Description rdf:about="https://w3id.org/xapi/profiles/ontology#Pattern"/>
+          <rdf:Description rdf:about="https://w3id.org/xapi/profiles/ontology#StatementTemplate"/>
+        </owl:disjointUnionOf>
+      </rdf:Description>
+    </rdfs:range>
+  </owl:ObjectProperty>
+  <owl:Class rdf:about="https://w3id.org/xapi/profiles/ontology#StatementTemplate">
+    <rdfs:comment xml:lang="en">The Class used to represent a Statement Template in a Profile.</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <rdfs:label xml:lang="en">StatementTemplate</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:about="https://w3id.org/xapi/profiles/ontology#Profile">
+    <rdfs:subClassOf rdf:resource="http://www.w3.org/2004/02/skos/core#ConceptScheme"/>
+    <rdfs:comment xml:lang="en">The Class used to represent an xAPI Profile.</rdfs:comment>
+    <rdfs:label xml:lang="en">Profile</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:about="https://w3id.org/xapi/profiles/ontology#Pattern">
+    <rdfs:comment xml:lang="en">The Class used to represent a Pattern of Statement Templates in a Profile.</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <rdfs:label xml:lang="en">Pattern</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:about="https://w3id.org/xapi/profiles/ontology#StatementTemplateRule">
+    <rdfs:label xml:lang="en">StatementTemplateRule</rdfs:label>
+    <rdfs:comment xml:lang="en">The Class used to represent a Statement Template Rule associated with a Statement Template.</rdfs:comment>
+  </owl:Class>
+</rdf:RDF>
