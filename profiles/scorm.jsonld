@@ -4,13 +4,9 @@
     "prefLabel": {
         "en": "Experience API SCORM Profile"
     },
+    "conformsTo": "https://github.com/adlnet/xapi-profiles/",
     "seeAlso": "https://adl.gitbooks.io/scorm-profile-xapi/content/",
     "versions": [
-        {
-            "id": "https://w3id.org/xapi/scorm#v2",
-            "generatedAtTime": "...",
-            "wasRevisionOf": ["https://w3id.org/xapi/scorm"]
-        },
         {
             "id": "https://w3id.org/xapi/scorm",
             "generatedAtTime": "2017-06-29T10:45:00Z"
