@@ -1,6 +1,6 @@
 {
     "@context": {
-        "xapi": "http://purl.org/xapi/ontology#",
+        "xapi": "https://w3id.org/xapi/ontology#",
         "type": {
             "@id": "xapi:type",
             "@type": "@id"

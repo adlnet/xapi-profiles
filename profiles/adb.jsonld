@@ -1,8 +1,8 @@
 {
-  "@context": "http://xapi.vocab.pub/profiles/profile-context.jsonld",
+  "@context": "https://w3id.org/xapi/profiles/context",
   "id": "https://w3id.org/xapi/adb",
   "type": "Profile",
-  "conformsTo": "https://github.com/DataInteroperability/xapi-profiles/tree/master#1.0-development",
+  "conformsTo": "https://github.com/adlnet/xapi-profiles/",
   "prefLabel": {
   	"en": "Actionable Data Book (ADB) Profile"
   },
@@ -16,9 +16,8 @@
   },
   "versions": [
     {
-      "id": "https://w3id.org/xapi/adb/v1",
-      "generatedAtTime": "2017-06-30T8:26:00Z",
-      "wasRevisionOf": ["https://w3id.org/xapi/adb"]
+      "id": "https://w3id.org/xapi/adb",
+      "generatedAtTime": "2017-06-30T8:26:00Z"
     }
   ],
   "concepts": [

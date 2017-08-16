@@ -1,5 +1,6 @@
 {
-    "id": "https://w3id.org/xapi/scorm#profile",
+   "@context": "https://w3id.org/xapi/profiles/context",
+    "id": "https://w3id.org/xapi/scorm",
     "prefLabel": {
         "en": "Experience API SCORM Profile"
     },
@@ -12,7 +13,7 @@
         },
         {
             "id": "https://w3id.org/xapi/scorm",
-            "generatedAtTime": "..."
+            "generatedAtTime": "2017-06-29T10:45:00Z"
         }
     ],
     "author": {

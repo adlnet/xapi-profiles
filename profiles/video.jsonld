@@ -1,5 +1,5 @@
 {
-  "@context": "http://xapi.vocab.pub/profiles/profile-context.jsonld",
+  "@context": "https://w3id.org/xapi/profiles/context",
   "id": "https://w3id.org/xapi/video",
   "type": "Profile",
   "conformsTo": "https://github.com/DataInteroperability/xapi-profiles/tree/master#1.0-development",
@@ -16,9 +16,8 @@
   },
   "versions": [
     {
-      "id": "https://w3id.org/xapi/video/v1",
-      "generatedAtTime": "2017-06-29T10:45:00Z",
-      "wasRevisionOf": ["https://w3id.org/xapi/video"]
+      "id": "https://w3id.org/xapi/video",
+      "generatedAtTime": "2017-06-29T10:45:00Z"
       }],
   "concepts": [
     {

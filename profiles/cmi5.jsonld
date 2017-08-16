@@ -1,4 +1,5 @@
 {
+   "@context": "https://w3id.org/xapi/profiles/context",
     "id": "https://w3id.org/xapi/cmi5",
     "type": "Profile",
     "conformsTo": "https://github.com/DataInteroperability/xapi-profiles/tree/master#1.0-development",
