@@ -1,5 +1,5 @@
 {
-  "@context": "http://xapi.vocab.pub/profiles/profile-context.jsonld",
+  "@context": "https://w3id.org/xapi/profiles/context",
   "id": "https://w3id.org/xapi/seriousgames",
   "type": "Profile",
   "prefLabel": {
@@ -15,9 +15,8 @@
   },
   "versions": [
     {
-      "id": "https://w3id.org/xapi/seriousgames/v1",
-      "generatedAtTime": "2017-07-14T10:00:00Z",
-      "wasRevisionOf": ["https://w3id.org/xapi/seriousgames"]
+      "id": "https://w3id.org/xapi/seriousgames",
+      "generatedAtTime": "2017-07-14T10:00:00Z"
       }],
   "concepts": [
     {

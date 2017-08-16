@@ -1,7 +1,8 @@
 {
+   "@context": "https://w3id.org/xapi/profiles/context",
     "id": "https://w3id.org/xapi/cmi5",
     "type": "Profile",
-    "conformsTo": "https://github.com/DataInteroperability/xapi-profiles/tree/master#1.0-development",
+    "conformsTo": "https://github.com/adlnet/xapi-profiles/",
     "prefLabel": {
         "en": "Experience API cmi5 Profile, Quartz release"
     },
