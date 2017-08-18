@@ -509,12 +509,7 @@
       {
           "id": "https://w3id.org/xapi/video/patterns#optionalmiddlestatements",
           "type": "Pattern",
-			    "zeroOrMore": ["https://w3id.org/xapi/video/patterns#played-pattern"],
-          "zeroOrMore": ["https://w3id.org/xapi/video/patterns#played-completed-pattern"],
-          "zeroOrMore": ["https://w3id.org/xapi/video/patterns#played-paused-completed-pattern"],
-          "zeroOrMore": ["https://w3id.org/xapi/video/patterns#played-paused-seeked-completed-pattern"],
-          "zeroOrMore": ["https://w3id.org/xapi/video/patterns#played-paused-seeked-volumechange-completed-pattern"],
-          "zeroOrMore": ["https://w3id.org/xapi/video/patterns#all-activities-pattern"]
+			    "zeroOrMore": ["https://w3id.org/xapi/video/patterns#all-activities-pattern"]
 
       }
 
