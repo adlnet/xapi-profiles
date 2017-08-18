@@ -2,7 +2,7 @@
   "@context": "https://w3id.org/xapi/profiles/context",
   "id": "https://w3id.org/xapi/adb",
   "type": "Profile",
-  "conformsTo": "https://github.com/adlnet/xapi-profiles/",
+  "conformsTo": " https://w3id.org/xapi/profiles#1.0",
   "prefLabel": {
   	"en": "Actionable Data Book (ADB) Profile"
   },
@@ -16,8 +16,9 @@
   },
   "versions": [
     {
-      "id": "https://w3id.org/xapi/adb",
-      "generatedAtTime": "2017-06-30T8:26:00Z"
+      "id": "https://w3id.org/xapi/adb/v1",
+      "generatedAtTime": "2017-06-30T8:26:00Z",
+      "wasRevisionOf": ["https://w3id.org/xapi/adb"]
     }
   ],
   "concepts": [
@@ -28,12 +29,8 @@
       "definition": {
         "en": "Provide notes or symbols for further explanation or thoughts while reading."
       },
-      "narrower": [ {
-          "id": "https://w3id.org/xapi/adb/verbs/highlighted"
-      } ],
-      "relatedMatch": [ {
-          "id": "https://w3id.org/xapi/acrossx/verbs/annotated"
-      } ],
+      "narrower": ["https://w3id.org/xapi/adb/verbs/highlighted"],
+      "relatedMatch": ["https://w3id.org/xapi/acrossx/verbs/annotated"],
       	"prefLabel": {
         "en": "annotated"
       }
@@ -42,14 +39,9 @@
       "id": "https://w3id.org/xapi/adb/verbs/arrived",
       "inScheme": "https://w3id.org/xapi/adb",
       "type": "Verb",
-      "broadMatch": {
-        "id": "http://adlnet.gov/expapi/verbs/progressed"
-      },
+      "broadMatch": ["http://adlnet.gov/expapi/verbs/progressed"],
       "definition": {
-        "en": "Indicates the actor arrived a specific location by movement or progress. "
-      },
-      "scopeNote": {
-        "en": "To arrive a specific scene within a story or book experience."
+        "en": "Indicates the actor arrived a specific location by movement or progress. To arrive a specific scene within a story or book experience."
       },
         "prefLabel": {
         "en": "arrived"
@@ -76,9 +68,7 @@
         "prefLabel": {
         "en": "bookmarked"
       },
-      "related": [ {
-        "id": "https://w3id.org/xapi/adb/verbs/annotated"
-      } ]
+      "related": ["https://w3id.org/xapi/adb/verbs/annotated"]
     },
     {
       "id": "https://w3id.org/xapi/adb/verbs/coached",
@@ -90,9 +80,7 @@
         "prefLabel": {
         "en": "coached"
       },
-      "related": [ {
-        "id": "https://w3id.org/xapi/adb/verbs/requested"
-      } ]
+      "related": ["https://w3id.org/xapi/adb/verbs/requested"]
     },
     {
       "id": "https://w3id.org/xapi/adb/verbs/demanded",
@@ -104,9 +92,7 @@
         "prefLabel": {
         "en": "demanded"
       },
-      "related": [ {
-        "id": "https://w3id.org/xapi/adb/verbs/requested"
-      } ]
+      "related": ["https://w3id.org/xapi/adb/verbs/requested"]
     },
     {
       "id": "https://w3id.org/xapi/adb/verbs/described",
@@ -123,19 +109,15 @@
       "id": "https://w3id.org/xapi/adb/verbs/highlighted",
       "inScheme": "https://w3id.org/xapi/adb",
       "type": "Verb",
-      "broader": [ {
-      	"id": "https://w3id.org/xapi/adb/verbs/annotated"
-      } ],
+      "broader": ["https://w3id.org/xapi/adb/verbs/annotated"],
+      "prefLabel": {
+      "en": "highlighted"
+      },
       "definition": {
         "en": "Highlight important areas in an eBook for the purpose of later review or note taking."
       },
+      "narrower": ["https://w3id.org/xapi/adb/verbs/noted"]
 
-      "narrower": [ {
-          "id": "https://w3id.org/xapi/adb/verbs/noted"
-      } ],
-      	"prefLabel": {
-        "en": "highlighted"
-      }
     },
     {
       "id": "https://w3id.org/xapi/adb/verbs/initiated",
@@ -152,9 +134,7 @@
       "id": "https://w3id.org/xapi/adb/verbs/noted",
       "inScheme": "https://w3id.org/xapi/adb",
       "type": "Verb",
-      "broader": [ {
-      	"id": "https://w3id.org/xapi/adb/verbs/annotated"
-      } ],
+      "broader": ["https://w3id.org/xapi/adb/verbs/annotated"],
       "definition": {
         "en": "Add annotation or notes to selected text within an ebook or highlight."
       },
@@ -166,9 +146,7 @@
       "id": "https://w3id.org/xapi/adb/verbs/read",
       "inScheme": "https://w3id.org/xapi/adb",
       "type": "Verb",
-      "exactMatch": [ {
-         "id": "http://activitystrea.ms/schema/1.0/read"
-      } ],
+      "exactMatch": ["http://activitystrea.ms/schema/1.0/read"],
       "definition": {
         "en": "Indicates that the actor read the object. This is typically only applicable for objects representing printed or written content, such as a book, a message or a comment."
       },
@@ -191,9 +169,7 @@
       "id": "https://w3id.org/xapi/adb/verbs/requested",
       "inScheme": "https://w3id.org/xapi/adb",
       "type": "Verb",
-      "exactMatch": [ {
-         "id": "http://activitystrea.ms/schema/1.0/request"
-      } ],
+      "exactMatch": ["http://activitystrea.ms/schema/1.0/request"],
       "definition": {
         "en": "Indicates the actor needed or demanded an object or another actor. Requested indicates a comment that is shared with peers as a group or Coach as a trainer. The request for coaching or help prompts users to respond giving them coaching credit."
       },
@@ -216,9 +192,7 @@
       "id": "https://w3id.org/xapi/adb/verbs/watched",
       "inScheme": "https://w3id.org/xapi/adb",
       "type": "Verb",
-      "exactMatch": [ {
-         "id": "http://activitystrea.ms/schema/1.0/watch"
-      } ],
+      "exactMatch": ["http://activitystrea.ms/schema/1.0/watch"],
       "definition": {
         "en": "Indicates that the actor has watched the object. This verb is typically applicable only when the object represents dynamic, visible content such as a movie, a television show or a public performance."
       },

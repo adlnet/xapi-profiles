@@ -2,7 +2,7 @@
    "@context": "https://w3id.org/xapi/profiles/context",
     "id": "https://w3id.org/xapi/cmi5",
     "type": "Profile",
-    "conformsTo": "https://github.com/adlnet/xapi-profiles/",
+    "conformsTo": " https://w3id.org/xapi/profiles#1.0",
     "prefLabel": {
         "en": "Experience API cmi5 Profile, Quartz release"
     },
@@ -13,7 +13,8 @@
     "versions": [
         {
             "id": "https://w3id.org/xapi/cmi5/context/categories/cmi5",
-            "generatedAtTime": "2017-03-27T12:30:00-07:00"
+            "generatedAtTime": "2017-03-27T12:30:00-07:00",
+            "wasRevisionOf": ["https://w3id.org/xapi/cmi5"]
         }
     ],
     "author": {

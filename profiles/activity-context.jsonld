@@ -1,0 +1,55 @@
+{
+    "@context": {
+        "xapi": "https://w3id.org/xapi/ontology#",
+        "type": {
+            "@id": "xapi:type",
+            "@type": "@id"
+        },
+        "name": {
+            "@id": "xapi:name",
+            "@container": "@language"
+        },
+        "description": {
+            "@id": "xapi:description",
+            "@container": "@language"
+        },
+        "moreInfo": {
+            "@id": "xapi:moreInfo",
+            "@type": "@id"
+        },
+        "extensions": {
+            "@id": "xapi:extensions",
+            "@container": "@set"
+        },
+        "interactionType": {
+            "@id": "xapi:interactionType"
+        },
+        "correctResponsesPattern": {
+            "@id": "xapi:correctResponsesPattern",
+            "@container": "@set"
+        },
+        "choices": {
+            "@id": "xapi:choices",
+            "@container": "@list"
+        },
+        "scale": {
+            "@id": "xapi:scale",
+            "@container": "@list"
+        },
+        "source": {
+            "@id": "xapi:source",
+            "@container": "@list"
+        },
+        "target": {
+            "@id": "xapi:target",
+            "@container": "@list"
+        },
+        "steps": {
+            "@id": "xapi:steps",
+            "@container": "@list"
+        },
+        "id": {
+            "@id": "xapi:interactionId"
+        }
+    }
+}
