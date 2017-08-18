@@ -2,7 +2,7 @@
   "@context": "https://w3id.org/xapi/profiles/context",
   "id": "https://w3id.org/xapi/acrossx",
   "type": "Profile",
-  "conformsTo": "https://github.com/adlnet/xapi-profiles/",
+  "conformsTo": " https://w3id.org/xapi/profiles#1.0",
   "prefLabel": {
   	"en": "AcrossX Profile"
   },
@@ -13,8 +13,9 @@
   },
   "versions": [
     {
-      "id": "https://w3id.org/xapi/acrossx",
-      "generatedAtTime": "2017-07-14T11:35:00Z"
+      "id": "https://w3id.org/xapi/acrossx/v1",
+      "generatedAtTime": "2017-07-14T11:35:00Z",
+      "wasRevisionOf": ["https://w3id.org/xapi/acrossx"]
       }],
 "concepts": [
    {

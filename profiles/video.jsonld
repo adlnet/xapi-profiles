@@ -2,7 +2,7 @@
   "@context": "https://w3id.org/xapi/profiles/context",
   "id": "https://w3id.org/xapi/video",
   "type": "Profile",
-  "conformsTo": "https://github.com/adlnet/xapi-profiles/",
+  "conformsTo": "https://w3id.org/xapi/profiles#1.0",
   "prefLabel": {
     "en": "Video Profile"
   },
@@ -16,8 +16,9 @@
   },
   "versions": [
     {
-      "id": "https://w3id.org/xapi/video",
-      "generatedAtTime": "2017-06-29T10:45:00Z"
+      "id": "https://w3id.org/xapi/video/v1",
+      "generatedAtTime": "2017-06-29T10:45:00Z",
+      "wasRevisionOf": ["https://w3id.org/xapi/video"]
       }],
   "concepts": [
     {
@@ -467,45 +468,11 @@
           "rule": "included"
         }
       ]
-    },
-    {
-      "id": "https://w3id.org/xapi/video/templates#terminated",
-      "inScheme": "https://w3id.org/xapi/video",
-      "prefLabel": {
-        "en": "Terminated Statement Template for Video Profile."
-      },
-      "verb": "https://w3id.org/xapi/video/verbs/terminated",
-      "objectActivityType": "https://w3id.org/xapi/video/activity-type/video",
-      "rules": [
-        {
-          "location": "$.result.extensions['https://w3id.org/xapi/video/extensions/time']",
-          "rule": "recommended"
-        },
-        {
-          "location": "$.result.extensions['https://w3id.org/xapi/video/extensions/progress']",
-          "rule": "recommended"
-        }
-      ]
-    },
-    {
-      "id": "https://w3id.org/xapi/video/templates#basic",
-      "name": {
-        "en": "Video Interactions"
-      },
-      "objectActivityType": "https://w3id.org/xapi/video/activity-type/video",
-      "rules": [{
-        "location": "verb.id",
-        "any": [
-          "https://w3id.org/xapi/video/verbs/played",
-          "https://w3id.org/xapi/video/verbs/paused",
-          "https://w3id.org/xapi/video/verbs/seeked"
-        ]
-        }]
-      }
+    }
   ],
   "patterns": [
       {
-         "id": "_:generalpattern",
+         "id": "https://w3id.org/xapi/video/patterns#generalpattern",
          "primary": true,
           "name": {
               "en": "General Pattern"
@@ -513,37 +480,37 @@
           "definition": {
               "en": "This pattern describes the overall sequence of statements sent over the course of an attempt"
           },
-          "sequence": ["https://w3id.org/xapi/video/templates#initialized", "_:optionalmiddlestatements", "https://w3id.org/xapi/video/templates#terminated"]
+          "sequence": ["https://w3id.org/xapi/video/templates#initialized", "https://w3id.org/xapi/video/patterns#optionalmiddlestatements"]
       },
       {
-          "@id": "_:played-pattern",
-          "alternates": ["https://w3id.org/xapi/video/templates#generalrestrictions", "https://w3id.org/xapi/video/templates#played"]
+          "@id": "https://w3id.org/xapi/video/patterns#played-pattern",
+          "alternates": ["https://w3id.org/xapi/video/templates#played"]
       },
       {
-          "@id": "_:played-completed-pattern",
-          "alternates": ["https://w3id.org/xapi/video/templates#generalrestrictions", "https://w3id.org/xapi/video/templates#played", "https://w3id.org/xapi/video/templates#completed"]
+          "@id": "https://w3id.org/xapi/video/patterns#played-completed-pattern",
+          "alternates": ["https://w3id.org/xapi/video/templates#played", "https://w3id.org/xapi/video/templates#completed"]
       },
       {
-          "@id": "_:played-paused-completed-pattern",
-          "alternates": ["https://w3id.org/xapi/video/templates#generalrestrictions", "https://w3id.org/xapi/video/templates#played", "https://w3id.org/xapi/video/templates#paused", "https://w3id.org/xapi/video/templates#completed"]
+          "@id": "https://w3id.org/xapi/video/patterns#played-paused-completed-pattern",
+          "alternates": ["https://w3id.org/xapi/video/templates#played", "https://w3id.org/xapi/video/templates#paused", "https://w3id.org/xapi/video/templates#completed"]
       },
       {
-          "@id": "_:played-paused-seeked-completed-pattern",
-          "alternates": ["_:generalrestrictions", "https://w3id.org/xapi/video/templates#played", "https://w3id.org/xapi/video/templates#paused", "https://w3id.org/xapi/video/templates#seeked", "https://w3id.org/xapi/video/templates#completed"]
+          "@id": "https://w3id.org/xapi/video/patterns#played-paused-seeked-completed-pattern",
+          "alternates": ["https://w3id.org/xapi/video/templates#played", "https://w3id.org/xapi/video/templates#paused", "https://w3id.org/xapi/video/templates#seeked", "https://w3id.org/xapi/video/templates#completed"]
       },
       {
-          "@id": "_:played-paused-seeked-volumechange-completed-pattern",
-          "alternates": ["https://w3id.org/xapi/video/templates#generalrestrictions", "https://w3id.org/xapi/video/templates#played", "https://w3id.org/xapi/video/templates#paused", "https://w3id.org/xapi/video/templates#seeked", "https://w3id.org/xapi/video/templates#volumechange", "https://w3id.org/xapi/video/templates#completed"]
+          "@id": "https://w3id.org/xapi/video/patterns#played-paused-seeked-volumechange-completed-pattern",
+          "alternates": ["https://w3id.org/xapi/video/templates#played", "https://w3id.org/xapi/video/templates#paused", "https://w3id.org/xapi/video/templates#seeked", "https://w3id.org/xapi/video/templates#volumechange", "https://w3id.org/xapi/video/templates#completed"]
       },
       {
-          "@id": "_:all-activities-pattern",
-          "alternates": ["https://w3id.org/xapi/video/templates#generalrestrictions", "https://w3id.org/xapi/video/templates#played", "https://w3id.org/xapi/video/templates#paused", "https://w3id.org/xapi/video/templates#seeked", "https://w3id.org/xapi/video/templates#volumechange", "https://w3id.org/xapi/video/templates#screenchange", "https://w3id.org/xapi/video/templates#completed"]
+          "@id": "https://w3id.org/xapi/video/patterns#all-activities-pattern",
+          "alternates": ["https://w3id.org/xapi/video/templates#played", "https://w3id.org/xapi/video/templates#paused", "https://w3id.org/xapi/video/templates#seeked", "https://w3id.org/xapi/video/templates#volumechange", "https://w3id.org/xapi/video/templates#screenchange", "https://w3id.org/xapi/video/templates#completed"]
       },
       {
-          "id": "_:optionalmiddlestatements",
+          "id": "https://w3id.org/xapi/video/patterns#optionalmiddlestatements",
           "type": "Pattern",
-			    "zeroOrMore": ["_:played-pattern", "_:played-completed-pattern", "_:played-paused-completed-pattern", "_:played-paused-seeked-completed-pattern", "_:played-paused-seeked-volumechange-completed-pattern", "_:all-activities-pattern"],
-          "oneOrMore" : ["https://w3id.org/xapi/video/templates#basic"]
+			    "zeroOrMore": ["https://w3id.org/xapi/video/patterns#all-activities-pattern"]
+
       }
 
   ]
