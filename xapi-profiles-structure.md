@@ -440,7 +440,7 @@ Property | Type | Description | Required
 `definition` | Object |A Language Map of descriptions of the purpose and usage of the Statement Template | Required
 `deprecated` | Boolean | A boolean, default false. If true, this Statement Template is deprecated. | Optional
 `verb` | IRI | Verb IRI | Optional
-`objectActivityType` | Object | Object activity type IRI | Optional
+`objectActivityType` | IRI | Object activity type IRI | Optional
 `contextGroupingActivityType` | Array | Array of contextActivities grouping activity type IRIs | Optional
 `contextParentActivityType` | Array | Array of contextActivities parent activity type IRIs | Optional
 `contextOtherActivityType` | Array | Array of contextActivities other activity type IRIs | Optional
