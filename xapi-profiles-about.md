@@ -225,7 +225,7 @@ even if there no requirement in a given area.
 
 <a name="compactiri"></a>**Compact IRI**: A shortened IRI in the form `prefix:name` that becomes expanded on processing to an absolute IRI. [Described in the JSON-LD specification](https://www.w3.org/TR/json-ld/#compact-iris).
 
-<a name=concept""></a>**Concept**: In SKOS, any unit of thought. In this specification, any of a particular list of possible things a Profile might describe.
+<a name="concept"></a>**Concept**: In SKOS, any unit of thought. In this specification, any of a particular list of possible things a Profile might describe.
 
 <a name="def-context"></a>**Context**: In xAPI this refers to a part of a Statement, but in this specification it usually means a [JSON-LD `@context`](https://www.w3.org/TR/json-ld/#the-context), which is a way of mapping JSON onto semantic terms and RDF.
 
