@@ -96,11 +96,11 @@ Property | Type | Description | Required
 `prefLabel` | Object | Language map of names for this Profile. | Required
 `definition` | Object | Language map of descriptions for this Profile. If there are additional rules for the Profile as a whole that cannot be expressed using this specification, include them here, or at the seeAlso URL. | Required
 `seeAlso` | URL | A URL containing information about the Profile. Recommended instead of especially long definitions. | Optional
-`versions` | Array | An array of all [Profile version](#6.1) objects for this Profile. | Required
-`author` | Object | An [Organization or Person](#6.2). | Required
-`concepts` | Array | An array of [Concepts](#7.0) that make up this Profile. | Optional
-`templates` | Array | An array of [Statement Templates](#8.0) for this Profile. | Optional
-`patterns` | Array | An array of [Patterns](#9.0) for this Profile. | Optional
+`versions` | Array | An array of all [Profile version](#prof-ver-obj) objects for this Profile. | Required
+`author` | Object | An [Organization or Person](#orgs-persons). | Required
+`concepts` | Array | An array of [Concepts](#concepts) that make up this Profile. | Optional
+`templates` | Array | An array of [Statement Templates](#statment-templates) for this Profile. | Optional
+`patterns` | Array | An array of [Patterns](#patterns) for this Profile. | Optional
 
 When `seeAlso` is provided `definition` SHOULD only include a short description of the Profile to aid in discovery and display.
 
