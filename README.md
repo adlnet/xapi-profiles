@@ -15,6 +15,10 @@ companion to xAPI, and is divided into three documents:
 The current version of the specification is
 [1.0](https://github.com/DataInteroperability/xapi-profiles).
 
+## Authored Profiles
+
+ADL maintains a [public repository of authored xAPI profiles](https://github.com/adlnet/xapi-authored-profiles) based on this specification and processes provided by ADL's vocabulary and profile index, [http://xapi.vocab.pub](http://xapi.vocab.pub). 
+
 ## What to do if the spec is unclear
 
 If when implementing the specification you find something is unclear or
@@ -34,14 +38,10 @@ you do not already have one in order to raise and comment on issues.
 
 You can discuss any issues before or after raising them on the
 [xAPI Profiles Google Group](https://groups.google.com/a/adlnet.gov/forum/#!forum/xapi-spec)
-and at ADL's
-[weekly specification calls](https://attendee.gotowebinar.com/register/5526804432322315009).
+
 
 ## How you can contribute
 
 You'll need to [sign up for a GitHub account](https://github.com/signup/free) if
 you do not already have one in order to contribute to the specification.
 
-ADL's xAPI Spec Working Group meets
-the first, second, and third Wednesdays of each month. Instructions to register for these online meetings and
-more information related to ADL's xAPI work can be found at [https://www.adlnet.gov/xAPI](https://www.adlnet.gov/xAPI)
