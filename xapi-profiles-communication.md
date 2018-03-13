@@ -46,14 +46,18 @@ are validated against Statements. It also describes a “Profile Server” to ma
 to manage and answer questions about Profiles from a centralized location, including
 implementing the algorithms.
 
+## Authored Profiles
+
+ADL maintains a [centralized public repository of authored xAPI profiles](https://github.com/adlnet/xapi-authored-profiles) based on this specification. The repository of profiles are imported and synchronized regularly into ADL's Profile Server, [http://xapi.vocab.pub](http://xapi.vocab.pub). 
+
 <a name="prof-server"></a>
 ## 1.0 Profile Server
 
 A Profile Server manages xAPI Profiles from a centralized location. [An RDF triple store](https://en.wikipedia.org/wiki/Triplestore) is responsible for the storage of Profiles.
 A Profile Server will allow administrators to add Profiles by their contents or by URI to the Profile Server
 
-A Profile Server will host a SPARQL endpoint containing the RDF information from the
-contained Profiles at the path /sparql. This enables xAPI Profiles to be queried. SPARQL
+ADL's Profile Server will host a SPARQL endpoint containing the RDF information from the
+contained Profiles at the path /sparql (e.g., http://xapi.vocab.pub/sparql). This enables xAPI Profiles to be queried. SPARQL
 servers have the ability to divide information into multiple datasets, or graphs, and
 offer separate querying on them. One of these is the default graph, which is queried
 when no other graph is specified. The default graph at this SPARQL endpoint will
