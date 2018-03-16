@@ -1,5 +1,7 @@
 # xapi-profiles
-A companion specification to xAPI that addresses the structure and supporting services for xAPI Profiles.
+This is a companion specification to the core xAPI Specification that addresses the structure and supporting services for xAPI Profiles.
+
+A profile is the human and/or machine-readable documentation of application-specific concepts, statement patterns, extensions, and statement templates used when implementing xAPI in a particular context. In a nutshell, a profile documents the vocabulary concepts, extensions, statement templates, and patterns that are required for xAPI to be implemented consistently for a specific use case. A profile empowers designers and developers to establish a controlled, domain-specific vocabulary and determine what data should be captured/stored and reported on. In other words, a profile really is the blueprint for a successful, semantically interoperable xAPI implementation.
 
 This Github repository contains the xAPI Profiles Specification. [xAPI](https://github.com/adlnet/xAPI-Spec) is a learning
 technologies interoperability specification that describes communication
