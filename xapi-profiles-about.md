@@ -253,7 +253,7 @@ even if there no requirement in a given area.
 
 <a name="pattern"></a>**Pattern**: One way a series of Statements following a Profile could look. Defined by this specification.
 
-<a name="profile"></a>**Profile**: What this specification focuses on. A profile is a way to talk about Concepts, Statement Templates, and Patterns for Experience API data in a particular context, and in particular to describe them so machines can do some processing automatically.
+<a name="profile"></a>**Profile**: A profile is the human and/or machine-readable documentation of application-specific concepts, statement patterns, extensions, and statement templates used when implementing xAPI in a particular context. A profile is a way to talk about Concepts, Statement Templates, and Patterns for Experience API data in a particular context, and in particular to describe them so machines can do some processing automatically.
 
 <a name="profileauthor"></a>**Profile Author**: Some person or group writing a Profile.
 
