@@ -257,7 +257,7 @@ even if there no requirement in a given area.
 
 <a name="profileauthor"></a>**Profile Author**: Some person or group writing a Profile.
 
-<a name="profileserver"></a>**Profile Server**: A place to find and browse Profiles.
+<a name="profileserver"></a>**Profile Server**: A place to find, browse, and query Profiles, vocabulary concepts, and other profile metadata.
 
 <a name="profilevalidator"></a>**Profile Validator**: Any person or machine attempting to verify if the rules in a Profile are followed for a particular set of data.
 
