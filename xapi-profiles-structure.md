@@ -447,9 +447,10 @@ Property | Type | Description | Required
 `verb` | IRI | Verb IRI | Optional
 `objectActivityType` | IRI | Object activity type IRI | Optional
 `homepage` | IRL | Part of the Account object | Optional
-`ActivityDefinitionExtension` key | IRI | The key of the extension of the Activity Definition Object | Optional
-`ResultExtension` key | IRI | The key of the extension of the Result Object | Optional
-`ContextExtension` key | IRI | The key of the extension of the Context Object | Optional
+`activityDefinitionExtension` key | IRI | The key of the extension of the Activity Definition Object | Optional
+`resultExtension` key | IRI | The key of the extension of the Result Object | Optional
+`contextExtension` key | IRI | The key of the extension of the Context Object | Optional
+`contextCategoryContextActivity` key | IRI | The identifier of the Category Context Activity | Optional
 `objectActivityType` | IRI | Object activity type IRI | Optional
 `contextGroupingActivityType` | Array | Array of contextActivities grouping activity type IRIs | Optional
 `contextParentActivityType` | Array | Array of contextActivities parent activity type IRIs | Optional
@@ -462,7 +463,7 @@ Property | Type | Description | Required
 
 A Statement Template MUST NOT have both `objectStatementRefTemplate` and `objectActivityType`.
 
-The verb, object activity type, attachment usage types, and context activity types listed are called Determining Properties.
+The verb, object activity type, homepage, extensions, category context activity, attachment usage types, and context activity types listed are called Determining Properties.
 
 A Profile Author MUST change a Statement Template's `id` between versions if any of the Determining Properties, StatementRef properties, or rules change. 
 Changes of `scopeNote` are not considered changes in rules.
