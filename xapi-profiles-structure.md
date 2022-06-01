@@ -80,7 +80,7 @@ To assist in accomplishing these two primary goals, Profiles also contain metada
 <a name="using-prof-statements"></a>
 ## 5.0 Using Profiles in Statements
 
-Using an introduced Concept, such as an activity type, verb, attachment usage type, extension, activity, or document resource, can be done freely, provided the defined usage and meaning are adhered to. But a Learning Record Provider can go further, and make sure to adhere to Profile-described Statement Templates and Patterns. Learning Record Providers authoring Statements that conform to matching Profile-described Statement Templates and Patterns SHOULD include the most up-to-date conformant Profile version as a category context activity with id equal to the version's `id` in those Statements, and Statements containing a Profile version as a category context activity MUST conform to any matching Statement Templates and Patterns that Profile version describes.
+Using an introduced Concept, such as an activity type, verb, attachment usage type, extension, activity, or document resource, can be done freely, provided the defined usage and meaning are adhered to. But a Learning Record Provider can go further, and make sure to adhere to Profile-described Statement Templates and Patterns. Learning Record Providers authoring Statements that conform to matching Profile-described Statement Templates and Patterns SHOULD include the most up-to-date conformant Profile version as a category context activity with id equal to the version's `id` in those Statements, and Statements containing a Profile version as a category context activity MUST conform to any matching Statement Templates and Patterns that Profile version describes.  An LRP is effectively declaring conformance to a specific Profile version BY including the category context activity with that Profile version's `id`.  There is no other mechanism defined in this document that links a Statement to a particular xAPI Profile.  However, not every category context activity has a specific xAPI Profile, it might simply be an activity id.  
 
 <a name="prof-props"></a>
 ## 6.0 Profile Properties
@@ -171,9 +171,14 @@ All Concepts in a Profile MUST follow the rules of one of the subsections within
 
 
 <a name="verb-activity-attach"></a>
-### 7.1 Verbs, Activity Types, and Attachment Usage Types
+### 7.1 Verbs, Activity Types, Category Context Activities and Attachment Usage Types
 
-Verb, Activity Type, and Attachment Usage Type Concepts share the same properties. They're all Concepts that make sense to relate semantically to others of the same type, such as indicating one is a narrower form of another.
+Verb, Activity Type, Category Context Activities, and Attachment Usage Type Concepts share the same properties. They're all Concepts that make sense to relate 
+semantically to others of the same type, such as indicating one is a narrower form of another. Category Context Activities were not included in the previous version,
+but is expected that the Category Context Activity corresponding to the xAPI Profile would be a reserved term for that xAPI Profile, but would still be considered a
+concept.  Use of Category Context Activities also allows the "reserving" or "sub-profiling" where a full xAPI Profile may not be created, but the use of a "tag" is 
+needed within a profile.  A Profile Creator SHOULD include the Category Context Activity corresponding to the xAPI Profile, versioning as appropriate, in its list of 
+Concepts.
 
 Property | Type | Description | Required
 -------- | ---- | ----------- | --------
@@ -428,7 +433,7 @@ The `description` includes guidance on how to interpret this Activity's use in S
 <a name="statment-templates"></a>
 ## 8.0 Statement Templates
 
-A Statement Template describes one way Statements following the Profile may be structured.
+A Statement Template describes how Statements following the Profile MUST be structured.
 
 
 Property | Type | Description | Required
@@ -440,6 +445,11 @@ Property | Type | Description | Required
 `definition` | Object |A Language Map of descriptions of the purpose and usage of the Statement Template | Required
 `deprecated` | Boolean | A boolean, default false. If true, this Statement Template is deprecated. | Optional
 `verb` | IRI | Verb IRI | Optional
+`objectActivityType` | IRI | Object activity type IRI | Optional
+`homepage` | IRL | Part of the Account object | Optional
+`ActivityDefinitionExtension` key | IRI | The key of the extension of the Activity Definition Object | Optional
+`ResultExtension` key | IRI | The key of the extension of the Result Object | Optional
+`ContextExtension` key | IRI | The key of the extension of the Context Object | Optional
 `objectActivityType` | IRI | Object activity type IRI | Optional
 `contextGroupingActivityType` | Array | Array of contextActivities grouping activity type IRIs | Optional
 `contextParentActivityType` | Array | Array of contextActivities parent activity type IRIs | Optional
@@ -454,10 +464,15 @@ A Statement Template MUST NOT have both `objectStatementRefTemplate` and `object
 
 The verb, object activity type, attachment usage types, and context activity types listed are called Determining Properties.
 
-A Profile Author MUST change a Statement Template's `id` between versions if any of the Determining Properties, StatementRef properties, or rules change. Changes of `scopeNote` are not considered changes in rules.
+A Profile Author MUST change a Statement Template's `id` between versions if any of the Determining Properties, StatementRef properties, or rules change. 
+Changes of `scopeNote` are not considered changes in rules.
+A Profile Author SHOULD create a Statement Template with a single Determining Property of the Category Context Activity
+Other Statement Templates MAY use the Category Context Activity of the intended xAPI Profile in combination with another Determining Property. 
+In previous versions of this document, and if a Statement Template with a single Determining Property of the Category Context Activity is not included, All Statement 
+Templates associated with this profile MUST consider that Category Context Activity as a Determining Property as it was an implicit requirement in previous versions.  
 
 A Learning Record Provider authoring a Statement following a Statement Template:
-* MUST include all the Determining Properties in the Statement Template.
+* MUST include all the Determining Properties in the Statement Template.  A Statement Template using multiple Determining Properties is considered an "AND" operation.
 * MUST follow all rules in the Statement Template.
 * MUST, if `objectStatementRefTemplate` is specified, set the Statement object to a StatementRef with the `id` of a Statement matching at least one of the specified Statement Templates.
 * MUST, if `contextStatementRefTemplate` is specified, set the Statement context Statement property to a StatementRef with the `id` of a Statement matching at least one of the specified Statement Templates.
