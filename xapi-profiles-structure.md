@@ -6,7 +6,7 @@
       *  2.1. [MUST / SHOULD / MAY](./xapi-profiles-about.md#def-must-should-may)
       *  2.2. [Guidelines for Interpreting Descriptive Text and Tables](./xapi-profiles-about.md#interpret-text-table)
    *  3.0. [Definitions](./xapi-profiles-about.md#definitions)
-* Part Two: [xAPI Profiles Document Structure Specification](./xapi-profiles-structure.md#part-two)  
+* Part Two: [xAPI Profiles Document Structure Specification](./xapi-profiles-structure.md#part-two)
    *  1.0.  [Reference Specifications](./xapi-profiles-structure.md#ref-spec)
    *  2.0.  [Technical Foundations](./xapi-profiles-structure.md#tech-foundations)
    *  3.0.  [Structure](./xapi-profiles-structure.md#structure)
@@ -24,7 +24,7 @@
       *  8.1.  [Statement Template Rules](./xapi-profiles-structure.md#statement-template-rules)
    *  9.0.  [Patterns](./xapi-profiles-structure.md#patterns)
    *  10.0. [The Context](./xapi-profiles-structure.md#context)
-* Part Three: [xAPI Profiles Communication and Processing Specification](./xapi-profiles-communication.md#part-three)  
+* Part Three: [xAPI Profiles Communication and Processing Specification](./xapi-profiles-communication.md#part-three)
    * 1.0. [Profile Server](./xapi-profiles-communication.md#prof-server)
       * 1.1. [Profile Versions](./xapi-profiles-communication.md#prof-versions)
       * 1.2. [Best Practices](./xapi-profiles-communication.md#best-practices)
@@ -156,7 +156,7 @@ Use one of these in the `author` property to indicate the author of this Profile
 
 Property | Type | Description | Required
 -------- | ---- | ----------- | --------
-`type` | Object | `Organization` or `Person` | Required
+`type` | String | `Organization` or `Person` | Required
 `name` | String | A string with the name of the organization or person | Required
 `url` | URL | A URL for the Person or Group. | Optional
 
