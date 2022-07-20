@@ -558,7 +558,7 @@ Patterns have these properties:
 
 Property | Type | Description | Required
 -------- | ---- | ----------- | --------
-`id` | URI | A URI for the Statement Template. | Required
+`id` | URI | A URI for the Pattern. | Required
 `type` | String | `Pattern` | Required
 `primary` | Boolean | Default false. Only primary Patterns are checked for matching sequences of Statements. | Optional
 `inScheme` | IRI | The IRI of the specific Profile version currently being described | Optional
@@ -566,10 +566,10 @@ Property | Type | Description | Required
 `definition` | Object | A Language Map of descriptions of the purpose and usage of the Pattern | Optional
 `deprecated` | Boolean | A boolean. If true, this Pattern is deprecated. | Optional
 `alternates` | Array | An array of Pattern or Statement Template identifiers. An `alternates` Pattern matches if any member of the array matches | Optional
-`optional` | Object | A single Pattern or Statement Template identifier. An `optional` Pattern matches if the identified thing matches once, or is not present at all | Optional
-`oneOrMore` | Object | A single Pattern or Statement Template identifier. A `oneOrMore` Pattern matches if the identified thing matches once, or any number of times more than once | Optional
+`optional` | URI | A single Pattern or Statement Template identifier. An `optional` Pattern matches if the identified thing matches once, or is not present at all | Optional
+`oneOrMore` | URI | A single Pattern or Statement Template identifier. A `oneOrMore` Pattern matches if the identified thing matches once, or any number of times more than once | Optional
 `sequence` | Array | An array of Pattern or Statement Template identifiers. A `sequence` Pattern matches if the identified things match in the order specified. | Optional
-`zeroOrMore` | Object | A single Pattern or Statement Template identifier. A `zeroOrMore` Pattern matches if the identified thing is not present or is present one or more times | Optional
+`zeroOrMore` | URI | A single Pattern or Statement Template identifier. A `zeroOrMore` Pattern matches if the identified thing is not present or is present one or more times | Optional
 
 
 A primary Pattern MUST include `prefLabel` and `definition`. They are optional otherwise.
