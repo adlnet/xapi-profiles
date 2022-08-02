@@ -239,7 +239,7 @@ even if there no requirement in a given area.
 
 <a name="json"></a>**JSON**: [JavaScript Object Notation](http://www.json.org). A simple way to represent data structures for computers that humans don't have too hard a time writing or reading. The way Profiles are represented in this specification.
 
-<a name="jsonschema"></a>**JSON Schema**: [JSON Schema](http://json-schema.org) are a way to describe and constrain the form of JSON documents.
+<a name="jsonschema"></a>**JSON Schema**: [JSON Schema](http://json-schema.org) are a way to describe and constrain the form of JSON documents. This specification adheres to [Draft-07](https://json-schema.org/specification-links.html#draft-7) version of the JSON Schema specification.
 
 <a name="jsonld"></a>**JSON-LD**: [JSON-LD](https://json-ld.org) turns JSON into Linked Data, making it easy to use with Linked Data tools and integrate with other datasets.
 

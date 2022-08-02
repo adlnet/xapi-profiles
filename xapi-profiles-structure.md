@@ -272,7 +272,7 @@ Property | Type | Description | Required
 `schema` | IRI | the IRI for accessing a JSON Schema for this extension. The JSON Schema can be used to constrain the extension to a single type. | Optional
 `inlineSchema` | Object | An alternate way to include a JSON Schema, as a string. | Optional
 
-Profiles MUST use at most one of `schema` and `inlineSchema` for Extensions.
+Profiles MUST use at most one of `schema` and `inlineSchema` for Extensions. JSON Schema expressions SHOULD adhere to the [Draft-07](https://json-schema.org/specification-links.html#draft-7) version of the JSON Schema specification.
 
 Statements including extensions defined in a Profile MUST:
 * only use a ContextExtension in context
@@ -325,7 +325,7 @@ Property | Type | Description | Required
 `schema` | IRI | the IRI for accessing a JSON Schema for this document resource. | Optional
 `inlineSchema` | String | An alternate way to include a JSON Schema, as a string. | Optional
 
-Profiles MUST use at most one of `schema` and `inlineSchema` for Document Resources
+Profiles MUST use at most one of `schema` and `inlineSchema` for Document Resources. JSON Schema expressions SHOULD adhere to the [Draft-07](https://json-schema.org/specification-links.html#draft-7) version of the JSON Schema specification.
 
 Learning Record Store Clients sending Document Resources
 * MUST use the `id` as the `stateId` or `profileId` (as appropriate) when interacting with the corresponding resource.
