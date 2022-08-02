@@ -273,7 +273,7 @@ function follows_rule(statement, rule):
 function apply_jsonpath(statement, path):
     The definition of this is beyond the scope of this document, but it follows
     the JSONPath specification as constrained by the requirements in this
-    specification. If a single value is found in the Statement matching the
+    specification (xapi-profiles-structure.md#jsonpath-constraints). If a single value is found in the Statement matching the
     path, it is returned in an array (even if the single value is already an array). If
     multiple values are found, they are returned in an array.
     If no values are found, an empty array is returned.
