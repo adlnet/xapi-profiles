@@ -601,8 +601,7 @@ The `description` includes guidance on how to interpret this Activity's use in S
 <a name="statment-templates"></a>
 ## 8.0 Statement Templates
 
-A Statement Template describes one way Statements following the Profile may be structured.
-
+A Statement Template describes how Statements following the Profile MUST be structured.
 
 Property | Type | Description | Required
 -------- | ---- | ----------- | --------
@@ -614,6 +613,10 @@ Property | Type | Description | Required
 `deprecated` | Boolean | A boolean, default false. If true, this Statement Template is deprecated. | Optional
 `verb` | IRI | Verb IRI | Optional
 `objectActivityType` | IRI | Object activity type IRI | Optional
+`homepage` | Array | Array of Account `homePage` IRLs found within a Statement | Optional
+`activityDefinitionExtension` | Array | Array of Activity Extension IRIs found within a Statement | Optional
+`resultExtension` | Array | Array of Result Extension IRIs found within the Result Object | Optional
+`contextExtension` | Array | Array of Context Extension IRIs found within the Context Object | Optional
 `contextGroupingActivityType` | Array | Array of contextActivities grouping activity type IRIs | Optional
 `contextParentActivityType` | Array | Array of contextActivities parent activity type IRIs | Optional
 `contextOtherActivityType` | Array | Array of contextActivities other activity type IRIs | Optional
@@ -625,17 +628,21 @@ Property | Type | Description | Required
 
 A Statement Template MUST NOT have both `objectStatementRefTemplate` and `objectActivityType`.
 
-The verb, object activity type, attachment usage types, and context activity types listed are called Determining Properties.
+The verb, object activity type, homepage, extensions, attachment usage types, and context activity types listed are called Determining Properties.
 
 A Profile Author MUST change a Statement Template's `id` between versions if any of the Determining Properties, StatementRef properties, or rules change. Changes of `scopeNote` are not considered changes in rules.
 
 A Learning Record Provider authoring a Statement following a Statement Template:
-* MUST include all the Determining Properties in the Statement Template.
+* MUST include all the Determining Properties in the Statement Template. A Statement Template using multiple Determining Properties is considered an "AND" operation.
 * MUST follow all rules in the Statement Template.
+* SHOULD include a reference to the Statement Template or the Profile as a Category Context Activity as described in [Using Profiles in Statements](./xapi-profiles-structure.md#using-prof-statements).
 * MUST, if `objectStatementRefTemplate` is specified, set the Statement object to a StatementRef with the `id` of a Statement matching at least one of the specified Statement Templates.
 * MUST, if `contextStatementRefTemplate` is specified, set the Statement context Statement property to a StatementRef with the `id` of a Statement matching at least one of the specified Statement Templates.
+* MUST, if `homepage` is specified, ensure that for each IRL, there is at least one corresponding Agent or Group identified by an account IFI Object with a `homePage` value set to the IRL.
+* MUST, if `activityDefinitionExtension` is specified, ensure that for each extension IRI key, there is at least one Activity in the Statement that includes the IRI key. A single Activity MAY contain multiple extension IRI keys.
 
 A Profile Validator validating a Statement MUST validate all the Learning Record Provider requirements for a Statement Template are followed.
+
 
 <a name="statement-template-rules"></a>
 ### 8.1 Statement Template Rules
