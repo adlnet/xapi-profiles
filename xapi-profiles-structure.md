@@ -6,7 +6,7 @@
       *  2.1. [MUST / SHOULD / MAY](./xapi-profiles-about.md#def-must-should-may)
       *  2.2. [Guidelines for Interpreting Descriptive Text and Tables](./xapi-profiles-about.md#interpret-text-table)
    *  3.0. [Definitions](./xapi-profiles-about.md#definitions)
-* Part Two: [xAPI Profiles Document Structure Specification](./xapi-profiles-structure.md#part-two)  
+* Part Two: [xAPI Profiles Document Structure Specification](./xapi-profiles-structure.md#part-two)
    *  1.0.  [Reference Specifications](./xapi-profiles-structure.md#ref-spec)
    *  2.0.  [Technical Foundations](./xapi-profiles-structure.md#tech-foundations)
    *  3.0.  [Structure](./xapi-profiles-structure.md#structure)
@@ -24,7 +24,7 @@
       *  8.1.  [Statement Template Rules](./xapi-profiles-structure.md#statement-template-rules)
    *  9.0.  [Patterns](./xapi-profiles-structure.md#patterns)
    *  10.0. [The Context](./xapi-profiles-structure.md#context)
-* Part Three: [xAPI Profiles Communication and Processing Specification](./xapi-profiles-communication.md#part-three)  
+* Part Three: [xAPI Profiles Communication and Processing Specification](./xapi-profiles-communication.md#part-three)
    * 1.0. [Profile Server](./xapi-profiles-communication.md#prof-server)
       * 1.1. [Profile Versions](./xapi-profiles-communication.md#prof-versions)
       * 1.2. [Best Practices](./xapi-profiles-communication.md#best-practices)
@@ -80,7 +80,180 @@ To assist in accomplishing these two primary goals, Profiles also contain metada
 <a name="using-prof-statements"></a>
 ## 5.0 Using Profiles in Statements
 
-Using an introduced Concept, such as an activity type, verb, attachment usage type, extension, activity, or document resource, can be done freely, provided the defined usage and meaning are adhered to. But a Learning Record Provider can go further, and make sure to adhere to Profile-described Statement Templates and Patterns. Learning Record Providers authoring Statements that conform to matching Profile-described Statement Templates and Patterns SHOULD include the most up-to-date conformant Profile version as a category context activity with id equal to the version's `id` in those Statements, and Statements containing a Profile version as a category context activity MUST conform to any matching Statement Templates and Patterns that Profile version describes.
+[//]: <> (This section may need to be moved to after the Profile Component sections)
+[//]: <> (Activity Types for the references should be defined in order to provide distinction between Reference Category Context Activity and an arbitrary Category Context Activity)
+
+Using an introduced Concept, such as an activity type, verb, attachment usage type, extension, activity, or document resource, can be done freely, provided the defined usage and meaning are adhered to. But a Learning Record Provider can go further, and make sure to adhere to Profile-described Statement Templates and Patterns. Learning Record Providers authoring Statements SHOULD include reference(s) to a Profile by using Category Context Activities as described below.
+
+Reference | Description
+--------- | -----------
+Profile Version | Including a Category Context Activity with `id` equal to the most up-to-date Profile version's `id` indicates that the Statement MUST conform to at least one Statement Template in the referenced Profile.
+Statement Template | Including a Category Context Activity with `id` equal to a Statement Template's `id` indicates that the Statement MUST conform to the referenced Statement Template.
+Pattern | Including a Category Context Activity with `id` equal to a Pattern's `id` indicates that the Statement MUST conform to a Statement Template used within the referenced Pattern.
+
+* Multiple references can be found in an xAPI Statement and their effect is combinatory.
+* Multiple Profiles can be referenced within an xAPI Statement.
+* Statement Template and Pattern conformance is described in [Algorithms](./xapi-profiles-communication.md#algorithms).
+* Category Context Activities found in an xAPI Statement MAY be references to a Profile but do not have to be.
+
+There is no other mechanism defined in this document that links a Statement to a particular xAPI Profile.
+
+### Examples
+
+[//]: <> (These examples may be better in an Appendix)
+
+The following table summarizes two example Profiles used here for demonstrating how Statements can link to one or more Profiles
+
+Profile | Component | Name | ID
+------- | --------- | ---- | --
+A | Version | `version_a` | `https://example.com/profile/a/version/1.0.0`
+A | Statement Template | `template_x` | `https://example.com/profile/a/templates/x`
+A | Statement Template | `template_y` | `https://example.com/profile/a/templates/y`
+A | Pattern | `pattern_i` | `https://example.com/profile/a/pattern/i`
+B | Version | `version_b` |`https://example.com/profile/b/version/1.0.0`
+B | Statement Template | `template_z` | `https://example.com/profile/b/templates/z`
+B | Pattern | `pattern_j` | `https://example.com/profile/b/pattern/j`
+
+The following code blocks demonstrate the way Category Context Activities can be used to reference a Profile. The implications of the reference are enumerated below the code blocks.
+
+#### Profile Version
+
+A reference to a Profile Version is the broadest link between a Statement and a Profile.
+
+```javascript
+{
+...
+"context": {"category": [{"id": "https://example.com/profile/a/version/1.0.0"}]}
+...
+}
+
+```
+This Statement MUST:
+* conform to either `template_x` or `template_y`
+
+```javascript
+{
+...
+"context": {"category": [{"id": "https://example.com/profile/a/version/1.0.0"},
+                         {"id": "https://example.com/profile/b/version/1.0.0"}]}
+...
+}
+
+```
+This Statement MUST:
+* conform to either `template_x` or `template_y`
+* conform to `template_z`
+
+#### Statement Template
+
+References to a Statement Template allow for more precise linking between a Statement and Profile.
+
+Because [Statement Templates](./xapi-profiles-structure.md#statment-templates) are highly configurable, its possible that a single Statement conforms to multiple Statement Templates within a Profile or across Profiles.
+
+```javascript
+{
+...
+"context": {"category": [{"id": "https://example.com/profile/a/templates/x"}]}
+...
+}
+```
+
+This Statement MUST:
+* conform to `template_x`
+
+```javascript
+{
+...
+"context": {"category": [{"id": "https://example.com/profile/a/templates/x"},
+                         {"id": "https://example.com/profile/b/templates/z"}]}
+...
+}
+```
+
+This Statement MUST:
+* conform to `template_x`
+* conform to `template_z`
+
+#### Patterns
+
+References to a Pattern allow for linking between a Statement, a Profile and a collection of Statements.
+
+The following assertions are made about the relationship between the example Statement Templates and Patterns. Please see [Patterns](./xapi-profiles-structure.md#patterns) for more information on the types of relationships and corresponding constraints.
+
+* `pattern_i` is a sequence of `template_x`, `template_y`
+* `pattern_j` is a sequence of `template_y`, `template_z`
+
+```javascript
+{
+...
+"context": {"category": [{"id": "https://example.com/profile/a/pattern/i"}]}
+...
+}
+```
+
+This Statement MUST:
+* conform to `template_x` or `template_y`
+
+```javascript
+{
+...
+"context": {"category": [{"id": "https://example.com/profile/a/pattern/i"},
+                         {"id": "https://example.com/profile/b/pattern/j"}]}
+...
+}
+```
+
+This Statement MUST:
+* conform to `template_x` or `template_y`
+* conform to `template_y` or `template_z`
+
+#### Combinations
+
+Combining references to Profiles and Profile Components provides flexible, declarative and precise linking.
+
+```javascript
+{
+...
+"context": {"category": [{"id": "https://example.com/profile/a/version/1.0.0"},
+                         {"id": "https://example.com/profile/b/templates/z"}]}
+...
+}
+
+```
+
+This Statement MUST:
+* conform to `template_x` or `template_y`
+* conform to `template_z`
+
+```javascript
+{
+...
+"context": {"category": [{"id": "https://example.com/profile/a/version/1.0.0"},
+                         {"id": "https://example.com/profile/b/pattern/j"}]}
+...
+}
+
+```
+
+This Statement MUST:
+* conform to `template_x` or `template_y`
+* conform to `template_y` or `template_z`
+
+
+```javascript
+{
+...
+"context": {"category": [{"id": "https://example.com/profile/b/pattern/j"},
+                         {"id": "https://example.com/profile/b/templates/z"}]}
+...
+}
+
+```
+
+This Statement MUST:
+* conform to `template_y` or `template_z`
+* conform to `template_z`
+
 
 <a name="prof-props"></a>
 ## 6.0 Profile Properties
