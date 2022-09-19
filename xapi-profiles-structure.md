@@ -6,7 +6,7 @@
       *  2.1. [MUST / SHOULD / MAY](./xapi-profiles-about.md#def-must-should-may)
       *  2.2. [Guidelines for Interpreting Descriptive Text and Tables](./xapi-profiles-about.md#interpret-text-table)
    *  3.0. [Definitions](./xapi-profiles-about.md#definitions)
-* Part Two: [xAPI Profiles Document Structure Specification](./xapi-profiles-structure.md#part-two)  
+* Part Two: [xAPI Profiles Document Structure Specification](./xapi-profiles-structure.md#part-two)
    *  1.0.  [Reference Specifications](./xapi-profiles-structure.md#ref-spec)
    *  2.0.  [Technical Foundations](./xapi-profiles-structure.md#tech-foundations)
    *  3.0.  [Structure](./xapi-profiles-structure.md#structure)
@@ -24,7 +24,7 @@
       *  8.1.  [Statement Template Rules](./xapi-profiles-structure.md#statement-template-rules)
    *  9.0.  [Patterns](./xapi-profiles-structure.md#patterns)
    *  10.0. [The Context](./xapi-profiles-structure.md#context)
-* Part Three: [xAPI Profiles Communication and Processing Specification](./xapi-profiles-communication.md#part-three)  
+* Part Three: [xAPI Profiles Communication and Processing Specification](./xapi-profiles-communication.md#part-three)
    * 1.0. [Profile Server](./xapi-profiles-communication.md#prof-server)
       * 1.1. [Profile Versions](./xapi-profiles-communication.md#prof-versions)
       * 1.2. [Best Practices](./xapi-profiles-communication.md#best-practices)
@@ -445,6 +445,8 @@ Property | Type | Description | Required
 `contextParentActivityType` | Array | Array of contextActivities parent activity type IRIs | Optional
 `contextOtherActivityType` | Array | Array of contextActivities other activity type IRIs | Optional
 `contextCategoryActivityType` | Array | Array of contextActivities category activity type IRIs | Optional
+`contextAgentActivityType` | Array | Array of contextAgent activity type IRIs | Optional
+`contextGroupActivityType` | Array | Array of contextGroup activity type IRIs | Optional
 `attachmentUsageType` | Array | Array of attachment usage type IRIs | Optional
 `objectStatementRefTemplate` | Array | An array of Statement Template identifiers from this Profile version. | Optional
 `contextStatementRefTemplate`. | Array | An array of Statement Template identifiers from this Profile version. | Optional
@@ -538,6 +540,8 @@ A Profile for competitive events might define a Statement Template for recording
         "http://example.org/profiles/sports/activitytypes/event",
     "contextGroupingActivityType": [
         "http://example.org/profiles/sports/activitytypes/event"],
+    "contextAgentActivityType" : [
+        "http://example.org/profiles/sport/activitytypes/contestant"],
     "rules": [
         {
             "location":
