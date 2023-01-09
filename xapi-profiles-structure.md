@@ -6,7 +6,7 @@
       *  2.1. [MUST / SHOULD / MAY](./xapi-profiles-about.md#def-must-should-may)
       *  2.2. [Guidelines for Interpreting Descriptive Text and Tables](./xapi-profiles-about.md#interpret-text-table)
    *  3.0. [Definitions](./xapi-profiles-about.md#definitions)
-* Part Two: [xAPI Profiles Document Structure Specification](./xapi-profiles-structure.md#part-two)  
+* Part Two: [xAPI Profiles Document Structure Specification](./xapi-profiles-structure.md#part-two)
    *  1.0.  [Reference Specifications](./xapi-profiles-structure.md#ref-spec)
    *  2.0.  [Technical Foundations](./xapi-profiles-structure.md#tech-foundations)
    *  3.0.  [Structure](./xapi-profiles-structure.md#structure)
@@ -24,7 +24,7 @@
       *  8.1.  [Statement Template Rules](./xapi-profiles-structure.md#statement-template-rules)
    *  9.0.  [Patterns](./xapi-profiles-structure.md#patterns)
    *  10.0. [The Context](./xapi-profiles-structure.md#context)
-* Part Three: [xAPI Profiles Communication and Processing Specification](./xapi-profiles-communication.md#part-three)  
+* Part Three: [xAPI Profiles Communication and Processing Specification](./xapi-profiles-communication.md#part-three)
    * 1.0. [Profile Server](./xapi-profiles-communication.md#prof-server)
       * 1.1. [Profile Versions](./xapi-profiles-communication.md#prof-versions)
       * 1.2. [Best Practices](./xapi-profiles-communication.md#best-practices)
@@ -93,6 +93,7 @@ Property | Type | Description | Required
 `@context` | URI | SHOULD be `https://w3id.org/xapi/profiles/context` and MUST contain this URI if array-valued. | Required
 `type` | String | MUST be `Profile`. | Required
 `conformsTo` | URI | Canonical URI of the Profile specification version conformed to. The Profile specification version of this document is https://w3id.org/xapi/profiles#1.0. | Required
+`xAPIVersion` | Array | The version of xAPI this profile adheres to. When not provided, the Profile MUST adhere to the most recent version of xAPI | Optional
 `prefLabel` | Object | Language map of names for this Profile. | Required
 `definition` | Object | Language map of descriptions for this Profile. If there are additional rules for the Profile as a whole that cannot be expressed using this specification, include them here, or at the seeAlso URL. | Required
 `seeAlso` | URL | A URL containing information about the Profile. Recommended instead of especially long definitions. | Optional
