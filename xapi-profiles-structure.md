@@ -496,8 +496,8 @@ A Profile Author MUST include the keys of any non-primitive objects in `any`, `a
 
 A Profile Author MUST ensure that values included within `any`, `all`, and `none` are valid xAPI values based on a Rule's `location` and `selector`.
 * xAPI data conformance is based off of the optional `xAPIVersion` Profile value.
-    * When `xAPIVersion` is not specified, xAPI data should be validated via the most recent version of xAPI
-    * When `xAPIVersion` is specified, xAPI data should be validated against the specified version of xAPI
+    * When `xAPIVersion` is not specified, xAPI data MUST be validated via the most recent version of xAPI
+    * When `xAPIVersion` is specified, xAPI data MUST be validated against the specified version of xAPI
 
 A Learning Record Provider authoring a Statement for the Statement Template including this Statement Template Rule:
 * MUST include at least one matchable value if `presence` is `included`
