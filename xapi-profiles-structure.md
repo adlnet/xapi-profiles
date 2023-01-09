@@ -6,7 +6,7 @@
       *  2.1. [MUST / SHOULD / MAY](./xapi-profiles-about.md#def-must-should-may)
       *  2.2. [Guidelines for Interpreting Descriptive Text and Tables](./xapi-profiles-about.md#interpret-text-table)
    *  3.0. [Definitions](./xapi-profiles-about.md#definitions)
-* Part Two: [xAPI Profiles Document Structure Specification](./xapi-profiles-structure.md#part-two)  
+* Part Two: [xAPI Profiles Document Structure Specification](./xapi-profiles-structure.md#part-two)
    *  1.0.  [Reference Specifications](./xapi-profiles-structure.md#ref-spec)
    *  2.0.  [Technical Foundations](./xapi-profiles-structure.md#tech-foundations)
    *  3.0.  [Structure](./xapi-profiles-structure.md#structure)
@@ -24,7 +24,7 @@
       *  8.1.  [Statement Template Rules](./xapi-profiles-structure.md#statement-template-rules)
    *  9.0.  [Patterns](./xapi-profiles-structure.md#patterns)
    *  10.0. [The Context](./xapi-profiles-structure.md#context)
-* Part Three: [xAPI Profiles Communication and Processing Specification](./xapi-profiles-communication.md#part-three)  
+* Part Three: [xAPI Profiles Communication and Processing Specification](./xapi-profiles-communication.md#part-three)
    * 1.0. [Profile Server](./xapi-profiles-communication.md#prof-server)
       * 1.1. [Profile Versions](./xapi-profiles-communication.md#prof-versions)
       * 1.2. [Best Practices](./xapi-profiles-communication.md#best-practices)
@@ -494,6 +494,11 @@ A Statement Template Rule MUST include one or more of `presence`, `any`, `all`, 
 
 A Profile Author MUST include the keys of any non-primitive objects in `any`, `all`, and `none` in additional `@context` beyond the ones provided by this specification.
 
+A Profile Author MUST ensure that values included within `any`, `all`, and `none` are valid xAPI values based on a Rule's `location` and `selector`.
+* xAPI data conformance is based off of the optional `xAPIVersion` Profile value.
+    * When `xAPIVersion` is not specified, xAPI data should be validated via the most recent version of xAPI
+    * When `xAPIVersion` is specified, xAPI data should be validated against the specified version of xAPI
+
 A Learning Record Provider authoring a Statement for the Statement Template including this Statement Template Rule:
 * MUST include at least one matchable value if `presence` is `included`
 * MUST NOT include any unmatchable values if `presence` is `included`
@@ -505,6 +510,8 @@ A Learning Record Provider authoring a Statement for the Statement Template incl
     * MUST NOT, if `none` is provided, include any values in `none` as matchable values
 
 A Profile Validator validating Statements MUST validate the Statement Template Rule requirements for Learning Record Providers are followed. See the Communication document for further details on how to do so.
+* Comparison between matchable values and `any`, `all` and `none` values MUST be based on the data comparison requirements defined within the xAPI Version set as the `xAPIVersion` profile property.
+    * when `xAPIVersion` profile property is not specified, the data comparison requirements within the most recent version of xAPI MUST be used.
 
 
 When validating a Statement for Statement Template Rules, `contextActivities` normalization MUST have already been performed as described in the Experience API specification. That is, singleton objects MUST be replaced by arrays of length one.
