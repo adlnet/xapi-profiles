@@ -6,7 +6,7 @@
       *  2.1. [MUST / SHOULD / MAY](./xapi-profiles-about.md#def-must-should-may)
       *  2.2. [Guidelines for Interpreting Descriptive Text and Tables](./xapi-profiles-about.md#interpret-text-table)
    *  3.0. [Definitions](./xapi-profiles-about.md#definitions)
-* Part Two: [xAPI Profiles Document Structure Specification](./xapi-profiles-structure.md#part-two)  
+* Part Two: [xAPI Profiles Document Structure Specification](./xapi-profiles-structure.md#part-two)
    *  1.0.  [Reference Specifications](./xapi-profiles-structure.md#ref-spec)
    *  2.0.  [Technical Foundations](./xapi-profiles-structure.md#tech-foundations)
    *  3.0.  [Structure](./xapi-profiles-structure.md#structure)
@@ -24,7 +24,7 @@
       *  8.1.  [Statement Template Rules](./xapi-profiles-structure.md#statement-template-rules)
    *  9.0.  [Patterns](./xapi-profiles-structure.md#patterns)
    *  10.0. [The Context](./xapi-profiles-structure.md#context)
-* Part Three: [xAPI Profiles Communication and Processing Specification](./xapi-profiles-communication.md#part-three)  
+* Part Three: [xAPI Profiles Communication and Processing Specification](./xapi-profiles-communication.md#part-three)
    * 1.0. [Profile Server](./xapi-profiles-communication.md#prof-server)
       * 1.1. [Profile Versions](./xapi-profiles-communication.md#prof-versions)
       * 1.2. [Best Practices](./xapi-profiles-communication.md#best-practices)
@@ -48,7 +48,7 @@ implementing the algorithms.
 
 ## Authored Profiles
 
-ADL maintains a [centralized public repository of authored xAPI profiles](https://github.com/adlnet/xapi-authored-profiles) based on this specification. The repository of profiles are imported and synchronized regularly into ADL's Profile Server, [http://xapi.vocab.pub](http://xapi.vocab.pub). 
+ADL maintains a [centralized public repository of authored xAPI profiles](https://github.com/adlnet/xapi-authored-profiles) based on this specification. The repository of profiles are imported and synchronized regularly into ADL's Profile Server, [http://xapi.vocab.pub](http://xapi.vocab.pub).
 
 <a name="prof-server"></a>
 ## 1.0 Profile Server
@@ -142,7 +142,7 @@ select
     ?prefLabel,
     ?definition
 where {
-    (?concept a xapi:Verb || ?concept a xapi:ActivityType) .                
+    (?concept a xapi:Verb || ?concept a xapi:ActivityType) .
     ?concept skos:inScheme <http://example.org/profiles/sports> ;
              skos:prefLabel ?prefLabel ;
              skos:definition ?definition .
@@ -175,6 +175,10 @@ To validate a Statement against the Statement Templates of a Profile, call the `
 function described in pseudocode below with the Statement and all the Statement Templates
 from the Profile. This function returns an outcome and an array of Statement Templates. To
 interpret the results, consult the table after the algorithm definition.
+
+* Comparison between `values` parsed from the Statement and the `any`, `all` and `none` values
+MUST be based on the data comparison requirements defined within the profile's xAPI Version (`xAPIVersion` property).
+        * when `xAPIVersion` profile property is not specified, the data comparison requirements within the most recent version of xAPI MUST be used.
 
 ```
 function validates(statement, templates):
