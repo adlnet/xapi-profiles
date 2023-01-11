@@ -81,179 +81,452 @@ To assist in accomplishing these two primary goals, Profiles also contain metada
 ## 5.0 Using Profiles in Statements
 
 [//]: <> (This section may need to be moved to after the Profile Component sections)
-[//]: <> (Activity Types for the references should be defined in order to provide distinction between Reference Category Context Activity and an arbitrary Category Context Activity)
+[//]: <> (I think this section can move to after section 10.0, post defintion of profile data model)
+[//]: <> (OR this section + Profile Processing Libraries get their own Part; Part 3 or 4 Profile : Statements; Part 3 or 4 Profile Server)
 
-Using an introduced Concept, such as an activity type, verb, attachment usage type, extension, activity, or document resource, can be done freely, provided the defined usage and meaning are adhered to. But a Learning Record Provider can go further, and make sure to adhere to Profile-described Statement Templates and Patterns. Learning Record Providers authoring Statements SHOULD include reference(s) to a Profile by using Category Context Activities as described below.
+Using an introduced Concept, such as an activity type, verb, attachment usage type, extension, activity, or document resource, can be done freely, provided the defined usage and meaning are adhered to. But a Learning Record Provider can go further, and make sure to adhere to Profile-described Statement Templates and Patterns. Learning Record Providers authoring Statements from Statement Templates or Patterns MUST include a reference to the Profile within said Statements and MAY include reference(s) to the corresponding Statement Template(s) and/or Pattern(s). In other words, when a Statement is authored to satisfy the constraints defined within a Statement Template, that Statement will include a reference to the Profile the Statement Template is defined within; additionally, that Statement can include a reference to the Statement Template. The same logic applies to Patterns. When a Statement is authored to be part of a Pattern, that xAPI Statement will include a reference to the xAPI Profile and can include a reference to the Pattern. When a Statement does not successfully reference an xAPI Profile, it has no recognizable relationship to any xAPI Profile which prevents conformance testing of the Statement.
 
-Reference | Description
---------- | -----------
-Profile Version | Including a Category Context Activity with `id` equal to the most up-to-date Profile version's `id` indicates that the Statement MUST conform to at least one Statement Template in the referenced Profile.
-Statement Template | Including a Category Context Activity with `id` equal to a Statement Template's `id` indicates that the Statement MUST conform to the referenced Statement Template.
-Pattern | Including a Category Context Activity with `id` equal to a Pattern's `id` indicates that the Statement MUST conform to a Statement Template used within the referenced Pattern.
+### 5.1 Reference Activities
 
-* Multiple references can be found in an xAPI Statement and their effect is combinatory.
-* Multiple Profiles can be referenced within an xAPI Statement.
-* Statement Template and Pattern conformance is described in [Algorithms](./xapi-profiles-communication.md#algorithms).
-* Category Context Activities found in an xAPI Statement MAY be references to a Profile but do not have to be.
+xAPI Profile references are Activities found within a Statements' Category contextActivities field. In order to distinguish a Profile reference Activity from an arbitrary Category Context Activity, the following Activity Types are introduced:
 
-There is no other mechanism defined in this document that links a Statement to a particular xAPI Profile.
+- `https://w3id.org/xapi/profiles/reference/version`
+- `https://w3id.org/xapi/profiles/reference/template`
+- `https://w3id.org/xapi/profiles/reference/pattern`
 
-### Examples
+There is no other mechanism defined in this document that links a Statement to a particular xAPI Profile. See Part 3 for additional information on how conformance is determined.
+
+The following subsections describe each type of reference in more detail but in general:
+
+- Multiple Reference Activities MAY be found in a single xAPI Statement
+- Multiple Profiles MAY be referenced within a single xAPI Statement
+- Statement Authors SHOULD ensure any and all Reference Activities included within Statements are accurate.
+
+#### 5.1.1 Profile Version Reference Activity
+
+Including a reference to a Profile version indicates that the Statement MUST conform to at least one Statement Template in the referenced Profile version. The identity of those Statement Template(s) is untraceable from a Profile Version Reference alone. The id of the Profile Version Reference Activity is the id of the Profile Version being referenced.
+
+The following is an example of a minimal Profile Version reference Activity.
+
+``` javascript
+
+{"id": "https://example.com/xapi/profile/version/0.0.1",
+ "definition": {"type": "https://w3id.org/xapi/profiles/reference/version"}}
+
+```
+
+- A Profile Version Reference Activity MUST be a valid Activity
+- A Profile Version Reference Activity MUST use `"https://w3id.org/xapi/profiles/reference/version"` as the Activity Type
+- A Profile Version Reference Activity MUST only be found within Category contextActivities
+- A Profile Version Reference Activity MAY be the only Profile Reference Activity within Category contextActivities
+
+#### 5.1.2 Statement Template Reference Activity
+
+Including a reference to a Statement Template indicates that the Statement SHOULD conform to the referenced Statement Template. This is an optional reference but including one within an xAPI Statement creates an explicit linkage to a Statement Template. The id of the Statement Template Reference Activity is the id of the Statement Template being referenced.
+
+The following is an example of a minimal Statement Template reference Activity.
+
+``` javascript
+
+{"id": "https://example.com/xapi/profile/templates/example",
+ "definition": {"type": "https://w3id.org/xapi/profiles/reference/template"}}
+
+```
+
+- A Statement Template Reference Activity MUST be a valid Activity
+- A Statement Template Reference Activity MUST use `"https://w3id.org/xapi/profiles/reference/template"` as the Activity Type
+- A Statement Template Reference Activity MUST only be found within Category contextActivities
+- A Statement Template Reference Activity MUST NOT be the only Profile Reference Activity within Category contextActivities
+- A Statement Template Reference Activity MUST NOT be included in a Statement when that Statement doesn't contain a Profile Version Reference Activity for the Profile Version the referenced Statement Template is found within
+
+#### 5.1.3 Pattern Reference Activity
+
+Including a reference to a Pattern indicates that the Statement SHOULD conform to a Statement Template used within the referenced Pattern. This is an optional reference but including one within an xAPI Statement creates an transparent linkage to a Pattern. The id of the Pattern Reference Activity is the id of the Pattern being referenced.
+
+The following is an example of a minimal Pattern reference Activity.
+
+``` javascript
+
+{"id": "https://example.com/xapi/profile/patterns/example",
+ "definition": {"type": "https://w3id.org/xapi/profiles/reference/pattern"}}
+
+```
+
+- A Pattern Reference Activity MUST be a valid Activity
+- A Pattern Reference Activity MUST use `"https://w3id.org/xapi/profiles/reference/pattern"` as the Activity Type
+- A Pattern Reference Activity MUST only be found within Category contextActivities
+- A Pattern Reference Activity MUST NOT be the only Profile Reference Activity within Category contextActivities
+- A Pattern Reference Activity MUST NOT be included in a Statement when that Statement doesn't contain a Profile Version Reference Activity for the Profile Version the referenced Pattern is found within
+
+### 5.2 Examples
 
 [//]: <> (These examples may be better in an Appendix)
 
-The following table summarizes two example Profiles used here for demonstrating how Statements can link to one or more Profiles
+In order to illustrate usage of Profile Reference Activities within xAPI Statements, two example xAPI Profiles (A and B) are introduced and their relevant components summarized in the following table:
 
-Profile | Component | Name | ID
-------- | --------- | ---- | --
-A | Version | `version_a` | `https://example.com/profile/a/version/1.0.0`
-A | Statement Template | `template_x` | `https://example.com/profile/a/templates/x`
-A | Statement Template | `template_y` | `https://example.com/profile/a/templates/y`
-A | Pattern | `pattern_i` | `https://example.com/profile/a/pattern/i`
-B | Version | `version_b` |`https://example.com/profile/b/version/1.0.0`
-B | Statement Template | `template_z` | `https://example.com/profile/b/templates/z`
-B | Pattern | `pattern_j` | `https://example.com/profile/b/pattern/j`
+Profile | Component          | Name          | ID
+--------| ------------------ | ------------- | --
+A       | Version            | `version_a`   | `https://example.com/profile/a/version/1.0.0`
+A       | Statement Template | `template_a1` | `https://example.com/profile/a/templates/a1`
+A       | Statement Template | `template_a2` | `https://example.com/profile/a/templates/a2`
+A       | Pattern            | `pattern_a`   | `https://example.com/profile/a/pattern/a1`
+B       | Version            | `version_b`   | `https://example.com/profile/b/version/1.0.0`
+B       | Statement Template | `template_b1` | `https://example.com/profile/b/templates/b1`
+B       | Pattern            | `pattern_b`   | `https://example.com/profile/b/pattern/b`
 
-The following code blocks demonstrate the way Category Context Activities can be used to reference a Profile. The implications of the reference are enumerated below the code blocks.
 
-#### Profile Version
+- Profile A has a single Version `version_A`
+- Profile A has two Statement Templates `template_a1` and `template_a2`
+- Profile A has a single Pattern `pattern_a`
+- Profile B has a single Version `version_b`
+- Profile B has a single Statement Template `template_b1`
+- Profile B has a single Pattern `pattern_b`
+
+The following subsections demonstrate the way Category contextActivities can be used to reference Profile(s) and their components.
+
+#### 5.2.1 Referencing a Single Profile
+
+References to a Profile connect the Data Generating Process (Learning Record Producer) to the schema describing the domain.
+
+##### 5.2.1.1 Profile Version Reference Activity Usage
 
 A reference to a Profile Version is the broadest link between a Statement and a Profile.
 
 ```javascript
 {
 ...
-"context": {"category": [{"id": "https://example.com/profile/a/version/1.0.0"}]}
+"context": {"contextActivities":
+             {"category": [{"id": "https://example.com/profile/a/version/1.0.0",
+                            "definition": {"type": "https://w3id.org/xapi/profiles/reference/version"}}]}}
 ...
 }
 
 ```
-This Statement MUST:
-* conform to either `template_x` or `template_y`
+
+The above Statement MUST conform to any Statement Template (`template_a1` and/or `template_a2`) within the referenced Profile Version.
+
+##### 5.2.1.2 Statement Template Reference Activity Usage
+
+A reference to a Statement Template is the most explicit link between a Statement and a Profile.
 
 ```javascript
 {
 ...
-"context": {"category": [{"id": "https://example.com/profile/a/version/1.0.0"},
-                         {"id": "https://example.com/profile/b/version/1.0.0"}]}
+"context": {"contextActivities":
+              {"category": [{"id": "https://example.com/profile/a/version/1.0.0",
+                             "definition": {"type": "https://w3id.org/xapi/profiles/reference/version"}},
+                            {"id": "https://example.com/profile/a/templates/a1",
+                             "definition": {"type": "https://w3id.org/xapi/profiles/reference/template"}}]}}
 ...
 }
 
 ```
-This Statement MUST:
-* conform to either `template_x` or `template_y`
-* conform to `template_z`
 
-#### Statement Template
-
-References to a Statement Template allow for more precise linking between a Statement and Profile.
-
-Because [Statement Templates](./xapi-profiles-structure.md#statment-templates) are highly configurable, its possible that a single Statement conforms to multiple Statement Templates within a Profile or across Profiles.
+The above Statement MUST conform to any Statement Template (`template_a1` and/or `template_a2`) within the referenced Profile Version but inclusion of the Statement Template Reference Activity indicates the Statement Authors intended the Statement to conform to `template_a1` without saying anything about conformance to `template_a2`. The next example does the same thing but switches `template_a2` and `template_a1`.
 
 ```javascript
 {
 ...
-"context": {"category": [{"id": "https://example.com/profile/a/templates/x"}]}
+"context": {"contextActivities":
+              {"category": [{"id": "https://example.com/profile/a/version/1.0.0",
+                             "definition": {"type": "https://w3id.org/xapi/profiles/reference/version"}},
+                            {"id": "https://example.com/profile/a/templates/a2",
+                             "definition": {"type": "https://w3id.org/xapi/profiles/reference/template"}}]}}
 ...
 }
+
 ```
 
-This Statement MUST:
-* conform to `template_x`
+In both cases, the Profile Version Reference Activity and the Statement Template Reference Activity are found within the Statement.
+
+##### 5.2.1.3 Pattern Reference Activity Usage
+
+A reference to a Pattern is the middle ground for linking a Statement and a Profile. Referencing the Pattern indicates that the Statement Authors intended the Statement to conform to one of the Statement Templates within the Pattern opposed to any Statement Template defined within the referenced Profile Version.
 
 ```javascript
 {
 ...
-"context": {"category": [{"id": "https://example.com/profile/a/templates/x"},
-                         {"id": "https://example.com/profile/b/templates/z"}]}
+"context": {"contextActivities":
+              {"category": [{"id": "https://example.com/profile/a/version/1.0.0",
+                             "definition": {"type": "https://w3id.org/xapi/profiles/reference/version"}},
+                            {"id": "https://example.com/profile/a/pattern/a1",
+                             "definition": {"type": "https://w3id.org/xapi/profiles/reference/pattern"}}]}}
 ...
 }
+
 ```
 
-This Statement MUST:
-* conform to `template_x`
-* conform to `template_z`
+The above Statement MUST conform to any Statement Template (`template_a1` and/or `template_a2`) within the referenced Profile Version but inclusion of the Pattern Reference Activity indicates the Statement Authors intended the Statement to conform to one of the templates within `pattern_a`. If `pattern_a` contained `template_a1` but not `template_a2`, then it can be concluded that the Authors intended the Statement to conform to `template_a1`. If `pattern_a` contained both `template_a1` and `template_a2`, then the Authors intention for the statement can not be reduced down to a single Statement Template from the provided information.
 
-#### Patterns
-
-References to a Pattern allow for linking between a Statement, a Profile and a collection of Statements.
-
-The following assertions are made about the relationship between the example Statement Templates and Patterns. Please see [Patterns](./xapi-profiles-structure.md#patterns) for more information on the types of relationships and corresponding constraints.
-
-* `pattern_i` is a sequence of `template_x`, `template_y`
-* `pattern_j` is a sequence of `template_y`, `template_z`
+In order to address that ambiguity, Statement authors can include both Statement Template and Pattern Reference Activities.
 
 ```javascript
 {
 ...
-"context": {"category": [{"id": "https://example.com/profile/a/pattern/i"}]}
+"context": {"contextActivities":
+              {"category": [{"id": "https://example.com/profile/a/version/1.0.0",
+                             "definition": {"type": "https://w3id.org/xapi/profiles/reference/version"}},
+                            {"id": "https://example.com/profile/a/templates/a2",
+                             "definition": {"type": "https://w3id.org/xapi/profiles/reference/template"}},
+                            {"id": "https://example.com/profile/a/pattern/a1",
+                             "definition": {"type": "https://w3id.org/xapi/profiles/reference/pattern"}}]}}
 ...
 }
+
 ```
 
-This Statement MUST:
-* conform to `template_x` or `template_y`
+The above Statement MUST conform to any Statement Template (`template_a1` and/or `template_a2`) within the referenced Profile Version but inclusion of Statement Template and Pattern Reference Activities narrows the intention. The Pattern Reference Activity indicates the Statement should conform to a template within `pattern_a` and the Statement Template reference narrows that template down to `template_a2`.
+
+Note that even though the Statement contains a Profile Version, Statement Template and Pattern Reference Activity, the only conformance requirements for this Statement are due to the Profile Version Reference Activity. The Statement Template and Pattern Reference Activities are purely informative.
+
+#### 5.2.2 Referencing Multiple Profiles
+
+Due to the flexibility of Statement Templates and Patterns, an xAPI Statement may be conformant to multiple xAPI Profiles at once. An xAPI Statement is not expected to contain a reference to every xAPI Profile it conforms to but Statement Authors SHOULD determine which xAPI Profiles are relevant to, and should be referenced within, an xAPI Statement.
+
+##### 5.2.2.1 Multiple Profile Version Reference Activity Usage
+
+References to multiple Profile Versions can span a single xAPI Profile or across xAPI Profiles.
+
+###### Within Single Profile
+
+For example, if we created a new version within Profile A (`version_a2`, `"https://example.com/profile/a/version/2.0.0"`) that builds on `version_a` by adding a new Statement Template (`template_a3`) and then reference `version_a2` within an xAPI Statement:
 
 ```javascript
 {
 ...
-"context": {"category": [{"id": "https://example.com/profile/a/pattern/i"},
-                         {"id": "https://example.com/profile/b/pattern/j"}]}
+"context": {"contextActivities":
+             {"category": [{"id": "https://example.com/profile/a/version/2.0.0",
+                            "definition": {"type": "https://w3id.org/xapi/profiles/reference/version"}}]}}
 ...
 }
+
 ```
 
-This Statement MUST:
-* conform to `template_x` or `template_y`
-* conform to `template_y` or `template_z`
-
-#### Combinations
-
-Combining references to Profiles and Profile Components provides flexible, declarative and precise linking.
+The above Statement MUST conform to any Statement Template (`template_a1` and/or `template_a2` and/or `template_a3`) within `version_a2`. The following example Statement has the same conformance requirements:
 
 ```javascript
 {
 ...
-"context": {"category": [{"id": "https://example.com/profile/a/version/1.0.0"},
-                         {"id": "https://example.com/profile/b/templates/z"}]}
+"context": {"contextActivities":
+             {"category": [{"id": "https://example.com/profile/a/version/1.0.0",
+                            "definition": {"type": "https://w3id.org/xapi/profiles/reference/version"}},
+                           {"id": "https://example.com/profile/a/version/2.0.0",
+                            "definition": {"type": "https://w3id.org/xapi/profiles/reference/version"}}]}}
 ...
 }
 
 ```
 
-This Statement MUST:
-* conform to `template_x` or `template_y`
-* conform to `template_z`
+`version_a` doesn't contain any Statement Templates not found in `version_a2` so while its valid to include both Profile Version Reference Activities, Statement Authors SHOULD only include Profile Version Reference Activities that reference the most up to date version of an xAPI Profile. An xAPI Profile SHOULD only need to be referenced once via its most recent Profile Version but in cases where incremental Profile Versions are not purely additive, many versions of a single xAPI Profile MAY be referenced. For example, instead of `version_a2` being purely additive, instead it removes `template_a1` from the xAPI Profile and adds `template_a3`. Now, the above Statement MUST conform to either `template_a1` and/or `template_a2` from `version_a` or `template_a2` and/or `template_a3` from `version_a2`.
+
+###### Across Many Profiles
+
+When an xAPI Statements' conformance to multiple Profiles needs to be indicated within the Statement, this is done via Profile Version Reference Activities.
 
 ```javascript
 {
 ...
-"context": {"category": [{"id": "https://example.com/profile/a/version/1.0.0"},
-                         {"id": "https://example.com/profile/b/pattern/j"}]}
+"context": {"contextActivities":
+             {"category": [{"id": "https://example.com/profile/a/version/1.0.0",
+                            "definition": {"type": "https://w3id.org/xapi/profiles/reference/version"}},
+                           {"id": "https://example.com/profile/b/version/1.0.0",
+                            "definition": {"type": "https://w3id.org/xapi/profiles/reference/version"}}]}}
 ...
 }
 
 ```
 
-This Statement MUST:
-* conform to `template_x` or `template_y`
-* conform to `template_y` or `template_z`
+The above Statement MUST conform to at least one Statement Template (`template_a1` and/or `template_a2`) within `version_a` and MUST conform to at least one Statement Template (`template_b1`) within `version_b`
+
+##### 5.2.2.2 Multiple Statement Template Reference Activity Usage
+
+Like references to Profile Versions, references to Statement Templates can span a single xAPI Profile or across xAPI Profiles.
+
+###### Within Single Profile
+
+The flexibility of Statement Templates allows for an xAPI Profile to contain a Statement Template whose constraints are a super/sub set of constraints found in other Statement Template(s) within the xAPI Profile. This allows Profile authors to create Statement Templates for a single event with varying levels of fidelity. For example, `template_a1` may specify general requirements where as `template_a2` adds specific constraints. That means a Statement that conforms to `template_a2` also conforms to `template_a1` but the inverse is not necessarily true.
+
+```javascript
+{
+...
+"context": {"contextActivities":
+             {"category": [{"id": "https://example.com/profile/a/version/1.0.0",
+                            "definition": {"type": "https://w3id.org/xapi/profiles/reference/version"}},
+                           {"id": "https://example.com/profile/a/templates/a1",
+                            "definition": {"type": "https://w3id.org/xapi/profiles/reference/template"}},
+                           {"id": "https://example.com/profile/a/templates/a2",
+                            "definition": {"type": "https://w3id.org/xapi/profiles/reference/template"}}]}}
+...
+}
+
+```
+
+The above Statement MUST conform to any Statement Template (`template_a1` and/or `template_a2`) within the referenced Profile Version. Inclusion of the Statement Template Reference Activities narrows the Authors intention down to the specific Statement Templates the Statement SHOULD conform to.
+
+###### Across Many Profiles
+
+Due to the flexibility of xAPI, a single xAPI Statement may represent a category of event that's found across domains. For example, a "started" xAPI Statement could conform to requirements defined within multiple xAPI Profiles.
 
 
 ```javascript
 {
 ...
-"context": {"category": [{"id": "https://example.com/profile/b/pattern/j"},
-                         {"id": "https://example.com/profile/b/templates/z"}]}
+"context": {"contextActivities":
+             {"category": [{"id": "https://example.com/profile/a/version/1.0.0",
+                            "definition": {"type": "https://w3id.org/xapi/profiles/reference/version"}},
+                           {"id": "https://example.com/profile/a/templates/a1",
+                            "definition": {"type": "https://w3id.org/xapi/profiles/reference/template"}},
+                           {"id": "https://example.com/profile/b/version/1.0.0",
+                            "definition": {"type": "https://w3id.org/xapi/profiles/reference/version"}},
+                            {"id": "https://example.com/profile/b/templates/b1",
+                            "definition": {"type": "https://w3id.org/xapi/profiles/reference/template"}}]}}
 ...
 }
 
 ```
 
-This Statement MUST:
-* conform to `template_y` or `template_z`
-* conform to `template_z`
+The above Statement MUST conform to any Statement Template (`template_a1` and/or `template_a2`) within `version_a` and MUST conform to any Statement Template (`template_b1`) within `version_b`. The inclusion of the Statement Template Reference Activities indicates `template_a1` and `template_b1` are the expected matching Statement Templates within `version_a` and `version_b` respectively.
 
+```javascript
+{
+...
+"context": {"contextActivities":
+             {"category": [{"id": "https://example.com/profile/a/version/1.0.0",
+                            "definition": {"type": "https://w3id.org/xapi/profiles/reference/version"}},
+                           {"id": "https://example.com/profile/a/templates/a1",
+                            "definition": {"type": "https://w3id.org/xapi/profiles/reference/template",
+                                           "moreInfo": "https://example.com/profile/a/version/1.0.0"}},
+                           {"id": "https://example.com/profile/b/version/1.0.0",
+                            "definition": {"type": "https://w3id.org/xapi/profiles/reference/version"}},
+                           {"id": "https://example.com/profile/b/templates/b1",
+                            "definition": {"type": "https://w3id.org/xapi/profiles/reference/template",
+                                           "moreInfo": "https://example.com/profile/b/version/1.0.0"}}]}}
+...
+}
+
+```
+
+When Statement Template Reference Activities span xAPI Profiles, Statement Authors MAY include the referenced Statement Templates' `inScheme` as `moreInfo`. This disambiguates which Statement Template is found in which Profile Version. The resolution of such is possible without using `moreInfo` but its usage makes the association explicit instead of implicit.
+
+##### 5.2.2.3 Multiple Pattern Reference Activity Usage
+
+References to Patterns can also span a single xAPI Profile or across xAPI Profiles.
+
+###### Within Single Profile
+
+Patterns can be defined in terms of Statement Templates or Patterns. Because of this, its possible that an xAPI Statement is authored to satisfy a step within a sub-pattern. To demonstrate, `pattern_i` and `pattern_j` are introduced as `sequence` Patterns within `version_c`. Here `template_x`, `template_y` and `template_z` are arbitrary Statement Templates within `version_c`. The id of `version_c` is `"https://example.com/profile/c/version/1.0.0"`.
+
+`pattern_i = template_x then template_y`
+
+`pattern_j = pattern_j then template_z`
+
+A Statement that contains a Pattern Reference Activity for `pattern_i` indicates the Statement SHOULD conform to `template_x` and/or `template_y`.
+
+```javascript
+{
+...
+"context": {"contextActivities":
+             {"category": [{"id": "https://example.com/profile/c/version/1.0.0",
+                            "definition": {"type": "https://w3id.org/xapi/profiles/reference/version"}},
+                           {"id": "https://example.com/profile/c/patterns/i",
+                            "definition": {"type": "https://w3id.org/xapi/profiles/reference/pattern"}}]}}
+...
+}
+
+```
+
+A Statement that contains a Pattern Reference Activity for `pattern_j` indicates the Statement SHOULD conform to `template_x` and/or `template_y` and/or `template_z`.
+
+```javascript
+{
+...
+"context": {"contextActivities":
+             {"category": [{"id": "https://example.com/profile/c/version/1.0.0",
+                            "definition": {"type": "https://w3id.org/xapi/profiles/reference/version"}},
+                           {"id": "https://example.com/profile/c/patterns/j",
+                            "definition": {"type": "https://w3id.org/xapi/profiles/reference/pattern"}}]}}
+...
+}
+
+```
+
+A Statement that contains Pattern Reference Activities for both `pattern_i` and `pattern_j` indicates the Statement SHOULD conform to `template_x` and/or `template_y` because both templates are steps within both `pattern_i` and `pattern_j`. Effectively, inclusion of both patterns indicates that the Statement was authored as part of `pattern_i` which in turn was part of `pattern_j`.
+
+```javascript
+{
+...
+"context": {"contextActivities":
+             {"category": [{"id": "https://example.com/profile/c/version/1.0.0",
+                            "definition": {"type": "https://w3id.org/xapi/profiles/reference/version"}},
+                           {"id": "https://example.com/profile/c/patterns/i",
+                            "definition": {"type": "https://w3id.org/xapi/profiles/reference/pattern"}},
+                           {"id": "https://example.com/profile/c/patterns/j",
+                            "definition": {"type": "https://w3id.org/xapi/profiles/reference/pattern"}}]}}
+...
+}
+
+```
+
+If `pattern_j` was not defined in terms of `pattern_i`, then the intention of above changes. To demonstrate this, lets redefine `pattern_j` to be an Alternative Pattern and leave `pattern_i` unchanged.
+
+`pattern_i = template_x then template_y`
+
+`pattern_j = template_x or template_y`
+
+The above Statement would indicate that the Statement was authored with respect to `pattern_i` and `pattern_j` without changing the conformance expectations. The Statement SHOULD conform to `template_x` and/or `template_y` for both `pattern_i` and `pattern_j`.
+
+When a Statement contains multiple Pattern Reference Activities from the same Profile Version, the relationship between those Patterns and the corresponding intention within the xAPI Statement is determined by what's defined in the Profile Version.
+
+- When `pattern_i` is a sub-pattern of `pattern_j`, including both references indicates Pattern nesting.
+- When `pattern_i` is distinct from `pattern_j`, including both references indicates contribution to multiple, independent Patterns
+
+###### Across Many Profiles
+
+Due to the flexibility of xAPI, a single xAPI Statement may represent a category of event that's found across domains. For example, multiple Profiles may contain a Pattern that begins with or contains a "started" Statement Template.
+
+For example, lets say `template_a1` and `template_b1` both have the same `verb` determining property and that's the only constraint within both templates. Additionally, `pattern_a` is `zeroOrMore` of `template_a1` and `pattern_b` is `oneOrMore` of `tempalte_b1`.
+
+
+```javascript
+{
+...
+"context": {"contextActivities":
+             {"category": [{"id": "https://example.com/profile/a/version/1.0.0",
+                            "definition": {"type": "https://w3id.org/xapi/profiles/reference/version"}},
+                           {"id": "https://example.com/profile/a/pattern/a1",
+                            "definition": {"type": "https://w3id.org/xapi/profiles/reference/pattern"}},
+                           {"id": "https://example.com/profile/b/version/1.0.0",
+                            "definition": {"type": "https://w3id.org/xapi/profiles/reference/version"}},
+                           {"id": "https://example.com/profile/b/pattern/b",
+                            "definition": {"type": "https://w3id.org/xapi/profiles/reference/pattern"}}]}}
+...
+}
+
+```
+
+The above Statement MUST conform to any Statement Template (`template_a1` and/or `template_a2`) within `version_a` and and MUST conform to any Statement Template (`template_b1`) within `version_b`. The inclusion of the Pattern Reference Activities indicates the xAPI Statement should conform to a Statement Template within each pattern. In other words, the Statement SHOULD conform to `template_a1` and SHOULD conform to `template_b1` given the definitions of `pattern_a` and `pattern_b` respectively.
+
+
+```javascript
+{
+...
+"context": {"contextActivities":
+             {"category": [{"id": "https://example.com/profile/a/version/1.0.0",
+                            "definition": {"type": "https://w3id.org/xapi/profiles/reference/version"}},
+                           {"id": "https://example.com/profile/a/pattern/a1",
+                            "definition": {"type": "https://w3id.org/xapi/profiles/reference/pattern",
+                                           "moreInfo": "https://example.com/profile/a/version/1.0.0"}},
+                           {"id": "https://example.com/profile/b/version/1.0.0",
+                            "definition": {"type": "https://w3id.org/xapi/profiles/reference/version"}},
+                           {"id": "https://example.com/profile/b/pattern/b",
+                            "definition": {"type": "https://w3id.org/xapi/profiles/reference/pattern",
+                                           "moreInfo": "https://example.com/profile/b/version/1.0.0"}}]}}
+...
+}
+
+```
+
+When Pattern Reference Activities span xAPI Profiles, Statement Authors MAY include the referenced Patterns' `inScheme` as `moreInfo`. This disambiguates which Pattern is found in which Profile Version. The resolution of such is possible without using `moreInfo` but its usage makes the association explicit instead of implicit.
 
 <a name="prof-props"></a>
 ## 6.0 Profile Properties
