@@ -299,9 +299,10 @@ A Profile for competitive events might define an extension to represent placing,
     "recommendedVerbs": [
         "http://example.org/profiles/sports/verbs/placed"
     ],
-    "inlineSchema": "{ \"type\": \"object\", \"properties\":{ \
-        \"rank\": {\"type\": \"number\", \"required\": true}, \
-        \"medal\": {\"type\": \"string\"}}}"
+    "inlineSchema": "{ \"type\": \"object\", \"required\": [\"rank\"], \
+        \"properties\":{ \
+            \"rank\": {\"type\": \"number\"}, \
+            \"medal\": {\"type\": \"string\"}}}"
 }
 ```
 
@@ -354,10 +355,11 @@ A Profile for competitive events might include a way to store preferred t-shirt 
         "en": "Stores a t-shirt preference for prefilling race registrations."
     },
     "contentType": "application/json",
-    "inlineSchema": "{ \"type\": \"object\", \"properties\": { \
-        \"cut\": {\"enum\": [\"straight\", \"fitted\"], \"required\": true}, \
-        \"size\": {\"enum\": [\"x-small\", \"small\", \"medium\", \"large\", \
-            \"x-large\", \"2x-large\", \"3x-large\"], \"required\": true}}}"
+    "inlineSchema": "{ \"type\": \"object\", \"required\": [\"cut\", \"size\"], \
+        \"properties\": { \
+            \"cut\": {\"enum\": [\"straight\", \"fitted\"]}, \
+            \"size\": {\"enum\": [\"x-small\", \"small\", \"medium\", \"large\", \
+                \"x-large\", \"2x-large\", \"3x-large\"]}}}"
 }
 ```
 
