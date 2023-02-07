@@ -509,10 +509,13 @@ A Profile Validator validating Statements MUST validate the Statement Template R
 
 When validating a Statement for Statement Template Rules, `contextActivities` normalization MUST have already been performed as described in the Experience API specification. That is, singleton objects MUST be replaced by arrays of length one.
 
-The syntax and behavior of JSONPath is described at http://goessner.net/articles/JsonPath/index.html#e2. In addition, the following requirements, clarifications, and additions apply:
-* Filter and script expressions MUST NOT be used.
+<a name="jsonpath-constrains"></a>
+#### JSONPath Constraints
+
+The syntax and behavior of JSONPath is described at https://datatracker.ietf.org/doc/draft-ietf-jsonpath-base/05/. In addition, the following requirements, clarifications, and additions apply:
+* Filter (`?(<exp>)`) and script (`(<exp>)`) expressions MUST NOT be used.
 * The union operator (a comma) may be used inside array or child expressions, so the result is the union on each expression being used separately.
-* The legal values in an array or child expression are: strings (child expressions), non-negative integers (array expressions), the star character `*` representing all children/members, and unions of these as described above.
+* The legal values in an array or child expression are: strings (child expressions), non-negative integers (array expressions), the star character `*` representing all children/members, and unions of these as described above. The array slice operator MUST NOT be used.
 * Any two or more legal JSONPath expressions, joined together by the pipe character `|`, optionally with whitespace around the pipe, are also considered a legal JSONPath expression. The value of this expression is all the values returned by each expression individually, flattened (that is, if one expression returns N values and another returns a single value, the combination returns N+1 values, not two values).
 
 #### Example
