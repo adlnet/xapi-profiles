@@ -213,7 +213,8 @@
             "@container": "@set"
         },
         "scopeNote": {
-            "@id": "skos:scopeNote"
+            "@id": "skos:scopeNote",
+            "@container": "@language"
         },
         "primary": {
             "@id": "profile:primary",
