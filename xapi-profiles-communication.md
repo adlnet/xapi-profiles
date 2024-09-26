@@ -177,9 +177,9 @@ from the Profile. This function returns an outcome and an array of Statement Tem
 interpret the results, consult the table after the algorithm definition.
 
 Comparison between `values` parsed from the Statement and the `any`, `all` and `none` values
-MUST be based on the data comparison requirements defined within the profile's xAPI Version.
-* xAPI data comparison is based off of the optional `xAPIVersion` Profile value.
-    * when `xAPIVersion` is not specified, data MUST be compared via constraints defined within the most recent version of xAPI
+MUST be based on the data comparison requirements defined within the profile's `xAPIVersion`.
+* xAPI data comparison is based on of the optional `xAPIVersion` Profile value.
+    * when `xAPIVersion` is not specified, data MUST be compared via constraints defined within the version 2.0 of xAPI
     * when `xAPIVersion` is specified, data MUST be compared via constraints dsefined within the specified version of xAPI
 
 ```
