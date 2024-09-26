@@ -1,6 +1,6 @@
 # XAPI Profiles spec review / upgrade in progress
 
-After the publication of the [xAPI 2.0](https://opensource.ieee.org/xapi/xapi-base-standard-documentation) the [IEEE p9274.2.1](https://sagroups.ieee.org/9274-2-1/) working group has been established to move forward the xAPI profiles spec. If your interested and want to improve the profiles spec, join the WG!.
+After the publication of the [xAPI 2.0](https://opensource.ieee.org/xapi/xapi-base-standard-documentation) the [IEEE p9274.2.1](https://sagroups.ieee.org/9274-2-1/) working group has been established to move forward the xAPI profiles spec. If your interested and want to improve the profiles spec, join the WG! by [subscribing to the email list](https://sagroups.ieee.org/9274-2-1/subscribe-to-email-list/).
 
 ## xapi-profiles
 This is a companion specification to the core xAPI Specification that addresses the structure and supporting services for xAPI Profiles.
