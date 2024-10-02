@@ -1,4 +1,8 @@
-# xapi-profiles
+# XAPI Profiles spec review / upgrade in progress
+
+After the publication of the [xAPI 2.0](https://opensource.ieee.org/xapi/xapi-base-standard-documentation) the [IEEE p9274.2.1](https://sagroups.ieee.org/9274-2-1/) working group has been established to move forward the xAPI profiles spec. If your interested and want to improve the profiles spec, join the WG! by [subscribing to the email list](https://sagroups.ieee.org/9274-2-1/subscribe-to-email-list/).
+
+## xapi-profiles
 This is a companion specification to the core xAPI Specification that addresses the structure and supporting services for xAPI Profiles.
 
 A profile is the human and/or machine-readable documentation of application-specific concepts, statement patterns, extensions, and statement templates used when implementing xAPI in a particular context. In a nutshell, a profile documents the vocabulary concepts, extensions, statement templates, and patterns that are required for xAPI to be implemented consistently for a specific use case. A profile empowers designers and developers to establish a controlled, domain-specific vocabulary and determine what data should be captured/stored and reported on. In other words, a profile really is the blueprint for a successful, semantically interoperable xAPI implementation.
