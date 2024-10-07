@@ -76,6 +76,9 @@ To assist in accomplishing these two primary goals, Profiles also contain metada
 * Values in a Profile MUST NOT be: empty objects, null, empty strings, or empty arrays.
 * All requirements on the structure of Profiles MUST be followed by Profile Authors.
 * All requirements on Statements following Profiles MUST be followed by Learning Record Providers when authoring Statements and by Profile Validators when validating Statements.
+* ALL IDs within a Profile MUST be unique unless explicitly stated otherwise within this document.
+
+[//]: # (Add Section about IDs + what it means to define IRI)
 
 <a name="using-prof-statements"></a>
 ## 5.0 Using Profiles in Statements
