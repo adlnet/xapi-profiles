@@ -117,7 +117,7 @@ Property | Type | Description | Required
 -------- | ---- | ----------- | --------
 `id` | IRI | The IRI of the version ID | Required
 `wasRevisionOf` | Array | An array, usually of length one, of IRIs of all Profile versions this version was written as a revision of | Optional
-`generatedAtTime` | Timestamp | The date this version was created on | Required
+`generatedAtTime` | [Timestamp](./xapi-profiles-about.md#timestamp) | The date this version was created on | Required
 
 `wasRevisionOf` MUST be used with all versions that succeed other Profile versions.
 

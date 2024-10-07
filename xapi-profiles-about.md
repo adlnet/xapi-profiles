@@ -210,6 +210,7 @@ even if there no requirement in a given area.
 * [Statement Template](#statementtemplate)
 * [StatementRef](#statementref)
 * [Subregistration](#subregistration)
+* [Timestamp](#timestamp)
 * [Verb](#verb)
 * [xAPI Profile Processor Library](#library)
 
@@ -280,6 +281,8 @@ even if there no requirement in a given area.
 <a name="statementref"></a>**StatementRef**: An [Experience API Statement Reference](https://github.com/adlnet/xAPI-Spec/blob/master/xAPI-Data.md#statement-references). Used for pointing at a second Statement from a first.
 
 <a name="subregistration"></a>**Subregistration**: When multiple Patterns are being followed within a registration, subregistration is an extension specific to this specification to distinguish between them.
+
+<a name="timestamp"></a>**Timestamp**: An instant of time (date and time) that also includes the time zone. This data type adheres to the [XSD 1.1 dateTimeStamp](https://www.w3.org/TR/xmlschema11-2/#dateTimeStamp) type definition. That is, a timestamp is either represented in Universal Coordinated Time (UTC) and uses the UTC timezone identifier 'Z' or includes a time offset from UTC.
 
 <a name="verb"></a>**Verb**: An [Experience API Verb](https://github.com/adlnet/xAPI-Spec/blob/master/xAPI-Data.md#verb). This specification helps Profile Authors provide additional metadata about verbs they control.
 

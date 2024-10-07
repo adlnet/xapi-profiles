@@ -405,6 +405,11 @@ order insofar as that can be determined. If Statements are received in the same 
 are being checked upon receipt, within the batch Statements MUST be ordered first by timestamp,
 and if timestamps are the same, by order within the Statement array, with lower indices earlier.
 
+
+**Note:** As stated in section [Part One: About xAPI Profiles, section 3](./xapi-profiles-about.md#timestamp)
+timestamps adheres to the `xsd:dateTimeStamp` data type defined in XSD 1.1 which is either represented in
+Universal Coordinated Time (UTC) and uses the UTC timezone identifier 'Z' or includes a time offset from UTC.
+
 <a name="libraries"></a>
 ## 3.0 Libraries
 

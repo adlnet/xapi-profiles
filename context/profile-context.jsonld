@@ -66,7 +66,7 @@
         },
         "generatedAtTime": {
             "@id": "prov:generatedAtTime",
-            "@type": "http://www.w3.org/2001/XMLSchema#dateTime"
+            "@type": "https://www.w3.org/TR/xmlschema11-2/#dateTimeStamp"
         },
         "name": {
             "@id": "schemaorg:name"
