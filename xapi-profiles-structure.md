@@ -494,6 +494,11 @@ A Statement Template Rule MUST include one or more of `presence`, `any`, `all`, 
 
 A Profile Author MUST include the keys of any non-primitive objects in `any`, `all`, and `none` in additional `@context` beyond the ones provided by this specification.
 
+A Profile Author MUST ensure that values included within `any`, `all`, and `none` are valid xAPI values based on a Rule's `location` and `selector`.
+* xAPI data conformance is based off of the optional `xAPIVersion` Profile value.
+    * When `xAPIVersion` is not specified, xAPI data MUST be validated via the most recent version of xAPI
+    * When `xAPIVersion` is specified, xAPI data MUST be validated against the specified version of xAPI
+
 A Learning Record Provider authoring a Statement for the Statement Template including this Statement Template Rule:
 * MUST include at least one matchable value if `presence` is `included`
 * MUST NOT include any unmatchable values if `presence` is `included`
@@ -505,6 +510,8 @@ A Learning Record Provider authoring a Statement for the Statement Template incl
     * MUST NOT, if `none` is provided, include any values in `none` as matchable values
 
 A Profile Validator validating Statements MUST validate the Statement Template Rule requirements for Learning Record Providers are followed. See the Communication document for further details on how to do so.
+* Comparison between matchable values and `any`, `all` and `none` values MUST be based on the data comparison requirements defined within the xAPI Version set as the `xAPIVersion` profile property.
+    * when `xAPIVersion` profile property is not specified, the data comparison requirements within the most recent version of xAPI MUST be used.
 
 
 When validating a Statement for Statement Template Rules, `contextActivities` normalization MUST have already been performed as described in the Experience API specification. That is, singleton objects MUST be replaced by arrays of length one.
