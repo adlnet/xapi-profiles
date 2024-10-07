@@ -170,7 +170,9 @@ can be used to inform interpretation of requirements, but are not intended to ta
 Where the specification does not include requirements relating to a particular facet of implementation,
 that detail can be considered to be outside of the scope of this specification. It is up to the implementer
 to determine a sensible approach. This specification tries to avoid vagueness and will usually give a rationale
-even if there no requirement in a given area.
+even if there no requirement in a given area. For example, this specification does not place any limits on character
+limits on xAPI Profile fields but a Profile Server implementation MAY choose to include character limits for purposes
+like security or data storage.
 
 <a name="definitions"></a>
 ## 3.0 Definitions

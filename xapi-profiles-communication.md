@@ -65,6 +65,8 @@ contain all the current versions of Profiles.
 
 A Profile Server will include inference logic for the following, at minimum: all SKOS predicate relationships, and `profile:concepts`, `profile:templates`, and `profile:patterns` being subproperties of the inverse of `skos:inScheme`.
 
+**Note: ** As stated in the section [Part One: About xAPI Profiles, section 2.2](./xapi-profiles-about.md#interpret-text-table) this specification does not place any limits on character limits on xAPI Profile fields but a Profile Server implementation MAY choose to include character limits for purposes like security or data storage.
+
 <a name="prof-versions"></a>
 ### 1.1 Profile Versions
 
