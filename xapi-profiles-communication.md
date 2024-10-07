@@ -6,7 +6,7 @@
       *  2.1. [MUST / SHOULD / MAY](./xapi-profiles-about.md#def-must-should-may)
       *  2.2. [Guidelines for Interpreting Descriptive Text and Tables](./xapi-profiles-about.md#interpret-text-table)
    *  3.0. [Definitions](./xapi-profiles-about.md#definitions)
-* Part Two: [xAPI Profiles Document Structure Specification](./xapi-profiles-structure.md#part-two)  
+* Part Two: [xAPI Profiles Document Structure Specification](./xapi-profiles-structure.md#part-two)
    *  1.0.  [Reference Specifications](./xapi-profiles-structure.md#ref-spec)
    *  2.0.  [Technical Foundations](./xapi-profiles-structure.md#tech-foundations)
    *  3.0.  [Structure](./xapi-profiles-structure.md#structure)
@@ -24,7 +24,7 @@
       *  8.1.  [Statement Template Rules](./xapi-profiles-structure.md#statement-template-rules)
    *  9.0.  [Patterns](./xapi-profiles-structure.md#patterns)
    *  10.0. [The Context](./xapi-profiles-structure.md#context)
-* Part Three: [xAPI Profiles Communication and Processing Specification](./xapi-profiles-communication.md#part-three)  
+* Part Three: [xAPI Profiles Communication and Processing Specification](./xapi-profiles-communication.md#part-three)
    * 1.0. [Profile Server](./xapi-profiles-communication.md#prof-server)
       * 1.1. [Profile Versions](./xapi-profiles-communication.md#prof-versions)
       * 1.2. [Best Practices](./xapi-profiles-communication.md#best-practices)
@@ -48,13 +48,18 @@ implementing the algorithms.
 
 ## Authored Profiles
 
-ADL maintains a [centralized public repository of authored xAPI profiles](https://github.com/adlnet/xapi-authored-profiles) based on this specification. The repository of profiles are imported and synchronized regularly into ADL's Profile Server, [http://xapi.vocab.pub](http://xapi.vocab.pub). 
+ADL maintains a [centralized public repository of authored xAPI profiles](https://github.com/adlnet/xapi-authored-profiles) based on this specification. The repository of profiles are imported and synchronized regularly into ADL's Profile Server, [http://xapi.vocab.pub](http://xapi.vocab.pub).
 
 <a name="prof-server"></a>
 ## 1.0 Profile Server
 
 A Profile Server manages xAPI Profiles from a centralized location. [An RDF triple store](https://en.wikipedia.org/wiki/Triplestore) is responsible for the storage of Profiles.
 A Profile Server will allow administrators to add Profiles by their contents or by URI to the Profile Server
+
+When storing an xAPI Profile:
+* a Profile Server MUST NOT add any properties (not defined in this document) to the Profile
+* a Profile Server MAY add JSON-LD keywords (or aliases thereof) to a Profile anywhere they are legal in JSON-LD
+* a Profile Server MUST reject any Profiles that contain any properties not defined in this document (excluding correctly used JSON-LD keywords or aliases thereof)
 
 ADL's Profile Server will host a SPARQL endpoint containing the RDF information from the
 contained Profiles at the path /sparql (e.g., http://xapi.vocab.pub/sparql). This enables xAPI Profiles to be queried. SPARQL
@@ -142,7 +147,7 @@ select
     ?prefLabel,
     ?definition
 where {
-    (?concept a xapi:Verb || ?concept a xapi:ActivityType) .                
+    (?concept a xapi:Verb || ?concept a xapi:ActivityType) .
     ?concept skos:inScheme <http://example.org/profiles/sports> ;
              skos:prefLabel ?prefLabel ;
              skos:definition ?definition .
