@@ -93,6 +93,7 @@ Property | Type | Description | Required
 `@context` | URI | SHOULD be `https://w3id.org/xapi/profiles/context` and MUST contain this URI if array-valued. | Required
 `type` | String | MUST be `Profile`. | Required
 `conformsTo` | URI | Canonical URI of the Profile specification version conformed to. The Profile specification version of this document is https://w3id.org/xapi/profiles#1.0. | Required
+`xAPIVersion` | Array | The version of xAPI this profile adheres to. When not provided the default value `['2.0']` is assumed and the Profile MUST adhere to xAPI 2.0. | Optional
 `prefLabel` | Object | Language map of names for this Profile. | Required
 `definition` | Object | Language map of descriptions for this Profile. If there are additional rules for the Profile as a whole that cannot be expressed using this specification, include them here, or at the seeAlso URL. | Required
 `seeAlso` | URL | A URL containing information about the Profile. Recommended instead of especially long definitions. | Optional
