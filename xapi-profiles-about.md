@@ -243,7 +243,7 @@ even if there no requirement in a given area.
 
 <a name="jsonld"></a>**JSON-LD**: [JSON-LD](https://json-ld.org) turns JSON into Linked Data, making it easy to use with Linked Data tools and integrate with other datasets.
 
-<a name="jsonpath"></a>**JSONPath**: [JSONPath](http://goessner.net/articles/JsonPath/index.html#e2) provides a way to address parts of JSON documents using a `JSONPath expression`.
+<a name="jsonpath"></a>**JSONPath**: [JSONPath](https://datatracker.ietf.org/doc/draft-ietf-jsonpath-base/05/) provides a way to address parts of JSON documents using a `JSONPath expression`. This specification proposes some [constraints](./xapi-profiles-structure.md#jsonpath-constraints) to the possible JSONPath expressions.
 
 <a name="languagemap"></a>**Language Map**: A Language Map expresses multiple language-specific values at once. While used in the xAPI specification essentially identically, the controlling specification is [JSON-LD Language Maps](https://www.w3.org/TR/json-ld/#language-maps).
 
